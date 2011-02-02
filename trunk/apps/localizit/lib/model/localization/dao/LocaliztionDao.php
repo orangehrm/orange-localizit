@@ -34,9 +34,9 @@ class LocaliztionDao extends BaseDao {
                     ->innerJoin("lls.OhrmLabel label")
                     ->innerJoin("lls.OhrmLanguage language")
                     ->where('lls.language_id = ?', $languageId)
-                    ->andWhere('lls.language_label_string_status=1')
-                    ->andWhere('label.label_status=1')
-                    ->andWhere('language.language_status=1')
+                    ->andWhere('lls.language_label_string_status=?',sfConfig::get('app_status_enabled'))
+                    ->andWhere('label.label_status=?',sfConfig::get('app_status_enabled'))
+                    ->andWhere('language.language_status=?',sfConfig::get('app_status_enabled'))
                     ->orderBy('label.label_name');
             return $q->execute();
         } catch(Exception $e) {
