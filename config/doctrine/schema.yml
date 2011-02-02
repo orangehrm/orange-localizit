@@ -1,0 +1,128 @@
+OhrmLabel:
+  connection: doctrine
+  tableName: ohrm_label
+  columns:
+    label_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    label_name:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    label_comment:
+      type: string(100)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+    label_status:
+      type: enum(1)
+      fixed: false
+      unsigned: false
+      values:
+        - '0'
+        - '1'
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    OhrmLanguageLabelString:
+      local: label_id
+      foreign: label_id
+      type: many
+OhrmLanguage:
+  connection: doctrine
+  tableName: ohrm_language
+  columns:
+    language_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    language_code:
+      type: string(10)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language_name:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language_status:
+      type: enum(1)
+      fixed: false
+      unsigned: false
+      values:
+        - '0'
+        - '1'
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    OhrmLanguageLabelString:
+      local: language_id
+      foreign: language_id
+      type: many
+OhrmLanguageLabelString:
+  connection: doctrine
+  tableName: ohrm_language_label_string
+  columns:
+    language_label_string_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: false
+    label_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language_label_string:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language_label_string_status:
+      type: enum(1)
+      fixed: false
+      unsigned: false
+      values:
+        - '0'
+        - '1'
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    OhrmLabel:
+      local: label_id
+      foreign: label_id
+      type: one
+    OhrmLanguage:
+      local: language_id
+      foreign: language_id
+      type: one
