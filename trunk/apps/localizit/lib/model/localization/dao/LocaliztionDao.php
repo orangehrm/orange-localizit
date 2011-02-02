@@ -8,11 +8,11 @@ class LocaliztionDao extends BaseDao {
 
     /**
      * Save Label
-     * @param OhrmLabel $label
+     * @param Label $label
      * @returns boolean
      * @throws DaoException
      */
-    public function addLabel(OhrmLabel $label) {
+    public function addLabel(Label $label) {
         try {
             $label->save();
             return true ;
@@ -30,9 +30,9 @@ class LocaliztionDao extends BaseDao {
     public function getLabelAndLanguageStrings($languageId) {
         try {
             $q = Doctrine_Query :: create()
-                    ->from('OhrmLanguageLabelString lls')
-                    ->innerJoin("lls.OhrmLabel label")
-                    ->innerJoin("lls.OhrmLanguage language")
+                    ->from('LanguageLabelString lls')
+                    ->innerJoin("lls.Label label")
+                    ->innerJoin("lls.Language language")
                     ->where('lls.language_id = ?', $languageId)
                     ->andWhere('lls.language_label_string_status=?',sfConfig::get('app_status_enabled'))
                     ->andWhere('label.label_status=?',sfConfig::get('app_status_enabled'))

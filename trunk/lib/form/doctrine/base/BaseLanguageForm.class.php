@@ -1,16 +1,16 @@
 <?php
 
 /**
- * OhrmLanguage form base class.
+ * Language form base class.
  *
- * @method OhrmLanguage getObject() Returns the current form's model object
+ * @method Language getObject() Returns the current form's model object
  *
  * @package    localizit
  * @subpackage form
  * @author     Your name here
- * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
+ * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseOhrmLanguageForm extends BaseFormDoctrine
+abstract class BaseLanguageForm extends BaseFormDoctrine
 {
   public function setup()
   {
@@ -22,13 +22,13 @@ abstract class BaseOhrmLanguageForm extends BaseFormDoctrine
     ));
 
     $this->setValidators(array(
-      'language_id'     => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'language_id', 'required' => false)),
+      'language_id'     => new sfValidatorChoice(array('choices' => array($this->getObject()->get('language_id')), 'empty_value' => $this->getObject()->get('language_id'), 'required' => false)),
       'language_code'   => new sfValidatorString(array('max_length' => 10)),
       'language_name'   => new sfValidatorString(array('max_length' => 45)),
       'language_status' => new sfValidatorChoice(array('choices' => array(0 => '0', 1 => '1'))),
     ));
 
-    $this->widgetSchema->setNameFormat('ohrm_language[%s]');
+    $this->widgetSchema->setNameFormat('language[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -39,7 +39,7 @@ abstract class BaseOhrmLanguageForm extends BaseFormDoctrine
 
   public function getModelName()
   {
-    return 'OhrmLanguage';
+    return 'Language';
   }
 
 }

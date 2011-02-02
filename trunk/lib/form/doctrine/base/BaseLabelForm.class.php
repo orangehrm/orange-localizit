@@ -1,16 +1,16 @@
 <?php
 
 /**
- * OhrmLabel form base class.
+ * Label form base class.
  *
- * @method OhrmLabel getObject() Returns the current form's model object
+ * @method Label getObject() Returns the current form's model object
  *
  * @package    localizit
  * @subpackage form
  * @author     Your name here
- * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
+ * @version    SVN: $Id: sfDoctrineFormGeneratedTemplate.php 29553 2010-05-20 14:33:00Z Kris.Wallsmith $
  */
-abstract class BaseOhrmLabelForm extends BaseFormDoctrine
+abstract class BaseLabelForm extends BaseFormDoctrine
 {
   public function setup()
   {
@@ -22,13 +22,13 @@ abstract class BaseOhrmLabelForm extends BaseFormDoctrine
     ));
 
     $this->setValidators(array(
-      'label_id'      => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'label_id', 'required' => false)),
+      'label_id'      => new sfValidatorChoice(array('choices' => array($this->getObject()->get('label_id')), 'empty_value' => $this->getObject()->get('label_id'), 'required' => false)),
       'label_name'    => new sfValidatorString(array('max_length' => 45)),
       'label_comment' => new sfValidatorString(array('max_length' => 100, 'required' => false)),
       'label_status'  => new sfValidatorChoice(array('choices' => array(0 => '0', 1 => '1'))),
     ));
 
-    $this->widgetSchema->setNameFormat('ohrm_label[%s]');
+    $this->widgetSchema->setNameFormat('label[%s]');
 
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
@@ -39,7 +39,7 @@ abstract class BaseOhrmLabelForm extends BaseFormDoctrine
 
   public function getModelName()
   {
-    return 'OhrmLabel';
+    return 'Label';
   }
 
 }
