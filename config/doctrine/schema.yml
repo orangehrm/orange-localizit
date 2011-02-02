@@ -1,4 +1,4 @@
-OhrmLabel:
+Label:
   connection: doctrine
   tableName: ohrm_label
   columns:
@@ -33,11 +33,11 @@ OhrmLabel:
       notnull: true
       autoincrement: false
   relations:
-    OhrmLanguageLabelString:
+    LanguageLabelString:
       local: label_id
       foreign: label_id
       type: many
-OhrmLanguage:
+Language:
   connection: doctrine
   tableName: ohrm_language
   columns:
@@ -72,11 +72,11 @@ OhrmLanguage:
       notnull: true
       autoincrement: false
   relations:
-    OhrmLanguageLabelString:
+    LanguageLabelString:
       local: language_id
       foreign: language_id
       type: many
-OhrmLanguageLabelString:
+LanguageLabelString:
   connection: doctrine
   tableName: ohrm_language_label_string
   columns:
@@ -118,11 +118,11 @@ OhrmLanguageLabelString:
       notnull: true
       autoincrement: false
   relations:
-    OhrmLabel:
+    Label:
       local: label_id
       foreign: label_id
       type: one
-    OhrmLanguage:
+    Language:
       local: language_id
       foreign: language_id
       type: one
