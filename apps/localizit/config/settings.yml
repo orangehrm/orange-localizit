@@ -34,7 +34,7 @@ all:
     # Delays creation of a cache key until after checking whether an action or partial is cacheable
     lazy_cache_key:         true        
 
-    standard_helpers:       [Partial, Cache, Orange, Url, I18N]
+    standard_helpers:       [Partial, Cache, Url, I18N]
 
     # Default user culture
     i18n:                   true
