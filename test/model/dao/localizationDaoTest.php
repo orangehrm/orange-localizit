@@ -37,45 +37,10 @@ class localizationDaoTest  extends  PHPUnit_Framework_TestCase {
      */
     public function setup() {
 
-        $configuration 		= ProjectConfiguration::getApplicationConfiguration('localizit', 'test', false);
+        $configuration 		= ProjectConfiguration::getApplicationConfiguration('localizit', 'test', true);
         $this->testCases 	= sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization.yml');
         $this->localizationDao	=	new LocalizationDao();
 
-    }
-
-    /**
-     * Test Get All Labels
-     *
-     */
-    public function testGetLabelList() {
-        $result	=	$this->localizationDao->getLabelList();
-        $this->assertTrue(($result instanceof Doctrine_Collection));
-    }
-
-    /**
-     * Test Get Label By Id
-     *
-     */
-    public function testGetLabelById() {
-        foreach ($this->testCases['Label'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLabelById( $testCase['label_id'] );
-            if(($result instanceof Label) || ($result===false)) {
-                $this->assertTrue(true);
-            }
-        }
-    }
-
-    /**
-     * Test Get Label By Name
-     *
-     */
-    public function testGetLabelByName() {
-        foreach ($this->testCases['Label'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLabelByName( $testCase['label_name'] );
-            if(($result instanceof Label) || ($result===false)) {
-                $this->assertTrue(true);
-            }
-        }
     }
 
     /**
@@ -97,21 +62,18 @@ class localizationDaoTest  extends  PHPUnit_Framework_TestCase {
             $this->testCases['Label'][$key]["label_id"] =  $labelCreated->getLabelId();
             $this->testCases['Label_Duplicate'][$key]["label_id"] =  $labelCreated->getLabelId();
 
-            //Generating none repeating label names
-            $this->testCases['Label'][$key]["label_name"] = $labelCreated->getLabelName().'-'.rand(1, 100000);
-            $this->testCases['Label_Duplicate'][$key]["label_name"] = $labelCreated->getLabelName();
         }
 
         file_put_contents(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization.yml',sfYaml::dump($this->testCases));
     }
 
     /**
-     * Test Save Label with Duplicate entry
-     *
+     * Test Save Label - Negative
+     *  Try to save duplicate label
      */
     public function testAddLabelNegative() {
 
-        foreach ($this->testCases['Label_Duplicate'] as $key=>$testCase) {
+        foreach ($this->testCases['Label'] as $key=>$testCase) {
             try {
                 $label	=	new Label();
                 $label->setLabelName( $testCase['label_name']);
@@ -121,13 +83,66 @@ class localizationDaoTest  extends  PHPUnit_Framework_TestCase {
                 $labelCreated	=	$this->localizationDao->addLabel( $label );
 
                 //If success fully inserted, then that's a failure.
-                
                 $this->assertTrue(false);
+
             }catch (Exception $ex) {
                 //Must throw an error
                 $this->assertTrue(true);
             }
-        }       
+        }
+    }
+
+    /**
+     * Test Get All Labels
+     *
+     */
+    public function testGetLabelList() {
+        $result	=	$this->localizationDao->getLabelList();
+        $this->assertTrue(($result instanceof Doctrine_Collection));
+    }
+
+    /**
+     * Test Get Label By Id
+     *
+     */
+    public function testGetLabelById() {
+        foreach ($this->testCases['Label'] as $key=>$testCase) {
+            $result	=	$this->localizationDao->getLabelById( $testCase['label_id'] );
+            $this->assertTrue($result instanceof Label);
+        }
+    }
+
+    /**
+     * Test Get Label By Id - Negative
+     * Try to retrive unavailable label
+     */
+    public function testGetLabelByIdNegative() {
+        foreach ($this->testCases['Label_Negative'] as $key=>$testCase) {
+            $result	=	$this->localizationDao->getLabelById( $testCase['label_id'] );
+            $this->assertTrue($result===false);
+        }
+    }
+
+    /**
+     * Test Get Label By Name
+     *
+     */
+    public function testGetLabelByName() {
+        foreach ($this->testCases['Label'] as $key=>$testCase) {
+            $result	=	$this->localizationDao->getLabelByName( $testCase['label_name'] );
+            $this->assertTrue($result instanceof Label);
+        }
+    }
+
+    /**
+     * Test Get Label By Name - Negative
+     * Try to retrive unavailable label
+     */
+    public function testGetLabelByNameNegative() {
+        foreach ($this->testCases['Label_Negative'] as $key=>$testCase) {
+            $result	=	$this->localizationDao->getLabelByName( $testCase['label_name'] );
+            $this->assertTrue($result===false);
+        }
     }
 
     /**
@@ -137,5 +152,60 @@ class localizationDaoTest  extends  PHPUnit_Framework_TestCase {
     public function testGetLanguagelList() {
         $result	=	$this->localizationDao->getLanguageList();
         $this->assertTrue(($result instanceof Doctrine_Collection));
+    }
+
+    /**
+     * Test Get Language By Id
+     *
+     */
+    public function testGetLanguagelById() {
+        foreach ($this->testCases['Language'] as $key=>$testCase) {
+            $result	=	$this->localizationDao->getLanguageById($testCase['language_id']);
+            $this->assertTrue($result instanceof Language);
+        }
+    }
+
+    /**
+     * Test Get Language By Id - Negative
+     *  Try to retrive unavailable languages
+     */
+    public function testGetLanguagelByIdNegative() {
+        foreach ($this->testCases['Language_Negative'] as $key=>$testCase) {
+            $result	=	$this->localizationDao->getLanguageById($testCase['language_id']);
+            $this->assertTrue($result===false);
+        }
+    }
+
+    /**
+     * Test Get Language List
+     *
+     */
+    public function testGetLanguagelByCode() {
+        foreach ($this->testCases['Language'] as $key=>$testCase) {
+            $result	=	$this->localizationDao->getLanguageByCode($testCase['language_code']);
+            $this->assertTrue($result instanceof Language);
+        }
+    }
+
+    /**
+     * Test Get Language By Id - Negative
+     *  Try to retrive unavailable languages
+     */
+    public function testGetLanguagelByCodeNegative() {
+        foreach ($this->testCases['Language_Negative'] as $key=>$testCase) {
+            $result	=	$this->localizationDao->getLanguageByCode($testCase['language_code']);
+            $this->assertTrue($result===false);
+        }
+    }
+
+    /**
+     * Test Get Label and language string list
+     *
+     */
+    public function testGetLabelAndLanguageStrings() {
+        foreach ($this->testCases['Language'] as $key=>$testCase) {
+            $result	=	$this->localizationDao->getLabelAndLanguageStrings($testCase['language_id']);
+            $this->assertTrue($result instanceof Doctrine_Collection);
+        }
     }
 }

@@ -7,13 +7,13 @@
 class LocalizationDao extends BaseDao {
 
     /**
-     * get All Labels     
+     * get All Labels
      * @returns Label Collection
      * @throws DaoException
      */
     public function getLabelList() {
         try {
-               $q = Doctrine_Query :: create()
+            $q = Doctrine_Query :: create()
                     ->from('Label l');
             return $q->execute();
 
@@ -21,21 +21,21 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * get Label object By Lable Id
      * @param int $labelId
-     * @returns Label Collection
+     * @returns Label object
      * @throws DaoException
      */
     public function getLabelById($labelId) {
         try {
-               $q = Doctrine_Query :: create()
+            $q = Doctrine_Query :: create()
                     ->from('Label l')
                     ->where('l.label_id = ?', $labelId);
-               
+
             return $q->fetchOne();
-            
+
         } catch(Exception $e) {
             throw new DaoException($e->getMessage());
         }
@@ -44,12 +44,12 @@ class LocalizationDao extends BaseDao {
     /**
      * get Label object By name
      * @param string $labelName
-     * @returns Label Collection
+     * @returns Label Object
      * @throws DaoException
      */
     public function getLabelByName($labelName) {
         try {
-               $q = Doctrine_Query :: create()
+            $q = Doctrine_Query :: create()
                     ->from('Label l')
                     ->where('l.label_name = ?', $labelName);
 
@@ -63,7 +63,7 @@ class LocalizationDao extends BaseDao {
     /**
      * Save Label
      * @param Label $label
-     * @returns Label
+     * @returns Label object
      * @throws DaoException
      */
     public function addLabel(Label $label) {
@@ -74,7 +74,56 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
+    /**
+     * Get Language List
+     * @returns Language Collection
+     * @throws DaoException
+     */
+    public function getLanguageList() {
+        try {
+            $q = Doctrine_Query :: create()
+                    ->from('Language l');
+            return $q->execute();
+        } catch(Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
+    /**
+     * Get Language By id
+     * @param int $languageId
+     * @returns Language object
+     * @throws DaoException
+     */
+    public function getLanguageById($languageId) {
+        try {
+            $q = Doctrine_Query :: create()
+                    ->from('Language l')
+                    ->where('l.language_id=?', $languageId);
+            return $q->fetchOne();
+        } catch(Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
+    /**
+     * Get Language By Code
+     * @param string $languageCode
+     * @returns Language object
+     * @throws DaoException
+     */
+    public function getLanguageByCode($languageCode) {
+        try {
+            $q = Doctrine_Query :: create()
+                    ->from('Language l')
+                    ->where('l.language_code=?', $languageCode);
+            return $q->fetchOne();
+        } catch(Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
     /**
      * Retrive Label and language string list
      * @param int $languageId
@@ -83,37 +132,16 @@ class LocalizationDao extends BaseDao {
      */
     public function getLabelAndLanguageStrings($languageId) {
         try {
+            
             $q = Doctrine_Query :: create()
-                    ->from('LanguageLabelString lls')
-                    ->innerJoin("lls.Label label")
-                    ->innerJoin("lls.Language language")
-                    ->where('lls.language_id = ?', $languageId)
-                    ->andWhere('lls.language_label_string_status=?',sfConfig::get('app_status_enabled'))
-                    ->andWhere('label.label_status=?',sfConfig::get('app_status_enabled'))
-                    ->andWhere('language.language_status=?',sfConfig::get('app_status_enabled'))
+                    ->from('Language language')
+                    ->leftJoin('label.LanguageLabelString lls')                    
+                    ->where('language.language_id = ?', $languageId)
                     ->orderBy('label.label_name');
             return $q->execute();
         } catch(Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-
-
-    /**
-     * Get Language List
-     * @param Label $label
-     * @returns Label
-     * @throws DaoException
-     */
-    public function getLanguageList() {
-        try {
-               $q = Doctrine_Query :: create()
-                    ->from('Language l');
-            return $q->execute();
-        } catch(Exception $e) {
-            throw new DaoException($e->getMessage());
-        }
-    }
-
 }
 
