@@ -1,0 +1,3 @@
+Label:
+  L1: { label_id: '5', label_name: 'Employee Name', label_comment: 'Emplyee detail - name', label_status: 0 }
+  L2: { label_id: '6', label_name: 'Employee City', label_comment: 'Emplyee detail - city', label_status: 0 }
