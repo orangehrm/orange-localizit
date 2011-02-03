@@ -1,21 +1,21 @@
 <?php
 /**
- * LocaliztionDao for CRUD operation
+ * LocalizationDao for CRUD operation
  *
  * @author Ruwan G
  */
-class LocaliztionDao extends BaseDao {
+class LocalizationDao extends BaseDao {
 
     /**
      * Save Label
      * @param Label $label
-     * @returns boolean
+     * @returns Label
      * @throws DaoException
      */
     public function addLabel(Label $label) {
         try {
             $label->save();
-            return true ;
+            return $label ;
         } catch(Exception $e) {
             throw new DaoException($e->getMessage());
         }
