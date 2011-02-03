@@ -1,3 +1,6 @@
 Label:
-  L1: { label_id: '5', label_name: 'Employee Name', label_comment: 'Emplyee detail - name', label_status: 0 }
-  L2: { label_id: '6', label_name: 'Employee City', label_comment: 'Emplyee detail - city', label_status: 0 }
+  L1: { label_id: '81', label_name: 'Employee Name-95466-61058-30018-85688-88104-85409-75093', label_comment: 'Emplyee detail - name', label_status: 0 }
+  L2: { label_id: '82', label_name: 'Employee City-39499-86110-81662-78444-88437-10497-95665', label_comment: 'Emplyee detail - city', label_status: 0 }
+Label_Duplicate:
+  L1: { label_id: '60', label_name: 'Employee Name-95466-61058-30018-85688-88104-85409', label_comment: 'Emplyee detail - name', label_status: 0 }
+  L2: { label_id: '61', label_name: 'Employee City-39499-86110-81662-78444-88437-10497', label_comment: 'Emplyee detail - city', label_status: 0 }

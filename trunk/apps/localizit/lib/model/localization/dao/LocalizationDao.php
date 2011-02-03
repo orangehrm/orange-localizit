@@ -7,6 +7,60 @@
 class LocalizationDao extends BaseDao {
 
     /**
+     * get All Labels     
+     * @returns Label Collection
+     * @throws DaoException
+     */
+    public function getLabelList() {
+        try {
+               $q = Doctrine_Query :: create()
+                    ->from('Label l');
+            return $q->execute();
+
+        } catch(Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+    
+    /**
+     * get Label object By Lable Id
+     * @param int $labelId
+     * @returns Label Collection
+     * @throws DaoException
+     */
+    public function getLabelById($labelId) {
+        try {
+               $q = Doctrine_Query :: create()
+                    ->from('Label l')
+                    ->where('l.label_id = ?', $labelId);
+               
+            return $q->fetchOne();
+            
+        } catch(Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
+    /**
+     * get Label object By name
+     * @param string $labelName
+     * @returns Label Collection
+     * @throws DaoException
+     */
+    public function getLabelByName($labelName) {
+        try {
+               $q = Doctrine_Query :: create()
+                    ->from('Label l')
+                    ->where('l.label_name = ?', $labelName);
+
+            return $q->fetchOne();
+
+        } catch(Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
+    /**
      * Save Label
      * @param Label $label
      * @returns Label
@@ -20,7 +74,7 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
-
+    
     /**
      * Retrive Label and language string list
      * @param int $languageId
@@ -43,5 +97,23 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
+
+
+    /**
+     * Get Language List
+     * @param Label $label
+     * @returns Label
+     * @throws DaoException
+     */
+    public function getLanguageList() {
+        try {
+               $q = Doctrine_Query :: create()
+                    ->from('Language l');
+            return $q->execute();
+        } catch(Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
 }
 
