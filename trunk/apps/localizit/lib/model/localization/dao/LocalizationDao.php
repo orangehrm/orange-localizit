@@ -76,6 +76,20 @@ class LocalizationDao extends BaseDao {
     }
 
     /**
+     * Update Label
+     * @param Label $label
+     * @returns boolean
+     * @throws DaoException
+     */
+    public function updateLabel(Label $label) {
+        try {
+            $label->replace();
+            return true;
+        } catch(Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+    /**
      * Get Language List
      * @returns Language Collection
      * @throws DaoException
@@ -133,10 +147,40 @@ class LocalizationDao extends BaseDao {
     public function getLangStrBySrcAndTargetIds($sourceLanguageId,$targetLanguageId) {
         try {
             $q = Doctrine_Query :: create()
-            ->from('LanguageLabelString lls')
-            ->whereIn('lls.language_id', array($sourceLanguageId,$targetLanguageId));
+                    ->from('LanguageLabelString lls')
+                    ->whereIn('lls.language_id', array($sourceLanguageId,$targetLanguageId));
             return $q->execute();
 
+        } catch(Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
+    /**
+     * Create Language String
+     * @param LanguageLabelString $lls
+     * @returns LanguageLabelString
+     * @throws DaoException
+     */
+    public function addLangStr(LanguageLabelString $lls) {
+        try {
+            $lls->save();
+            return $lls;
+        } catch(Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
+    /**
+     * Update Language String
+     * @param LanguageLabelString $lls
+     * @returns boolean
+     * @throws DaoException
+     */
+    public function updateLangStr(LanguageLabelString $lls) {
+        try {
+            $lls->replace();
+            return true;
         } catch(Exception $e) {
             throw new DaoException($e->getMessage());
         }
