@@ -52,7 +52,7 @@ class localizationDaoTest  extends  PHPUnit_Framework_TestCase {
         foreach ($this->testCases['Label'] as $key=>$testCase) {
             $label	=	new Label();
             $label->setLabelName( $testCase['label_name']);
-            $label->setLabelComment( $testCase['label_name']);
+            $label->setLabelComment( $testCase['label_comment']);
             $label->setLabelStatus( $testCase['label_status']);
 
             $labelCreated	=	$this->localizationDao->addLabel( $label );
@@ -77,7 +77,7 @@ class localizationDaoTest  extends  PHPUnit_Framework_TestCase {
             try {
                 $label	=	new Label();
                 $label->setLabelName( $testCase['label_name']);
-                $label->setLabelComment( $testCase['label_name']);
+                $label->setLabelComment( $testCase['label_comment']);
                 $label->setLabelStatus( $testCase['label_status']);
 
                 $labelCreated	=	$this->localizationDao->addLabel( $label );
@@ -92,6 +92,29 @@ class localizationDaoTest  extends  PHPUnit_Framework_TestCase {
         }
     }
 
+    /**
+     * Test Upsate Label
+     *
+     */
+    public function testUpdateLabel() {
+
+        foreach ($this->testCases['Label'] as $key=>$testCase) {
+            $label	=	new Label();
+            $label->setLabelId( $testCase['label_id']);
+            $label->setLabelName( $testCase['label_name'].rand(1,1000));
+            $label->setLabelComment( $testCase['label_comment']);
+            $label->setLabelStatus( $testCase['label_status']);
+
+            $labelUpdated	=	$this->localizationDao->updateLabel( $label );
+
+            $this->assertTrue(($labelUpdated===true) || ($labelCreated===false));
+           
+            $this->testCases['Label'][$key]["label_name"] =  $label->getLabelName();
+
+        }
+
+        file_put_contents(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization.yml',sfYaml::dump($this->testCases));        
+    }
     /**
      * Test Get All Labels
      *
@@ -199,11 +222,78 @@ class localizationDaoTest  extends  PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Add language string
+     *
+     */
+    public function testAddLanStr() {
+        foreach ($this->testCases['Language_strings'] as $key=>$testCase) {
+            $languageLabelString	=	new LanguageLabelString();
+            $languageLabelString->setLabelId(  $this->testCases['Label'][$key]['label_id']);
+            $languageLabelString->setLanguageId( $this->testCases['Language']['data1']['language_id']);
+            $languageLabelString->setLanguageLabelString( $testCase['language_label_string']);
+            $languageLabelString->setLanguageLabelStringStatus( $testCase['language_label_string_status']);
+
+            $languageLabelStringCreated	=	$this->localizationDao->addLangStr( $languageLabelString );
+            $result	=   ($languageLabelStringCreated instanceof LanguageLabelString)?true:false;
+            $this->assertTrue($result);
+
+            $this->testCases['Language_strings'][$key]["language_label_string_id"] =  $languageLabelStringCreated->getLanguageLabelStringId();            
+
+        }
+
+        file_put_contents(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization.yml',sfYaml::dump($this->testCases));
+    }
+
+    /**
+     * Test Add language string - Negative
+     *  Trying to create a language string with same Label Id + Language Id + Language String
+     */
+    public function testAddLanStrNegative() {
+        foreach ($this->testCases['Language_strings'] as $key=>$testCase) {
+
+            try {
+                $languageLabelString	=	new LanguageLabelString();
+                $languageLabelString->setLabelId(  $this->testCases['Label'][$key]['label_id']);
+                $languageLabelString->setLanguageId( $this->testCases['Language']['data1']['language_id']);
+                $languageLabelString->setLanguageLabelString( $testCase['language_label_string']);
+                $languageLabelString->setLanguageLabelStringStatus( $testCase['language_label_string_status']);
+
+                $this->localizationDao->addLangStr( $languageLabelString );
+                //Label Id + Language Id + Language String must be uniq.
+                //This should not get inserted
+                $this->assertTrue(false);
+
+            }catch(Exception $ex) {
+                //This error must occures
+                $this->assertTrue(true);
+            }
+        }
+    }
+
+    /**
+     * Test Add language string
+     *
+     */
+    public function testUpdateLanStr() {
+        foreach ($this->testCases['Language_strings'] as $key=>$testCase) {
+            $languageLabelString	=	new LanguageLabelString();
+            $languageLabelString->setLanguageLabelStringId($testCase['language_label_string_id']);
+            $languageLabelString->setLabelId(  $this->testCases['Label'][$key]['label_id']);
+            $languageLabelString->setLanguageId( $this->testCases['Language']['data1']['language_id']);
+            $languageLabelString->setLanguageLabelString( $testCase['language_label_string'].rand(1,1000));
+            $languageLabelString->setLanguageLabelStringStatus( $testCase['language_label_string_status']);
+
+            $languageLabelStringUpdated	=	$this->localizationDao->updateLangStr( $languageLabelString );
+            $this->assertTrue(($languageLabelStringUpdated===true) || ($languageLabelStringUpdated===false));
+        }
+    }
+
+    /**
      * Test Get language string list by source and target Language Id
      *
      */
-    public function testGetLabelAndLanguageStrings() {
-        foreach ($this->testCases['Language_strings'] as $key=>$testCase) {
+    public function testGetLangStrBySrcAndTargetIds() {
+        foreach ($this->testCases['Language_strings_retrive'] as $key=>$testCase) {
             $result	=	$this->localizationDao->
                     getLangStrBySrcAndTargetIds($testCase['source_language_id'],$testCase['target_language_id']);
             $this->assertTrue(($result instanceof Doctrine_Collection) || ($result->count()==false));
