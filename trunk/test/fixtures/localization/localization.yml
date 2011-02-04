@@ -1,13 +1,12 @@
 Label:
-  L1: { label_id: '133', label_name: 'Employee Name', label_comment: 'Emplyee detail - name', label_status: 0 }
-  L2: { label_id: '134', label_name: 'Employee City', label_comment: 'Emplyee detail - city', label_status: 0 }
+  L1: { label_id: '141', label_name: 'Employee Name', label_comment: 'Emplyee detail - name', label_status: 0 }
+  L2: { label_id: '142', label_name: 'Employee City', label_comment: 'Emplyee detail - city', label_status: 0 }
 Label_Negative:
   L1: { label_id: '-1', label_name: 'unavailabe label 1', label_comment: '', label_status: 0 }
   L2: { label_id: '-2', label_name: 'unavailabe label 2', label_comment: '', label_status: 0 }
 Language:
-  Lan1: { language_id: 5, language_code: en_USA, language_name: 'French Language', language_status: 0 }
+  Lan1: { language_id: 6, language_code: fr_Fr, language_name: 'France Language', language_status: 0 }
 Language_Negative:
   Lan1: { language_id: 2, language_code: unavailabe_French, language_name: 'French Language', language_status: 0 }
-Label_Duplicate:
-  L1: { label_id: '133' }
-  L2: { label_id: '134' }
+Language_strings:
+  Ls1: { source_language_id: 5, target_language_id: 6,}
