@@ -89,6 +89,7 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
+    
     /**
      * Get Language List
      * @returns Language Collection

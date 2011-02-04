@@ -45,7 +45,7 @@ abstract class BaseLanguageLabelString extends sfDoctrineRecord
              'fixed' => 0,
              'unsigned' => false,
              'primary' => true,
-             'autoincrement' => false,
+             'autoincrement' => true,
              'length' => 4,
              ));
         $this->hasColumn('label_id', 'integer', 4, array(

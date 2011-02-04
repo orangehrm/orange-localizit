@@ -27,7 +27,7 @@
 
 require_once 'PHPUnit/Framework.php';
 
-class localizationDaoTest  extends  PHPUnit_Framework_TestCase {
+class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
 
     private $testCases;
     private $localizationDao;
