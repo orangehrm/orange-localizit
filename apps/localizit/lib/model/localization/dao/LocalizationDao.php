@@ -125,20 +125,18 @@ class LocalizationDao extends BaseDao {
     }
 
     /**
-     * Retrive Label and language string list
-     * @param int $languageId
+     * Retrive language string list by source and target Language Id
+     * @param int $sourceLanguageId, int $targetLanguageId
      * @returns Collection
      * @throws DaoException
      */
-    public function getLabelAndLanguageStrings($languageId) {
+    public function getLangStrBySrcAndTargetIds($sourceLanguageId,$targetLanguageId) {
         try {
-            
             $q = Doctrine_Query :: create()
-                    ->from('Language language')
-                    ->leftJoin('label.LanguageLabelString lls')                    
-                    ->where('language.language_id = ?', $languageId)
-                    ->orderBy('label.label_name');
+            ->from('LanguageLabelString lls')
+            ->whereIn('lls.language_id', array($sourceLanguageId,$targetLanguageId));
             return $q->execute();
+
         } catch(Exception $e) {
             throw new DaoException($e->getMessage());
         }

@@ -199,13 +199,14 @@ class localizationDaoTest  extends  PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Test Get Label and language string list
+     * Test Get language string list by source and target Language Id
      *
      */
     public function testGetLabelAndLanguageStrings() {
-        foreach ($this->testCases['Language'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLabelAndLanguageStrings($testCase['language_id']);
-            $this->assertTrue($result instanceof Doctrine_Collection);
+        foreach ($this->testCases['Language_strings'] as $key=>$testCase) {
+            $result	=	$this->localizationDao->
+                    getLangStrBySrcAndTargetIds($testCase['source_language_id'],$testCase['target_language_id']);
+            $this->assertTrue(($result instanceof Doctrine_Collection) || ($result->count()==false));
         }
     }
 }
