@@ -72,3 +72,4 @@ ALTER TABLE `ohrm_language_label_string`
   ADD CONSTRAINT `fk_ohrm_language_label_string_ohrm_label` FOREIGN KEY (`label_id`) REFERENCES `ohrm_label` (`label_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_ohrm_language_label_string_ohrm_language` FOREIGN KEY (`language_id`) REFERENCES `ohrm_language` (`language_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
+ALTER TABLE `ohrm_language_label_string` CHANGE `language_label_string_id`  `language_label_string_id`  INT( 11 ) NOT NULL AUTO_INCREMENT 

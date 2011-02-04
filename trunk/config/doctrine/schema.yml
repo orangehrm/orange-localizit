@@ -85,7 +85,7 @@ LanguageLabelString:
       fixed: false
       unsigned: false
       primary: true
-      autoincrement: false
+      autoincrement: true
     label_id:
       type: integer(4)
       fixed: false
