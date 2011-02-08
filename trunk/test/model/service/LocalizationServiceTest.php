@@ -83,4 +83,22 @@ class LocalizationServiceTest  extends  PHPUnit_Framework_TestCase {
         $result 	=	$this->locaizationService->getLanguageList();
         $this->assertTrue(true);
     }
+
+    /**
+     * Test Get Label and Language set by source and targetLanguage
+     *
+     */
+    public function testGetLabelAndLangDataSet() {
+        foreach ($this->testCases['Language_strings_retrive'] as $key=>$testCase) {
+            $this->localizationDao		=	$this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('getLabelList')
+                    ->will($this->returnValue(Doctrine_Collection));
+
+            $this->locaizationService->setLocalizationDao( $this->localizationDao );
+
+            $result 	=	$this->locaizationService->getLanguageList($testCasem['source_language_id'],$testCase['target_language_id']);
+            $this->assertTrue(true);
+        }
+    }
 }

@@ -83,13 +83,19 @@ class LocalizationDao extends BaseDao {
      */
     public function updateLabel(Label $label) {
         try {
-            $label->replace();
+            $q = Doctrine_Query :: create()
+                    ->update('Label l')
+                    ->set('l.label_name ',"\"{$label->getLabelName()}\"")
+                    ->set('l.label_comment ',"\"{$label->getLabelComment()}\"")
+                    ->set('l.label_status ',"\"{$label->getLabelStatus()}\"")
+                    ->where('l.label_id = ?', $label->getLabelId())
+                    ->execute();
             return true;
         } catch(Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * Get Language List
      * @returns Language Collection
@@ -180,7 +186,14 @@ class LocalizationDao extends BaseDao {
      */
     public function updateLangStr(LanguageLabelString $lls) {
         try {
-            $lls->replace();
+            $q = Doctrine_Query :: create()
+                    ->update('LanguageLabelString lls')
+                    ->set('lls.label_id ',$lls->getLabelId())
+                    ->set('lls.language_id ',$lls->getLanguageId())
+                    ->set('lls.language_label_string ',"\"{$lls->getLanguageLabelString()}\"")
+                    ->set('lls.language_label_string_status ',"\"{$lls->getLanguageLabelStringStatus()}\"")
+                    ->where('lls.language_label_string_id = ?', $lls->getLanguageLabelStringId())
+                    ->execute();
             return true;
         } catch(Exception $e) {
             throw new DaoException($e->getMessage());

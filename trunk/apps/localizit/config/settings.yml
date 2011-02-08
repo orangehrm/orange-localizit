@@ -38,4 +38,4 @@ all:
 
     # Default user culture
     i18n:                   true
-    default_culture:        en
+    default_culture:        en_US
