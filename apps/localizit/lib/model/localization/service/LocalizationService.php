@@ -67,6 +67,22 @@ class LocalizationService extends BaseService {
     }
 
     /**
+     * Update Label
+     * @param Label $label
+     * @returns boolean
+     * @throws DaoException
+     */
+    public function updateLabel(Label $label) {
+        $localizationDao=$this->getLocalizationDao();
+        try {
+            $localizationDao->updateLabel($label);
+        } catch (Exception $exc) {
+
+            throw new ServiceException($exc->getMessage(),$exc->getCode());
+        }
+    }
+
+    /**
      * Get Language List
      * @returns Language Collection
      * @return Label
@@ -95,4 +111,106 @@ class LocalizationService extends BaseService {
         }
 
     }
+
+    /**
+     * Get Language By Id
+     * @param int $languageId
+     * @return Label
+     */
+    public function getLanguageById($languageId) {
+        $localizationDao=$this->getLocalizationDao();
+        try {
+            return $localizationDao->getLanguageById($languageId);
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(),$exc->getCode());
+        }
+
+    }
+
+    /**
+     * Get Label and Language set by source and targetLanguage
+     * @param $sourceLanguageId,$targetLanguageId
+     * @param string $languageCode
+     * @return array
+     */
+    public function getLabelAndLangDataSet($sourceLanguageId,$targetLanguageId) {
+
+        $localizationDao=$this->getLocalizationDao();
+        $dataSet=array();
+        try {
+            $labelList=$localizationDao->getLabelList();
+            $languageLabelSet=$localizationDao->getLangStrBySrcAndTargetIds($sourceLanguageId,$targetLanguageId);
+
+            if($labelList) {
+
+                foreach($labelList as $label) {
+
+
+
+                    $dataRow[$label->getLabelId()]['label_id']=$label->getLabelId();
+                    $dataRow[$label->getLabelId()]['label_name']=$label->getLabelName();
+
+                    foreach($languageLabelSet as $languageLabel) {
+
+                        if($languageLabel->getLanguageLabelStringStatus()==sfConfig::get('app_status_enabled')) {
+
+                            if($label->getLabelId()==$languageLabel->getLabelId()) {
+
+                                if($sourceLanguageId==$languageLabel->getLanguageId()) {
+
+                                    $dataRow[$label->getLabelId()]['source_language_label_string_id']=$languageLabel->getLanguageLabelStringId();
+                                    $dataRow[$label->getLabelId()]['source_language_id']= $languageLabel->getLanguageId();
+                                    $dataRow[$label->getLabelId()]['source_language_label']= $languageLabel->getLanguageLabelString();
+                                    $dataRow[$label->getLabelId()]['comment']=$label->getLabelComment();
+
+                                }elseif($targetLanguageId==$languageLabel->getLanguageId()) {
+                                    $dataRow[$label->getLabelId()]['target_language_label_string_id']=$languageLabel->getLanguageLabelStringId();
+                                    $dataRow[$label->getLabelId()]['target_language_id']=$languageLabel->getLanguageId();
+                                    $dataRow[$label->getLabelId()]['target_language_label']=$languageLabel->getLanguageLabelString();
+
+                                }
+                            }
+                        }
+
+                    }
+                    $dataSet[$label->getLabelId()]=$dataRow;
+                }
+
+            }
+            return $dataSet;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(),$exc->getCode());
+        }
+    }
+
+    /**
+     * Create Language String
+     * @param LanguageLabelString $lls
+     * @returns LanguageLabelString
+     * @throws ServiceException
+     */
+    public function addLangStr(LanguageLabelString $lls) {
+        $localizationDao=$this->getLocalizationDao();
+        try {
+            return $localizationDao->addLangStr($lls);
+        } catch(Exception $exc) {
+            throw new ServiceException($exc->getMessage(),$exc->getCode());
+        }
+    }
+    
+    /**
+     * Update Language String
+     * @param LanguageLabelString $lls
+     * @returns boolean
+     * @throws ServiceException
+     */
+    public function updateLangStr(LanguageLabelString $lls) {
+        $localizationDao=$this->getLocalizationDao();
+        try {
+            return $localizationDao->updateLangStr($lls);
+        } catch(Exception $exc) {
+            throw new ServiceException($exc->getMessage(),$exc->getCode());
+        }
+    }
+
 }

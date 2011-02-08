@@ -4,7 +4,23 @@
 # default rules
 homepage:
   url:   /
-  param: { module: default, action: index }
+  param: { module: localization, action: index }
+
+add_lable:
+  url:   /add-label
+  param: { module: localization, action: addLabel }
+
+language_list:
+  url:   /language-list
+  param: { module: localization, action: languageList }
+
+language_label_data_set:
+  url:   /language-label-data-set
+  param: { module: localization, action: languageLabelDataSet }
+
+language_label_data_set_edit:
+  url:   /language-label-data-set-edit
+  param: { module: localization, action: editLanguageLabelData }
 
 # generic rules
 # please, remove them by adding more specific rules
