@@ -19,6 +19,20 @@ $(document).ready(function (){
         $('#target_language_selected_id').val(targetLanguageId);
         submitForm('editLanguageLabelList');
     });
+    $('#save_label').click(function (){
+        submitForm('add_label_form');
+    });
+    $('#add').click(function (){
+        $('#addLabelDiv').fadeIn(1000);
+    });
+    $('#cancel_label').click(function (){
+        $('#addLabelDiv').fadeOut(1000);
+    });
+
+    if(!$('#show_add_label').val()){
+        $('#addLabelDiv').css('display','none');
+        $('#addLabelDiv').css('display','none');
+    }
 });
 
 

@@ -46,12 +46,7 @@ class LocalizationService extends BaseService {
     public function addLabel($labelName,$labelComment) {
 
         $localizationDao=$this->getLocalizationDao();
-
-        if($localizationDao->getLabelByName($labelName) instanceof Label) {
-            $error=sfConfig::get('app_error_label_alreay_exists');
-            throw new ServiceException($error['messaeg'],$error['code']);
-        }
-
+        
         try {
             $label=new Label();
             $label->setLabelName($labelName);
@@ -64,6 +59,22 @@ class LocalizationService extends BaseService {
             throw new ServiceException($exc->getMessage(),$exc->getCode());
         }
 
+    }
+
+
+    /**
+     * Get label
+     * @param $labelName
+     * @throws ServiceException
+     * @return Label
+     */
+    public function getLabelByName($labelName) {
+        $localizationDao=$this->getLocalizationDao();
+        try {
+            return $localizationDao->getLabelByName($labelName);
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(),$exc->getCode());
+        }
     }
 
     /**
@@ -197,7 +208,7 @@ class LocalizationService extends BaseService {
             throw new ServiceException($exc->getMessage(),$exc->getCode());
         }
     }
-    
+
     /**
      * Update Language String
      * @param LanguageLabelString $lls

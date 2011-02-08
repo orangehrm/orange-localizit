@@ -56,7 +56,7 @@ class localizationActions extends sfActions {
 
             $targetLanguageStringArray=$request->getParameter('target_language_string');
             $targetLanguageStringIdArray=$request->getParameter('target_language_string_id');
-            
+
             $targetLanguageId=$request->getParameter('target_language_selected_id');
 
             $labelCommentArray=$request->getParameter('label_comment');
@@ -81,10 +81,10 @@ class localizationActions extends sfActions {
                 if($sourceLanguageStringIdArray[$index]) {
                     $sourceLls->setLanguageLabelStringId($sourceLanguageStringIdArray[$index]);
                     $localizationService->updateLangStr($sourceLls);
-                }else{
+                }else {
                     $localizationService->addLangStr($sourceLls);
                 }
-               
+
                 $targetLls=new LanguageLabelString();
                 $targetLls->setLabelId($labelIdArray[$index]);
                 $targetLls->setLanguageId($targetLanguageId);
@@ -93,20 +93,34 @@ class localizationActions extends sfActions {
                 if($targetLanguageStringIdArray[$index]) {
                     $targetLls->setLanguageLabelStringId($targetLanguageStringIdArray[$index]);
                     $localizationService->updateLangStr($targetLls);
-                }else{
+                }else {
                     $localizationService->addLangStr($targetLls);
                 }
 
             }
-
         }
-
+        $localizationService=$this->getLocalizeService();
+        $this->addLabelForm =  new LabelForm($localizationService);
         $this->sourceLanguageLabel=$this->getUser()->getCulture();
+        $this->showAddLabel=false;
 
     }
 
     public function executeAddLabel(sfWebRequest $request) {
+        $localizationService=$this->getLocalizeService();
+        $this->addLabelForm =  new LabelForm($localizationService);
+        if($request->isMethod(sfRequest::POST)) {
+            $this->addLabelForm->bind($request->getParameter('add_label'));
 
+            if ($this->addLabelForm->isValid()) {
+                if($this->addLabelForm->saveToDb()){
+                    $this->redirect('@homepage');
+                }
+            }
+        }
+        $this->showAddLabel=true;
+        $this->sourceLanguageLabel=$this->getUser()->getCulture();
+        $this->setTemplate('index');
     }
 
     public function executeLanguageLabelDataSet(sfWebRequest $request) {
