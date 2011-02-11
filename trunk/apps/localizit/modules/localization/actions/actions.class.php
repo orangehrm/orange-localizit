@@ -37,13 +37,16 @@ class localizationActions extends sfActions {
      * This method is executed before each action
      */
     public function preExecute() {
-
+    	
         $userObject=$this->getUser();
+        print_r( $this->getUser()->getCulture());
+        die();
         if(!$userObject->getAttribute('user_language_id')) {
             $localizationService=$this->getLocalizeService();
             $userObject->setAttribute('user_language_id',$localizationService->getLanguageByCode($userObject->getCulture())->getLanguageId());
             unset($localizationDao);
         }
+        
     }
     public function executeIndex(sfWebRequest $request) {
 
