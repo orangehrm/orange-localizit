@@ -72,4 +72,9 @@ ALTER TABLE `ohrm_language_label_string`
   ADD CONSTRAINT `fk_ohrm_language_label_string_ohrm_label` FOREIGN KEY (`label_id`) REFERENCES `ohrm_label` (`label_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_ohrm_language_label_string_ohrm_language` FOREIGN KEY (`language_id`) REFERENCES `ohrm_language` (`language_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-ALTER TABLE `ohrm_language_label_string` CHANGE `language_label_string_id`  `language_label_string_id`  INT( 11 ) NOT NULL AUTO_INCREMENT 
+ALTER TABLE `ohrm_language_label_string` CHANGE `language_label_string_id`  `language_label_string_id`  INT( 11 ) NOT NULL AUTO_INCREMENT ;
+
+INSERT INTO `ohrm_language` (`language_id`, `language_code`, `language_name`, `language_status`) VALUES
+(1, 'en', 'English', ''),
+(2, 'si', 'Sinhala', ''),
+(3, 'fr', 'French', '');
