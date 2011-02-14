@@ -1,0 +1,9 @@
+User:
+  data1: { user_id: '1', login_name: 'username_1', password: 'password123', user_type_id: 1 }
+  data2: { user_id: '2', login_name: 'username_2', password: 'password456', user_type_id: 2 }
+  data3: { user_id: '-1', login_name: 'username_3', password: 'password789', user_type_id: 2 }
+  data3: { user_id: '1', login_name: 'username_4', password: 'password789', user_type_id: 3 }
+User_type:
+  data1: { id: '1', user_type: 'admin' }
+  data2: { id: '2', user_type: 'normal' }
+  data3: { id: '-1', user_type: 'unapplicable' }
