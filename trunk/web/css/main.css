@@ -67,3 +67,15 @@ tfoot td {
     height: 15px;
     width: 100%
 }
+
+.loginForm{
+    margin-top: 50px;
+    margin-left: 450px;
+}
+.formHeading {
+    text-align: left;
+    font: bold small-caps 120%/1.3 "trebuchet ms",Helvetica,Arial,Sans-Serif;
+    color: #363;
+    margin: .3em 0;
+    margin-left: 60px;
+}
