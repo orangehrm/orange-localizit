@@ -30,3 +30,8 @@ default_index:
 
 default:
   url:   /:module/:action/*
+
+# User Authentication
+sign_in:
+  url: /sign-in
+  param: { module: authentication, action: index }
