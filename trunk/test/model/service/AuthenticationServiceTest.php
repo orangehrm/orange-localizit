@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * OrangeHRM is a comprehensive Human Resource Management (HRM) System that captures
@@ -17,7 +18,7 @@
  * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA
  *
-*/
+ */
 
 /**
  * Authentication Service Test class
@@ -26,19 +27,19 @@
  */
 require_once 'PHPUnit/Framework.php';
 
-class AuthenticationServiceTest  extends  PHPUnit_Framework_TestCase {
+class AuthenticationServiceTest extends PHPUnit_Framework_TestCase {
 
     private $testCases;
     private $authenticationService;
-    private $authenticationDao	;
+    private $authenticationDao;
 
     /**
      * PHPUnit setup function
      */
     public function setup() {
-        $this->authenticationService	=	new AuthenticationService();
-        $this->testCases 	= sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
-
+        $this->authenticationService = new AuthenticationService();
+        $this->testCases = sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
+        TestDataService::populate (sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
     }
 
     /**
@@ -46,14 +47,17 @@ class AuthenticationServiceTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testGetUserByName() {
-        $this->authenticationDao		=	$this->getMock('AuthenticationDao');
-        $this->authenticationDao->expects($this->once())
-                ->method('getUserByName')
-                ->will($this->returnValue(Doctrine_Collection));
+        foreach ($this->testCases['User'] as $key => $testCase) {
+            $this->authenticationDao = $this->getMock('AuthenticationDao');
+            $this->authenticationDao->expects($this->once())
+                    ->method('getUserByName')
+                    ->will($this->returnValue(Doctrine_Collection));
 
-        $this->authenticationService->setAuthenticationDao( $this->authenticationDao );
+            $this->authenticationService->setAuthenticationDao($this->authenticationDao);
 
-        $result 	=	$this->authenticationService->getUserByName();
-        $this->assertTrue(true);
+            $result = $this->authenticationService->getUserByName($testCase['login_name']);
+            $this->assertTrue(true);
+        }
     }
+
 }

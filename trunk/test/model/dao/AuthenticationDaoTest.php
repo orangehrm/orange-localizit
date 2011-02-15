@@ -40,6 +40,7 @@ class AuthenticationDaoTest  extends  PHPUnit_Framework_TestCase {
         $configuration 		= ProjectConfiguration::getApplicationConfiguration('localizit', 'test', true);
         $this->testCases 	= sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
         $this->authenticationDao	=	new AuthenticationDao();
+        TestDataService::populate (sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
 
     }
 
