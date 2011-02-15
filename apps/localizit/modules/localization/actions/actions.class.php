@@ -42,7 +42,7 @@ class localizationActions extends sfActions {
 
         if(!$userObject->getAttribute('user_language_id')) {
             $localizationService=$this->getLocalizeService();
-            $userObject->setAttribute('user_language_id',$localizationService->getLanguageByCode($userObject->getCulture())->getLanguageId());
+//            $userObject->setAttribute('user_language_id',$localizationService->getLanguageByCode($userObject->getCulture())->getLanguageId());
             unset($localizationDao);
         }
         

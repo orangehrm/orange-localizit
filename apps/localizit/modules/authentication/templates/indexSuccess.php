@@ -43,7 +43,6 @@
                 <td>&nbsp;</td>
                 <td>
                     <input type="button" name="login_label" id="login" value="Login" />
-                     
                     <input type="button" name="cancel_label" id="cancel_label" value="Cancel" />
                 </td>
             </tr>
