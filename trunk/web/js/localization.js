@@ -28,6 +28,9 @@ $(document).ready(function (){
     $('#cancel_label').click(function (){
         $('#addLabelDiv').fadeOut(1000);
     });
+    $('#login').click(function(){
+        submitForm('sign_in_form');
+    });
 
     if(!$('#show_add_label').val()){
         $('#addLabelDiv').css('display','none');

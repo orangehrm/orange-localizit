@@ -11,6 +11,11 @@
                 <td>
                     <?php echo $addSignInForm['login_name']->render() ?>
                 </td>
+                <?php if ($addSignInForm['login_name']->hasError()) { ?>
+                <td class="errorMsg">
+                      <?php echo $addSignInForm['login_name']->renderError() ?>
+                </td>
+                <?php } ?>
             </tr>
             <tr>
                 <td>
@@ -19,11 +24,16 @@
                 <td>
                     <?php echo $addSignInForm['password']->render() ?>
                 </td>
+                <?php if ($addSignInForm['password']->hasError()) { ?>
+                <td class="errorMsg">
+                    <?php echo $addSignInForm['password']->renderError() ?>
+                </td>
+                <?php } ?>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="button" name="login_label" id="login_label" value="Login" />
+                    <input type="button" name="login_label" id="login" value="Login" />
       
                     <input type="button" name="cancel_label" id="cancel_label" value="Cancel" />
                 </td>

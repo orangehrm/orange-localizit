@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AuthenticationDao for User operation
  *
@@ -15,14 +16,26 @@ class AuthenticationDao extends BaseDao {
     public function getUserByName($userName) {
         try {
             $q = Doctrine_Query :: create()
-                    ->from('User u')
-                    ->where('u.login_name = ?', $userName);
+                            ->from('User u')
+                            ->where('u.login_name = ?', $userName);
 
             return $q->fetchOne();
-
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
+
+    public function getUser($userName, $password) {
+        try {
+            $q = Doctrine_Query :: create()
+                            ->from('User u')
+                            ->where('u.login_name = ? and password = ?', $userName, $password);
+
+            return $q->fetchOne();
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
 }
 

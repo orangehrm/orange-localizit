@@ -10,15 +10,37 @@
  */
 class authenticationActions extends sfActions {
 
+    private $authenticationService;
+
     public function executeIndex(sfWebRequest $request) {
-        if ($request->isMethod(sfRequest::POST)) {
-            
-        }
-        $this->addSignInForm = new UserForm();
+        $authenticationService = $this->getAuthenticationService();
+        $this->addSignInForm = new UserForm($authenticationService);
     }
 
-    public function signIn(){
-        
+    /**
+     *  Get Authentication Service
+     */
+    public function getAuthenticationService() {
+        $this->authenticationService = new AuthenticationService();
+        $this->authenticationService->setAuthenticationDao(new AuthenticationDao());
+        return $this->authenticationService;
+    }
+
+    /**
+     * Login Method
+     * @param sfWebRequest $request
+     */
+    public function executeLogin(sfWebRequest $request) {
+        $authenticationService = $this->getAuthenticationService();
+        $this->addSignInForm = new UserForm($authenticationService);
+
+        if ($request->isMethod(sfRequest::POST)) {
+            $this->addSignInForm->bind($request->getParameter('sign_in'));
+            if ($this->addSignInForm->isValid()) {
+                $this->redirect('@homepage');
+            }
+        }
+        $this->setTemplate('index');
     }
 
     public function executeShow(sfWebRequest $request) {
@@ -71,10 +93,6 @@ class authenticationActions extends sfActions {
 
             $this->redirect('authentication/edit?user_id=' . $user->getUserId());
         }
-    }
-
-    public function executeSignIn() {
-        
     }
 
 }
