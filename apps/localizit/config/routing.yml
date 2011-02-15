@@ -22,6 +22,10 @@ language_label_data_set_edit:
   url:   /language-label-data-set-edit
   param: { module: localization, action: editLanguageLabelData }
 
+sign_in:
+  url: /sign-in
+  param: { module: authentication, action: login }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
@@ -30,8 +34,3 @@ default_index:
 
 default:
   url:   /:module/:action/*
-
-# User Authentication
-sign_in:
-  url: /sign-in
-  param: { module: authentication, action: index }

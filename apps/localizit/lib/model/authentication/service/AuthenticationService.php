@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * OrangeHRM is a comprehensive Human Resource Management (HRM) System that captures
@@ -17,7 +18,7 @@
  * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA
  *
-*/
+ */
 
 /**
  * AuthenticationService for User operation
@@ -26,15 +27,14 @@
  */
 class AuthenticationService extends BaseService {
 
-    private $authenticationDao ;
-
+    private $authenticationDao;
 
     public function getAuthenticationDao() {
         return $this->authenticationDao;
     }
 
-    public function setAuthenticationDao( AuthenticationDao $authenticationDao) {
-        $this->authenticationDao	= $authenticationDao ;
+    public function setAuthenticationDao(AuthenticationDao $authenticationDao) {
+        $this->authenticationDao = $authenticationDao;
     }
 
     /**
@@ -44,11 +44,28 @@ class AuthenticationService extends BaseService {
      * @return User
      */
     public function getUserByName($userName) {
-        $authenticationDao=$this->getAuthenticationDao();
+        $authenticationDao = $this->getAuthenticationDao();
         try {
             return $authenticationDao->getUserByName($userName);
         } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(),$exc->getCode());
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
+
+    /**
+     * Get User
+     * @param <type> $userName
+     * @param <type> $password
+     * @return <type> user
+     */
+
+    public function getUser($userName, $password) {
+        $authenticationDao = $this->getAuthenticationDao();
+        try {
+            return $authenticationDao->getUser($userName, $password);
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
 }
