@@ -4,6 +4,14 @@
             Orange-Localizit
         </div>
         <table>
+            <?php $globalErrors=$addSignInForm->getGlobalErrors();
+            if(count($globalErrors)>0) {
+                foreach ($globalErrors as $name => $error) { ?>
+            <tr>
+                <td><?php echo $error ?></td>
+            </tr>
+                    <?php }
+            }?>
             <tr>
                 <td>
                     <?php echo $addSignInForm['login_name']->renderLabel('User Name') ?>
