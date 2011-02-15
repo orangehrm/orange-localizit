@@ -1,4 +1,4 @@
-Label:
+OhrmLabel:
   connection: doctrine
   tableName: ohrm_label
   columns:
@@ -23,21 +23,18 @@ Label:
       notnull: false
       autoincrement: false
     label_status:
-      type: enum(1)
+      type: string(1)
       fixed: false
       unsigned: false
-      values:
-        - '0'
-        - '1'
       primary: false
       notnull: true
       autoincrement: false
   relations:
-    LanguageLabelString:
+    OhrmLanguageLabelString:
       local: label_id
       foreign: label_id
       type: many
-Language:
+OhrmLanguage:
   connection: doctrine
   tableName: ohrm_language
   columns:
@@ -62,21 +59,18 @@ Language:
       notnull: true
       autoincrement: false
     language_status:
-      type: enum(1)
+      type: string(1)
       fixed: false
       unsigned: false
-      values:
-        - '0'
-        - '1'
       primary: false
       notnull: true
       autoincrement: false
   relations:
-    LanguageLabelString:
+    OhrmLanguageLabelString:
       local: language_id
       foreign: language_id
       type: many
-LanguageLabelString:
+OhrmLanguageLabelString:
   connection: doctrine
   tableName: ohrm_language_label_string
   columns:
@@ -108,25 +102,22 @@ LanguageLabelString:
       notnull: true
       autoincrement: false
     language_label_string_status:
-      type: enum(1)
+      type: string(1)
       fixed: false
       unsigned: false
-      values:
-        - '0'
-        - '1'
       primary: false
       notnull: true
       autoincrement: false
   relations:
-    Label:
+    OhrmLabel:
       local: label_id
       foreign: label_id
       type: one
-    Language:
+    OhrmLanguage:
       local: language_id
       foreign: language_id
       type: one
-User:
+OhrmUser:
   connection: doctrine
   tableName: ohrm_user
   columns:
@@ -157,12 +148,7 @@ User:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    UserType:
-      local: user_type_id
-      foreign: id
-      type: many
-UserType:
+OhrmUserType:
   connection: doctrine
   tableName: ohrm_user_type
   columns:
@@ -179,8 +165,3 @@ UserType:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    User:
-      local: id
-      foreign: user_type_id
-      type: one
