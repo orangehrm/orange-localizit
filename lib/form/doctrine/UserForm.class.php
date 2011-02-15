@@ -33,6 +33,7 @@ class UserForm extends BaseUserForm {
         $post_validator = new sfValidatorAnd();
         $post_validator->addValidator(new sfValidatorCallback(array('callback' => array($this, 'checkUserExists'))));
 
+        $this->widgetSchema->setNameFormat('sign_in[%s]');
         $this->validatorSchema->setPostValidator($post_validator);
         
     }

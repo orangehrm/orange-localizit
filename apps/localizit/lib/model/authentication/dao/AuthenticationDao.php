@@ -29,7 +29,7 @@ class AuthenticationDao extends BaseDao {
         try {
             $q = Doctrine_Query :: create()
                             ->from('User u')
-                            ->where('u.login_name = ? and password = ?', $userName, $password);
+                            ->where("u.login_name = '{$userName}' and u.password = '{$password}'");
 
             return $q->fetchOne();
         } catch (Exception $e) {

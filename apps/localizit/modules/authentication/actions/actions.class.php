@@ -37,7 +37,9 @@ class authenticationActions extends sfActions {
         if ($request->isMethod(sfRequest::POST)) {
             $this->addSignInForm->bind($request->getParameter('sign_in'));
             if ($this->addSignInForm->isValid()) {
-                $this->redirect('@homepage');
+                $this->getUser()->setAuthenticated(true);
+                $this->getUser()->addCredential('user');
+                $this->redirect('@add_lable');
             }
         }
         $this->setTemplate('index');
