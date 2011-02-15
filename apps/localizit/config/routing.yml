@@ -4,7 +4,7 @@
 # default rules
 homepage:
   url:   /
-  param: { module: localization, action: index }
+  param: { module: authentication, action: index }
 
 add_lable:
   url:   /add-label
