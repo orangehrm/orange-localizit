@@ -26,6 +26,10 @@ sign_in:
   url: /sign-in
   param: { module: authentication, action: login }
 
+logout:
+  url: /logout
+  param: { module: authentication, action: logout }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
