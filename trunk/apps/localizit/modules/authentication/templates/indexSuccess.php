@@ -1,5 +1,6 @@
 <div class="addLabelDiv loginForm" >
     <form action="<?php echo url_for('@sign_in'); ?>" method="post" id="sign_in_form" name="sign_in_form">
+        <?php echo $addSignInForm->renderHiddenFields(); ?>
         <div class="formHeading">
             Orange-Localizit
         </div>
@@ -8,7 +9,7 @@
             if(count($globalErrors)>0) {
                 foreach ($globalErrors as $name => $error) { ?>
             <tr>
-                <td><?php echo $error ?></td>
+                <td> <span class="errorMsg"><?php echo $error ?> </span></td>
             </tr>
                     <?php }
             }?>
@@ -42,10 +43,11 @@
                 <td>&nbsp;</td>
                 <td>
                     <input type="button" name="login_label" id="login" value="Login" />
-      
+                     
                     <input type="button" name="cancel_label" id="cancel_label" value="Cancel" />
                 </td>
             </tr>
         </table>
     </form>
 </div>
+

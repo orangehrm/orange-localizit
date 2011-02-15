@@ -45,6 +45,16 @@ class authenticationActions extends sfActions {
         $this->setTemplate('index');
     }
 
+    /**
+     *  Log out Method
+     * @param sfWebRequest $request
+     */
+    public function executeLogout() {
+        $this->getUser()->clearCredentials();
+        $this->getUser()->setAuthenticated(false);
+        $this->redirect('@homepage');
+    }
+
     public function executeShow(sfWebRequest $request) {
         $this->user = Doctrine::getTable('User')->find(array($request->getParameter('user_id')));
         $this->forward404Unless($this->user);

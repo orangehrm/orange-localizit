@@ -22,6 +22,7 @@ class UserForm extends BaseUserForm {
     }
 
     public function configure() {
+        
         $this->setWidgets(array(
             'login_name' => new sfWidgetFormInputText(),
             'password' => new sfWidgetFormInputPassword()
