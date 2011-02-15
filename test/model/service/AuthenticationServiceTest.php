@@ -39,7 +39,6 @@ class AuthenticationServiceTest extends PHPUnit_Framework_TestCase {
     public function setup() {
         $this->authenticationService = new AuthenticationService();
         $this->testCases = sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
-        TestDataService::populate (sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
     }
 
     /**
