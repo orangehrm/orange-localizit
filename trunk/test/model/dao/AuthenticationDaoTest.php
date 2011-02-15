@@ -51,7 +51,11 @@ class AuthenticationDaoTest  extends  PHPUnit_Framework_TestCase {
     public function testGetUserByName() {
         foreach ($this->testCases['User'] as $key=>$testCase) {
             $result	=	$this->authenticationDao->getUserByName( $testCase['login_name'] );
+            
             $this->assertTrue($result instanceof User);
+
+            //check passwords
+            $this->assertEquals($result->password, $testCase['password']);
         }
     }
 }
