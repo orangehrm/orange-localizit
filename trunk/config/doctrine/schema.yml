@@ -135,7 +135,7 @@ OhrmUser:
       notnull: true
       autoincrement: false
     password:
-      type: string(25)
+      type: string(50)
       fixed: false
       unsigned: false
       primary: false
