@@ -9,7 +9,7 @@
     <?php include_javascripts() ?>
   </head>
   <body>
-    <?php include_partial('adminTopMenu'); ?>
+    <?php if ( $sf_context->getModuleName() == 'localization') {include_partial('adminTopMenu');} ?>
     <?php echo $sf_content ?>
   </body>
 </html>
