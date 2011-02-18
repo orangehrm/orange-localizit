@@ -61,6 +61,31 @@ CREATE TABLE IF NOT EXISTS `ohrm_language_label_string` (
   KEY `fk_ohrm_language_label_string_ohrm_language` (`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ohrm_user_type`
+--
+CREATE TABLE IF NOT EXISTS `ohrm_user_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_type` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ohrm_user`
+--
+CREATE TABLE IF NOT EXISTS `ohrm_user` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `login_name` varchar(25) NOT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `user_type_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`),
+  FOREIGN KEY (`user_type_id`) REFERENCES `ohrm_user_type` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Constraints for dumped tables
 --
@@ -78,3 +103,10 @@ INSERT INTO `ohrm_language` (`language_id`, `language_code`, `language_name`, `l
 (1, 'en', 'English', ''),
 (2, 'si', 'Sinhala', ''),
 (3, 'fr', 'French', '');
+
+INSERT INTO `ohrm_user_type` (`id`, `user_type`) VALUES
+(1, 'admin'),
+(2, 'normal');
+
+INSERT INTO `ohrm_user` (`user_id`, `login_name`,  `password`, `user_type_id`) VALUES
+(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1); --pass => 123456
