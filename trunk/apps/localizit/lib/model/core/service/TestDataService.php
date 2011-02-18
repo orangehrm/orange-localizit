@@ -41,6 +41,12 @@ class TestDataService {
 
                 $rowObject = new $tableName;
                 $rowObject->fromArray($dataRow);
+
+                // hashing password
+                if ($dataRow['password'] != '') {
+                    $rowObject['password'] = md5($dataRow['password']);
+                }
+
                 $rowObject->save();
 
                 $count++;

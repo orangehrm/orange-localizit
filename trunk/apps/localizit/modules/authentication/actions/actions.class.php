@@ -39,6 +39,10 @@ class authenticationActions extends sfActions {
             if ($this->addSignInForm->isValid()) {
                 $this->getUser()->setAuthenticated(true);
                 $this->getUser()->addCredential('user');
+
+                $sign_in = $request->getParameter('sign_in');
+                $this->getUser()->setAttribute('username', $sign_in['login_name']);
+
                 $this->redirect('@add_lable');
             }
         }
