@@ -12,9 +12,9 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [main.css]
+  stylesheets:    [main.css,dropdown.css]
 
-  javascripts:    [jquery-1.5.min.js,localization.js]
+  javascripts:    [jquery-1.5.min.js,localization.js,dropdown.js]
 
   has_layout:     true
   layout:         layout

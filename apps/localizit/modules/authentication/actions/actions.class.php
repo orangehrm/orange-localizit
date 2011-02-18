@@ -12,9 +12,18 @@ class authenticationActions extends sfActions {
 
     private $authenticationService;
 
-    public function executeIndex(sfWebRequest $request) {
+    /**
+     * This method is executed before each action
+     */
+    public function preExecute() {
         $authenticationService = $this->getAuthenticationService();
         $this->addSignInForm = new UserForm($authenticationService);
+    }
+
+    public function executeIndex(sfWebRequest $request) {        
+        if ($this->getUser()->isAuthenticated()) {
+             $this->redirect('@add_lable');
+        }
     }
 
     /**
