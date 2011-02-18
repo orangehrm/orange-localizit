@@ -3,6 +3,7 @@ $(document).ready(function (){
     var targetLanguageId=$('#languageList').val();
     var url=$('#url').val();
     var url_edit=$('#edit_url').val();
+    $('#addLabelDiv').css('display','none');
     fetchLangugeLabelSet(url,targetLanguageId,'dataSet');
 
     $('#languageList').change(function (){
@@ -11,6 +12,7 @@ $(document).ready(function (){
     });
 
     $('#edit').click(function (){
+        $('#addLabelDiv').fadeOut(1000);
         targetLanguageId=$('#languageList').val();
         fetchEditableLangugeLabelSet(url_edit,targetLanguageId,'dataSet');
     });

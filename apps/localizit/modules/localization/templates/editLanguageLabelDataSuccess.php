@@ -1,5 +1,5 @@
 <?php if($languageLabelDataSet) {?>
-<form method="post" name="editLanguageLabelList" action="" id="editLanguageLabelList">
+<form method="post" name="editLanguageLabelList" action="<?php echo url_for('localization/index');?>" id="editLanguageLabelList">
     <table >
         <thead>
             <tr>
