@@ -1,25 +1,39 @@
+<div class="formHeading float-left">
+    Orange-Localizit
+</div>
+<div class="float-right">
+    <div class="top_menu">
+        Welcome <font style="font-weight: bold"><?php echo $sf_user->getAttribute('username'); ?></font>
+    </div>
+
+    <div class="top_menu logout">
+        <?php echo link_to('Logout', 'authentication/logout'); ?>
+    </div>
+</div>
+
+<div class="clear"></div>
 <table>
     <tr>
         <td>
-            <dl class="dropdown">
-                <dt id="one-ddheader" onmouseover="ddMenu('one',1)" onmouseout="ddMenu('one',-1)">User</dt>
-                <dd id="one-ddcontent" onmouseover="cancelHide('one')" onmouseout="ddMenu('one',-1)">
+            <ul class="sf-menu">
+                <li class="current">
+                    <a href="#">Users</a>
                     <ul>
-                        <li><a href="#" class="underline">Add</a></li>
-                        <li><a href="#" class="underline">Edit</a></li>
-                        <li><a href="#">Delete</a></li>
+                        <li>
+                            <a href="#">Add</a>
+                        </li>                        
+                        <li>
+                            <a href="#">Edit</a>
+                        </li>
+                        <li>
+                            <a href="#">Delete</a>
+                        </li>
                     </ul>
-                </dd>
-            </dl>
-        </td>
-        <td colspan="2">
-            Logged in as <?php echo '&lsquo;' . $sf_user->getAttribute('username') . '&rsquo;' ?>
-        </td>
-        <td class="logout">
-            <?php
-            echo link_to('Logout', 'authentication/logout');
-            ?>
-
+                </li>
+                <li>
+                    <a href="#">Language Text</a>
+                </li>
+            </ul>
         </td>
     </tr>
 </table>

@@ -12,9 +12,9 @@ default:
     #language:     en
     #robots:       index, follow
 
-  stylesheets:    [main.css,dropdown.css]
+  stylesheets:    [main.css,superfish.css]
 
-  javascripts:    [jquery-1.5.min.js,localization.js,dropdown.js]
+  javascripts:    [jquery-1.5.min.js,localization.js,superfish.js]
 
   has_layout:     true
   layout:         layout

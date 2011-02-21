@@ -7,6 +7,16 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
+    <?php if ( $sf_context->getModuleName() == 'localization') { ?>
+    <script type="text/javascript">
+
+        // initialise plugins
+        jQuery(function(){
+            jQuery('ul.sf-menu').superfish();
+        });
+
+    </script>
+    <?php } ?>
   </head>
   <body>
     <?php if ( $sf_context->getModuleName() == 'localization') {include_partial('adminTopMenu');} ?>
