@@ -3,7 +3,7 @@
         Orange-Localizit
     </div>
     <div class="normalText float-right logout">
-        <?php
+       <?php
         echo link_to('Logout', 'authentication/logout');
         ?>
     </div>
