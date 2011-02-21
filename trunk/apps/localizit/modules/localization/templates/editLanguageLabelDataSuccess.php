@@ -1,6 +1,6 @@
 <?php if($languageLabelDataSet) {?>
 <form method="post" name="editLanguageLabelList" action="<?php echo url_for('localization/index');?>" id="editLanguageLabelList">
-    <table >
+    <table class="mainFrame">
         <thead>
             <tr>
                 <td>Label</td>

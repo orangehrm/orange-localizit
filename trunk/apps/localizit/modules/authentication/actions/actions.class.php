@@ -16,13 +16,13 @@ class authenticationActions extends sfActions {
      * This method is executed before each action
      */
     public function preExecute() {
-        $authenticationService = $this->getAuthenticationService();
-        $this->addSignInForm = new UserForm($authenticationService);
+        $this->authenticationService = $this->getAuthenticationService();
+        $this->signInForm = new UserForm($this->authenticationService);
     }
 
-    public function executeIndex(sfWebRequest $request) {        
+    public function executeIndex(sfWebRequest $request) {
         if ($this->getUser()->isAuthenticated()) {
-             $this->redirect('@add_lable');
+            $this->redirect('@homepage');
         }
     }
 
@@ -40,19 +40,19 @@ class authenticationActions extends sfActions {
      * @param sfWebRequest $request
      */
     public function executeLogin(sfWebRequest $request) {
-        $authenticationService = $this->getAuthenticationService();
-        $this->addSignInForm = new UserForm($authenticationService);
+
+        $this->signInForm = new UserForm($this->authenticationService);
 
         if ($request->isMethod(sfRequest::POST)) {
-            $this->addSignInForm->bind($request->getParameter('sign_in'));
-            if ($this->addSignInForm->isValid()) {
+            $this->signInForm->bind($request->getParameter('sign_in'));
+            if ($this->signInForm->isValid()) {
                 $this->getUser()->setAuthenticated(true);
                 $this->getUser()->addCredential('user');
 
                 $sign_in = $request->getParameter('sign_in');
                 $this->getUser()->setAttribute('username', $sign_in['login_name']);
 
-                $this->redirect('@add_lable');
+                $this->redirect('@homepage');
             }
         }
         $this->setTemplate('index');
@@ -65,7 +65,7 @@ class authenticationActions extends sfActions {
     public function executeLogout() {
         $this->getUser()->clearCredentials();
         $this->getUser()->setAuthenticated(false);
-        $this->redirect('@homepage');
+        $this->redirect('@loginpage');
     }
 
     public function executeShow(sfWebRequest $request) {

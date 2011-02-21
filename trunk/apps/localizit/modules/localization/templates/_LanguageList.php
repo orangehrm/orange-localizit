@@ -1,4 +1,4 @@
-<select id="languageList" name="<?php if(isset($isArray)) {?>languageList<?php echo "_".$prefix."[]";
+<select class="langueDropDownList" id="languageList" name="<?php if(isset($isArray)) {?>languageList<?php echo "_".$prefix."[]";
         }else {?>languageList<?php }?>">
             <?php if($languageList) {?>
                 <?php foreach ($languageList as $language) { ?>
