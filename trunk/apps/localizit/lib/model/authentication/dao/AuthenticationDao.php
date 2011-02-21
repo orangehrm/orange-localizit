@@ -13,7 +13,7 @@ class AuthenticationDao extends BaseDao {
      * @returns User Object
      * @throws DaoException
      */
-    public function getUserByName($userName) {
+    public function getUserByName($userName=NULL) {
         try {
             $q = Doctrine_Query :: create()
                             ->from('User u')

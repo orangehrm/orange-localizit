@@ -39,7 +39,26 @@ class AuthenticationDaoTest  extends  PHPUnit_Framework_TestCase {
             $this->assertEquals($result->password, md5($testCase['password']));
         }
     }
+
+    /**
+     * Test Get User By null User Name
+     *
+     */
+    public function testGetUserByNullName() {
+            $result	=	$this->authenticationDao->getUserByName();
+            $this->assertNull($result);
+    }
     
+
+    /**
+     * Test Get User By not exist User Name
+     *
+     */
+    public function testGetUserByInvalidName() {
+            $result	=	$this->authenticationDao->getUserByName('invalid_user');
+            $this->assertNull($result);
+    }
+
     /**
      * Test Get User
      *

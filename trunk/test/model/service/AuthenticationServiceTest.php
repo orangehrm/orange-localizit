@@ -49,6 +49,24 @@ class AuthenticationServiceTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Get User by Null Name
+     *
+     */
+    public function testGetUserByNullName() {
+
+            $this->authenticationDao = $this->getMock('AuthenticationDao');
+            $this->authenticationDao->expects($this->once())
+                    ->method('getUserByName')
+                    ->will($this->returnValue(NULL));
+
+            $this->authenticationService->setAuthenticationDao($this->authenticationDao);
+
+            $result = $this->authenticationService->getUserByName();
+
+            $this->assertNull($result);
+    }
+
+    /**
      * Test Get User
      *
      */
