@@ -31,20 +31,4 @@ class AuthenticationService extends BaseService {
         }
     }
 
-    /**
-     * Get User
-     * @param <type> $userName
-     * @param <type> $password
-     * @return <type> user
-     */
-
-    public function getUser($userName, $password) {
-        $authenticationDao = $this->getAuthenticationDao();
-        try {
-            return $authenticationDao->getUser($userName, $password);
-        } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(), $exc->getCode());
-        }
-    }
-
 }

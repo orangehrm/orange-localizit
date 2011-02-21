@@ -25,20 +25,5 @@ class AuthenticationDao extends BaseDao {
         }
     }
 
-    public function getUser($userName, $password) {
-        try {
-            // hasshing password
-            $password = md5($password);
-
-            $q = Doctrine_Query :: create()
-                            ->from('User u')
-                            ->where("u.login_name = '{$userName}' and u.password = '{$password}'");
-
-            return $q->fetchOne();
-        } catch (Exception $e) {
-            throw new DaoException($e->getMessage());
-        }
-    }
-
 }
 
