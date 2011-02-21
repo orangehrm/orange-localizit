@@ -1,11 +1,11 @@
 <div class="addLabelDiv loginForm" >
     <form action="<?php echo url_for('@sign_in'); ?>" method="post" id="sign_in_form" name="sign_in_form">
-        <?php echo $addSignInForm->renderHiddenFields(); ?>
-        <div class="formHeading">
+        <?php echo $signInForm->renderHiddenFields(); ?>
+        <div class="mainLogo">
             Orange-Localizit
         </div>
-        <table>
-            <?php $globalErrors=$addSignInForm->getGlobalErrors();
+        <table class="mediumText">
+            <?php $globalErrors=$signInForm->getGlobalErrors();
             if(count($globalErrors)>0) {
                 foreach ($globalErrors as $name => $error) { ?>
             <tr>
@@ -15,27 +15,27 @@
             }?>
             <tr>
                 <td>
-                    <?php echo $addSignInForm['login_name']->renderLabel('User Name') ?>
+                    <?php echo $signInForm['login_name']->renderLabel('User Name') ?>
                 </td>
                 <td>
-                    <?php echo $addSignInForm['login_name']->render() ?>
+                    <?php echo $signInForm['login_name']->render() ?>
                 </td>
-                <?php if ($addSignInForm['login_name']->hasError()) { ?>
+                <?php if ($signInForm['login_name']->hasError()) { ?>
                 <td class="errorMsg">
-                      <?php echo $addSignInForm['login_name']->renderError() ?>
+                      <?php echo $signInForm['login_name']->renderError() ?>
                 </td>
                 <?php } ?>
             </tr>
             <tr>
                 <td>
-                    <?php echo $addSignInForm['password']->renderLabel('Password') ?>
+                    <?php echo $signInForm['password']->renderLabel('Password') ?>
                 </td>
                 <td>
-                    <?php echo $addSignInForm['password']->render() ?>
+                    <?php echo $signInForm['password']->render() ?>
                 </td>
-                <?php if ($addSignInForm['password']->hasError()) { ?>
+                <?php if ($signInForm['password']->hasError()) { ?>
                 <td class="errorMsg">
-                    <?php echo $addSignInForm['password']->renderError() ?>
+                    <?php echo $signInForm['password']->renderError() ?>
                 </td>
                 <?php } ?>
             </tr>

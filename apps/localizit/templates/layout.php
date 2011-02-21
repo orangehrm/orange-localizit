@@ -19,6 +19,7 @@
     <?php } ?>
   </head>
   <body>
+    <?php if( $sf_context->getModuleName() == 'localization') {include_partial('header');} ?>
     <?php if ( $sf_context->getModuleName() == 'localization') {include_partial('adminTopMenu');} ?>
     <?php echo $sf_content ?>
   </body>

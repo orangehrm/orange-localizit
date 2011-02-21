@@ -1,5 +1,5 @@
 <?php if($languageLabelDataSet) {?>
-<table >
+<table class="mainFrame mediumText">
     <thead>
         <tr>
             <td>Label</td>

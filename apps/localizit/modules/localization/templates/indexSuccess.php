@@ -1,5 +1,5 @@
 <?php ?>
-<table>    
+<table class="mainFrame mediumText">
     <tr>
         <td>Source Language</td>
         <td><?php echo $sourceLanguageLabel;?></td>
@@ -11,18 +11,20 @@
         <td>&nbsp;</td>
     </tr>
     <tr>
-        <td><input type="button" name="add" id="add" value="Add" /></td>
-        <td>
+        <td><input type="button" name="add" id="add" value="Add" />
+        
             <input type="button" name="edit" id="edit" value="Edit" />
             <input type="button" name="save" id="save" value="save" style="display: none;"/>
-        </td>
-        <td><input type="button" name="generateDictionary" id="generateDictionary" value="Generate Dictionary" /></td>
+        
+        <input type="button" name="generateDictionary" id="generateDictionary" value="Generate Dictionary" /></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
     </tr>
 </table>
 <div id="addLabelDiv" >
     <form action="<?php echo url_for('@add_lable');?>" method="post" id="add_label_form" name="add_label_form">
         <?php echo $addLabelForm->renderHiddenFields(); ?>
-        <table>
+        <table class="mainFrame mediumText">
             <?php $globalErrors=$addLabelForm->getGlobalErrors();
             if(count($globalErrors)>0) {
                 foreach ($globalErrors as $name => $error) { ?>
