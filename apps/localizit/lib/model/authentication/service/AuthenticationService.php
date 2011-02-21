@@ -22,7 +22,7 @@ class AuthenticationService extends BaseService {
      * @throws ServiceException
      * @return User
      */
-    public function getUserByName($userName) {
+    public function getUserByName($userName=NULL) {
         $authenticationDao = $this->getAuthenticationDao();
         try {
             return $authenticationDao->getUserByName($userName);
