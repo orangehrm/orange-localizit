@@ -49,9 +49,14 @@ class UserForm extends BaseUserForm {
             throw new sfValidatorError($validator, 'Password required');
         }
         if (! empty($values['login_name']) && ! empty($values['password'])) {
-            if (!$authenticationService->getUser($values['login_name'], $values['password']) instanceof User) {
+            $existingUser = $authenticationService->getUserByName($values['login_name']);
+
+            if($existingUser['password'] != md5($values['password'])){
                 throw new sfValidatorError($validator, 'Invalid login');
             }
+//            if (!$authenticationService->getUser($values['login_name'], $values['password']) instanceof User) {
+//                throw new sfValidatorError($validator, 'Invalid login');
+//            }
         }
         return $values;
     }
