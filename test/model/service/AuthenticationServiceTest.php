@@ -65,22 +65,4 @@ class AuthenticationServiceTest extends PHPUnit_Framework_TestCase {
 
             $this->assertNull($result);
     }
-
-    /**
-     * Test Get User
-     *
-     */
-    public function testGetUser() {
-        foreach ($this->testCases['User'] as $key => $testCase) {
-            $this->authenticationDao = $this->getMock('AuthenticationDao');
-            $this->authenticationDao->expects($this->once())
-                    ->method('getUser')
-                    ->will($this->returnValue(Doctrine_Collection));
-
-            $this->authenticationService->setAuthenticationDao($this->authenticationDao);
-
-            $result = $this->authenticationService->getUser( $testCase['login_name'], $testCase['password'] );
-            $this->assertTrue(true);
-        }
-    }
 }
