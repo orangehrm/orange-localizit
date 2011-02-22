@@ -64,19 +64,21 @@ ul.sf-menu li li li.sfHover ul {
 }
 .sf-menu a, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
 	color:			#000;
+        font-family: Helvetica,Arial,Sans-Serif;
+        font-size:  12px;
 }
 .sf-menu li {
-	background:		#BDD2FF;
+	background:		#a2f8a2;
 }
 .sf-menu li li {
-	background:		#AABDE6;
+	background:		#a2f8a2;
 }
 .sf-menu li li li {
 	background:		#9AAEDB;
 }
 .sf-menu li:hover, .sf-menu li.sfHover,
 .sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
-	background:		#CFDEFF;
+	background:		#78d578;
 	outline:		0;
 }
 
@@ -97,7 +99,7 @@ ul.sf-menu li li li.sfHover ul {
 	background:		url('../images/arrows-ffffff.png') no-repeat -10px -100px; /* 8-bit indexed alpha png. IE6 gets solid image only */
 }
 a > .sf-sub-indicator {  /* give all except IE6 the correct values */
-	top:			.8em;
+	top:			.5em;
 	background-position: 0 -100px; /* use translucent arrow for modern browsers*/
 }
 /* apply hovers to modern browsers */
