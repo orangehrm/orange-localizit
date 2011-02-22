@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+    <file original="global" source-language="en_US" datatype="plaintext">
+        <body>
+            <trans-unit id="1">
+                <source>orange_localizit</source>
+                <target>Orange-Localizit</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>username</source>
+                <target>User Name</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>login</source>
+                <target>Login</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>cancel</source>
+                <target>Cancel</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
