@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * OrangeHRM is a comprehensive Human Resource Management (HRM) System that captures
@@ -26,7 +27,7 @@ class TestDataService {
     private static $tableNames;
 
     public static function populate($fixture) {
-    
+
         self::_setData($fixture);
 
         self::_disableConstraints();
@@ -50,31 +51,27 @@ class TestDataService {
                 $rowObject->save();
 
                 $count++;
-
             }
 
             if ($count > 0) {
                 self::adjustUniqueId($tableName, $count, true);
             }
-
         }
 
         self::_enableConstraints();
-
     }
 
     public static function adjustUniqueId($tableName, $count, $isAlias = false) {
 
-       /*
-        * not needed
-       */
+        /*
+         * not needed
+         */
     }
 
     private static function _setData($fixture) {
 
         self::$data = sfYaml::load($fixture);
         self::_setTableNames();
-
     }
 
     private static function _setTableNames() {
@@ -82,19 +79,18 @@ class TestDataService {
         foreach (self::$data as $key => $value) {
             self::$tableNames[] = Doctrine::getTable($key)->getTableName();
         }
-
     }
 
     private static function _disableConstraints() {
 
         // ToDo: disable database constraints
-    
+        $db = self::_getDbConnection();
+        $db->query("SET FOREIGN_KEY_CHECKS = 0");
     }
 
     private static function _enableConstraints() {
 
         // ToDo: enable database constraints
-    
     }
 
     private static function _truncateTables() {
@@ -109,25 +105,21 @@ class TestDataService {
         }
 
         self::_enableConstraints();
-
     }
 
     private static function _getDbConnection() {
-        
-        if (empty(self::$dbConnection)) {
-            
-            self::$dbConnection = Doctrine_Manager::getInstance()
-                                                    ->getCurrentConnection()
-                                                    ->getDbh();
-            
-            return self::$dbConnection;
 
+        if (empty(self::$dbConnection)) {
+
+            self::$dbConnection = Doctrine_Manager::getInstance()
+                            ->getCurrentConnection()
+                            ->getDbh();
+
+            return self::$dbConnection;
         } else {
 
             return self::$dbConnection;
-
         }
-
     }
 
     public static function truncateTables($aliasArray) {
@@ -137,7 +129,6 @@ class TestDataService {
         }
 
         self::_truncateTables();
-
     }
 
     public static function fetchLastInsertedRecords($alias, $count) {
@@ -146,18 +137,16 @@ class TestDataService {
         $offset = $wholeCount - $count;
 
         $q = Doctrine_Query::create()
-             ->from("$alias a")
-             ->offset($offset)
-             ->limit($count);
+                        ->from("$alias a")
+                        ->offset($offset)
+                        ->limit($count);
 
         return $q->execute();
-
     }
 
     public static function fetchObject($alias, $primaryKey) {
 
         return Doctrine::getTable($alias)->find($primaryKey);
-
     }
 
     public static function loadObjectList($alias, $fixture, $key) {
@@ -172,11 +161,7 @@ class TestDataService {
         }
 
         return $objectList;
-
     }
 
-
-
 }
-
 
