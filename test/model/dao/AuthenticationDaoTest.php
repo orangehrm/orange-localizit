@@ -46,7 +46,7 @@ class AuthenticationDaoTest  extends  PHPUnit_Framework_TestCase {
      */
     public function testGetUserByNullName() {
             $result	=	$this->authenticationDao->getUserByName();
-            $this->assertNull($result);
+            $this->assertFalse($result);
     }
     
 
@@ -56,6 +56,6 @@ class AuthenticationDaoTest  extends  PHPUnit_Framework_TestCase {
      */
     public function testGetUserByInvalidName() {
             $result	=	$this->authenticationDao->getUserByName('invalid_user');
-            $this->assertNull($result);
+            $this->assertFalse($result);
     }
 }

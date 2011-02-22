@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * OrangeHRM is a comprehensive Human Resource Management (HRM) System that captures
@@ -17,17 +18,16 @@
  * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA
  *
-*/
+ */
 
 /**
  * localization Dao Test class
  *
  * @author ruwan
  */
-
 require_once 'PHPUnit/Framework.php';
 
-class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
+class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
 
     private $testCases;
     private $localizationDao;
@@ -37,10 +37,10 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      */
     public function setup() {
 
-        $configuration 		= ProjectConfiguration::getApplicationConfiguration('localizit', 'test', true);
-        $this->testCases 	= sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization.yml');
-        $this->localizationDao	=	new LocalizationDao();
-
+        $configuration = ProjectConfiguration::getApplicationConfiguration('localizit', 'test', true);
+        $this->testCases = sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization_test.yml');
+        $this->localizationDao = new LocalizationDao();
+        TestDataService::populate(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization_test.yml');
     }
 
     /**
@@ -48,23 +48,16 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testAddLabel() {
+        $label = new Label();
+        $label->setLabelName('test_1');
+        $label->setLabelComment('test_1');
+        $label->setLabelStatus('test_1');
 
-        foreach ($this->testCases['Label'] as $key=>$testCase) {
-            $label	=	new Label();
-            $label->setLabelName( $testCase['label_name']);
-            $label->setLabelComment( $testCase['label_comment']);
-            $label->setLabelStatus( $testCase['label_status']);
+        $labelCreated = $this->localizationDao->addLabel($label);
+        $result = ($labelCreated instanceof Label) ? true : false;
+        $this->assertTrue($result);
 
-            $labelCreated	=	$this->localizationDao->addLabel( $label );
-            $result	=   ($labelCreated instanceof Label)?true:false;
-            $this->assertTrue($result);
-
-            $this->testCases['Label'][$key]["label_id"] =  $labelCreated->getLabelId();
-            $this->testCases['Label_Duplicate'][$key]["label_id"] =  $labelCreated->getLabelId();
-
-        }
-
-        file_put_contents(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization.yml',sfYaml::dump($this->testCases));
+        $this->assertEquals($this->localizationDao->getLabelByName('test_1')->getLabelComment(), 'test_1');
     }
 
     /**
@@ -72,23 +65,20 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *  Try to save duplicate label
      */
     public function testAddLabelNegative() {
+        try {
+            $label = new Label();
+            $label->setLabelId(-1);
+            $label->setLabelName('test_2');
+            $label->setLabelComment('test_2');
+            $label->setLabelStatus('test_2');
 
-        foreach ($this->testCases['Label'] as $key=>$testCase) {
-            try {
-                $label	=	new Label();
-                $label->setLabelName( $testCase['label_name']);
-                $label->setLabelComment( $testCase['label_comment']);
-                $label->setLabelStatus( $testCase['label_status']);
+            $labelCreated = $this->localizationDao->addLabel($label);
 
-                $labelCreated	=	$this->localizationDao->addLabel( $label );
-
-                //If success fully inserted, then that's a failure.
-                $this->assertTrue(false);
-
-            }catch (Exception $ex) {
-                //Must throw an error
-                $this->assertTrue(true);
-            }
+            //If success fully inserted, then that's a failure.
+            $this->assertTrue(false);
+        } catch (Exception $ex) {
+            //Must throw an error
+            $this->assertTrue(true);
         }
     }
 
@@ -98,29 +88,25 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      */
     public function testUpdateLabel() {
 
-        foreach ($this->testCases['Label'] as $key=>$testCase) {
-            $label	=	new Label();
-            $label->setLabelId( $testCase['label_id']);
-            $label->setLabelName( $testCase['label_name'].rand(1,1000));
-            $label->setLabelComment( $testCase['label_comment']);
-            $label->setLabelStatus( $testCase['label_status']);
+        $label = new Label();
+        $label->setLabelId(1);
+        $label->setLabelName('test_up');
+        $label->setLabelComment('test_up');
+        $label->setLabelStatus('test_up');
 
-            $labelUpdated	=	$this->localizationDao->updateLabel( $label );
+        $labelUpdated = $this->localizationDao->updateLabel($label);
 
-            $this->assertTrue(($labelUpdated===true) || ($labelCreated===false));
-           
-            $this->testCases['Label'][$key]["label_name"] =  $label->getLabelName();
+        $this->assertTrue(($labelUpdated === true) || ($labelCreated === false));
 
-        }
-
-        file_put_contents(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization.yml',sfYaml::dump($this->testCases));        
+        $this->assertEquals($this->localizationDao->getLabelById(1)->getLabelName(), 'test_up');
     }
+
     /**
      * Test Get All Labels
      *
      */
     public function testGetLabelList() {
-        $result	=	$this->localizationDao->getLabelList();
+        $result = $this->localizationDao->getLabelList();
         $this->assertTrue(($result instanceof Doctrine_Collection));
     }
 
@@ -129,9 +115,10 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testGetLabelById() {
-        foreach ($this->testCases['Label'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLabelById( $testCase['label_id'] );
+        foreach ($this->testCases['Label'] as $key => $testCase) {
+            $result = $this->localizationDao->getLabelById($testCase['label_id']);
             $this->assertTrue($result instanceof Label);
+            $this->assertEquals($result->getLabelName(), $testCase['label_name']);
         }
     }
 
@@ -140,10 +127,8 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      * Try to retrive unavailable label
      */
     public function testGetLabelByIdNegative() {
-        foreach ($this->testCases['Label_Negative'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLabelById( $testCase['label_id'] );
-            $this->assertTrue($result===false);
-        }
+        $result = $this->localizationDao->getLabelById(-10);
+        $this->assertTrue($result === false);
     }
 
     /**
@@ -151,9 +136,10 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testGetLabelByName() {
-        foreach ($this->testCases['Label'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLabelByName( $testCase['label_name'] );
+        foreach ($this->testCases['Label'] as $key => $testCase) {
+            $result = $this->localizationDao->getLabelByName($testCase['label_name']);
             $this->assertTrue($result instanceof Label);
+            $this->assertEquals($result->getLabelId(), $testCase['label_id']);
         }
     }
 
@@ -162,10 +148,8 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      * Try to retrive unavailable label
      */
     public function testGetLabelByNameNegative() {
-        foreach ($this->testCases['Label_Negative'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLabelByName( $testCase['label_name'] );
-            $this->assertTrue($result===false);
-        }
+        $result = $this->localizationDao->getLabelByName('unknown');
+        $this->assertTrue($result === false);
     }
 
     /**
@@ -173,7 +157,7 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testGetLanguagelList() {
-        $result	=	$this->localizationDao->getLanguageList();
+        $result = $this->localizationDao->getLanguageList();
         $this->assertTrue(($result instanceof Doctrine_Collection));
     }
 
@@ -182,9 +166,10 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testGetLanguagelById() {
-        foreach ($this->testCases['Language'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLanguageById($testCase['language_id']);
+        foreach ($this->testCases['Language'] as $key => $testCase) {
+            $result = $this->localizationDao->getLanguageById($testCase['language_id']);
             $this->assertTrue($result instanceof Language);
+            $this->assertEquals($result->getLanguageName(), $testCase['language_name']);
         }
     }
 
@@ -193,10 +178,8 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *  Try to retrive unavailable languages
      */
     public function testGetLanguagelByIdNegative() {
-        foreach ($this->testCases['Language_Negative'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLanguageById($testCase['language_id']);
-            $this->assertTrue($result===false);
-        }
+        $result = $this->localizationDao->getLanguageById(-11);
+        $this->assertTrue($result === false);
     }
 
     /**
@@ -204,9 +187,11 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testGetLanguagelByCode() {
-        foreach ($this->testCases['Language'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLanguageByCode($testCase['language_code']);
+        foreach ($this->testCases['Language'] as $key => $testCase) {
+            $result = $this->localizationDao->getLanguageByCode($testCase['language_code']);
             $this->assertTrue($result instanceof Language);
+            $this->assertEquals($result->getLanguageName(), $testCase['language_name']);
+            $this->assertEquals($result->getLanguageId(), $testCase['language_id']);
         }
     }
 
@@ -215,10 +200,8 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *  Try to retrive unavailable languages
      */
     public function testGetLanguagelByCodeNegative() {
-        foreach ($this->testCases['Language_Negative'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->getLanguageByCode($testCase['language_code']);
-            $this->assertTrue($result===false);
-        }
+        $result = $this->localizationDao->getLanguageByCode(-10);
+        $this->assertTrue($result === false);
     }
 
     /**
@@ -226,22 +209,16 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testAddLanStr() {
-        foreach ($this->testCases['Language_strings'] as $key=>$testCase) {
-            $languageLabelString	=	new LanguageLabelString();
-            $languageLabelString->setLabelId(  $this->testCases['Label'][$key]['label_id']);
-            $languageLabelString->setLanguageId( $this->testCases['Language']['data1']['language_id']);
-            $languageLabelString->setLanguageLabelString( $testCase['language_label_string']);
-            $languageLabelString->setLanguageLabelStringStatus( $testCase['language_label_string_status']);
+        $languageLabelString = new LanguageLabelString();
+        $languageLabelString->setLabelId(3);
+        $languageLabelString->setLanguageId(3);
+        $languageLabelString->setLanguageLabelString('language_label_string');
+        $languageLabelString->setLanguageLabelStringStatus('language_label_string_status');
 
-            $languageLabelStringCreated	=	$this->localizationDao->addLangStr( $languageLabelString );
-            $result	=   ($languageLabelStringCreated instanceof LanguageLabelString)?true:false;
-            $this->assertTrue($result);
-
-            $this->testCases['Language_strings'][$key]["language_label_string_id"] =  $languageLabelStringCreated->getLanguageLabelStringId();            
-
-        }
-
-        file_put_contents(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization.yml',sfYaml::dump($this->testCases));
+        $languageLabelStringCreated = $this->localizationDao->addLangStr($languageLabelString);
+        $result = ($languageLabelStringCreated instanceof LanguageLabelString) ? true : false;
+        $this->assertTrue($result);
+        $this->assertEquals($languageLabelStringCreated->getLanguageLabelString(), 'language_label_string');
     }
 
     /**
@@ -249,21 +226,20 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *  Trying to create a language string with same Label Id + Language Id + Language String
      */
     public function testAddLanStrNegative() {
-        foreach ($this->testCases['Language_strings'] as $key=>$testCase) {
+        foreach ($this->testCases['LanguageLabelString'] as $key => $testCase) {
 
             try {
-                $languageLabelString	=	new LanguageLabelString();
-                $languageLabelString->setLabelId(  $this->testCases['Label'][$key]['label_id']);
-                $languageLabelString->setLanguageId( $this->testCases['Language']['data1']['language_id']);
-                $languageLabelString->setLanguageLabelString( $testCase['language_label_string']);
-                $languageLabelString->setLanguageLabelStringStatus( $testCase['language_label_string_status']);
+                $languageLabelString = new LanguageLabelString();
+                $languageLabelString->setLabelId($this->testCases['Label'][$key]['label_id']);
+                $languageLabelString->setLanguageId($this->testCases['Language']['data1']['language_id']);
+                $languageLabelString->setLanguageLabelString($testCase['language_label_string']);
+                $languageLabelString->setLanguageLabelStringStatus($testCase['language_label_string_status']);
 
-                $this->localizationDao->addLangStr( $languageLabelString );
+                $this->localizationDao->addLangStr($languageLabelString);
                 //Label Id + Language Id + Language String must be uniq.
                 //This should not get inserted
                 $this->assertTrue(false);
-
-            }catch(Exception $ex) {
+            } catch (Exception $ex) {
                 //This error must occures
                 $this->assertTrue(true);
             }
@@ -275,16 +251,16 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testUpdateLanStr() {
-        foreach ($this->testCases['Language_strings'] as $key=>$testCase) {
-            $languageLabelString	=	new LanguageLabelString();
+        foreach ($this->testCases['LanguageLabelString'] as $key => $testCase) {
+            $languageLabelString = new LanguageLabelString();
             $languageLabelString->setLanguageLabelStringId($testCase['language_label_string_id']);
-            $languageLabelString->setLabelId(  $this->testCases['Label'][$key]['label_id']);
-            $languageLabelString->setLanguageId( $this->testCases['Language']['data1']['language_id']);
-            $languageLabelString->setLanguageLabelString( $testCase['language_label_string'].rand(1,1000));
-            $languageLabelString->setLanguageLabelStringStatus( $testCase['language_label_string_status']);
+            $languageLabelString->setLabelId($this->testCases['Label'][$key]['label_id']);
+            $languageLabelString->setLanguageId($this->testCases['Language']['data1']['language_id']);
+            $languageLabelString->setLanguageLabelString($testCase['language_label_string']);
+            $languageLabelString->setLanguageLabelStringStatus($testCase['language_label_string_status']);
 
-            $languageLabelStringUpdated	=	$this->localizationDao->updateLangStr( $languageLabelString );
-            $this->assertTrue(($languageLabelStringUpdated===true) || ($languageLabelStringUpdated===false));
+            $languageLabelStringUpdated = $this->localizationDao->updateLangStr($languageLabelString);
+            $this->assertTrue(($languageLabelStringUpdated === true) || ($languageLabelStringUpdated === false));
         }
     }
 
@@ -293,10 +269,10 @@ class LocalizationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testGetLangStrBySrcAndTargetIds() {
-        foreach ($this->testCases['Language_strings_retrive'] as $key=>$testCase) {
-            $result	=	$this->localizationDao->
-                    getLangStrBySrcAndTargetIds($testCase['source_language_id'],$testCase['target_language_id']);
-            $this->assertTrue(($result instanceof Doctrine_Collection) || ($result->count()==false));
+        foreach ($this->testCases['LanguageLabelString'] as $key => $testCase) {
+            $result = $this->localizationDao->
+                            getLangStrBySrcAndTargetIds($testCase['source_language_id'], $testCase['target_language_id']);
+            $this->assertTrue(($result instanceof Doctrine_Collection) || ($result->count() == false));
         }
     }
 }

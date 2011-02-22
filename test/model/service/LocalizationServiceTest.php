@@ -1,4 +1,5 @@
 <?php
+
 /*
  *
  * OrangeHRM is a comprehensive Human Resource Management (HRM) System that captures
@@ -17,7 +18,7 @@
  * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA
  *
-*/
+ */
 
 /**
  * localization Service Test class
@@ -26,19 +27,18 @@
  */
 require_once 'PHPUnit/Framework.php';
 
-class LocalizationServiceTest  extends  PHPUnit_Framework_TestCase {
+class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
 
     private $testCases;
     private $locaizationService;
-    private $localizationDao	;
+    private $localizationDao;
 
     /**
      * PHPUnit setup function
      */
     public function setup() {
-        $this->locaizationService	=	new LocalizationService();
-        $this->testCases 	= sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization.yml');
-
+        $this->locaizationService = new LocalizationService();
+        $this->testCases = sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/localization/localization_test.yml');
     }
 
     /**
@@ -47,25 +47,24 @@ class LocalizationServiceTest  extends  PHPUnit_Framework_TestCase {
      */
     public function testAddLabel() {
 
-        foreach ($this->testCases['Label'] as $key=>$testCase) {
-            $label	=	new Label();
-            $label->setLabelName( $testCase['label_name']);
-            $label->setLabelComment( $testCase['label_comment']);
-            $label->setLabelStatus( $testCase['label_status']);
+        foreach ($this->testCases['Label'] as $key => $testCase) {
+            $label = new Label();
+            $label->setLabelName($testCase['label_name']);
+            $label->setLabelComment($testCase['label_comment']);
+            $label->setLabelStatus($testCase['label_status']);
 
-            $this->localizationDao		=	$this->getMock('LocalizationDao');
+            $this->localizationDao = $this->getMock('LocalizationDao');
             $this->localizationDao->expects($this->once())
                     ->method('addLabel')
                     ->will($this->returnValue($label));
             ;
 
-            $this->locaizationService->setLocalizationDao( $this->localizationDao );
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
 
-            $result 	=	$this->locaizationService->addLabel($testCase['label_name'],$testCase['label_comment'] );
-            $this->assertEquals( $label , $result );
-
+            $result = $this->locaizationService->addLabel($testCase['label_name'], $testCase['label_comment']);
+            $this->assertTrue($result instanceof Label);
+            $this->assertEquals($label, $result);
         }
-
     }
 
     /**
@@ -73,32 +72,14 @@ class LocalizationServiceTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testGetLanguageListl() {
-        $this->localizationDao		=	$this->getMock('LocalizationDao');
+        $this->localizationDao = $this->getMock('LocalizationDao');
         $this->localizationDao->expects($this->once())
                 ->method('getLanguageList')
                 ->will($this->returnValue(Doctrine_Collection));
 
-        $this->locaizationService->setLocalizationDao( $this->localizationDao );
+        $this->locaizationService->setLocalizationDao($this->localizationDao);
 
-        $result 	=	$this->locaizationService->getLanguageList();
+        $result = $this->locaizationService->getLanguageList();
         $this->assertTrue(true);
-    }
-
-    /**
-     * Test Get Label and Language set by source and targetLanguage
-     *
-     */
-    public function testGetLabelAndLangDataSet() {
-        foreach ($this->testCases['Language_strings_retrive'] as $key=>$testCase) {
-            $this->localizationDao		=	$this->getMock('LocalizationDao');
-            $this->localizationDao->expects($this->once())
-                    ->method('getLabelList')
-                    ->will($this->returnValue(Doctrine_Collection));
-
-            $this->locaizationService->setLocalizationDao( $this->localizationDao );
-
-            $result 	=	$this->locaizationService->getLanguageList($testCasem['source_language_id'],$testCase['target_language_id']);
-            $this->assertTrue(true);
-        }
     }
 }
