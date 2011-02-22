@@ -4,21 +4,21 @@
         <td>
             <ul class="sf-menu">
                 <li class="current">
-                    <a href="#">Users</a>
+                    <a href="#"><?php echo __('users', null, 'localizationMessages') ?></a>
                     <ul>
                         <li>
-                            <a href="#">Add</a>
+                            <a href="#"><?php echo __('add', null, 'localizationMessages') ?></a>
                         </li>                        
                         <li>
-                            <a href="#">Edit</a>
+                            <a href="#"><?php echo __('edit', null, 'localizationMessages') ?></a>
                         </li>
                         <li>
-                            <a href="#">Delete</a>
+                            <a href="#"><?php echo __('delete', null, 'localizationMessages') ?></a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Language Text</a>
+                    <a href="#"><?php echo __('language_text', null, 'localizationMessages') ?></a>
                 </li>
             </ul>
         </td>
