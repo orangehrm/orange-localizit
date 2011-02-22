@@ -1,13 +1,13 @@
 <div class="mainFrame">
     <div class="mainLogo">
-        Orange-Localizit
+        <?php echo __("orange_localizit", null, 'authenticationMessages'); ?>
     </div>
     <div class="normalText float-right logout">
        <?php
-        echo link_to('Logout', 'authentication/logout');
+        echo link_to( __('logout', null, 'localizationMessages'), 'authentication/logout');
         ?>
     </div>
     <div class="normalText float-right">
-        Welcome <span class="boldText"><?php echo '&lsquo;' . $sf_user->getAttribute('username') . '&rsquo;' ?> </span>
+        <?php echo __('welcome', null, 'localizationMessages'); ?> &nbsp;<span class="boldText"><?php echo '&lsquo;' . $sf_user->getAttribute('username') . '&rsquo;' ?> </span>
     </div>
 </div>

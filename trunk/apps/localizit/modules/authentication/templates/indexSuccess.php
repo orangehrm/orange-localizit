@@ -2,7 +2,7 @@
     <form action="<?php echo url_for('@sign_in'); ?>" method="post" id="sign_in_form" name="sign_in_form">
         <?php echo $signInForm->renderHiddenFields(); ?>
         <div class="mainLogo">
-            Orange-Localizit
+            <?php echo __("orange_localizit", null, 'authenticationMessages'); ?>
         </div>
         <table class="mediumText">
             <?php $globalErrors=$signInForm->getGlobalErrors();
@@ -15,7 +15,7 @@
             }?>
             <tr>
                 <td>
-                    <?php echo $signInForm['login_name']->renderLabel('User Name') ?>
+                    <?php echo $signInForm['login_name']->renderLabel( __('username', null, 'authenticationMessages')) ?>
                 </td>
                 <td>
                     <?php echo $signInForm['login_name']->render() ?>
@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <td>
-                    <?php echo $signInForm['password']->renderLabel('Password') ?>
+                    <?php echo $signInForm['password']->renderLabel( __('password', null, 'authenticationMessages')) ?>
                 </td>
                 <td>
                     <?php echo $signInForm['password']->render() ?>
@@ -42,8 +42,8 @@
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="button" name="login_label" id="login" value="Login" />
-                    <input type="button" name="cancel_label" id="cancel_label" value="Cancel" />
+                    <input type="button" name="login_label" id="login" value="<?php echo __('login', null , 'authenticationMessages') ?>" />
+                    <input type="button" name="cancel_label" id="cancel_label" value="<?php echo __('cancel', null , 'authenticationMessages') ?>" />
                 </td>
             </tr>
         </table>
