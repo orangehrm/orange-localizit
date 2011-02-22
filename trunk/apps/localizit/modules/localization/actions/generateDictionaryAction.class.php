@@ -36,7 +36,7 @@ class generateDictionaryAction extends sfAction {
             $targetLanguageId = $request->getParameter('targetLanguageId');
 
             $sourceLanguageLabel = $this->getUser()->getCulture();
-            $targetLanguageLabel = $this->locdalizationService->getLanguageById($targetLanguageId)->getLanguageCode();
+            $targetLanguageLabel = $this->localizationService->getLanguageById($targetLanguageId)->getLanguageCode();
             $date = date('Y-m-d\TG:i:s\Z');
 
             $xml_string = <<<XML
@@ -87,6 +87,5 @@ XML;
 
         $this->setTemplate('index');
     }
-
 }
 ?>
