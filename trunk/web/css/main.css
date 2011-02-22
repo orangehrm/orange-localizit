@@ -141,3 +141,6 @@ tfoot td {
 .clear {
     clear: both;
 }
+.menuBackground {
+    background: #ebf8a3;
+}

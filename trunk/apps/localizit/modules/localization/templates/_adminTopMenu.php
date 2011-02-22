@@ -1,5 +1,5 @@
 <div class="clear"></div>
-<table class="mainFrame">
+<table class="mainFrame menuBackground">
     <tr>
         <td>
             <ul class="sf-menu">
