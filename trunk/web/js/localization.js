@@ -16,6 +16,12 @@ $(document).ready(function (){
         targetLanguageId=$('#languageList').val();
         fetchEditableLangugeLabelSet(url_edit,targetLanguageId,'dataSet');
     });
+
+    $('#generateDictionary').click(function (){        
+        $('#addLabelDiv').fadeOut(1000);
+        targetLanguageId=$('#languageList').val();
+        generateDictionary('localization/generateDictionary', targetLanguageId);
+    });
     $('#save').click(function (){
         targetLanguageId=$('#languageList').val();
         $('#target_language_selected_id').val(targetLanguageId);
@@ -40,7 +46,6 @@ $(document).ready(function (){
     }
 });
 
-
 function fetchLangugeLabelSet(url,targetLanguageId,dataSetPane){
     $.ajax({
         url: url+'?targetLanguageId='+targetLanguageId,
@@ -52,6 +57,7 @@ function fetchLangugeLabelSet(url,targetLanguageId,dataSetPane){
         }
     });
 }
+
 function fetchEditableLangugeLabelSet(url,targetLanguageId,dataSetPane){
     $.ajax({
         url: url+'?targetLanguageId='+targetLanguageId,
@@ -62,6 +68,18 @@ function fetchEditableLangugeLabelSet(url,targetLanguageId,dataSetPane){
             $('#save').css('display','');
         },
         error: function(e){
+        }
+    });
+}
+
+function generateDictionary(url,targetLanguageId){
+    $.ajax({
+        url: url+'?targetLanguageId='+targetLanguageId,
+        success: function() {
+            jAlert('Dictionary file created successfully!', 'Success');
+        },
+        error: function(){
+            jAlert('Sorry, Something get wrong!', 'Error');
         }
     });
 }
