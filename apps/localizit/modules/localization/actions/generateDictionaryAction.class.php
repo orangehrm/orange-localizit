@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Orange-localizit  is a System that transalate text into a any language.
  * Copyright (C) 2006 Orange-localizit Inc., http://www.orange-localizit.com
@@ -52,59 +53,23 @@ class generateDictionaryAction extends sfAction {
             $targetLanguageId = $request->getParameter('targetLanguageId');
 
             $sourceLanguageLabel = $this->getUser()->getCulture();
-            $targetLanguageLabel = $this->localizationService->getLanguageById($targetLanguageId)->getLanguageCode();
-            $date = date('Y-m-d\TG:i:s\Z');
 
-            $xml_string = <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
-<xliff version="1.0">
-<header/>
-</xliff>
-XML;
+            try {
+                $result = $this->localizationService->generateDictionary($sourceLanguageId, $targetLanguageId, $sourceLanguageLabel);
 
-            $xml = new SimpleXMLElement($xml_string);
-
-            $languageLabelDataSet = $this->localizationService->getLabelAndLangDataSet($sourceLanguageId, $targetLanguageId);
-
-            $cont = 1; // loop counter
-            $file = $xml->addChild('file');
-            $file->addAttribute('source-language', $sourceLanguageLabel);
-            $file->addAttribute('target-language', $targetLanguageLabel);
-            $file->addAttribute('datatype', 'plaintext');
-            $file->addAttribute('original', 'messages');
-            $file->addAttribute('date', $date);
-            $file->addAttribute('product-name', 'messages');
-
-            $body = $file->addChild('body');
-
-            foreach ($languageLabelDataSet as $labelId => $languageLabelData) {
-                $labelInnerData = $languageLabelData[$labelId];
-
-                $transunit = $body->addChild('trans-unit');
-                $transunit->addAttribute('id', $cont);
-                $transunit->addChild('source', $labelInnerData['source_language_label']);
-                $transunit->addChild('target', $labelInnerData['target_language_label']);
-                $cont++;
+                if (!$result) {
+                    $this->getResponse()->setError('Error');
+                }
+            } catch (Exception $ex) {
+                $this->getResponse()->setError('Error');
             }
-
-            //$xml->asXML('test_file.xml');
-            $dom = new DOMDocument('1.0');
-            $dom->preserveWhiteSpace = false;
-            $dom->formatOutput = true;
-            $dom->loadXML($xml->asXML());
-            //echo $dom->saveXML();
-
-            $myFile = "language_files/messages." . $targetLanguageLabel . ".xml";
-            $fh = fopen($myFile, 'w') or die("can't open file");
-            fwrite($fh, $dom->saveXML());
-            fclose($fh);
         }
 
-        if($request->getParameter('return') == 'download')
-            $this->redirect ('@download_dictionary?targetLanguageId='.$targetLanguageId);
+        if ($request->getParameter('return') == 'download')
+            $this->redirect('@download_dictionary?targetLanguageId=' . $targetLanguageId);
 
         $this->setTemplate('index');
     }
+
 }
 ?>

@@ -85,7 +85,7 @@ function generateDictionary(url,targetLanguageId){
             jAlert('Dictionary file created successfully!', 'Success');
         },
         error: function(){
-            jAlert('Sorry, Something get wrong!', 'Error');
+            jAlert('Sorry, Something went wrong!', 'Error');
         }
     });
 }
