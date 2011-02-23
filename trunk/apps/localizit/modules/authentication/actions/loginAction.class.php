@@ -23,17 +23,7 @@
  * @author waruni
  */
 class loginAction extends sfAction {
-
-    /**
-     * Define variables
-     */
-
-//    private $signInForm;
-//
-//    private function getSignInForm(){
-//        $this->signInForm = new SignInForm();
-//        return $this->signInForm;
-//    }
+  
     /**
      * Login Method. If user provides valid username and password , create a session.
      * @param <type> $request 
@@ -44,6 +34,7 @@ class loginAction extends sfAction {
         if ($request->isMethod(sfRequest::POST)) {
             $this->signInForm->bind($request->getParameter('sign_in'));
             if ($this->signInForm->isValid()) {
+                // Create Sessions
                 $this->getUser()->setAuthenticated(true);
                 $this->getUser()->addCredential('user');
 
