@@ -42,8 +42,8 @@
             <tr>
                 <td>&nbsp;</td>
                 <td>
-                    <input type="button" name="login_label" id="login" value="<?php echo __('login', null , 'authenticationMessages') ?>" />
-                    <input type="button" name="cancel_label" id="cancel_label" value="<?php echo __('cancel', null , 'authenticationMessages') ?>" />
+                    <input type="button" name="login_label" id="login" class="button normalText" value="<?php echo __('login', null , 'authenticationMessages') ?>" />
+                    <input type="button" name="cancel_label" id="cancel_label" class="button normalText" value="<?php echo __('cancel', null , 'authenticationMessages') ?>" />
                 </td>
             </tr>
         </table>
