@@ -1,6 +1,6 @@
 Label:
-  data1: { label_id: '10', label_name: 'Employee Name42558932097389765842981', label_comment: 'Emplyee detail - name', label_status: 0 }
-  data2: { label_id: '11', label_name: 'Employee City663810141185842600928426', label_comment: 'Emplyee detail - city', label_status: 0 }
+  data1: { label_id: '1', label_name: 'Employee Name42558932097389765842981374824737201704734920', label_comment: 'Emplyee detail - name', label_status: 0 }
+  data2: { label_id: '2', label_name: 'Employee City663810141185842600928426647296979678948666171', label_comment: 'Emplyee detail - city', label_status: 0 }
 Label_Negative:
   data1: { label_id: '-1', label_name: 'unavailabe label 1', label_comment: '', label_status: 0 }
   data2: { label_id: '-2', label_name: 'unavailabe label 2', label_comment: '', label_status: 0 }
@@ -14,5 +14,5 @@ Language_strings:
 Language_strings_retrive:
   data1: { source_language_id: 5, target_language_id: 6 }
 Label_Duplicate:
-  data1: { label_id: '10' }
-  data2: { label_id: '11' }
+  data1: { label_id: '1' }
+  data2: { label_id: '2' }
