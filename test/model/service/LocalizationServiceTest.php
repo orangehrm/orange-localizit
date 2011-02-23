@@ -16,7 +16,6 @@
  * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA
  */
-
 /**
  * localization Service Test class
  *
@@ -54,7 +53,6 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
             $this->localizationDao->expects($this->once())
                     ->method('addLabel')
                     ->will($this->returnValue($label));
-            ;
 
             $this->locaizationService->setLocalizationDao($this->localizationDao);
 
@@ -78,5 +76,44 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
 
         $result = $this->locaizationService->getLanguageList();
         $this->assertTrue(true);
+    }
+
+    /**
+     * Test Generate Dictionary method
+     *
+     */
+    public function testGenerateDictionary() {
+
+        $lan = new Language();
+        $lan->setLanguageCode('en_US');
+        $lan->setLanguageId(1);
+        $lan->setLanguageName('English');
+        $lan->setLanguageStatus('');
+
+        $this->localizationDao = $this->getMock('LocalizationDao');
+
+        $this->localizationDao->expects($this->once())
+                ->method('getLanguageById')
+                ->will($this->returnValue($lan));
+
+        $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+        $result = $this->locaizationService->generateDictionary('1', '2', 'en_US');
+        $this->assertTrue($result);
+        $this->assertFileExists(sfConfig::get('sf_web_dir')."/language_files/messages.en_US.xml");
+    }
+
+    /**
+     * Test Generate Dictionary method
+     *
+     */
+    public function testDownloadDictionary() {
+
+        $result = $this->locaizationService->downloadDictionary(sfConfig::get('sf_web_dir')."/language_files/messages.en_US.xml");
+        $this->assertTrue($result);
+        $this->assertFileExists(sfConfig::get('sf_web_dir')."/language_files/messages.en_US.xml");
+
+        //deletes the test file
+        unlink(sfConfig::get('sf_web_dir')."/language_files/messages.en_US.xml");
     }
 }
