@@ -22,6 +22,12 @@ $(document).ready(function (){
         targetLanguageId=$('#languageList').val();
         generateDictionary('localization/generateDictionary', targetLanguageId);
     });
+
+    $('#downloadDictionary').click(function (){
+        $('#addLabelDiv').fadeOut(1000);
+        targetLanguageId=$('#languageList').val();
+        downloadDictionary('localization/downloadDictionary', targetLanguageId);
+    });
     $('#save').click(function (){
         targetLanguageId=$('#languageList').val();
         $('#target_language_selected_id').val(targetLanguageId);
@@ -82,6 +88,11 @@ function generateDictionary(url,targetLanguageId){
             jAlert('Sorry, Something get wrong!', 'Error');
         }
     });
+}
+
+function downloadDictionary(url,targetLanguageId){
+    url = url+"?targetLanguageId="+targetLanguageId;
+    document.location=url;
 }
 
 function submitForm(formId){

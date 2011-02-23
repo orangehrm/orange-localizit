@@ -101,6 +101,9 @@ XML;
             fclose($fh);
         }
 
+        if($request->getParameter('return') == 'download')
+            $this->redirect ('@download_dictionary?targetLanguageId='.$targetLanguageId);
+
         $this->setTemplate('index');
     }
 }
