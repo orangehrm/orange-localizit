@@ -1,4 +1,5 @@
 <?php ?>
+<span class="errorMsg"><?php echo $sf_user->getFlash('message'); ?></span>
 <table class="mainFrame mediumText">
     <tr class="mainRowWidth">
         <td class="tableIndexColumn">&nbsp;</td>
@@ -18,11 +19,12 @@
             <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />
             <input type="button" name="save" id="save" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" style="display: none;"/>
             <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />
-            <input type="button" name="downLoadDictionary" id="downLoadDictionary" class="button normalText" value="<?php echo __('download_dictionary', null, 'localizationMessages') ?>" /> </td>
+            <input type="button" name="downloadDictionary" id="downloadDictionary" class="button normalText" value="<?php echo __('download_dictionary', null, 'localizationMessages') ?>" /></td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
     </tr>
 </table>
+
 <div id="addLabelDiv" >
     <form action="<?php echo url_for('@add_label'); ?>" method="post" id="add_label_form" name="add_label_form">
         <?php echo $addLabelForm->renderHiddenFields(); ?>
