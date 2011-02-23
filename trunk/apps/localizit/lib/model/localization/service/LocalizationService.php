@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Orange-localizit  is a System that transalate text into a any language.
  * Copyright (C) 2011 Orange-localizit Inc., http://www.orange-localizit.com
@@ -23,15 +24,14 @@
  */
 class LocalizationService extends BaseService {
 
-    private $localizationDao ;
-
+    private $localizationDao;
 
     public function getLocalizationDao() {
         return $this->localizationDao;
     }
 
-    public function setLocalizationDao( LocalizationDao $locaizationDao) {
-        $this->localizationDao	=	$locaizationDao ;
+    public function setLocalizationDao(LocalizationDao $locaizationDao) {
+        $this->localizationDao = $locaizationDao;
     }
 
     /**
@@ -40,24 +40,21 @@ class LocalizationService extends BaseService {
      * @throws ServiceException
      * @return Label
      */
-    public function addLabel($labelName,$labelComment) {
+    public function addLabel($labelName, $labelComment) {
 
-        $localizationDao=$this->getLocalizationDao();
-        
+        $localizationDao = $this->getLocalizationDao();
+
         try {
-            $label=new Label();
+            $label = new Label();
             $label->setLabelName($labelName);
             $label->setLabelComment($labelComment);
             $label->setLabelStatus(sfConfig::get('app_status_enabled'));
 
             return $localizationDao->addLabel($label);
-
         } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(),$exc->getCode());
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
-
     }
-
 
     /**
      * Get label
@@ -66,11 +63,11 @@ class LocalizationService extends BaseService {
      * @return Label
      */
     public function getLabelByName($labelName) {
-        $localizationDao=$this->getLocalizationDao();
+        $localizationDao = $this->getLocalizationDao();
         try {
             return $localizationDao->getLabelByName($labelName);
         } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(),$exc->getCode());
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
@@ -81,12 +78,12 @@ class LocalizationService extends BaseService {
      * @throws DaoException
      */
     public function updateLabel(Label $label) {
-        $localizationDao=$this->getLocalizationDao();
+        $localizationDao = $this->getLocalizationDao();
         try {
             $localizationDao->updateLabel($label);
         } catch (Exception $exc) {
 
-            throw new ServiceException($exc->getMessage(),$exc->getCode());
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
@@ -96,13 +93,12 @@ class LocalizationService extends BaseService {
      * @return Label
      */
     public function getLanguageList() {
-        $localizationDao=$this->getLocalizationDao();
+        $localizationDao = $this->getLocalizationDao();
         try {
             return $localizationDao->getLanguageList();
         } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(),$exc->getCode());
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
-
     }
 
     /**
@@ -111,13 +107,12 @@ class LocalizationService extends BaseService {
      * @return Label
      */
     public function getLanguageByCode($languageCode) {
-        $localizationDao=$this->getLocalizationDao();
+        $localizationDao = $this->getLocalizationDao();
         try {
             return $localizationDao->getLanguageByCode($languageCode);
         } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(),$exc->getCode());
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
-
     }
 
     /**
@@ -126,13 +121,12 @@ class LocalizationService extends BaseService {
      * @return Label
      */
     public function getLanguageById($languageId) {
-        $localizationDao=$this->getLocalizationDao();
+        $localizationDao = $this->getLocalizationDao();
         try {
             return $localizationDao->getLanguageById($languageId);
         } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(),$exc->getCode());
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
-
     }
 
     /**
@@ -141,53 +135,49 @@ class LocalizationService extends BaseService {
      * @param string $languageCode
      * @return array
      */
-    public function getLabelAndLangDataSet($sourceLanguageId,$targetLanguageId) {
+    public function getLabelAndLangDataSet($sourceLanguageId, $targetLanguageId) {
 
-        $localizationDao=$this->getLocalizationDao();
-        $dataSet=array();
+        $localizationDao = $this->getLocalizationDao();
+        $dataSet = array();
         try {
-            $labelList=$localizationDao->getLabelList();
-            $languageLabelSet=$localizationDao->getLangStrBySrcAndTargetIds($sourceLanguageId,$targetLanguageId);
+            $labelList = $localizationDao->getLabelList();
+            $languageLabelSet = $localizationDao->getLangStrBySrcAndTargetIds($sourceLanguageId, $targetLanguageId);
 
-            if($labelList) {
+            if ($labelList) {
 
-                foreach($labelList as $label) {
+                foreach ($labelList as $label) {
 
 
 
-                    $dataRow[$label->getLabelId()]['label_id']=$label->getLabelId();
-                    $dataRow[$label->getLabelId()]['label_name']=$label->getLabelName();
+                    $dataRow[$label->getLabelId()]['label_id'] = $label->getLabelId();
+                    $dataRow[$label->getLabelId()]['label_name'] = $label->getLabelName();
 
-                    foreach($languageLabelSet as $languageLabel) {
+                    foreach ($languageLabelSet as $languageLabel) {
 
-                        if($languageLabel->getLanguageLabelStringStatus()==sfConfig::get('app_status_enabled')) {
+                        if ($languageLabel->getLanguageLabelStringStatus() == sfConfig::get('app_status_enabled')) {
 
-                            if($label->getLabelId()==$languageLabel->getLabelId()) {
+                            if ($label->getLabelId() == $languageLabel->getLabelId()) {
 
-                                if($sourceLanguageId==$languageLabel->getLanguageId()) {
+                                if ($sourceLanguageId == $languageLabel->getLanguageId()) {
 
-                                    $dataRow[$label->getLabelId()]['source_language_label_string_id']=$languageLabel->getLanguageLabelStringId();
-                                    $dataRow[$label->getLabelId()]['source_language_id']= $languageLabel->getLanguageId();
-                                    $dataRow[$label->getLabelId()]['source_language_label']= $languageLabel->getLanguageLabelString();
-                                    $dataRow[$label->getLabelId()]['comment']=$label->getLabelComment();
-
-                                }elseif($targetLanguageId==$languageLabel->getLanguageId()) {
-                                    $dataRow[$label->getLabelId()]['target_language_label_string_id']=$languageLabel->getLanguageLabelStringId();
-                                    $dataRow[$label->getLabelId()]['target_language_id']=$languageLabel->getLanguageId();
-                                    $dataRow[$label->getLabelId()]['target_language_label']=$languageLabel->getLanguageLabelString();
-
+                                    $dataRow[$label->getLabelId()]['source_language_label_string_id'] = $languageLabel->getLanguageLabelStringId();
+                                    $dataRow[$label->getLabelId()]['source_language_id'] = $languageLabel->getLanguageId();
+                                    $dataRow[$label->getLabelId()]['source_language_label'] = $languageLabel->getLanguageLabelString();
+                                    $dataRow[$label->getLabelId()]['comment'] = $label->getLabelComment();
+                                } elseif ($targetLanguageId == $languageLabel->getLanguageId()) {
+                                    $dataRow[$label->getLabelId()]['target_language_label_string_id'] = $languageLabel->getLanguageLabelStringId();
+                                    $dataRow[$label->getLabelId()]['target_language_id'] = $languageLabel->getLanguageId();
+                                    $dataRow[$label->getLabelId()]['target_language_label'] = $languageLabel->getLanguageLabelString();
                                 }
                             }
                         }
-
                     }
-                    $dataSet[$label->getLabelId()]=$dataRow;
+                    $dataSet[$label->getLabelId()] = $dataRow;
                 }
-
             }
             return $dataSet;
         } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(),$exc->getCode());
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
@@ -198,11 +188,11 @@ class LocalizationService extends BaseService {
      * @throws ServiceException
      */
     public function addLangStr(LanguageLabelString $lls) {
-        $localizationDao=$this->getLocalizationDao();
+        $localizationDao = $this->getLocalizationDao();
         try {
             return $localizationDao->addLangStr($lls);
-        } catch(Exception $exc) {
-            throw new ServiceException($exc->getMessage(),$exc->getCode());
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
@@ -213,11 +203,106 @@ class LocalizationService extends BaseService {
      * @throws ServiceException
      */
     public function updateLangStr(LanguageLabelString $lls) {
-        $localizationDao=$this->getLocalizationDao();
+        $localizationDao = $this->getLocalizationDao();
         try {
             return $localizationDao->updateLangStr($lls);
-        } catch(Exception $exc) {
-            throw new ServiceException($exc->getMessage(),$exc->getCode());
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    /**
+     * Generates Language Dictionary file in XML format
+     * @param $sourceLanguageId
+     * @param $targetLanguageId
+     * @param $sourceLanguageLabel
+     * @returns boolean
+     * @throws ServiceException
+     */
+    public function generateDictionary($sourceLanguageId, $targetLanguageId, $sourceLanguageLabel) {
+
+        try {
+
+            $targetLanguageLabel = $this->getLanguageById($targetLanguageId)->getLanguageCode();
+            $date = date('Y-m-d\TG:i:s\Z');
+
+            $xml_string = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+<header/>
+</xliff>
+XML;
+
+            $xml = new SimpleXMLElement($xml_string);
+
+            $languageLabelDataSet = $this->getLabelAndLangDataSet($sourceLanguageId, $targetLanguageId);
+
+            $cont = 1; // loop counter
+            $file = $xml->addChild('file');
+            $file->addAttribute('source-language', $sourceLanguageLabel);
+            $file->addAttribute('target-language', $targetLanguageLabel);
+            $file->addAttribute('datatype', 'plaintext');
+            $file->addAttribute('original', 'messages');
+            $file->addAttribute('date', $date);
+            $file->addAttribute('product-name', 'messages');
+
+            $body = $file->addChild('body');
+
+            foreach ($languageLabelDataSet as $labelId => $languageLabelData) {
+                $labelInnerData = $languageLabelData[$labelId];
+
+                $transunit = $body->addChild('trans-unit');
+                $transunit->addAttribute('id', $cont);
+                $transunit->addChild('source', $labelInnerData['source_language_label']);
+                $transunit->addChild('target', $labelInnerData['target_language_label']);
+                $cont++;
+            }
+
+            //$xml->asXML('test_file.xml');
+            $dom = new DOMDocument('1.0');
+            $dom->preserveWhiteSpace = false;
+            $dom->formatOutput = true;
+            $dom->loadXML($xml->asXML());
+            //echo $dom->saveXML();
+
+            $myFile = "language_files/messages." . $targetLanguageLabel . ".xml";
+            $fh = fopen($myFile, 'w') or die("can't open file");
+            fwrite($fh, $dom->saveXML());
+            fclose($fh);
+
+            return TRUE;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    /**
+     * Download Language Dictionary file
+     * @param $file
+     * @returns boolean
+     * @throws ServiceException
+     */
+    public function downloadDictionary($file) {
+
+        try {
+            //file headers --
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename=' . basename($file));
+            header('Content-Transfer-Encoding: binary');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($file));
+
+            ob_clean();
+            flush();
+            readfile($file);
+
+            return TRUE;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
