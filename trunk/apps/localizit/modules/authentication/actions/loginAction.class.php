@@ -32,14 +32,15 @@ class loginAction extends sfAction {
         $this->signInForm = new SignInForm();
 
         if ($request->isMethod(sfRequest::POST)) {
-            $this->signInForm->bind($request->getParameter('sign_in'));
+            $this->signInForm->bind($request->getParameter($this->signInForm->getName()));
             if ($this->signInForm->isValid()) {
+
                 // Create Sessions
                 $this->getUser()->setAuthenticated(true);
                 $this->getUser()->addCredential('user');
 
-                $sign_in = $request->getParameter('sign_in');
-                $this->getUser()->setAttribute('username', $sign_in['login_name']);
+                $signIn = $request->getParameter($this->signInForm->getName());
+                $this->getUser()->setAttribute('username', $signIn['login_name']);
 
                 $this->redirect('@homepage');
             }
