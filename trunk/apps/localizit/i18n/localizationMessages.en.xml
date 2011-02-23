@@ -54,6 +54,11 @@
                 <source>logout</source>
                 <target>Logout</target>
             </trans-unit>
+            <trans-unit id="14">
+                <source>download_dictionary</source>
+                <target>Download Dictionary</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

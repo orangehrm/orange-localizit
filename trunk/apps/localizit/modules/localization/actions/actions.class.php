@@ -1,14 +1,13 @@
 <?php
 /**
- * OrangeHRM is a comprehensive Human Resource Management (HRM) System that captures
- * all the essential functionalities required for any enterprise.
- * Copyright (C) 2006 OrangeHRM Inc., http://www.orangehrm.com
+ * Orange-localizit  is a System that transalate text into a any language.
+ * Copyright (C) 2006 Orange-localizit Inc., http://www.orange-localizit.com
  *
- * OrangeHRM is free software; you can redistribute it and/or modify it under the terms of
+ * Orange-localizit is free software; you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation; either
  * version 2 of the License, or (at your option) any later version.
  *
- * OrangeHRM is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * Orange-localizit is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU General Public License for more details.
  *
@@ -16,6 +15,7 @@
  * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA
  */
+
 
 /**
  * Actions class for localization module
@@ -47,6 +47,10 @@ class localizationActions extends sfActions {
         }
         
     }
+    /**
+     *  Index Method.
+     * @param sfWebRequest $request
+     */
     public function executeIndex(sfWebRequest $request) {
 
         if($request->isMethod(sfRequest::POST)) {
@@ -108,6 +112,10 @@ class localizationActions extends sfActions {
 
     }
 
+    /**
+     *  Add Label Method
+     * @param sfWebRequest $request 
+     */
     public function executeAddLabel(sfWebRequest $request) {
         $localizationService=$this->getLocalizeService();
         $this->addLabelForm =  new LabelForm($localizationService);
@@ -124,6 +132,11 @@ class localizationActions extends sfActions {
         $this->sourceLanguageLabel=$this->getUser()->getCulture();
         $this->setTemplate('index');
     }
+    
+    /**
+     *  Language Label Data set method.
+     * @param sfWebRequest $request 
+     */
 
     public function executeLanguageLabelDataSet(sfWebRequest $request) {
         $localizationService=$this->getLocalizeService();
@@ -136,6 +149,10 @@ class localizationActions extends sfActions {
         $this->languageLabelDataSet=$localizationService->getLabelAndLangDataSet($sourceLanguageId,$targetLanguageId);
     }
 
+    /**
+     * Edit Language Label Data Method.
+     * @param sfWebRequest $request 
+     */
     public function executeEditLanguageLabelData(sfWebRequest $request) {
         $localizationService=$this->getLocalizeService();
 

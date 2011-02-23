@@ -1,18 +1,21 @@
 <?php if($languageLabelDataSet) {?>
 <form method="post" name="editLanguageLabelList" action="<?php echo url_for('localization/index');?>" id="editLanguageLabelList">
-    <table class="mainFrame">
+    <table class="mainFrame  mediumText">
         <thead>
             <tr>
+                <td>&nbsp;</td>
                 <td>Label</td>
                 <td>Source Language (<?php echo $sourceLanguageLabel?>)</td>
                 <td>Target Language (<?php echo $targetLanguageLabel?>)</td>
                 <td>Comments</td>
+                <td>&nbsp;</td>
             </tr>
         </thead>
         <tbody>
                 <?php foreach ($languageLabelDataSet as $labelId=>$languageLabelData) { ?>
                     <?php $labelInnerData=$languageLabelData->get($labelId);?>
             <tr>
+                <td>&nbsp;</td>
                 <td>
                     <input type="text" name="label_name[]" value="<?php echo isset($labelInnerData['label_name'])?$labelInnerData['label_name']:null ?>"/>
                     <input type="hidden" name="label_id[]" value="<?php echo isset($labelInnerData['label_id'])?$labelInnerData['label_id']:null ?>"/>
@@ -26,6 +29,7 @@
                     <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id'])?$labelInnerData['target_language_label_string_id']:null ?>"/>                    
                 </td>
                 <td><input type="text" name="label_comment[]" value="<?php echo isset($labelInnerData['comment'])?$labelInnerData['comment']:null ?>"/></td>
+                <td>&nbsp;</td>
             </tr>
                     <?php }?>
         </tbody>

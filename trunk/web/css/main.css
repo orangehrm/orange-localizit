@@ -144,3 +144,17 @@ tfoot td {
 .menuBackground {
     background: #ebf8a3;
 }
+
+.mainRowWidth{
+    width: 100%;
+}
+.tableColumnWidth {
+    width: 45%;
+}
+.tableIndexColumn {
+    width: 5%;
+}
+.button{
+    font-weight: bold;
+    color: #336633;
+}
