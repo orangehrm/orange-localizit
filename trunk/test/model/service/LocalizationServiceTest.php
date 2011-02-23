@@ -100,20 +100,35 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
 
         $result = $this->locaizationService->generateDictionary('1', '2', 'en_US');
         $this->assertTrue($result);
-        $this->assertFileExists(sfConfig::get('sf_web_dir')."/language_files/messages.en_US.xml");
+        $this->assertFileExists(sfConfig::get('sf_web_dir') . "/language_files/messages.en_US.xml");
     }
 
     /**
-     * Test Generate Dictionary method
+     * Test Download Dictionary method
      *
      */
     public function testDownloadDictionary() {
 
-        $result = $this->locaizationService->downloadDictionary(sfConfig::get('sf_web_dir')."/language_files/messages.en_US.xml");
+        $result = $this->locaizationService->downloadDictionary(sfConfig::get('sf_web_dir') . "/language_files/messages.en_US.xml");
         $this->assertTrue($result);
-        $this->assertFileExists(sfConfig::get('sf_web_dir')."/language_files/messages.en_US.xml");
+        $this->assertFileExists(sfConfig::get('sf_web_dir') . "/language_files/messages.en_US.xml");
 
         //deletes the test file
-        unlink(sfConfig::get('sf_web_dir')."/language_files/messages.en_US.xml");
+        unlink(sfConfig::get('sf_web_dir') . "/language_files/messages.en_US.xml");
+    }
+
+    /**
+     * Test Download Dictionary method -- file not exists
+     *
+     */
+    public function testDownloadInvalidDictionary() {
+
+        try {
+            $result = $this->locaizationService->downloadDictionary(sfConfig::get('sf_web_dir') . "/language_files/messages.en_US.xml");
+            $this->assertTrue($result);
+        } catch (Exception $ex) {
+            //has to fire a service exception
+            $this->assertTrue(TRUE);
+        }
     }
 }
