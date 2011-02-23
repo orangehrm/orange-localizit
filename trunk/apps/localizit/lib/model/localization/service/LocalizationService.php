@@ -266,8 +266,8 @@ XML;
             $dom->loadXML($xml->asXML());
             //echo $dom->saveXML();
 
-            $myFile = "language_files/messages." . $targetLanguageLabel . ".xml";
-            $fh = fopen($myFile, 'w') or die("can't open file");
+            $languageFile = sfConfig::get('sf_web_dir')."/language_files/messages." . $targetLanguageLabel . ".xml";
+            $fh = fopen($languageFile, 'w') or die("can't open file");
             fwrite($fh, $dom->saveXML());
             fclose($fh);
 
