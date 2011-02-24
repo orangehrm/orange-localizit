@@ -23,29 +23,34 @@
  * @author waruni
  */
 class loginAction extends sfAction {
-  
+
     /**
      * Login Method. If user provides valid username and password , create a session.
      * @param <type> $request 
      */
     public function execute($request) {
-        $this->signInForm = new SignInForm();
 
-        if ($request->isMethod(sfRequest::POST)) {
-            $this->signInForm->bind($request->getParameter($this->signInForm->getName()));
-            if ($this->signInForm->isValid()) {
+        if (!$this->getUser()->isAuthenticated()) {
+            $this->signInForm = new SignInForm();
 
-                // Create Sessions
-                $this->getUser()->setAuthenticated(true);
-                $this->getUser()->addCredential('user');
+            if ($request->isMethod(sfRequest::POST)) {
+                $this->signInForm->bind($request->getParameter($this->signInForm->getName()));
+                if ($this->signInForm->isValid()) {
 
-                $signIn = $request->getParameter($this->signInForm->getName());
-                $this->getUser()->setAttribute('username', $signIn['login_name']);
+                    // Create Sessions
+                    $this->getUser()->setAuthenticated(true);
+                    $this->getUser()->addCredential('user');
 
-                $this->redirect('@homepage');
+                    $signIn = $request->getParameter($this->signInForm->getName());
+                    $this->getUser()->setAttribute('username', $signIn['login_name']);
+
+                    $this->redirect('@homepage');
+                }
             }
+        } else {
+            $this->redirect('@homepage');
         }
+        
         $this->setTemplate('index');
     }
 }
-
