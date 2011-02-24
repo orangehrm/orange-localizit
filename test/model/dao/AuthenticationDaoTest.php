@@ -16,16 +16,14 @@
  * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA
  */
-
 /**
  * Authentication Dao Test class
  *
  * @author Chameera S
  */
-
 require_once 'PHPUnit/Framework.php';
 
-class AuthenticationDaoTest  extends  PHPUnit_Framework_TestCase {
+class AuthenticationDaoTest extends PHPUnit_Framework_TestCase {
 
     private $testCases;
     private $authenticationDao;
@@ -35,11 +33,10 @@ class AuthenticationDaoTest  extends  PHPUnit_Framework_TestCase {
      */
     public function setup() {
 
-        $configuration 		= ProjectConfiguration::getApplicationConfiguration('localizit', 'test', true);
-        $this->testCases 	= sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
-        $this->authenticationDao	=	new AuthenticationDao();
-        TestDataService::populate (sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
-
+        $configuration = ProjectConfiguration::getApplicationConfiguration('localizit', 'test', true);
+        $this->testCases = sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
+        $this->authenticationDao = new AuthenticationDao();
+        TestDataService::populate(sfConfig::get('sf_test_dir') . '/fixtures/authentication/authentication.yml');
     }
 
     /**
@@ -47,9 +44,9 @@ class AuthenticationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testGetUserByName() {
-        foreach ($this->testCases['User'] as $key=>$testCase) {
-            $result	=	$this->authenticationDao->getUserByName( $testCase['login_name'] );
-            
+        foreach ($this->testCases['User'] as $key => $testCase) {
+            $result = $this->authenticationDao->getUserByName($testCase['login_name']);
+
             $this->assertTrue($result instanceof User);
 
             //check passwords
@@ -62,17 +59,17 @@ class AuthenticationDaoTest  extends  PHPUnit_Framework_TestCase {
      *
      */
     public function testGetUserByNullName() {
-            $result	=	$this->authenticationDao->getUserByName();
-            $this->assertFalse($result);
+        $result = $this->authenticationDao->getUserByName();
+        $this->assertFalse($result);
     }
-    
 
     /**
      * Test Get User By not exist User Name
      *
      */
     public function testGetUserByInvalidName() {
-            $result	=	$this->authenticationDao->getUserByName('invalid_user');
-            $this->assertFalse($result);
+        $result = $this->authenticationDao->getUserByName('invalid_user');
+        $this->assertFalse($result);
     }
+
 }

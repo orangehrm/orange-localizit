@@ -4,10 +4,10 @@
     <thead>
         <tr>
             <td>&nbsp;</td>
-            <td>Label</td>
-            <td>Source Language (<?php echo $sourceLanguageLabel?>)</td>
-            <td>Target Language (<?php echo $targetLanguageLabel?>)</td>
-            <td>Comments</td>
+            <td class="boldText">Label</td>
+            <td class="boldText">Source Language (<?php echo $sourceLanguageLabel?>)</td>
+            <td class="boldText">Target Language (<?php echo $targetLanguageLabel?>)</td>
+            <td class="boldText">Comments</td>
             <td>&nbsp;</td>
         </tr>
     </thead>
