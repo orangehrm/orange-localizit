@@ -65,6 +65,15 @@ class AllTests {
             $coredir->next();
         }
 
+        // execute dao unit tests
+    	$coredirdao = new DirectoryIterator(dirname(__FILE__). '/model/dao/');
+        while ($coredirdao->valid()) {
+            if (strpos( $coredirdao, 'Test.php' ) !== false) {
+                $suite->addTestFile(  dirname(__FILE__). '/model/dao/'. $coredirdao );
+            }
+            $coredirdao->next();
+        }
+
         return $suite;
     }
     public static function main()

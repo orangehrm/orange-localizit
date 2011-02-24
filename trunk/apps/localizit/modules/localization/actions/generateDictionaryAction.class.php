@@ -2,7 +2,7 @@
 
 /**
  * Orange-localizit  is a System that transalate text into a any language.
- * Copyright (C) 2006 Orange-localizit Inc., http://www.orange-localizit.com
+ * Copyright (C) 2011 Orange-localizit Inc., http://www.orange-localizit.com
  *
  * Orange-localizit is free software; you can redistribute it and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation; either
