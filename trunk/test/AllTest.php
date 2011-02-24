@@ -56,6 +56,15 @@ class AllTests {
     {
         $suite = new PHPUnit_Framework_TestSuite('PHPUnit');
 
+    	// execute functional unit tests
+    	/*$coredirfunc = new DirectoryIterator(dirname(__FILE__). '/functional/localizit/');
+        while ($coredirfunc->valid()) {
+            if (strpos( $coredirfunc, 'Test.php' ) !== false) {
+                $suite->addTestFile(  dirname(__FILE__). '/functional/localizit/'. $coredirfunc );
+            }
+            $coredirfunc->next();
+        }*/
+        
     	// execute service unit tests
     	$coredir = new DirectoryIterator(dirname(__FILE__). '/model/service/');
         while ($coredir->valid()) {
