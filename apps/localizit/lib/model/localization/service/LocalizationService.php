@@ -305,5 +305,4 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-
 }
