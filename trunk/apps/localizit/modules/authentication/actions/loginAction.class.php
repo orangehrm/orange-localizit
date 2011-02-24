@@ -26,7 +26,7 @@ class loginAction extends sfAction {
 
     /**
      * Login Method. If user provides valid username and password , create a session.
-     * @param <type> $request 
+     * @param <type> $request
      */
     public function execute($request) {
 
@@ -42,7 +42,7 @@ class loginAction extends sfAction {
                     $this->getUser()->addCredential('user');
 
                     $signIn = $request->getParameter($this->signInForm->getName());
-                    $this->getUser()->setAttribute('username', $signIn['login_name']);
+                    $this->getUser()->setAttribute('username', $signIn['loginName']);
 
                     $this->redirect('@homepage');
                 }
@@ -50,7 +50,7 @@ class loginAction extends sfAction {
         } else {
             $this->redirect('@homepage');
         }
-        
+
         $this->setTemplate('index');
     }
 }

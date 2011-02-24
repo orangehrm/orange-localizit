@@ -54,12 +54,12 @@ class SignInForm extends BaseUserForm {
     public function configure() {
 
         $this->setWidgets(array(
-            'login_name' => new sfWidgetFormInputText(),
+            'loginName' => new sfWidgetFormInputText(),
             'password' => new sfWidgetFormInputPassword()
         ));
         $this->widgetSchema->setNameFormat('sign_in[%s]');
         $this->setValidators(array(
-            'login_name' => new sfValidatorString(array(), array('required' => 'Username is required')),
+            'loginName' => new sfValidatorString(array(), array('required' => 'Username is required')),
             'password' => new sfValidatorString(array(), array('required' => 'Password is required'))
         ));
         $post_validator = new sfValidatorAnd();
@@ -76,8 +76,8 @@ class SignInForm extends BaseUserForm {
      */
     public function checkUserExists($validator, $values) {
 
-        if (!empty($values['login_name']) && !empty($values['password'])) {
-            $existingUser = $this->authenticationService->getUserByName($values['login_name']);
+        if (!empty($values['loginName']) && !empty($values['password'])) {
+            $existingUser = $this->authenticationService->getUserByName($values['loginName']);
 
             if ($existingUser['password'] != md5($values['password'])) {
                 throw new sfValidatorError($validator, 'Invalid login');
