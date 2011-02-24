@@ -463,6 +463,7 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
             $this->assertTrue($result);
         } catch (Exception $ex) {
             //has to fire a service exception
+            return;
         }
 
         $this->fail('An expected exception has not been raised.');
