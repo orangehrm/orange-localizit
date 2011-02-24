@@ -138,7 +138,6 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
 
     /**
      * Test Get Language List
-     *
      */
     public function testGetLanguageListl() {
         $this->localizationDao = $this->getMock('LocalizationDao');
@@ -457,7 +456,6 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
      *
      */
     public function testDownloadInvalidDictionary() {
-
         try {
             $result = $this->locaizationService->downloadDictionary(sfConfig::get('sf_web_dir') . "/language_files/messages.en_US.xml");
             $this->assertTrue($result);
@@ -465,7 +463,6 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
             //has to fire a service exception
             return;
         }
-
         $this->fail('An expected exception has not been raised.');
     }
 }

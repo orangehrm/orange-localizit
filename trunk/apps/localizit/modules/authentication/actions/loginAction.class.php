@@ -50,7 +50,6 @@ class loginAction extends sfAction {
         } else {
             $this->redirect('@homepage');
         }
-
         $this->setTemplate('index');
     }
 }

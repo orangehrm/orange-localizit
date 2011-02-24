@@ -37,6 +37,7 @@ th, td {
     vertical-align: top;
     border-top: #CCCCCC 1px dotted;
     border-left: #CCCCCC 1px dotted;
+    border-right: #CCCCCC 1px dotted;
 }
 
 /* borders to separate body sections */
