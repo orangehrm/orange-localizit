@@ -72,4 +72,19 @@ class AuthenticationDaoTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($result);
     }
 
+    /**
+     * Test Get User By Name
+     *
+     */
+    public function testGetUserByNameEx() {
+
+        try {
+            $illegal = array('%', '-', '.');
+            $result = $this->authenticationDao->getUserByName($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
 }
