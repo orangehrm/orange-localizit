@@ -119,47 +119,4 @@ class TestDataService {
             return self::$dbConnection;
         }
     }
-
-    public static function truncateTables($aliasArray) {
-
-        foreach ($aliasArray as $alias) {
-            self::$tableNames[] = Doctrine::getTable($alias)->getTableName();
-        }
-
-        self::_truncateTables();
-    }
-
-    public static function fetchLastInsertedRecords($alias, $count) {
-
-        $wholeCount = Doctrine::getTable($alias)->findAll()->count();
-        $offset = $wholeCount - $count;
-
-        $q = Doctrine_Query::create()
-                        ->from("$alias a")
-                        ->offset($offset)
-                        ->limit($count);
-
-        return $q->execute();
-    }
-
-    public static function fetchObject($alias, $primaryKey) {
-
-        return Doctrine::getTable($alias)->find($primaryKey);
-    }
-
-    public static function loadObjectList($alias, $fixture, $key) {
-
-        $objectList = array();
-        $data = sfYaml::load($fixture);
-
-        foreach ($data[$key] as $row) {
-            $object = new $alias;
-            $object->fromArray($row);
-            $objectList[] = $object;
-        }
-
-        return $objectList;
-    }
-
 }
-
