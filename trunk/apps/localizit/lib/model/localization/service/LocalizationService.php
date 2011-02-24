@@ -50,7 +50,8 @@ class LocalizationService extends BaseService {
             $label->setLabelComment($labelComment);
             $label->setLabelStatus(sfConfig::get('app_status_enabled'));
 
-            return $localizationDao->addLabel($label);
+            $res = $localizationDao->addLabel($label);
+            return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -65,7 +66,8 @@ class LocalizationService extends BaseService {
     public function getLabelByName($labelName) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            return $localizationDao->getLabelByName($labelName);
+            $res = $localizationDao->getLabelByName($labelName);
+            return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -80,7 +82,8 @@ class LocalizationService extends BaseService {
     public function updateLabel(Label $label) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            return $localizationDao->updateLabel($label);
+            $res = $localizationDao->updateLabel($label);
+            return $res;
         } catch (Exception $exc) {
 
             throw new ServiceException($exc->getMessage(), $exc->getCode());
@@ -95,7 +98,8 @@ class LocalizationService extends BaseService {
     public function getLanguageList() {
         $localizationDao = $this->getLocalizationDao();
         try {
-            return $localizationDao->getLanguageList();
+            $res = $localizationDao->getLanguageList();
+            return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -109,7 +113,8 @@ class LocalizationService extends BaseService {
     public function getLanguageByCode($languageCode) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            return $localizationDao->getLanguageByCode($languageCode);
+            $res = $localizationDao->getLanguageByCode($languageCode);
+            return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -123,7 +128,8 @@ class LocalizationService extends BaseService {
     public function getLanguageById($languageId) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            return $localizationDao->getLanguageById($languageId);
+            $res = $localizationDao->getLanguageById($languageId);
+            return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -190,7 +196,8 @@ class LocalizationService extends BaseService {
     public function addLangStr(LanguageLabelString $lls) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            return $localizationDao->addLangStr($lls);
+            $res = $localizationDao->addLangStr($lls);
+            return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -205,7 +212,8 @@ class LocalizationService extends BaseService {
     public function updateLangStr(LanguageLabelString $lls) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            return $localizationDao->updateLangStr($lls);
+            $res = $localizationDao->updateLangStr($lls);
+            return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -226,7 +234,7 @@ class LocalizationService extends BaseService {
             $targetLanguageLabel = $this->getLanguageById($targetLanguageId)->getLanguageCode();
             $date = date('Y-m-d\TG:i:s\Z');
 
-            $xml_string = <<<XML
+            $xmlString = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
@@ -234,7 +242,7 @@ class LocalizationService extends BaseService {
 </xliff>
 XML;
 
-            $xml = new SimpleXMLElement($xml_string);
+            $xml = new SimpleXMLElement($xmlString);
 
             $languageLabelDataSet = $this->getLabelAndLangDataSet($sourceLanguageId, $targetLanguageId);
 
@@ -259,16 +267,9 @@ XML;
                 $cont++;
             }
 
-            //$xml->asXML('test_file.xml');
-            $dom = new DOMDocument('1.0');
-            $dom->preserveWhiteSpace = false;
-            $dom->formatOutput = true;
-            $dom->loadXML($xml->asXML());
-            //echo $dom->saveXML();
-
             $languageFile = sfConfig::get('sf_web_dir')."/language_files/messages." . $targetLanguageLabel . ".xml";
             $fh = fopen($languageFile, 'w') or die("can't open file");
-            fwrite($fh, $dom->saveXML());
+            $out = fwrite($fh, $xml->saveXML());
             fclose($fh);
 
             return TRUE;
