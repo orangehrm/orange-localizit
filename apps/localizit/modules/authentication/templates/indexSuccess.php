@@ -15,14 +15,14 @@
             }?>
             <tr>
                 <td>
-                    <?php echo $signInForm['login_name']->renderLabel( __('username', null, 'authenticationMessages')) ?>
+                    <?php echo $signInForm['loginName']->renderLabel( __('username', null, 'authenticationMessages')) ?>
                 </td>
                 <td>
-                    <?php echo $signInForm['login_name']->render() ?>
+                    <?php echo $signInForm['loginName']->render() ?>
                 </td>
-                <?php if ($signInForm['login_name']->hasError()) { ?>
+                <?php if ($signInForm['loginName']->hasError()) { ?>
                 <td class="errorMsg">
-                      <?php echo $signInForm['login_name']->renderError() ?>
+                      <?php echo $signInForm['loginName']->renderError() ?>
                 </td>
                 <?php } ?>
             </tr>
