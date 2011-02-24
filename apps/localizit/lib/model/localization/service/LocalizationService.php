@@ -80,7 +80,7 @@ class LocalizationService extends BaseService {
     public function updateLabel(Label $label) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $localizationDao->updateLabel($label);
+            return $localizationDao->updateLabel($label);
         } catch (Exception $exc) {
 
             throw new ServiceException($exc->getMessage(), $exc->getCode());
