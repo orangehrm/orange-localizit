@@ -16,8 +16,6 @@
  * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA
  */
-
-
 /**
  * localization Dao Test class
  *
@@ -59,29 +57,27 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Test Save Label - Negative
-     *  Try to save duplicate label
+     * Test Save Label
+     *
      */
-    public function testAddLabelNegative() {
+    public function testAddLabelEx() {
         try {
             $label = new Label();
-            $label->setLabelId(-1);
-            $label->setLabelName('test_2');
-            $label->setLabelComment('test_2');
-            $label->setLabelStatus('test_2');
+            $label->setLabelId(1);
+            $label->setLabelName('test_1');
+            $label->setLabelComment('test_1');
+            $label->setLabelStatus('test_1');
 
             $labelCreated = $this->localizationDao->addLabel($label);
-
-            //If success fully inserted, then that's a failure.
-            $this->assertTrue(false);
         } catch (Exception $ex) {
-            //Must throw an error
-            $this->assertTrue(true);
+            return;
         }
+
+        $this->fail('An expected exception has not been raised.');
     }
 
     /**
-     * Test Upsate Label
+     * Test Update Label
      *
      */
     public function testUpdateLabel() {
@@ -97,6 +93,27 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(($labelUpdated === true) || ($labelCreated === false));
 
         $this->assertEquals($this->localizationDao->getLabelById(1)->getLabelName(), 'test_up');
+    }
+
+    /**
+     * Test Update Label
+     *
+     */
+    public function testUpdateLabelEx() {
+
+        try {
+            $label = new Label();
+            $label->setLabelId(1);
+            $label->setLabelName(new Label());
+            $label->setLabelComment(NULL);
+            $label->setLabelStatus(NULL);
+
+            $labelUpdated = $this->localizationDao->updateLabel($label);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
     }
 
     /**
@@ -121,6 +138,22 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Get Label By Id
+     *
+     */
+    public function testGetLabelByIdEx() {
+
+        try {
+            $illegal = array('%', '-', '.');
+            $labelUpdated = $this->localizationDao->getLabelById($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
      * Test Get Label By Id - Negative
      * Try to retrive unavailable label
      */
@@ -139,6 +172,22 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
             $this->assertTrue($result instanceof Label);
             $this->assertEquals($result->getLabelId(), $testCase['label_id']);
         }
+    }
+
+    /**
+     * Test Get Label By Name
+     *
+     */
+    public function testGetLabelByNameEx() {
+
+        try {
+            $illegal = array('%', '-', '.');
+            $labelUpdated = $this->localizationDao->getLabelByName($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
     }
 
     /**
@@ -172,6 +221,22 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Get Language By Id
+     *
+     */
+    public function testGetLanguagelByIdEx() {
+
+        try {
+            $illegal = array('%', '-', '.');
+            $labelUpdated = $this->localizationDao->getLanguageById($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
      * Test Get Language By Id - Negative
      *  Try to retrive unavailable languages
      */
@@ -181,7 +246,7 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Test Get Language List
+     * Test Get Language by code
      *
      */
     public function testGetLanguagelByCode() {
@@ -191,6 +256,22 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
             $this->assertEquals($result->getLanguageName(), $testCase['language_name']);
             $this->assertEquals($result->getLanguageId(), $testCase['language_id']);
         }
+    }
+
+    /**
+     * Test Get Language by code
+     *
+     */
+    public function testGetLanguagelByCodeEx() {
+
+        try {
+            $illegal = array('%', '-', '.');
+            $labelUpdated = $this->localizationDao->getLanguageByCode($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
     }
 
     /**
@@ -220,32 +301,29 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Test Add language string - Negative
-     *  Trying to create a language string with same Label Id + Language Id + Language String
+     * Test Add language string
+     *
      */
-    public function testAddLanStrNegative() {
-        foreach ($this->testCases['LanguageLabelString'] as $key => $testCase) {
+    public function testAddLanStrEx() {
 
-            try {
-                $languageLabelString = new LanguageLabelString();
-                $languageLabelString->setLabelId($this->testCases['Label'][$key]['label_id']);
-                $languageLabelString->setLanguageId($this->testCases['Language']['data1']['language_id']);
-                $languageLabelString->setLanguageLabelString($testCase['language_label_string']);
-                $languageLabelString->setLanguageLabelStringStatus($testCase['language_label_string_status']);
+        try {
+            $languageLabelString = new LanguageLabelString();
+            $languageLabelString->setLanguageLabelStringId(1);
+            $languageLabelString->setLabelId(3);
+            $languageLabelString->setLanguageId(3);
+            $languageLabelString->setLanguageLabelString('language_label_string');
+            $languageLabelString->setLanguageLabelStringStatus('language_label_string_status');
 
-                $this->localizationDao->addLangStr($languageLabelString);
-                //Label Id + Language Id + Language String must be uniq.
-                //This should not get inserted
-                $this->assertTrue(false);
-            } catch (Exception $ex) {
-                //This error must occures
-                $this->assertTrue(true);
-            }
+            $languageLabelStringCreated = $this->localizationDao->addLangStr($languageLabelString);
+        } catch (Exception $ex) {
+            return;
         }
+
+        $this->fail('An expected exception has not been raised.');
     }
 
     /**
-     * Test Add language string
+     * Test update language string
      *
      */
     public function testUpdateLanStr() {
@@ -263,6 +341,28 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test update language string
+     *
+     */
+    public function testUpdateLanStrEx() {
+
+        try {
+            $languageLabelString = new LanguageLabelString(NULL);
+            $languageLabelString->setLanguageLabelStringId(NULL);
+            $languageLabelString->setLabelId(NULL);
+            $languageLabelString->setLanguageId(NULL);
+            $languageLabelString->setLanguageLabelString(NULL);
+            $languageLabelString->setLanguageLabelStringStatus(NULL);
+
+            $languageLabelStringCreated = $this->localizationDao->updateLangStr($languageLabelString);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
      * Test Get language string list by source and target Language Id
      *
      */
@@ -272,5 +372,21 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
                             getLangStrBySrcAndTargetIds($testCase['source_language_id'], $testCase['target_language_id']);
             $this->assertTrue(($result instanceof Doctrine_Collection) || ($result->count() == false));
         }
+    }
+
+     /**
+     * Test Get language string list by source and target Language Id
+     *
+     */
+    public function testGetLangStrBySrcAndTargetIdsEx() {
+
+        try {
+            $illegal = array('%', '-', '.');
+            $labelUpdated = $this->localizationDao->getLangStrBySrcAndTargetIds($illegal,$illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
     }
 }
