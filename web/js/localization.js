@@ -106,8 +106,10 @@ function getWordCount(taObj,oldHtmlId,newHtmlId){
     if(objVal.length > 5) {
         $('#'+oldHtmlId).css('display', 'none');
         $('#'+newHtmlId).css('display', 'block');
-        $('#'+newHtmlId).val($('#editSourceLang').val());
+        $('#'+newHtmlId).val($('#'+oldHtmlId).val());
         $('#'+oldHtmlId).remove();
+    } else {
+        $('#'+newHtmlId).remove();
     }
 
 }

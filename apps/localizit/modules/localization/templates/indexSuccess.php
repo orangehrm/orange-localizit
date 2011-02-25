@@ -4,23 +4,23 @@
         <span class="errorMsg"><?php echo $sf_user->getFlash('message'); ?></span>
         <table class="mainFrame mediumText">
             <tr class="mainRowWidth">
-                <td class="tableColumnWidth removeLeftDotLine"><?php echo __('source_language', null, 'localizationMessages') ?></td>
-                <td class="tableColumnWidth"><?php echo $sourceLanguageLabel; ?></td>
+                <td class="tableColumnWidth"><?php echo __('source_language', null, 'localizationMessages') ?></td>
+                <td class="tableColumnWidth addDotLinetoRight"><?php echo $sourceLanguageLabel; ?></td>
             </tr>
             <tr>
-                <td class="removeLeftDotLine"><?php echo __('target_language', null, 'localizationMessages') ?></td>
-                <td><?php include_component('localization', 'LanguageList'); ?></td>
+                <td class=""><?php echo __('target_language', null, 'localizationMessages') ?></td>
+                <td class="addDotLinetoRight"><?php include_component('localization', 'LanguageList'); ?></td>
             </tr>
+            <table class="mainFrame">
             <tr>
-                <td class="removeLeftDotLine"><input type="button" name="add" id="add" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" />
-                    <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />
+                <td ><input type="button" name="add" id="add" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" />&nbsp;
+                    <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />&nbsp;
                     <input type="button" name="save" id="save" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" style="display: none;"/>
-                </td>
-                <td>
-                    <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />
+                     <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />&nbsp;
                     <input type="button" name="downloadDictionary" id="downloadDictionary" class="button normalText" value="<?php echo __('download_dictionary', null, 'localizationMessages') ?>" />
                 </td>
             </tr>
+            </table>
         </table>
     </div>
 </div>
