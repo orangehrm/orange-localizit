@@ -352,6 +352,29 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Get Language by id
+     *
+     */
+    public function testGetLanguageByIdEx() {
+
+        try {
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('getLanguageById')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->getLanguageById('lang_id');
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
      * Test Get Label And Lang Data Set
      *
      */
@@ -442,6 +465,29 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Get Label And Lang Data Set
+     *
+     */
+    public function testGetLabelAndLangDataSetEx() {
+
+        try {
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('getLangStrBySrcAndTargetIds')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->getLabelAndLangDataSet('s_lang_id', 't_lang_id');
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
      * Test Add Language String
      *
      */
@@ -469,6 +515,29 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Add Language String
+     *
+     */
+    public function testAddLangStrEx() {
+
+        try {
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('addLangStr')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->addLangStr(new LanguageLabelString());
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
      * Test update Language String function
      *
      */
@@ -492,6 +561,29 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
             $result = $this->locaizationService->updateLangStr($langStr);
             $this->assertTrue($result);
         }
+    }
+
+    /**
+     * Test update Language String function
+     *
+     */
+    public function testUpdateLangStrEx() {
+
+        try {
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('updateLangStr')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->updateLangStr(new LanguageLabelString());
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
     }
 
     /**
@@ -549,6 +641,29 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
         $result = $this->locaizationService->generateDictionary('1', '2', 'en_US');
         $this->assertTrue($result);
         $this->assertFileExists(sfConfig::get('sf_web_dir') . "/language_files/messages.en_US.xml");
+    }
+
+    /**
+     * Test Generate Dictionary method
+     *
+     */
+    public function testGenerateDictionaryEx() {
+
+        try {
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('getLanguageById')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->generateDictionary('1', '2', 'en_US');
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
     }
 
     /**
