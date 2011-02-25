@@ -158,7 +158,7 @@ tfoot td {
     font-weight: bold;
     color: #336633;
 }
-.removeDotLine{
+.removeLeftDotLine{
     border-left: #CCCCCC 1px ;
 }
 .addDotLinetoRight {
@@ -169,4 +169,7 @@ tfoot td {
 }
 #editTargetLangTextArea{
     display: none;
+}
+.addDotLineToBottom {
+    border-bottom: #CCCCCC 1px dotted;
 }
