@@ -117,11 +117,11 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Test Get All Labels
+     * Test Get Data List (lables)
      *
      */
     public function testGetLabelList() {
-        $result = $this->localizationDao->getLabelList();
+        $result = $this->localizationDao->getDataList('Label');
         $this->assertTrue(($result instanceof Doctrine_Collection));
     }
 
@@ -200,12 +200,29 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Test Get Language List
+     * Test Get Data List (language)
      *
      */
     public function testGetLanguagelList() {
-        $result = $this->localizationDao->getLanguageList();
+        $result = $this->localizationDao->getDataList('Language');
         $this->assertTrue(($result instanceof Doctrine_Collection));
+    }
+
+
+    /**
+     * Test Get Language List
+     *
+     */
+    public function testGetDataListEx() {
+
+        try {
+            $illegal = array('%', '-', '.');
+            $labelUpdated = $this->localizationDao->getDataList($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
     }
 
     /**
