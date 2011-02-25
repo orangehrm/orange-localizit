@@ -20,9 +20,9 @@ class LabelForm extends sfForm {
     }
     public function configure() {
         $this->setWidgets(array(
-                'label_name'    => new sfWidgetFormInputText(),
-                'label_local_language_string' => new sfWidgetFormInputText(),
-                'label_comment' => new sfWidgetFormTextarea(),
+                'label_name'    => new sfWidgetFormInputText(array(),array('class' => 'text_input')),
+                'label_local_language_string' => new sfWidgetFormInputText(array(),array('class' => 'text_input')),
+                'label_comment' => new sfWidgetFormTextarea(array(),array('class' => 'text_input')),
                 'addLabel'     => new sfWidgetFormInputHidden(array(),array('value'=>'true')),
         ));
 
