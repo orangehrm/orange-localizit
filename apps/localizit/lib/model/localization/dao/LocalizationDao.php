@@ -24,14 +24,15 @@
 class LocalizationDao extends BaseDao {
 
     /**
-     * get All Labels
-     * @returns Label Collection
+     * get All Records From a table
+     * @param String $tblName
+     * @returns Data Collection
      * @throws DaoException
      */
-    public function getLabelList() {
+    public function getDataList($tblName) {
         try {
             $q = Doctrine_Query :: create()
-                    ->from('Label l');
+                    ->from($tblName.' l');
             return $q->execute();
 
         } catch(Exception $e) {
@@ -108,21 +109,6 @@ class LocalizationDao extends BaseDao {
                     ->where('l.label_id = ?', $label->getLabelId())
                     ->execute();
             return true;
-        } catch(Exception $e) {
-            throw new DaoException($e->getMessage());
-        }
-    }
-
-    /**
-     * Get Language List
-     * @returns Language Collection
-     * @throws DaoException
-     */
-    public function getLanguageList() {
-        try {
-            $q = Doctrine_Query :: create()
-                    ->from('Language l');
-            return $q->execute();
         } catch(Exception $e) {
             throw new DaoException($e->getMessage());
         }
