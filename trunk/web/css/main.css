@@ -176,16 +176,16 @@ tfoot td {
     border-bottom: #CCCCCC 1px dotted;
 }
 .outerBorder {
-  width: auto;
-  height: auto;
-  border: 2px #336633 solid;
-  background-color: #f2ffc6;
-/* For mozillar firfox  */
-  -moz-border-radius: 20px;
-/* For Crome */
-  -webkit-border-radius:20px;
-  position: absolute;
-/*  padding-left: 200px;*/
+    width: auto;
+    height: auto;
+    border: 2px #336633 solid;
+    background-color: #f2ffc6;
+    /* For mozillar firfox  */
+    -moz-border-radius: 20px;
+    /* For Crome */
+    -webkit-border-radius:20px;
+    position: absolute;
+    /*  padding-left: 200px;*/
 }
 .loginBorderOuterFrame {
     margin-left: 450px;
@@ -193,5 +193,5 @@ tfoot td {
 }
 
 .loginFormBackGround {
-     background-color: #f2ffc6;
+    background-color: #f2ffc6;
 }
