@@ -2,26 +2,26 @@
 <span class="errorMsg"><?php echo $sf_user->getFlash('message'); ?></span>
 <table class="mainFrame mediumText">
     <tr class="mainRowWidth">
-        <td class="tableIndexColumn">&nbsp;</td>
-        <td class="tableColumnWidth"><?php echo __('source_language', null, 'localizationMessages') ?></td>
+        <td class="tableIndexColumn ">&nbsp;</td>
+        <td class="tableColumnWidth removeDotLine"><?php echo __('source_language', null, 'localizationMessages') ?></td>
         <td class="tableColumnWidth"><?php echo $sourceLanguageLabel; ?></td>
-        <td class="tableColumnWidth">&nbsp;</td>
+        <td class="tableColumnWidth removeDotLine addDotLinetoRight">&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td><?php echo __('target_language', null, 'localizationMessages') ?></td>
+        <td class="removeDotLine"><?php echo __('target_language', null, 'localizationMessages') ?></td>
         <td><?php include_component('localization', 'LanguageList'); ?></td>
-        <td>&nbsp;</td>
+        <td class="removeDotLine addDotLinetoRight">&nbsp;</td>
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td><input type="button" name="add" id="add" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" />
+        <td class="removeDotLine"><input type="button" name="add" id="add" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" />
             <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />
             <input type="button" name="save" id="save" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" style="display: none;"/>
             <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />
             <input type="button" name="downloadDictionary" id="downloadDictionary" class="button normalText" value="<?php echo __('download_dictionary', null, 'localizationMessages') ?>" /></td>
         <td>&nbsp;</td>
-        <td>&nbsp;</td>
+        <td class="removeDotLine addDotLinetoRight">&nbsp;</td>
     </tr>
 </table>
 
@@ -39,58 +39,58 @@
             <?php }
             } ?>
                         <tr>
-                            <td>&nbsp;</td>
-                            <td><?php echo $addLabelForm['label_name']->renderLabel(__('label', null, 'localizationMessages')) ?></td>
-                            <td><?php echo $addLabelForm['label_name']->render() ?></td>
-                            <td>&nbsp;</td>
+                            <td class="tableIndexColumn">&nbsp;</td>
+                            <td  class="tableColumnWidth removeDotLine"><?php echo $addLabelForm['label_name']->renderLabel(__('label', null, 'localizationMessages')) ?></td>
+                            <td class="tableColumnWidth"><?php echo $addLabelForm['label_name']->render() ?></td>
+                            <td class="tableColumnWidth removeDotLine addDotLinetoRight">&nbsp;</td>
                         </tr>
             <?php if ($addLabelForm['label_name']->hasError()) { ?>
                         <tr>
                             <td>&nbsp;</td>
+                            <td  class="removeDotLine">&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td colspan="2"><?php echo $addLabelForm['label_name']->renderError() ?></td>
+                            <td colspan="2" class="removeDotLine addDotLinetoRight"><?php echo $addLabelForm['label_name']->renderError() ?></td>
                         </tr>
             <?php } ?>
                         <tr>
                             <td>&nbsp;</td>
-                            <td><?php echo $addLabelForm['label_local_language_string']->renderLabel($sf_user->getCulture()) ?></td>
+                            <td  class="removeDotLine"><?php echo $addLabelForm['label_local_language_string']->renderLabel($sf_user->getCulture()) ?></td>
                             <td><?php echo $addLabelForm['label_local_language_string']->render() ?></td>
-                            <td>&nbsp;</td>
+                            <td class="removeDotLine addDotLinetoRight">&nbsp;</td>
                         </tr>
 
             <?php if ($addLabelForm['label_local_language_string']->hasError()) { ?>
                         <tr>
                             <td>&nbsp;</td>
+                            <td  class="removeDotLine">&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td colspan="2"><?php echo $addLabelForm['label_local_language_string']->renderError() ?></td>
+                            <td colspan="2" class="removeDotLine addDotLinetoRight"><?php echo $addLabelForm['label_local_language_string']->renderError() ?></td>
                         </tr>
             <?php } ?>
                         <tr>
                             <td>&nbsp;</td>
-                            <td><?php echo $addLabelForm['label_comment']->renderLabel(__('label_comment', null, 'localizationMessages')) ?></td>
+                            <td  class="removeDotLine"><?php echo $addLabelForm['label_comment']->renderLabel(__('label_comment', null, 'localizationMessages')) ?></td>
                             <td><?php echo $addLabelForm['label_comment']->render() ?></td>
-                            <td>&nbsp;</td>
+                            <td class="removeDotLine addDotLinetoRight">&nbsp;</td>
                         </tr>
                         
             <?php if ($addLabelForm['label_comment']->hasError()) { ?>
                         <tr>
                             <td>&nbsp;</td>
+                            <td  class="removeDotLine">&nbsp;</td>
                             <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td colspan="2"><?php echo $addLabelForm['label_comment']->renderError() ?></td>
-                </tr>
+                            <td colspan="2" class="removeDotLine addDotLinetoRight"><?php echo $addLabelForm['label_comment']->renderError() ?></td>
+                        </tr>
             <?php } ?>
                 
                         <tr>
                             <td>&nbsp;</td>
-                            <td>&nbsp;</td>
+                            <td  class="removeDotLine">&nbsp;</td>
                             <td>
                                 <input type="button" name="save_label" id="save_label" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" />
                                 <input type="button" name="cancel_label" id="cancel_label" class="button normalText" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
                             </td>
-                            <td>&nbsp;</td>
+                            <td class="removeDotLine addDotLinetoRight">&nbsp;</td>
                         </tr>
                         
                 </table>

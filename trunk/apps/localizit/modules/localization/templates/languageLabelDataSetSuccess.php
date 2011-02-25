@@ -8,7 +8,7 @@
             <td class="boldText">Source Language (<?php echo $sourceLanguageLabel?>)</td>
             <td class="boldText">Target Language (<?php echo $targetLanguageLabel?>)</td>
             <td class="boldText">Comments</td>
-            <td>&nbsp;</td>
+            <td class="addDotLinetoRight">&nbsp;</td>
         </tr>
     </thead>
     <tbody>
@@ -20,7 +20,7 @@
         <td><?php echo isset($labelInnerData['source_language_label'])?$labelInnerData['source_language_label']:null?></td>
         <td><?php echo isset($labelInnerData['target_language_label'])?$labelInnerData['target_language_label']:null?></td>
         <td><?php echo isset($labelInnerData['comment'])?$labelInnerData['comment']:null?></td>
-        <td>&nbsp;</td>
+        <td class="addDotLinetoRight">&nbsp;</td>
     </tr>
             <?php }?>
     </tbody>

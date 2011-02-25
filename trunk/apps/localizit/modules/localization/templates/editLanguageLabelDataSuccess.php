@@ -1,39 +1,49 @@
-<?php if($languageLabelDataSet) {?>
-<form method="post" name="editLanguageLabelList" action="<?php echo url_for('localization/index');?>" id="editLanguageLabelList">
-    <table class="mainFrame  mediumText">
-        <thead>
-            <tr>
-                <td>&nbsp;</td>
-                <td>Label</td>
-                <td>Source Language (<?php echo $sourceLanguageLabel?>)</td>
-                <td>Target Language (<?php echo $targetLanguageLabel?>)</td>
-                <td>Comments</td>
-                <td>&nbsp;</td>
-            </tr>
-        </thead>
-        <tbody>
-                <?php foreach ($languageLabelDataSet as $labelId=>$languageLabelData) { ?>
-                    <?php $labelInnerData=$languageLabelData->get($labelId);?>
-            <tr>
-                <td>&nbsp;</td>
-                <td>
-                    <input type="text" name="label_name[]" value="<?php echo isset($labelInnerData['label_name'])?$labelInnerData['label_name']:null ?>"/>
-                    <input type="hidden" name="label_id[]" value="<?php echo isset($labelInnerData['label_id'])?$labelInnerData['label_id']:null ?>"/>
-                </td>
-                <td>
-                    <input type="text" name="source_language_string[]" value="<?php echo isset($labelInnerData['source_language_label'])?$labelInnerData['source_language_label']:null ?>"/>
-                    <input type="hidden" name="source_language_string_id[]" value="<?php echo isset($labelInnerData['source_language_label_string_id'])?$labelInnerData['source_language_label_string_id']:null ?>"/>
-                </td>
-                <td>
-                    <input type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label'])?$labelInnerData['target_language_label']:null ?>"/>
-                    <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id'])?$labelInnerData['target_language_label_string_id']:null ?>"/>                    
-                </td>
-                <td><input type="text" name="label_comment[]" value="<?php echo isset($labelInnerData['comment'])?$labelInnerData['comment']:null ?>"/></td>
-                <td>&nbsp;</td>
-            </tr>
-                    <?php }?>
+<?php if ($languageLabelDataSet) { ?>
+    <form method="post" name="editLanguageLabelList" action="<?php echo url_for('localization/index'); ?>" id="editLanguageLabelList">
+        <table class="mainFrame  mediumText">
+            <thead>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td class="boldText">Label</td>
+                    <td class="boldText">Source Language (<?php echo $sourceLanguageLabel ?>)</td>
+                    <td class="boldText">Target Language (<?php echo $targetLanguageLabel ?>)</td>
+                    <td class="boldText">Comments</td>
+                    <td class="addDotLinetoRight">&nbsp;</td>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($languageLabelDataSet as $labelId => $languageLabelData) {
+            ?>
+            <?php $labelInnerData = $languageLabelData->get($labelId); ?>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <input type="text" name="label_name[]" value="<?php echo isset($labelInnerData['label_name']) ? $labelInnerData['label_name'] : null ?>"/>
+                        <input type="hidden" name="label_id[]" value="<?php echo isset($labelInnerData['label_id']) ? $labelInnerData['label_id'] : null ?>"/>
+                    </td>
+                    <td>
+                        <?php if(strlen($labelInnerData['source_language_label']) < 20) { ?>
+                        <input id="editSourceLang" type="text" name="source_language_string[]" value="<?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?>" onkeyup="getWordCount(this, 'editSourceLang', 'editLangTextArea');" />
+                        <textarea id="editLangTextArea" cols="20" rows="2" name="source_language_string[]"><?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?></textarea>
+                        <?php }  else {?>
+                        <input id="editSourceLang" type="text" name="source_language_string[]" value="<?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?>" onkeyup="getWordCount(this, 'editSourceLang', 'editLangTextArea');" />
+                        <textarea id="editLangTextArea" cols="20" rows="2" name="source_language_string[]"><?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?></textarea>
+                        <?php } ?>
+                        <input type="hidden" name="source_language_string_id[]" value="<?php echo isset($labelInnerData['source_language_label_string_id']) ? $labelInnerData['source_language_label_string_id'] : null ?>"/>
+                    </td>
+                    <td>
+                        <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id']) ? $labelInnerData['target_language_label_string_id'] : null ?>"/>
+                        <input id="editTargetLang" type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" onkeyup="getWordCount(this, 'editTargetLang', 'editTargetLangTextArea');"/>
+                        <textarea id="editTargetLangTextArea" cols="20" rows="2" name="source_language_string[]"><?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?></textarea>
+                    </td>
+                    <td>
+                        <textarea cols="20" rows="2" name="label_comment[]"><?php echo isset($labelInnerData['comment']) ? $labelInnerData['comment'] : null ?></textarea>
+                    </td>
+                    <td class="addDotLinetoRight">&nbsp;</td>
+                </tr>
+            <?php } ?>
         </tbody>
     </table>
     <input type="hidden" id="target_language_selected_id" name="target_language_selected_id" />
 </form>
-    <?php }?>
+<?php } ?>

@@ -99,3 +99,15 @@ function submitForm(formId){
     $('#'+formId).submit();
     return true;
 }
+
+function getWordCount(taObj,oldHtmlId,newHtmlId){
+    objVal = taObj.value.split(/\W+/);
+
+    if(objVal.length > 5) {
+        $('#'+oldHtmlId).css('display', 'none');
+        $('#'+newHtmlId).css('display', 'block');
+        $('#'+newHtmlId).val($('#editSourceLang').val());
+        $('#'+oldHtmlId).remove();
+    }
+
+}
