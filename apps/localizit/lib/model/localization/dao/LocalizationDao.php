@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Orange-localizit  is a System that transalate text into a any language.
  * Copyright (C) 2011 Orange-localizit Inc., http://www.orange-localizit.com
@@ -25,17 +26,20 @@ class LocalizationDao extends BaseDao {
 
     /**
      * get All Records From a table
-     * @param String $tblName
-     * @returns Data Collection
+     * @param $tblName
+     * @returns Array
      * @throws DaoException
      */
     public function getDataList($tblName) {
         try {
-            $q = Doctrine_Query :: create()
-                    ->from($tblName.' l');
-            return $q->execute();
-
-        } catch(Exception $e) {
+            if (is_string($tblName)) {
+                $q = Doctrine_Query :: create()
+                                ->from("$tblName l");
+                return $q->execute();
+            } else {
+                throw new DaoException();
+            }
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
@@ -49,12 +53,11 @@ class LocalizationDao extends BaseDao {
     public function getLabelById($labelId) {
         try {
             $q = Doctrine_Query :: create()
-                    ->from('Label l')
-                    ->where('l.label_id = ?', $labelId);
+                            ->from('Label l')
+                            ->where('l.label_id = ?', $labelId);
 
             return $q->fetchOne();
-
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
@@ -68,12 +71,11 @@ class LocalizationDao extends BaseDao {
     public function getLabelByName($labelName) {
         try {
             $q = Doctrine_Query :: create()
-                    ->from('Label l')
-                    ->where('l.label_name = ?', $labelName);
+                            ->from('Label l')
+                            ->where('l.label_name = ?', $labelName);
 
             return $q->fetchOne();
-
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
@@ -87,8 +89,8 @@ class LocalizationDao extends BaseDao {
     public function addLabel(Label $label) {
         try {
             $label->save();
-            return $label ;
-        } catch(Exception $e) {
+            return $label;
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
@@ -102,14 +104,14 @@ class LocalizationDao extends BaseDao {
     public function updateLabel(Label $label) {
         try {
             $q = Doctrine_Query :: create()
-                    ->update('Label l')
-                    ->set('l.label_name ',"\"{$label->getLabelName()}\"")
-                    ->set('l.label_comment ',"\"{$label->getLabelComment()}\"")
-                    ->set('l.label_status ',"\"{$label->getLabelStatus()}\"")
-                    ->where('l.label_id = ?', $label->getLabelId())
-                    ->execute();
+                            ->update('Label l')
+                            ->set('l.label_name ', "\"{$label->getLabelName()}\"")
+                            ->set('l.label_comment ', "\"{$label->getLabelComment()}\"")
+                            ->set('l.label_status ', "\"{$label->getLabelStatus()}\"")
+                            ->where('l.label_id = ?', $label->getLabelId())
+                            ->execute();
             return true;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
@@ -123,10 +125,10 @@ class LocalizationDao extends BaseDao {
     public function getLanguageById($languageId) {
         try {
             $q = Doctrine_Query :: create()
-                    ->from('Language l')
-                    ->where('l.language_id=?', $languageId);
+                            ->from('Language l')
+                            ->where('l.language_id=?', $languageId);
             return $q->fetchOne();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
@@ -140,10 +142,10 @@ class LocalizationDao extends BaseDao {
     public function getLanguageByCode($languageCode) {
         try {
             $q = Doctrine_Query :: create()
-                    ->from('Language l')
-                    ->where('l.language_code=?', $languageCode);
+                            ->from('Language l')
+                            ->where('l.language_code=?', $languageCode);
             return $q->fetchOne();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
@@ -154,14 +156,13 @@ class LocalizationDao extends BaseDao {
      * @returns Collection
      * @throws DaoException
      */
-    public function getLangStrBySrcAndTargetIds($sourceLanguageId,$targetLanguageId) {
+    public function getLangStrBySrcAndTargetIds($sourceLanguageId, $targetLanguageId) {
         try {
             $q = Doctrine_Query :: create()
-                    ->from('LanguageLabelString lls')
-                    ->whereIn('lls.language_id', array($sourceLanguageId,$targetLanguageId));
+                            ->from('LanguageLabelString lls')
+                            ->whereIn('lls.language_id', array($sourceLanguageId, $targetLanguageId));
             return $q->execute();
-
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
@@ -176,7 +177,7 @@ class LocalizationDao extends BaseDao {
         try {
             $lls->save();
             return $lls;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
@@ -190,17 +191,18 @@ class LocalizationDao extends BaseDao {
     public function updateLangStr(LanguageLabelString $lls) {
         try {
             $q = Doctrine_Query :: create()
-                    ->update('LanguageLabelString lls')
-                    ->set('lls.label_id ',$lls->getLabelId())
-                    ->set('lls.language_id ',$lls->getLanguageId())
-                    ->set('lls.language_label_string ',"\"{$lls->getLanguageLabelString()}\"")
-                    ->set('lls.language_label_string_status ',"\"{$lls->getLanguageLabelStringStatus()}\"")
-                    ->where('lls.language_label_string_id = ?', $lls->getLanguageLabelStringId())
-                    ->execute();
+                            ->update('LanguageLabelString lls')
+                            ->set('lls.label_id ', $lls->getLabelId())
+                            ->set('lls.language_id ', $lls->getLanguageId())
+                            ->set('lls.language_label_string ', "\"{$lls->getLanguageLabelString()}\"")
+                            ->set('lls.language_label_string_status ', "\"{$lls->getLanguageLabelStringStatus()}\"")
+                            ->where('lls.language_label_string_id = ?', $lls->getLanguageLabelStringId())
+                            ->execute();
             return true;
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
+
 }
 
