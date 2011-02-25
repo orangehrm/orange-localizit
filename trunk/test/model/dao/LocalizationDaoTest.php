@@ -216,8 +216,7 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
     public function testGetDataListEx() {
 
         try {
-            $illegal = array('%', '-', '.');
-            $labelUpdated = $this->localizationDao->getDataList($illegal);
+            $labelUpdated = $this->localizationDao->getDataList(NULL);
         } catch (Exception $ex) {
             return;
         }
