@@ -69,8 +69,10 @@ tfoot td {
 }
 
 .loginForm{
-    margin-top: 50px;
-    margin-left: 450px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
 }
 .mainLogo {
     text-align: left;
@@ -172,4 +174,24 @@ tfoot td {
 }
 .addDotLineToBottom {
     border-bottom: #CCCCCC 1px dotted;
+}
+.outerBorder {
+  width: auto;
+  height: auto;
+  border: 2px #336633 solid;
+  background-color: #f2ffc6;
+/* For mozillar firfox  */
+  -moz-border-radius: 20px;
+/* For Crome */
+  -webkit-border-radius:20px;
+  position: absolute;
+/*  padding-left: 200px;*/
+}
+.loginBorderOuterFrame {
+    margin-left: 450px;
+    margin-top: 50px;
+}
+
+.loginFormBackGround {
+     background-color: #f2ffc6;
 }
