@@ -22,19 +22,12 @@
                         <input type="hidden" name="label_id[]" value="<?php echo isset($labelInnerData['label_id']) ? $labelInnerData['label_id'] : null ?>"/>
                     </td>
                     <td>
-                        <?php if(strlen($labelInnerData['source_language_label']) < 20) { ?>
-                        <input id="editSourceLang" type="text" name="source_language_string[]" value="<?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?>" onkeyup="getWordCount(this, 'editSourceLang', 'editLangTextArea');" />
-                        <textarea id="editLangTextArea" cols="20" rows="2" name="source_language_string[]"><?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?></textarea>
-                        <?php }  else {?>
-                        <input id="editSourceLang" type="text" name="source_language_string[]" value="<?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?>" onkeyup="getWordCount(this, 'editSourceLang', 'editLangTextArea');" />
-                        <textarea id="editLangTextArea" cols="20" rows="2" name="source_language_string[]"><?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?></textarea>
-                        <?php } ?>
+                        <input type="text" name="source_language_string[]" value="<?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?>" />
                         <input type="hidden" name="source_language_string_id[]" value="<?php echo isset($labelInnerData['source_language_label_string_id']) ? $labelInnerData['source_language_label_string_id'] : null ?>"/>
                     </td>
                     <td>
                         <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id']) ? $labelInnerData['target_language_label_string_id'] : null ?>"/>
-                        <input id="editTargetLang" type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" onkeyup="getWordCount(this, 'editTargetLang', 'editTargetLangTextArea');"/>
-                        <textarea id="editTargetLangTextArea" cols="20" rows="2" name="source_language_string[]"><?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?></textarea>
+                        <input type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>"/>
                     </td>
                     <td>
                         <textarea cols="20" rows="2" name="label_comment[]"><?php echo isset($labelInnerData['comment']) ? $labelInnerData['comment'] : null ?></textarea>
