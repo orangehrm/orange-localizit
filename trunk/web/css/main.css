@@ -115,8 +115,7 @@ tfoot td {
     font-family: Helvetica,Arial,Sans-Serif;
 }
 .langueDropDownList {
-    width: 200px;
-    border: solid 1px #CCCCCC;
+    border: 1px solid #4E4868;
 }
 
 .mediumText {
@@ -202,8 +201,8 @@ tfoot td {
 .homePageBorder{
     width: 630px;
     position: relative;
-/*    margin-left: 450px;*/
-/*    margin-top: 50px;*/
+    /*    margin-left: 450px;*/
+    /*    margin-top: 50px;*/
 }
 
 .homePage {
