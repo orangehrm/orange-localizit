@@ -79,8 +79,8 @@ tfoot td {
     font: bold small-caps 200%/1.3 "trebuchet ms",Helvetica,Arial,Sans-Serif;
     color: #363;
     margin: .3em 0;
-    margin-left: 1px;
-    width: 100%;
+    /*    margin-left: 1px;*/
+    /*    width: 100%;*/
 }
 
 .errorMsg {
@@ -148,7 +148,7 @@ tfoot td {
 }
 
 .mainRowWidth{
-    width: 100%;
+    /*    width: 100%;*/
 }
 .tableColumnWidth {
     width: 30%;
@@ -179,19 +179,37 @@ tfoot td {
     width: auto;
     height: auto;
     border: 2px #336633 solid;
-    background-color: #f2ffc6;
     /* For mozillar firfox  */
     -moz-border-radius: 20px;
     /* For Crome */
     -webkit-border-radius:20px;
-    position: absolute;
-    /*  padding-left: 200px;*/
 }
+
 .loginBorderOuterFrame {
+    background-color: #f2ffc6;
     margin-left: 450px;
     margin-top: 50px;
+    position: absolute;
 }
 
 .loginFormBackGround {
     background-color: #f2ffc6;
 }
+
+.homePageBorder{
+    width: 630px;
+    position: relative;
+/*    margin-left: 450px;*/
+/*    margin-top: 50px;*/
+}
+
+.homePage {
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-bottom: 30px;
+    padding-right: 30px;
+}
+.addLabelPage {
+    margin-top: 10px;
+}
+
