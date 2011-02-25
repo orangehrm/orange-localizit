@@ -17,11 +17,11 @@
                 <td>
                     <?php echo $signInForm['loginName']->renderLabel( __('username', null, 'authenticationMessages')) ?>
                 </td>
-                <td>
+                <td class="addDotLinetoRight">
                     <?php echo $signInForm['loginName']->render() ?>
                 </td>
                 <?php if ($signInForm['loginName']->hasError()) { ?>
-                <td class="errorMsg">
+                <td class="errorMsg addDotLinetoRight">
                       <?php echo $signInForm['loginName']->renderError() ?>
                 </td>
                 <?php } ?>
@@ -30,21 +30,24 @@
                 <td>
                     <?php echo $signInForm['password']->renderLabel( __('password', null, 'authenticationMessages')) ?>
                 </td>
-                <td>
+                <td class="addDotLinetoRight">
                     <?php echo $signInForm['password']->render() ?>
                 </td>
                 <?php if ($signInForm['password']->hasError()) { ?>
-                <td class="errorMsg">
+                <td class="errorMsg addDotLinetoRight addDotLineToBottom">
                     <?php echo $signInForm['password']->renderError() ?>
                 </td>
                 <?php } ?>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <td>
+                <td class="addDotLinetoRight">
                     <input type="button" name="login_label" id="login" class="button normalText" value="<?php echo __('login', null , 'authenticationMessages') ?>" />
                     <input type="button" name="cancel_label" id="cancel_label" class="button normalText" value="<?php echo __('cancel', null , 'authenticationMessages') ?>" />
                 </td>
+                <?php if ($signInForm['password']->hasError() || $signInForm['loginName']->hasError()) { ?>
+                <td class="addDotLinetoRight">&nbsp;</td>
+                <?php } ?>
             </tr>
         </table>
     </form>
