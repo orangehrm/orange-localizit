@@ -80,5 +80,27 @@ class AuthenticationServiceTest extends PHPUnit_Framework_TestCase {
 
         $this->assertNull($result);
     }
-    
+
+    /**
+     * Test Get User by Name
+     *
+     */
+    public function testGetUserByNameEx() {
+
+        try {
+
+            $this->authenticationDao = $this->getMock('AuthenticationDao');
+            $this->authenticationDao->expects($this->once())
+                    ->method('getUserByName')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->authenticationService->setAuthenticationDao($this->authenticationDao);
+
+            $result = $this->authenticationService->getUserByName('test_name');
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
 }
