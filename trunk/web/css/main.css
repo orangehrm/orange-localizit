@@ -220,4 +220,14 @@ tfoot td {
     color: #363;
 }
 
-label.error { float: left; color: red; padding-left: .5em; vertical-align: top; }
+label.error {
+    float: left;
+    color: #CC0000;
+    font-size: 11px;
+    padding-left: .5em;
+}
+
+input.error {
+    border: 1px solid #CC0000;
+    background-color: #FAAFBE;
+}
