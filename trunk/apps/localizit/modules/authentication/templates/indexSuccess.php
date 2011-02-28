@@ -15,7 +15,7 @@
                     <?php }
             }?>
             <tr>
-                <td>
+                <td >
                     <?php echo $signInForm['loginName']->renderLabel( __('username', null, 'authenticationMessages')) ?>
                 </td>
                 <td class="addDotLinetoRight">
