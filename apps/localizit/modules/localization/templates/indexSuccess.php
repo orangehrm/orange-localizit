@@ -30,7 +30,11 @@
     <div class="homePage">
     <form action="<?php echo url_for('@add_label'); ?>" method="post" id="add_label_form" name="add_label_form">
         <?php echo $addLabelForm->renderHiddenFields(); ?>
+        <div class="mediumText pageHeader">
+            <?php echo __('add_label', null, 'localizationMessages')?>
+        </div>
         <table class="mainFrame mediumText">
+          
             <?php
             $globalErrors = $addLabelForm->getGlobalErrors();
             if (count($globalErrors) > 0) {

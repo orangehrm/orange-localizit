@@ -58,6 +58,10 @@
                 <source>download_dictionary</source>
                 <target>Download Dictionary</target>
             </trans-unit>
+            <trans-unit id="15">
+                <source>add_label</source>
+                <target>Add Label</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
