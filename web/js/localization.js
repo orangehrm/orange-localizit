@@ -29,11 +29,13 @@ $(document).ready(function (){
         downloadDictionary('localization/downloadDictionary', targetLanguageId);
     });
     $('#save').click(function (){
+        $('#addLabelDiv').fadeIn(1000);
         targetLanguageId=$('#languageList').val();
         $('#target_language_selected_id').val(targetLanguageId);
         submitForm('editLanguageLabelList');
     });
     $('#save_label').click(function (){
+        $('#addLabelDiv').fadeIn(1000);
         submitForm('add_label_form');
     });
     $('#add').click(function (){
@@ -46,8 +48,9 @@ $(document).ready(function (){
         submitForm('sign_in_form');
     });
 
-    if(!$('#show_add_label').val()){
-        $('#addLabelDiv').css('display','none');
+    if($('#show_add_label').val() == '1'){
+        $('#addLabelDiv').css('display','block');
+    } else {
         $('#addLabelDiv').css('display','none');
     }
 });

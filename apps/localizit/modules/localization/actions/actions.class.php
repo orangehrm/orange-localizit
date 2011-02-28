@@ -127,8 +127,9 @@ class localizationActions extends sfActions {
                     $this->redirect('@homepage');
                 }
             }
+            $this->showAddLabel=true;
         }
-        $this->showAddLabel=true;
+        
         $this->sourceLanguageLabel=$this->getUser()->getCulture();
         $this->setTemplate('index');
     }
