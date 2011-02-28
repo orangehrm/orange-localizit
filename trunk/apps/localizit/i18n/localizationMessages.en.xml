@@ -62,6 +62,22 @@
                 <source>add_label</source>
                 <target>Add Label</target>
             </trans-unit>
+            <trans-unit id="16">
+                <source>label_name_required</source>
+                <target>Label Name is required</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>target_label_name_required</source>
+                <target>Target Label Name is required</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>label_name_min</source>
+                <target>Label Name must have more than {0} characters</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>target_label_name_min</source>
+                <target>Target Label Name must have more than {0} characters</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

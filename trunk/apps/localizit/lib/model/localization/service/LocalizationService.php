@@ -227,11 +227,12 @@ class LocalizationService extends BaseService {
      * @returns boolean
      * @throws ServiceException
      */
-    public function generateDictionary($sourceLanguageId, $targetLanguageId, $sourceLanguageLabel) {
+    public function generateDictionary($sourceLanguageId, $targetLanguageId) {
 
         try {
 
             $targetLanguageLabel = $this->getLanguageById($targetLanguageId)->getLanguageCode();
+            $sourceLanguageLabel = $this->getLanguageById($sourceLanguageId)->getLanguageCode();
             $date = date('Y-m-d\TG:i:s\Z');
 
             $xmlString = <<<XML
@@ -267,11 +268,15 @@ XML;
                 $cont++;
             }
 
-            $languageFile = sfConfig::get('sf_web_dir')."/language_files/messages." . $targetLanguageLabel . ".xml";
-            $fh = fopen($languageFile, 'w') or die("can't open file");
-            $formatted = $this->formatXmlString($xml->saveXML());
-            $out = fwrite($fh, $formatted);
-            fclose($fh);
+            $languageFile = sfConfig::get('sf_web_dir') . "/language_files/messages." . $targetLanguageLabel . ".xml";
+            $fh = fopen($languageFile, 'w');
+            if ($fh) {
+                $formatted = $this->formatXmlString($xml->saveXML());
+                $out = fwrite($fh, $formatted);
+                fclose($fh);
+            } else {
+                throw new ServiceException("can't open file");
+            }
 
             return TRUE;
         } catch (Exception $exc) {

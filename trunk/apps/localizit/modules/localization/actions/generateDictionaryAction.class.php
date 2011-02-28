@@ -52,10 +52,8 @@ class generateDictionaryAction extends sfAction {
             $sourceLanguageId = $this->getUser()->getAttribute('user_language_id');
             $targetLanguageId = $request->getParameter('targetLanguageId');
 
-            $sourceLanguageLabel = $this->getUser()->getCulture();
-
             try {
-                $result = $this->localizationService->generateDictionary($sourceLanguageId, $targetLanguageId, $sourceLanguageLabel);
+                $result = $this->localizationService->generateDictionary($sourceLanguageId, $targetLanguageId);
 
                 if (!$result) {
                     $this->getResponse()->setError('Error');

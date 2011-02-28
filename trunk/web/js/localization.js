@@ -29,7 +29,6 @@ $(document).ready(function (){
         downloadDictionary('localization/downloadDictionary', targetLanguageId);
     });
     $('#save').click(function (){
-        $('#addLabelDiv').fadeIn(1000);
         targetLanguageId=$('#languageList').val();
         $('#target_language_selected_id').val(targetLanguageId);
         submitForm('editLanguageLabelList');

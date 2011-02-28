@@ -638,7 +638,7 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
 
         $this->locaizationService->setLocalizationDao($this->localizationDao);
 
-        $result = $this->locaizationService->generateDictionary('1', '2', 'en_US');
+        $result = $this->locaizationService->generateDictionary('1', '2');
         $this->assertTrue($result);
         $this->assertFileExists(sfConfig::get('sf_web_dir') . "/language_files/messages.en_US.xml");
     }
@@ -658,7 +658,7 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
 
             $this->locaizationService->setLocalizationDao($this->localizationDao);
 
-            $result = $this->locaizationService->generateDictionary('1', '2', 'en_US');
+            $result = $this->locaizationService->generateDictionary('1', '2');
         } catch (Exception $ex) {
             return;
         }
