@@ -26,8 +26,7 @@
                         <input type="hidden" name="source_language_string_id[]" value="<?php echo isset($labelInnerData['source_language_label_string_id']) ? $labelInnerData['source_language_label_string_id'] : null ?>"/>
                     </td>
                     <td>
-                        <input id="targetLangInput<?php echo$labelId ?>" type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" class="text_input" onkeyup="getWordCount(this, 'targetLangInput', 'targetLangText',<?php echo$labelId ?>)"/>
-                        <textarea  id="targetLangText<?php echo$labelId ?>"  class="text_input" style="display: none" cols="20" rows="2" name="target_language_string[]"><?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?></textarea>
+                        <input id="targetLangInput<?php echo $labelId ?>" type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" class="text_input" />
                         <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id']) ? $labelInnerData['target_language_label_string_id'] : null ?>"/>
                     </td>
                     <td>
