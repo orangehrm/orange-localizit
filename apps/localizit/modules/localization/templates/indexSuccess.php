@@ -41,13 +41,13 @@
                 foreach ($globalErrors as $name => $error) {
             ?>
                     <tr>
-                        <td><?php echo $error ?></td>
+                        <td colspan="4"><?php echo $error ?></td>
                     </tr>
             <?php }
             } ?>
             <tr>
                 <td class="tableIndexColumn">&nbsp;</td>
-                <td  class="tableColumnWidth removeLeftDotLine"><?php echo $addLabelForm['label_name']->renderLabel(__('label', null, 'localizationMessages')) ?></td>
+                <td  class="tableColumnWidth removeLeftDotLine"><?php echo $addLabelForm['label_name']->renderLabel(__('label', null, 'localizationMessages')) ?> *</td>
                 <td class="tableColumnWidth"><?php echo $addLabelForm['label_name']->render() ?></td>
                 <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight">&nbsp;</td>
             </tr>
@@ -62,7 +62,7 @@
 <?php } ?>
             <tr>
                 <td>&nbsp;</td>
-                <td  class="removeLeftDotLine"><?php echo $addLabelForm['label_local_language_string']->renderLabel($sf_user->getCulture()) ?></td>
+                <td  class="removeLeftDotLine"><?php echo $addLabelForm['label_local_language_string']->renderLabel($sf_user->getCulture()) ?> *</td>
                 <td><?php echo $addLabelForm['label_local_language_string']->render() ?></td>
                 <td class="removeLeftDotLine addDotLinetoRight">&nbsp;</td>
             </tr>
