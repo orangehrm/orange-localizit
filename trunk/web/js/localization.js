@@ -107,5 +107,7 @@ function getWordCount(taObj,oldHtmlId,newHtmlId,labelId){
         $('#'+newHtmlId+labelId).css('display', 'block');
         $('#'+newHtmlId+labelId).val($('#'+oldHtmlId+labelId).val());
         $('#'+oldHtmlId+labelId).remove();
+    } else {
+         $('#'+newHtmlId+labelId).innerHtml('<textarea  id="targetLangText1"  class="text_input" style="display: none" cols="20" rows="2" name="target_language_string[]"></textarea>');
     }
 }
