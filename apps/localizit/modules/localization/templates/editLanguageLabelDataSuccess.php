@@ -26,11 +26,12 @@
                         <input type="hidden" name="source_language_string_id[]" value="<?php echo isset($labelInnerData['source_language_label_string_id']) ? $labelInnerData['source_language_label_string_id'] : null ?>"/>
                     </td>
                     <td>
+                        <input id="targetLangInput<?php echo$labelId ?>" type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" class="text_input" onkeyup="getWordCount(this, 'targetLangInput', 'targetLangText',<?php echo$labelId ?>)"/>
+                        <textarea  id="targetLangText<?php echo$labelId ?>"  class="text_input" style="display: none" cols="20" rows="2" name="target_language_string[]"><?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?></textarea>
                         <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id']) ? $labelInnerData['target_language_label_string_id'] : null ?>"/>
-                        <input type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" class="text_input"/>
                     </td>
                     <td>
-                        <textarea cols="20" rows="2" name="label_comment[]"><?php echo isset($labelInnerData['comment']) ? $labelInnerData['comment'] : null ?></textarea>
+                        <textarea cols="20" rows="2" name="label_comment[]" class="text_input"><?php echo isset($labelInnerData['comment']) ? $labelInnerData['comment'] : null ?></textarea>
                     </td>
                     <td class="addDotLinetoRight">&nbsp;</td>
                 </tr>

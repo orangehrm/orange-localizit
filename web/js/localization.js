@@ -100,16 +100,12 @@ function submitForm(formId){
     return true;
 }
 
-function getWordCount(taObj,oldHtmlId,newHtmlId){
+function getWordCount(taObj,oldHtmlId,newHtmlId,labelId){
     objVal = taObj.value.split(/\W+/);
-
     if(objVal.length > 5) {
-        $('#'+oldHtmlId).css('display', 'none');
-        $('#'+newHtmlId).css('display', 'block');
-        $('#'+newHtmlId).val($('#'+oldHtmlId).val());
-        $('#'+oldHtmlId).remove();
-    } else {
-        $('#'+newHtmlId).remove();
+        $('#'+oldHtmlId+labelId).css('display', 'none');
+        $('#'+newHtmlId+labelId).css('display', 'block');
+        $('#'+newHtmlId+labelId).val($('#'+oldHtmlId+labelId).val());
+        $('#'+oldHtmlId+labelId).remove();
     }
-
 }
