@@ -17,7 +17,6 @@
  * Boston, MA  02110-1301, USA
  */
 
-
 /**
  * AuthenticationService for User operation
  *
@@ -50,4 +49,40 @@ class AuthenticationService extends BaseService {
         }
     }
 
+    /**
+     * Get user type list
+     * @throws ServiceException
+     * @return UserType list
+     */
+    public function getUserTypeList() {
+        $authenticationDao = $this->getAuthenticationDao();
+        try {
+            return $authenticationDao->getUserTypeList();
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    /**
+     * Add new user
+     * @param $userName,$password,$user_type
+     * @throws ServiceException
+     * @return User
+     */
+    public function addUser($userName, $password, $user_type) {
+
+        $authenticationDao = $this->getAuthenticationDao();
+
+        try {
+            $user = new User();
+            $user->setLoginName($userName);
+            $user->setPassword(md5($password));
+            $user->setUserTypeId($user_type);
+
+            $res = $authenticationDao->addUser($user);
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
 }
