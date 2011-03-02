@@ -22,6 +22,10 @@
                 <source>cancel</source>
                 <target>Cancel</target>
             </trans-unit>
+            <trans-unit id="6">
+                <source>user_type</source>
+                <target>User type</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

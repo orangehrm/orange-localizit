@@ -42,6 +42,14 @@ download_dictionary:
   url: /download-dictionary
   param: { module: localization, action: downloadDictionary }
 
+userManagement:
+  url: /user-management
+  param: { module: userManagement, action: index }
+
+add_user:
+  url: /add-user
+  param: { module: userManagement, action: addUser }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
@@ -50,3 +58,4 @@ default_index:
 
 default:
   url:   /:module/:action/*
+  

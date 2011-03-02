@@ -121,7 +121,7 @@ class localizationActions extends sfActions {
         $this->addLabelForm =  new LabelForm($localizationService);
         if($request->isMethod(sfRequest::POST)) {
             $this->addLabelForm->bind($request->getParameter('add_label'));
-
+           
             if ($this->addLabelForm->isValid()) {
                 if($this->addLabelForm->saveToDb()){
                     $this->redirect('@homepage');
@@ -165,4 +165,11 @@ class localizationActions extends sfActions {
         $this->languageLabelDataSet=$localizationService->getLabelAndLangDataSet($this->sourceLanguageId,$this->targetLanguageId);
     }
 
+    /**
+     *
+     */
+
+    public function  executeTargetLangTextArea(sfWebRequest $request){
+        $this->setTemplate('');
+    }
 }
