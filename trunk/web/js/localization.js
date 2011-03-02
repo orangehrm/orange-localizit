@@ -46,6 +46,9 @@ $(document).ready(function (){
     $('#login').click(function(){
         submitForm('sign_in_form');
     });
+    $('#save_user').click(function(){
+        submitForm('add_user_form');
+    });
 
     if($('#show_add_label').val() == '1'){
         $('#addLabelDiv').css('display','block');
@@ -102,14 +105,10 @@ function submitForm(formId){
     return true;
 }
 
-function getWordCount(taObj,oldHtmlId,newHtmlId,labelId){
-    objVal = taObj.value.split(/\W+/);
-    if(objVal.length > 5) {
-        $('#'+oldHtmlId+labelId).css('display', 'none');
-        $('#'+newHtmlId+labelId).css('display', 'block');
-        $('#'+newHtmlId+labelId).val($('#'+oldHtmlId+labelId).val());
-        $('#'+oldHtmlId+labelId).remove();
+function  displayLanguageList(val){
+    if(val == 2 ) {
+        $('#langId').fadeIn(1000);
     } else {
-         $('#'+newHtmlId+labelId).innerHtml('<textarea  id="targetLangText1"  class="text_input" style="display: none" cols="20" rows="2" name="target_language_string[]"></textarea>');
+        $('#langId').fadeOut(1000);
     }
 }
