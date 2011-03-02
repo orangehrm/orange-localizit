@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+    <file original="global" source-language="en_US" datatype="plaintext">
+        <body>
+            <trans-unit id="1">
+                <source>user_list</source>
+                <target>User List</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>login_name</source>
+                <target>Login Name</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>user_type</source>
+                <target>User type</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>delete</source>
+                <target>Delete</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>add_new_user</source>
+                <target>Add new user</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>new_user</source>
+                <target>New user</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>languages</source>
+                <target>Languages</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

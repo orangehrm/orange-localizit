@@ -1,0 +1,10 @@
+## YAML Template.
+---
+UserType:
+  data1: { id: '1', user_type: 'admin' }
+  data2: { id: '2', user_type: 'normal' }
+  data3: { id: '3', user_type: 'test' }
+User:
+  data1: { user_id: '1', login_name: 'testuser1', password: 'password123', user_type_id: 1 }
+  data2: {user_id: 3, login_name: 'testuser1', password: 'password1', user_type_id: 1}
+
