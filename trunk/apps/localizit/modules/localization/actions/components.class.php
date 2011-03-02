@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Orange-localizit  is a System that transalate text into a any language.
  * Copyright (C) 2011 Orange-localizit Inc., http://www.orange-localizit.com
@@ -15,18 +16,16 @@
  * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA
  */
-
-
 class localizationComponents extends sfComponents {
 
-    private $localizationService ;
+    private $localizationService;
 
     /**
      * Get Localization Service
      */
     public function getLocalizeService() {
-        $this->localizationService	=	new LocalizationService();
-        $this->localizationService->setLocalizationDao( new LocalizationDao);
+        $this->localizationService = new LocalizationService();
+        $this->localizationService->setLocalizationDao(new LocalizationDao);
         return $this->localizationService;
     }
 
@@ -34,10 +33,12 @@ class localizationComponents extends sfComponents {
      * LanguageList Method.
      * @param sfWebRequest $request 
      */
-    public function executeLanguageList(sfWebRequest $request) {        
-        $localizationService=$this->getLocalizeService();
+    public function executeLanguageList(sfWebRequest $request) {
+        $localizationService = $this->getLocalizeService();
 
-        $this->languageList=$localizationService->getLanguageList();
-        $this->sourceLanguageId=$this->getUser()->getAttribute('user_language_id');
+        $this->languageList = $localizationService->getLanguageList();
+        $this->sourceLanguageId = $this->getUser()->getAttribute('user_language_id');
     }
+
+    
 }
