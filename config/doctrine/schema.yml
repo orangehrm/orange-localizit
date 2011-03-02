@@ -135,7 +135,7 @@ OhrmUser:
       notnull: true
       autoincrement: false
     password:
-      type: string(25)
+      type: string(100)
       fixed: false
       unsigned: false
       primary: false
@@ -165,3 +165,36 @@ OhrmUserType:
       primary: false
       notnull: true
       autoincrement: false
+UserLanguage:
+  connection: doctrine
+  tableName: ohrm_user_language
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    user_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    language_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    OhrmLanguage:
+      local: language_id
+      foreign: language_id
+      type: many
+    OhrmUser:
+      local: user_id
+      foreign: user_id
+      type: many

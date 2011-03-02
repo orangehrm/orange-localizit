@@ -171,9 +171,9 @@ tfoot td {
 #editLangTextArea{
     display: none;
 }
-#targetLangText{
+/*#targetLangText{
     display: none;
-}
+}*/
 .addDotLineToBottom {
     border-bottom: #CCCCCC 1px dotted;
 }
@@ -230,4 +230,8 @@ label.error {
 input.error {
     border: 1px solid #CC0000;
     background-color: #FAAFBE;
+}
+
+#langId {
+    display: none;
 }

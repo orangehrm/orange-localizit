@@ -44,8 +44,8 @@
 <?php } ?>
     </head>
     <body>
-    <?php if( $sf_context->getModuleName() == 'localization') {include_partial('header');} ?>
-    <?php if ( $sf_context->getModuleName() == 'localization') {include_partial('adminTopMenu');} ?>
+    <?php if( ($sf_context->getModuleName() == 'localization') || ($sf_context->getModuleName() == 'userManagement')) {include_partial('localization/header');} ?>
+    <?php if ( $sf_context->getModuleName() == 'localization' || ($sf_context->getModuleName() == 'userManagement')) {include_partial('localization/adminTopMenu');} ?>
     <?php echo $sf_content ?>
     </body>
 </html>

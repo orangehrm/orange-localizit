@@ -17,7 +17,7 @@ abstract class BaseUserForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'user_id'      => new sfWidgetFormInputHidden(),
       'login_name'   => new sfWidgetFormInputText(),
-      'password'     => new sfWidgetFormInputText(),
+      'password'     => new sfWidgetFormInputPassword(),
       'user_type_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('UserType'), 'add_empty' => false)),
     ));
 

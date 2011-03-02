@@ -55,8 +55,8 @@ class SignInForm extends BaseUserForm {
     public function configure() {
 
         $this->setWidgets(array(
-            'loginName' => new sfWidgetFormInputText(),
-            'password' => new sfWidgetFormInputPassword()
+            'loginName' => new sfWidgetFormInputText(array(),array('class' => 'text_input')),
+            'password' => new sfWidgetFormInputPassword(array(),array('class' => 'text_input'))
         ));
         $this->widgetSchema->setNameFormat('sign_in[%s]');
         $this->setValidators(array(
