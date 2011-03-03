@@ -117,5 +117,17 @@ class UserManagementService extends BaseService {
         }
     }
 
-}
+    /**
+     * Get Language List for User
+     */
+    public function getUserLanguageList($userId) {
+        $userManagementDao = $this->getUserManagementDao();
+        try {
+            $res = $userManagementDao->getUserLanguageList($userId);
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
 
+}

@@ -105,8 +105,8 @@ INSERT INTO `ohrm_language` (`language_id`, `language_code`, `language_name`, `l
 (3, 'fr', 'French', '');
 
 INSERT INTO `ohrm_user_type` (`id`, `user_type`) VALUES
-(1, 'admin'),
-(2, 'normal');
+(1, 'Admin'),
+(2, 'Moderator');
 
 INSERT INTO `ohrm_user` (`user_id`, `login_name`,  `password`, `user_type_id`) VALUES
 (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1);

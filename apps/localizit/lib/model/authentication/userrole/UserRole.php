@@ -24,9 +24,7 @@ class UserRole implements RoleDecorator {
 
     public $user;
     public $sfUser;
-    protected $decoratedRole;
-    private $languageList = null;
-
+    
     public function setUserRoleDecoratorFactory($userRoleDecoratorFactory) {
         $this->userRoleDecoratorFactory = $userRoleDecoratorFactory;
     }
@@ -55,10 +53,6 @@ class UserRole implements RoleDecorator {
         return $this->sfUser;
     }
 
-    public function setDecoratedRole($decoratedRole) {
-        $this->decoratedRole = $decoratedRole;
-    }
-
     public function isAllowedToManageUser() {
 
         foreach($this->getUserRoleDecorator() as $roleDecorator){
@@ -75,12 +69,23 @@ class UserRole implements RoleDecorator {
      */
     public function getAllowedLanguageList() {
 
-        //todo
+        $allowedLanguageList = array();
+
+        foreach($this->getUserRoleDecorator() as $roleDecorator){
+            array_push($allowedLanguageList, $roleDecorator->getAllowedLanguageList());
+        }
+     
+        return $allowedLanguageList;        
     }
 
     public function isAllowedToDownloadDirectory() {
 
-        return true;
+        foreach($this->getUserRoleDecorator() as $roleDecorator){
+            if($roleDecorator->isAllowedToDownloadDirectory()){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

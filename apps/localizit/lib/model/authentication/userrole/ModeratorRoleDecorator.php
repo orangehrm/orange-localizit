@@ -20,26 +20,7 @@
  *
  */
 
-class ModeratorRoleDecorator implements RoleDecorator {
-
-    public $user;
-
-    /**
-     * Get User
-     * @return unknown_type
-     */
-    public function getUser() {
-        return $this->user;
-    }
-
-    /**
-     * Set User
-     * @param $user
-     * @return unknown_type
-     */
-    public function setUser($user) {
-        $this->user = $user;
-    }
+class ModeratorRoleDecorator extends BaseRoleDecorator implements RoleDecorator {
 
     /**
      *
@@ -55,7 +36,7 @@ class ModeratorRoleDecorator implements RoleDecorator {
      */
     public function getAllowedLanguageList() {
 
-        //todo
+        $this->getUserManagementService()->getLanguageList($this->getUser()->getUserId());
     }
 
     public function isAllowedToDownloadDirectory() {

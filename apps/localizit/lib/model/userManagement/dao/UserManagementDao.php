@@ -114,5 +114,22 @@ class UserManagementDao extends BaseDao {
         }
     }
 
-}
+    /**
+     * Get Language list by user id
+     * @param int $userId
+     * @returns Language id list
+     * @throws DaoException
+     */
+    public function getUserLanguageList($userId) {
+        try {
+            $q = Doctrine_Query :: create()
+                            ->select('l.language_id')
+                            ->from('UserLanguage l')
+                            ->where('l.user_id=?', $userId);
+            return $q->execute();
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
 
+}
