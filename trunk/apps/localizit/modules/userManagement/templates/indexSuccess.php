@@ -19,13 +19,13 @@
                     <th><?php echo __('delete', null, 'userManagementMessages')?></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody><?php //echo url_for('userManagement/delete?user_id=' . $user->getUserId()) ?>
                 <?php foreach ($users as $user): ?>
                     <tr>
                         <td><?php echo $user->getLoginName() ?></td>
-                        <td><?php echo $user->getUserTypeId() ?></td>
-                        <td><a href="<?php echo url_for('userManagement/show?user_id=' . $user->getUserId()) ?>"><span  class="imageLink"><?php echo image_tag('edit.gif' , array ('border' => '0'))?></span></a></td>
-                        <td><a href="<?php echo url_for('userManagement/show?user_id=' . $user->getUserId()) ?>"><span  class="imageLink"><?php echo image_tag('delete.gif' , array ('border' => '0'))?></span></a></td>
+                        <td><?php echo $user->getUserTypeId()->getUserType(); ?></td>
+                        <td style="text-align: center"><a href="<?php echo url_for('userManagement/show?user_id=' . $user->getUserId()) ?>"><span  class="imageLink"><?php echo image_tag('edit.gif' , array ('border' => '0'))?></span></a></td>
+                        <td style="text-align: center"><a href="#"><span  class="imageLink"><?php echo image_tag('delete.gif' , array ('onclick' => 'deleteUser('.$user->getUserId().')', 'border' => '0'))?></span></a></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

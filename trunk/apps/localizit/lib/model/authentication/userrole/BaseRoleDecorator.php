@@ -20,28 +20,38 @@
  *
  */
 
-class NormalUserRoleDecorator extends BaseRoleDecorator implements RoleDecorator {
+class BaseRoleDecorator {
+
+    public $user;
+    private $userManagementService;
 
     /**
-     *
-     * check ablity to manage users
+     * Get User
+     * @return unknown_type
      */
-    public function isAllowedToManageUser() {
-        return false;
+    public function getUser() {
+        return $this->user;
     }
 
     /**
-     * @author Chameera Senarathna
-     * @return Allowed Language list
+     * Set User
+     * @param $user
+     * @return unknown_type
      */
-    public function getAllowedLanguageList() {
-
-        return null;
+    public function setUser($user) {
+        $this->user = $user;
     }
 
-    public function isAllowedToDownloadDirectory() {
+    public function setUserManagementService($userManagementService) {
+        $this->userManagementService = $userManagementService;
+    }
 
-        return true;
+    public function getUserManagementService() {
+        if ($this->userManagementService == null) {
+            return new UserManagementService();
+        } else {
+            return $this->userManagementService;
+        }
     }
 
 }

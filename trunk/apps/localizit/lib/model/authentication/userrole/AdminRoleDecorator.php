@@ -20,26 +20,7 @@
  *
  */
 
-class AdminRoleDecorator implements RoleDecorator {
-
-    public $user;
-
-    /**
-     * Get User
-     * @return unknown_type
-     */
-    public function getUser() {
-        return $this->user;
-    }
-
-    /**
-     * Set User
-     * @param $user
-     * @return unknown_type
-     */
-    public function setUser($user) {
-        $this->user = $user;
-    }
+class AdminRoleDecorator extends BaseRoleDecorator implements RoleDecorator{
 
     /**
      *
@@ -55,7 +36,14 @@ class AdminRoleDecorator implements RoleDecorator {
      */
     public function getAllowedLanguageList() {
 
-        //todo
+        $langList = $this->getUserManagementService()->getUserLanguageList();
+        $langIdList = array();
+
+        foreach ($langList as $lang) {
+            array_push($langIdList, $lang->getLanguageId());
+        }
+
+        return $langIdList;
     }
 
     public function isAllowedToDownloadDirectory() {

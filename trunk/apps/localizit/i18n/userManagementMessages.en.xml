@@ -12,7 +12,7 @@
             </trans-unit>
             <trans-unit id="3">
                 <source>user_type</source>
-                <target>User type</target>
+                <target>User Type</target>
             </trans-unit>
             <trans-unit id="4">
                 <source>edit</source>
@@ -28,13 +28,12 @@
             </trans-unit>
             <trans-unit id="7">
                 <source>new_user</source>
-                <target>New user</target>
+                <target>New User</target>
             </trans-unit>
             <trans-unit id="8">
                 <source>languages</source>
                 <target>Languages</target>
             </trans-unit>
-
         </body>
     </file>
 </xliff>

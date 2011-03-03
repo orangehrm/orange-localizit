@@ -112,3 +112,13 @@ function  displayLanguageList(val){
         $('#langId').fadeOut(1000);
     }
 }
+
+function  deleteUser(id){
+
+    jConfirm('Are you sure?', 'Delete User', function(r) {
+        if(r) {
+            $.get('userManagement/delete?user_id='+id);
+            location.reload();
+        }
+    });
+}

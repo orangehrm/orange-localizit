@@ -3,8 +3,8 @@
 
 # default rules
 homepage:
-  url:   /add-label
-  param: { module: localization, action: addLabel }
+  url:   /index
+  param: { module: localization, action: index }
 
 add_label:
   url:   /add-label

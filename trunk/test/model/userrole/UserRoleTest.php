@@ -26,6 +26,7 @@ require_once 'PHPUnit/Framework.php';
 class UserRoleTest extends PHPUnit_Framework_TestCase {
 
     private $userRole;
+    private $userManagementService;
 
     /**
      * PHPUnit setup function
@@ -51,10 +52,23 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $user->setAuthenticated(true);
         $user->addCredential('Admin');
 
+        $this->userRole->setUserRoleDecoratorFactory(new UserRoleDecoratorFactory());
+
+        $langIds = array("language_id" => 1, "language_id" => 2, "language_id" => 3);
+        $this->userManagementService = $this->getMock('UserManagementService');
+        $this->userManagementService->expects($this->once())
+                    ->method('getUserLanguageList')
+                    ->will($this->returnValue($langIds));
+
+        foreach($this->userRole->getUserRoleDecorator() as $roleDecorator){
+            $roleDecorator->setUserManagementService($this->userManagementService);
+        }
+
         $this->userRole->setSfUser($user);
 
         $this->assertTrue($this->userRole->isAllowedToManageUser());
         $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
+        $this->assertEquals($this->userRole->getAllowedLanguageList(), $langIds);
     }
 
     /**
@@ -73,10 +87,21 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $user->setAuthenticated(true);
         $user->addCredential('Moderator');
 
+        $langIds = array("language_id" => 1, "language_id" => 2);
+        $this->userManagementService = $this->getMock('UserManagementService');
+        $this->userManagementService->expects($this->once())
+                    ->method('getUserLanguageList')
+                    ->will($this->returnValue($langIds));
+
+        foreach($this->userRole->getUserRoleDecorator() as $roleDecorator){
+            $roleDecorator->setUserManagementService($this->userManagementService);
+        }
+
         $this->userRole->setSfUser($user);
 
         $this->assertTrue(!$this->userRole->isAllowedToManageUser());
         $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
+        $this->assertEquals($this->userRole->getAllowedLanguageList(), $langIds);
     }
 
     /**
@@ -98,6 +123,7 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
 
         $this->assertTrue(!$this->userRole->isAllowedToManageUser());
         $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
+        $this->assertNull($this->userRole->getAllowedLanguageList());
     }
 
 }

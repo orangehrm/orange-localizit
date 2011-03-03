@@ -7,7 +7,7 @@
                     <a href="<?php echo url_for('@userManagement'); ?>"><?php echo __('users', null, 'localizationMessages') ?></a>
                 </li>
                 <li>
-                    <a href="#"><?php echo __('language_text', null, 'localizationMessages') ?></a>
+                    <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('language_text', null, 'localizationMessages') ?></a>
                 </li>
             </ul>
         </td>
