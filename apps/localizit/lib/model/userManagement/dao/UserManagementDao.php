@@ -123,7 +123,6 @@ class UserManagementDao extends BaseDao {
     public function getUserLanguageList($userId) {
         try {
             $q = Doctrine_Query :: create()
-                            ->select('l.language_id')
                             ->from('UserLanguage l')
                             ->where('l.user_id=?', $userId);
             return $q->execute();

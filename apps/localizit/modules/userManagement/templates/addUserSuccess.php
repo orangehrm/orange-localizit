@@ -60,7 +60,7 @@
                                 <tr>
                                 <?php foreach ($langList as $language) { ?>
                                     <td style="border-top: none; border-left: none;">
-                                        <input type="checkbox" name="add_user[user_languages][] ?>" value="<?php echo $language->getLanguageId() ?>" />
+                                        <input type="checkbox" name="add_user[user_languages][]" value="<?php echo $language->getLanguageId() ?>" />
                                                 <?php echo $language->getLanguageCode()?>
                                     </td>
                                 <?php } ?>

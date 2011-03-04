@@ -27,6 +27,7 @@ class ModeratorRoleDecorator extends BaseRoleDecorator implements RoleDecorator 
      * check ablity to manage users
      */
     public function isAllowedToManageUser() {
+        
         return false;
     }
 
@@ -36,7 +37,14 @@ class ModeratorRoleDecorator extends BaseRoleDecorator implements RoleDecorator 
      */
     public function getAllowedLanguageList() {
 
-        $this->getUserManagementService()->getLanguageList($this->getUser()->getUserId());
+        $langList = $this->getUserManagementService()->getUserLanguageList($this->getUser()->getUserId());
+        $langIdList = array();
+
+        foreach ($langList as $lang) {
+            array_push($langIdList, $lang->getLanguageId());
+        }
+
+        return $langIdList;
     }
 
     public function isAllowedToDownloadDirectory() {

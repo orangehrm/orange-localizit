@@ -24,7 +24,8 @@ class UserRole implements RoleDecorator {
 
     public $user;
     public $sfUser;
-    
+    public $userRoleDecoratorFactory;
+
     public function setUserRoleDecoratorFactory($userRoleDecoratorFactory) {
         $this->userRoleDecoratorFactory = $userRoleDecoratorFactory;
     }
@@ -55,8 +56,8 @@ class UserRole implements RoleDecorator {
 
     public function isAllowedToManageUser() {
 
-        foreach($this->getUserRoleDecorator() as $roleDecorator){
-            if($roleDecorator->isAllowedToManageUser()){
+        foreach ($this->getUserRoleDecorator() as $roleDecorator) {
+            if ($roleDecorator->isAllowedToManageUser()) {
                 return true;
             }
         }
@@ -71,17 +72,17 @@ class UserRole implements RoleDecorator {
 
         $allowedLanguageList = array();
 
-        foreach($this->getUserRoleDecorator() as $roleDecorator){
+        foreach ($this->getUserRoleDecorator() as $roleDecorator) {
             array_push($allowedLanguageList, $roleDecorator->getAllowedLanguageList());
         }
-     
-        return $allowedLanguageList;        
+
+        return $allowedLanguageList;
     }
 
     public function isAllowedToDownloadDirectory() {
 
-        foreach($this->getUserRoleDecorator() as $roleDecorator){
-            if($roleDecorator->isAllowedToDownloadDirectory()){
+        foreach ($this->getUserRoleDecorator() as $roleDecorator) {
+            if ($roleDecorator->isAllowedToDownloadDirectory()) {
                 return true;
             }
         }
@@ -98,19 +99,21 @@ class UserRole implements RoleDecorator {
         $decoratorFactory = $this->getUserRoleDecoratorFactory();
         $roleDecoratorChain = array();
 
-        if ($SfUser->hasCredential('Admin')) {
-            $roleDecorator = $decoratorFactory->getRoleDecorator('Admin');
-            $roleDecorator->setUser($user);
-            array_push($roleDecoratorChain, $roleDecorator);
-        }
+        if ($SfUser != null) {
+            if ($SfUser->hasCredential('Admin')) {
+                $roleDecorator = $decoratorFactory->getRoleDecorator('Admin');
+                $roleDecorator->setUser($user);
+                array_push($roleDecoratorChain, $roleDecorator);
+            }
 
-        if ($SfUser->hasCredential('Moderator')) {
-            $roleDecorator = $decoratorFactory->getRoleDecorator('Moderator');
-            $roleDecorator->setUser($user);
-            array_push($roleDecoratorChain, $roleDecorator);
+            if ($SfUser->hasCredential('Moderator')) {
+                $roleDecorator = $decoratorFactory->getRoleDecorator('Moderator');
+                $roleDecorator->setUser($user);
+                array_push($roleDecoratorChain, $roleDecorator);
+            }
         }
-
-        if (!$SfUser->isAuthenticated()) {
+        
+        if ($SfUser==null) {
             $roleDecorator = $decoratorFactory->getRoleDecorator('NormalUser');
             $roleDecorator->setUser($user);
             array_push($roleDecoratorChain, $roleDecorator);
@@ -120,5 +123,3 @@ class UserRole implements RoleDecorator {
     }
 
 }
-
-?>

@@ -76,7 +76,7 @@ class UserForm extends BaseUserForm {
             $addUser = $userManagementService->addUser($values['login_name'], $values['password'], $values['user_type_id']);
 
             if (isset($values['user_languages'])) {
-                foreach ($values['user_languages'] as $id => $lang) {
+                foreach ($values['user_languages'] as $id) {
                     $userLang = new UserLanguage();
                     $userLang->setUserId($addUser->getUserId());
                     $userLang->setLanguageId($id);
