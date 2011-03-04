@@ -47,11 +47,9 @@ class BaseRoleDecorator {
     }
 
     public function getUserManagementService() {
-        if ($this->userManagementService == null) {
-            return new UserManagementService();
-        } else {
-            return $this->userManagementService;
-        }
+        $this->userManagementService = new UserManagementService();
+        $this->userManagementService->setUserManagementDao(new UserManagementDao());
+        return $this->userManagementService;
     }
 
 }

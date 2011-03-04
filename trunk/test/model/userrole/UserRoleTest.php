@@ -27,6 +27,7 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
 
     private $userRole;
     private $userManagementService;
+    private $userManagementDao;
 
     /**
      * PHPUnit setup function
@@ -39,7 +40,7 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
     /**
      * Test Admin User Role
      *
-     */
+    
     public function testAdmin() {
         $_SERVER['session_id'] = 'test';
         $dispatcher = new sfEventDispatcher();
@@ -52,15 +53,14 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $user->setAuthenticated(true);
         $user->addCredential('Admin');
 
-        $this->userRole->setUserRoleDecoratorFactory(new UserRoleDecoratorFactory());
-
         $langIds = array("language_id" => 1, "language_id" => 2, "language_id" => 3);
+
         $this->userManagementService = $this->getMock('UserManagementService');
         $this->userManagementService->expects($this->once())
-                    ->method('getUserLanguageList')
-                    ->will($this->returnValue($langIds));
+                ->method('getLanguageList')
+                ->will($this->returnValue($langIds));
 
-        foreach($this->userRole->getUserRoleDecorator() as $roleDecorator){
+        foreach ($this->userRole->getUserRoleDecorator() as $roleDecorator) {
             $roleDecorator->setUserManagementService($this->userManagementService);
         }
 
@@ -81,49 +81,53 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $sessionPath = sys_get_temp_dir() . '/sessions_' . rand(11111, 99999);
         $storage = new sfSessionTestStorage(array('session_path' => $sessionPath));
 
-        $user = new myUser($dispatcher, $storage);
+        $sfUser = new myUser($dispatcher, $storage);
+        $sfUser->login_name = 'test_user';
+        $sfUser->password = md5('password');
+        $sfUser->setAuthenticated(true);
+        $sfUser->addCredential('Moderator');
+
+        $user = new User();
+        $user->user_id = '1';
         $user->login_name = 'test_user';
         $user->password = md5('password');
-        $user->setAuthenticated(true);
-        $user->addCredential('Moderator');
 
-        $langIds = array("language_id" => 1, "language_id" => 2);
+        $this->userRole->setSfUser($sfUser);
+        $this->userRole->setUser($user);
+
+        $langIds = array(1, 2, 3, 17);
         $this->userManagementService = $this->getMock('UserManagementService');
-        $this->userManagementService->expects($this->once())
-                    ->method('getUserLanguageList')
-                    ->will($this->returnValue($langIds));
+        $this->userManagementService->expects($this->any())
+                ->method('getUserLanguageList')
+                ->will($this->returnValue($langIds));
 
-        foreach($this->userRole->getUserRoleDecorator() as $roleDecorator){
+        foreach ($this->userRole->getUserRoleDecorator() as $roleDecorator) {
             $roleDecorator->setUserManagementService($this->userManagementService);
+            $this->userRole->setUserRoleDecorator($roleDecorator);
         }
 
-        $this->userRole->setSfUser($user);
+        foreach ($this->userRole->getAllowedLanguageList() as $ele)
+        echo '---------------- '.$ele;
+
+        foreach ($langIds as $ele)
+        echo '++++++++++++++++ '.$ele;
 
         $this->assertTrue(!$this->userRole->isAllowedToManageUser());
         $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
         $this->assertEquals($this->userRole->getAllowedLanguageList(), $langIds);
+         
     }
 
     /**
      * Test Normal User Role
      *
      */
-    public function testNormal() {
-        $_SERVER['session_id'] = 'test';
-        $dispatcher = new sfEventDispatcher();
-        $sessionPath = sys_get_temp_dir() . '/sessions_' . rand(11111, 99999);
-        $storage = new sfSessionTestStorage(array('session_path' => $sessionPath));
-
-        $user = new myUser($dispatcher, $storage);
-        $user->login_name = 'test_user';
-        $user->password = md5('password');
-        $user->setAuthenticated(false);
-
-        $this->userRole->setSfUser($user);
-
-        $this->assertTrue(!$this->userRole->isAllowedToManageUser());
-        $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
-        $this->assertNull($this->userRole->getAllowedLanguageList());
-    }
-
+//    public function testNormal() {
+//
+//        $this->userRole->setSfUser(null);
+//
+//        $this->assertTrue(!$this->userRole->isAllowedToManageUser());
+//        $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
+//        $this->assertNull($this->userRole->getAllowedLanguageList());
+//    }
 }

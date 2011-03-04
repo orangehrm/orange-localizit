@@ -36,7 +36,7 @@ class AdminRoleDecorator extends BaseRoleDecorator implements RoleDecorator{
      */
     public function getAllowedLanguageList() {
 
-        $langList = $this->getUserManagementService()->getUserLanguageList();
+        $langList = $this->getUserManagementService()->getLanguageList();
         $langIdList = array();
 
         foreach ($langList as $lang) {

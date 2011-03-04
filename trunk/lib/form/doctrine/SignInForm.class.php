@@ -82,6 +82,12 @@ class SignInForm extends BaseUserForm {
 
             if ($existingUser['password'] != md5($values['password'])) {
                 throw new sfValidatorError($validator, 'Invalid login');
+            } else {
+                sfContext::getInstance()->getUser()->setAttribute('loginUser', $existingUser);
+                if ($existingUser->getUserTypeId()==1)
+                    sfContext::getInstance()->getUser()->addCredential('Admin');
+                if ($existingUser->getUserTypeId()==2)
+                    sfContext::getInstance()->getUser()->addCredential('Moderator');
             }
         }
         return $values;
