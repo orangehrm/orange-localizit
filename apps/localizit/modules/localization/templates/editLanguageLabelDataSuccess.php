@@ -12,21 +12,22 @@
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($languageLabelDataSet as $labelId => $languageLabelData) {
-            ?>
+            <?php $role = sfContext::getInstance()->getUser()->getUserRole(); ?>
+
+            <?php foreach ($languageLabelDataSet as $labelId => $languageLabelData) { ?>
             <?php $labelInnerData = $languageLabelData->get($labelId); ?>
                 <tr>
                     <td>&nbsp;</td>
                     <td>
-                        <input type="text" name="label_name[]" value="<?php echo isset($labelInnerData['label_name']) ? $labelInnerData['label_name'] : null ?>" class="text_input"/>
+                        <input type="text" name="label_name[]" value="<?php echo isset($labelInnerData['label_name']) ? $labelInnerData['label_name'] : null ?>" class="text_input" <?php if (!$role->isAllowedToAddLabel()) { ?>readonly style="background-color: #CCC"<?php } ?>/>
                         <input type="hidden" name="label_id[]" value="<?php echo isset($labelInnerData['label_id']) ? $labelInnerData['label_id'] : null ?>"/>
                     </td>
                     <td>
-                        <input type="text" name="source_language_string[]" value="<?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?>" class="text_input"/>
+                        <input type="text" name="source_language_string[]" value="<?php echo isset($labelInnerData['source_language_label']) ? $labelInnerData['source_language_label'] : null ?>" class="text_input" <?php if (!$role->isAllowedToAddLabel()) { ?>readonly style="background-color: #CCC"<?php } ?>/>
                         <input type="hidden" name="source_language_string_id[]" value="<?php echo isset($labelInnerData['source_language_label_string_id']) ? $labelInnerData['source_language_label_string_id'] : null ?>"/>
                     </td>
                     <td>
-                        <input type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" class="text_input" />
+                        <input type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" class="text_input" <?php if (array_search($targetLanguageId, $role->getAllowedLanguageList()) == null) { ?>readonly style="background-color: #CCC"<?php } ?>/>
                         <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id']) ? $labelInnerData['target_language_label_string_id'] : null ?>"/>
                     </td>
                     <td>

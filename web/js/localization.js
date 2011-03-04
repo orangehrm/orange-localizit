@@ -7,6 +7,8 @@ $(document).ready(function (){
     fetchLangugeLabelSet(url,targetLanguageId,'dataSet');
 
     $('#languageList').change(function (){
+        $('#edit').css('display','');
+        $('#save').css('display','none');
         targetLanguageId=$('#languageList').val();
         fetchLangugeLabelSet(url,targetLanguageId,'dataSet');
     });
@@ -90,7 +92,7 @@ function generateDictionary(url,targetLanguageId){
             jAlert('Dictionary file created successfully!', 'Success');
         },
         error: function(){
-            jAlert('Sorry, Something went wrong!', 'Error');
+            jAlert('Sorry, You have no access for this language!', 'Error');
         }
     });
 }

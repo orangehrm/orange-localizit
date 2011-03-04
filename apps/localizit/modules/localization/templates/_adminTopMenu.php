@@ -4,7 +4,9 @@
         <td>
             <ul class="sf-menu">
                 <li class="current">
-                    <a href="<?php echo url_for('@userManagement'); ?>"><?php echo __('users', null, 'localizationMessages') ?></a>
+                    <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToManageUser()) { ?>
+                        <a href="<?php echo url_for('@userManagement'); ?>"><?php echo __('users', null, 'localizationMessages') ?></a>
+                    <?php } ?>
                 </li>
                 <li>
                     <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('language_text', null, 'localizationMessages') ?></a>
