@@ -27,6 +27,12 @@ class NormalUserRoleDecorator extends BaseRoleDecorator implements RoleDecorator
      * check ablity to manage users
      */
     public function isAllowedToManageUser() {
+
+        return false;
+    }
+
+    public function isAllowedToAddLabel() {
+
         return false;
     }
 

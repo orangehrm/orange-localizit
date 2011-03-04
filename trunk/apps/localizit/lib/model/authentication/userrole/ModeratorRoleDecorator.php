@@ -31,6 +31,11 @@ class ModeratorRoleDecorator extends BaseRoleDecorator implements RoleDecorator 
         return false;
     }
 
+    public function isAllowedToAddLabel() {
+
+        return false;
+    }
+
     /**
      * @author Chameera Senarathna
      * @return Allowed Language list

@@ -20,13 +20,19 @@
  *
  */
 
-class AdminRoleDecorator extends BaseRoleDecorator implements RoleDecorator{
+class AdminRoleDecorator extends BaseRoleDecorator implements RoleDecorator {
 
     /**
      *
      * check ablity to manage users
      */
     public function isAllowedToManageUser() {
+
+        return true;
+    }
+
+    public function isAllowedToAddLabel() {
+
         return true;
     }
 

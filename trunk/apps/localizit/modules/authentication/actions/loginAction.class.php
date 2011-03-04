@@ -39,7 +39,7 @@ class loginAction extends sfAction {
 
                     // Create Sessions
                     $this->getUser()->setAuthenticated(true);
-                    $this->getUser()->addCredential('Moderator');
+                    //$this->getUser()->addCredential('Moderator'); moved to SignInForms
 
                     $signIn = $request->getParameter($this->signInForm->getName());
                     $this->getUser()->setAttribute('username', $signIn['loginName']);

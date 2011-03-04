@@ -64,6 +64,16 @@ class UserRole implements RoleDecorator {
         return false;
     }
 
+    public function isAllowedToAddLabel() {
+
+        foreach ($this->getUserRoleDecorator() as $roleDecorator) {
+            if ($roleDecorator->isAllowedToAddLabel()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @author Chameera Senarathna
      * @return Allowed Language list
@@ -73,7 +83,7 @@ class UserRole implements RoleDecorator {
         $allowedLanguageList = array();
 
         foreach ($this->getUserRoleDecorator() as $roleDecorator) {
-            array_push($allowedLanguageList, $roleDecorator->getAllowedLanguageList());
+            $allowedLanguageList = array_merge($allowedLanguageList, $roleDecorator->getAllowedLanguageList());
         }
 
         return $allowedLanguageList;
