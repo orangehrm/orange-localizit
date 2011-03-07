@@ -27,7 +27,6 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
 
     private $userRole;
     private $userManagementService;
-    private $userManagementDao;
 
     /**
      * PHPUnit setup function
@@ -40,35 +39,57 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
     /**
      * Test Admin User Role
      *
-    
+     */
     public function testAdmin() {
         $_SERVER['session_id'] = 'test';
         $dispatcher = new sfEventDispatcher();
         $sessionPath = sys_get_temp_dir() . '/sessions_' . rand(11111, 99999);
         $storage = new sfSessionTestStorage(array('session_path' => $sessionPath));
 
-        $user = new myUser($dispatcher, $storage);
+        $sfUser = new myUser($dispatcher, $storage);
+        $sfUser->login_name = 'test_user';
+        $sfUser->password = md5('password');
+        $sfUser->setAuthenticated(true);
+        $sfUser->addCredential('Admin');
+
+        $user = new User();
+        $user->user_id = '1';
         $user->login_name = 'test_user';
         $user->password = md5('password');
-        $user->setAuthenticated(true);
-        $user->addCredential('Admin');
 
-        $langIds = array("language_id" => 1, "language_id" => 2, "language_id" => 3);
+        $this->userRole->setSfUser($sfUser);
+        $this->userRole->setUser($user);
+
+        $langIds = array();
+        $langList = array();
+
+        for ($i=1; $i<6; $i++ ) {
+            $lang = new Language();
+            $lang->setLanguageId($i);
+            $lang->setLanguageCode('language_code'.$i);
+            $lang->setLanguageName('language_name'.$i);
+            $lang->setLanguageStatus(0);
+            array_push($langList, $lang);
+            array_push($langIds, $i);
+        }
+
 
         $this->userManagementService = $this->getMock('UserManagementService');
-        $this->userManagementService->expects($this->once())
+        $this->userManagementService->expects($this->any())
                 ->method('getLanguageList')
-                ->will($this->returnValue($langIds));
+                ->will($this->returnValue($langList));
+
+        $result = array();
 
         foreach ($this->userRole->getUserRoleDecorator() as $roleDecorator) {
             $roleDecorator->setUserManagementService($this->userManagementService);
+            $result = array_merge($result, $roleDecorator->getAllowedLanguageList());
         }
-
-        $this->userRole->setSfUser($user);
 
         $this->assertTrue($this->userRole->isAllowedToManageUser());
         $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
-        $this->assertEquals($this->userRole->getAllowedLanguageList(), $langIds);
+        $this->assertTrue($this->userRole->isAllowedToAddLabel());
+        $this->assertEquals($result, $langIds);
     }
 
     /**
@@ -95,39 +116,164 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $this->userRole->setSfUser($sfUser);
         $this->userRole->setUser($user);
 
-        $langIds = array(1, 2, 3, 17);
+        $langIds = array();
+        $langList = array();
+
+        for ($i=1; $i<4; $i++ ) {
+            $lang = new Language();
+            $lang->setLanguageId($i);
+            $lang->setLanguageCode('language_code'.$i);
+            $lang->setLanguageName('language_name'.$i);
+            $lang->setLanguageStatus(0);
+            array_push($langList, $lang);
+            array_push($langIds, $i);
+        }
+
+
         $this->userManagementService = $this->getMock('UserManagementService');
         $this->userManagementService->expects($this->any())
                 ->method('getUserLanguageList')
-                ->will($this->returnValue($langIds));
+                ->will($this->returnValue($langList));
+
+        $result = array();
 
         foreach ($this->userRole->getUserRoleDecorator() as $roleDecorator) {
             $roleDecorator->setUserManagementService($this->userManagementService);
-            $this->userRole->setUserRoleDecorator($roleDecorator);
-        }
-
-        foreach ($this->userRole->getAllowedLanguageList() as $ele)
-        echo '---------------- '.$ele;
-
-        foreach ($langIds as $ele)
-        echo '++++++++++++++++ '.$ele;
+            $result = array_merge($result, $roleDecorator->getAllowedLanguageList());
+        }      
 
         $this->assertTrue(!$this->userRole->isAllowedToManageUser());
         $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
-        $this->assertEquals($this->userRole->getAllowedLanguageList(), $langIds);
+        $this->assertTrue(!$this->userRole->isAllowedToAddLabel());
+        $this->assertEquals($result, $langIds);
          
+    }
+
+    /**
+     * Test Moderator User Role with setter geter
+     *
+     */
+    public function testModerator2() {
+        $_SERVER['session_id'] = 'test';
+        $dispatcher = new sfEventDispatcher();
+        $sessionPath = sys_get_temp_dir() . '/sessions_' . rand(11111, 99999);
+        $storage = new sfSessionTestStorage(array('session_path' => $sessionPath));
+
+        $sfUser = new myUser($dispatcher, $storage);
+        $sfUser->login_name = 'test_user';
+        $sfUser->password = md5('password');
+        $sfUser->setAuthenticated(true);
+        $sfUser->addCredential('Moderator');
+
+        $user = new User();
+        $user->user_id = '1';
+        $user->login_name = 'test_user';
+        $user->password = md5('password');
+
+        $this->userRole->setSfUser($sfUser);
+        $this->userRole->setUser($user);
+
+        $langIds = array();
+        $langList = array();
+
+        for ($i=1; $i<4; $i++ ) {
+            $lang = new Language();
+            $lang->setLanguageId($i);
+            $lang->setLanguageCode('language_code'.$i);
+            $lang->setLanguageName('language_name'.$i);
+            $lang->setLanguageStatus(0);
+            array_push($langList, $lang);
+            array_push($langIds, $i);
+        }
+
+        $this->userRole->setUserRoleDecoratorFactory(new UserRoleDecoratorFactory());
+
+
+        $this->userManagementService = $this->getMock('UserManagementService');
+        $this->userManagementService->expects($this->any())
+                ->method('getUserLanguageList')
+                ->will($this->returnValue($langList));
+
+        $result = array();
+
+        foreach ($this->userRole->getUserRoleDecorator() as $roleDecorator) {
+            $roleDecorator->setUserManagementService($this->userManagementService);
+            $result = array_merge($result, $roleDecorator->getAllowedLanguageList());
+        }
+
+        $this->assertTrue(!$this->userRole->isAllowedToManageUser());
+        $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
+        $this->assertTrue(!$this->userRole->isAllowedToAddLabel());
+        $this->assertEquals($result, $langIds);
+
+    }
+
+    /**
+     * Test invalid User
+     *
+     */
+    public function testInvalidUser() {
+        $_SERVER['session_id'] = 'test';
+        $dispatcher = new sfEventDispatcher();
+        $sessionPath = sys_get_temp_dir() . '/sessions_' . rand(11111, 99999);
+        $storage = new sfSessionTestStorage(array('session_path' => $sessionPath));
+
+        $sfUser = new myUser($dispatcher, $storage);
+        $sfUser->login_name = 'test_user';
+        $sfUser->password = md5('password');
+        $sfUser->setAuthenticated(true);
+        $sfUser->addCredential('null');
+
+        $langIds = array();
+        $langList = array();
+
+        for ($i=1; $i<4; $i++ ) {
+            $lang = new Language();
+            $lang->setLanguageId($i);
+            $lang->setLanguageCode('language_code'.$i);
+            $lang->setLanguageName('language_name'.$i);
+            $lang->setLanguageStatus(0);
+            array_push($langList, $lang);
+            array_push($langIds, $i);
+        }
+
+        $this->userRole->setUserRoleDecoratorFactory(new UserRoleDecoratorFactory());
+
+
+        $this->userManagementService = $this->getMock('UserManagementService');
+        $this->userManagementService->expects($this->any())
+                ->method('getUserLanguageList')
+                ->will($this->returnValue($langList));
+
+        $result = array();
+
+        foreach ($this->userRole->getUserRoleDecorator() as $roleDecorator) {
+            $roleDecorator->setUserManagementService($this->userManagementService);
+            $result = array_merge($result, $roleDecorator->getAllowedLanguageList());
+        }
+
+        $this->assertTrue(!$this->userRole->isAllowedToManageUser());
+        $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
+        $this->assertTrue(!$this->userRole->isAllowedToAddLabel());
+        $this->assertEquals($result, array());
+
     }
 
     /**
      * Test Normal User Role
      *
      */
-//    public function testNormal() {
-//
-//        $this->userRole->setSfUser(null);
-//
-//        $this->assertTrue(!$this->userRole->isAllowedToManageUser());
-//        $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
-//        $this->assertNull($this->userRole->getAllowedLanguageList());
-//    }
+    public function testNormal() {
+
+        $this->userRole->setSfUser(null);
+
+        foreach ($this->userRole->getUserRoleDecorator() as $roleDecorator) {
+            $roleDecorator->getUserManagementService();
+        }
+
+        $this->assertTrue(!$this->userRole->isAllowedToManageUser());
+        $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
+        $this->assertTrue(!$this->userRole->isAllowedToAddLabel());
+        $this->assertEquals($this->userRole->getAllowedLanguageList(), array());
+    }
 }

@@ -42,7 +42,7 @@ class NormalUserRoleDecorator extends BaseRoleDecorator implements RoleDecorator
      */
     public function getAllowedLanguageList() {
 
-        return null;
+        return array();
     }
 
     public function isAllowedToDownloadDirectory() {
