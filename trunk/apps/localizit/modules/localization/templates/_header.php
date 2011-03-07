@@ -7,5 +7,6 @@
     </div>
     <div class="normalText float-right">
         <?php if($sf_user->isAuthenticated()) { echo __('welcome', null, 'localizationMessages'); ?> &nbsp;<span class="boldText"><?php echo '&lsquo;' . $sf_user->getAttribute('username') . '&rsquo;' ?> </span> <?php } ?>
+        <?php if(!$sf_user->isAuthenticated()) { echo link_to( __('login', null, 'authenticationMessages'), '@sign_in'); } ?>
     </div>
 </div>
