@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Orange-localizit  is a System that transalate text into a any language.
  * Copyright (C) 2011 Orange-localizit Inc., http://www.orange-localizit.com
@@ -15,7 +16,6 @@
  * if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA  02110-1301, USA
  */
-
 /**
  * Orange-localizit  is a System that transalate text into a any language.
  * Copyright (C) 2011 Orange-localizit Inc., http://www.orange-localizit.com
@@ -72,10 +72,16 @@ class downloadDictionaryAction extends sfAction {
             $file = "language_files/messages." . $targetLanguageLabel . ".xml";
 
             if (!file_exists($file)) {
-//                $this->redirect("@generate_dictionary?targetLanguageId=$targetLanguageId&return=download");
-                $this->getResponse()->setError('Error');
-            } else {
+                $role = sfContext::getInstance()->getUser()->getUserRole();
+                if (array_search($targetLanguageId, $role->getAllowedLanguageList()) != null) {
+                    $this->redirect("@generate_dictionary?targetLanguageId=$targetLanguageId&return=download");
+                } else {
+                    $this->getUser()->setFlash('message', 'Sorry, Language file not found.');
+                    $this->redirect('@homepage');
+                }
+            }
 
+            if (file_exists($file)) {
                 try {
                     $result = $this->localizationService->downloadDictionary($file);
 
@@ -90,5 +96,5 @@ class downloadDictionaryAction extends sfAction {
 
         $this->setTemplate('index');
     }
+
 }
-?>
