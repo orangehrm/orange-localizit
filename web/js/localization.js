@@ -98,8 +98,18 @@ function generateDictionary(url,targetLanguageId){
 }
 
 function downloadDictionary(url,targetLanguageId){
-    url = url+"?targetLanguageId="+targetLanguageId;
-    document.location=url;
+//    url = url+"?targetLanguageId="+targetLanguageId;
+//    document.location=url;
+
+    $.ajax({
+        url: url+'?targetLanguageId='+targetLanguageId,
+        success: function() {
+//            jAlert('Dictionary file created successfully!', 'Success');
+        },
+        error: function(){
+            jAlert('Sorry, language file not found!', 'Error');
+        }
+    });
 }
 
 function submitForm(formId){
