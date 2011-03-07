@@ -13,6 +13,8 @@
                 </li>
             </ul>
         </td>
-        
+        <?php if(!$sf_user->isAuthenticated()) { ?>
+            <td style="float: right;border-top: none"><?php include_partial('localization/login'); ?></td>
+        <?php } ?>
     </tr>
 </table>
