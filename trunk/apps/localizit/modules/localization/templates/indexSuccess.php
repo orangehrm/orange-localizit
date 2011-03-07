@@ -13,12 +13,7 @@
             <table class="mainFrame">
                 <tr>
                 <td><?php $role = sfContext::getInstance()->getUser()->getUserRole(); ?>
-                    <?php if ($role->isAllowedToAddLabel()) { ?>
-                        <input type="button" name="add" id="add" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" />&nbsp;
-                    <?php } ?>
                     <?php if (count($role->getAllowedLanguageList()) != 0) { ?>
-                        <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />&nbsp;
-                        <input type="button" name="save" id="save" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" style="display: none;"/>
                         <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />&nbsp;
                     <?php } ?>
                     <?php if ($role->isAllowedToDownloadDirectory()) { ?>
@@ -113,8 +108,23 @@
 </div>
 </div>
 <div class="space"></div>
+<?php if ($role->isAllowedToAddLabel() || count($role->getAllowedLanguageList()) != 0) {?>
+    <table class="mainFrame">
+        <tr>
+            <td>
+                <?php if ($role->isAllowedToAddLabel()) { ?>
+                    <input type="button" name="add" id="add" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" />&nbsp;
+                <?php } ?>
+                <?php if (count($role->getAllowedLanguageList()) != 0) { ?>
+                    <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />&nbsp;
+                    <input type="button" name="save" id="save" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" style="display: none;"/>
+                <?php } ?>
+            </td>
+        </tr>
+    </table>
+<?php } ?>
 <div id="dataSet" >
-</div>
+</div> 
 <input type="hidden" id="url" value="<?php echo url_for('@language_label_data_set'); ?>" />
 <input type="hidden" id="edit_url" value="<?php echo url_for('@language_label_data_set_edit'); ?>" />
 <input type="hidden" id="show_add_label" value="<?php echo $showAddLabel; ?>" />
