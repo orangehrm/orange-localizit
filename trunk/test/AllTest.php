@@ -83,6 +83,15 @@ class AllTests {
             $coredirdao->next();
         }
 
+        // execute user role unit tests
+    	$coredirrole = new DirectoryIterator(dirname(__FILE__). '/model/userrole/');
+        while ($coredirrole->valid()) {
+            if (strpos( $coredirrole, 'Test.php' ) !== false) {
+                $suite->addTestFile(  dirname(__FILE__). '/model/userrole/'. $coredirrole );
+            }
+            $coredirrole->next();
+        }
+
         return $suite;
     }
     public static function main()

@@ -72,17 +72,19 @@ class downloadDictionaryAction extends sfAction {
             $file = "language_files/messages." . $targetLanguageLabel . ".xml";
 
             if (!file_exists($file)) {
-                $this->redirect("@generate_dictionary?targetLanguageId=$targetLanguageId&return=download");
-            }
+//                $this->redirect("@generate_dictionary?targetLanguageId=$targetLanguageId&return=download");
+                $this->getResponse()->setError('Error');
+            } else {
 
-            try {
-                $result = $this->localizationService->downloadDictionary($file);
+                try {
+                    $result = $this->localizationService->downloadDictionary($file);
 
-                if (!$result) {
+                    if (!$result) {
+                        $this->getResponse()->setError('Error');
+                    }
+                } catch (Exception $ex) {
                     $this->getResponse()->setError('Error');
                 }
-            } catch (Exception $ex) {
-                $this->getResponse()->setError('Error');
             }
         }
 

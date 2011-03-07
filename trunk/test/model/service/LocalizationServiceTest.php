@@ -624,7 +624,7 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
 
         $this->localizationDao = $this->getMock('LocalizationDao');
 
-        $this->localizationDao->expects($this->once())
+        $this->localizationDao->expects($this->any())
                 ->method('getLanguageById')
                 ->will($this->returnValue($lan));
 
