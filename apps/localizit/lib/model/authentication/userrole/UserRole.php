@@ -109,7 +109,7 @@ class UserRole implements RoleDecorator {
         $decoratorFactory = $this->getUserRoleDecoratorFactory();
         $roleDecoratorChain = array();
 
-        if ($SfUser != null) {
+        if ($SfUser->isAuthenticated()) {
             if ($SfUser->hasCredential('Admin')) {
                 $roleDecorator = $decoratorFactory->getRoleDecorator('Admin');
                 $roleDecorator->setUser($user);
@@ -121,9 +121,7 @@ class UserRole implements RoleDecorator {
                 $roleDecorator->setUser($user);
                 array_push($roleDecoratorChain, $roleDecorator);
             }
-        }
-        
-        if ($SfUser==null) {
+        } else {
             $roleDecorator = $decoratorFactory->getRoleDecorator('NormalUser');
             $roleDecorator->setUser($user);
             array_push($roleDecoratorChain, $roleDecorator);

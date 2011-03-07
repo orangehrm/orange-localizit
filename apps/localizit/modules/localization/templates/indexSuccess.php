@@ -16,9 +16,9 @@
                     <?php if ($role->isAllowedToAddLabel()) { ?>
                         <input type="button" name="add" id="add" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" />&nbsp;
                     <?php } ?>
-                    <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />&nbsp;
-                    <input type="button" name="save" id="save" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" style="display: none;"/>
                     <?php if (count($role->getAllowedLanguageList()) != 0) { ?>
+                        <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />&nbsp;
+                        <input type="button" name="save" id="save" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" style="display: none;"/>
                         <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />&nbsp;
                     <?php } ?>
                     <?php if ($role->isAllowedToDownloadDirectory()) { ?>

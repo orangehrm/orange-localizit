@@ -224,6 +224,9 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $sfUser->setAuthenticated(true);
         $sfUser->addCredential('null');
 
+        $this->userRole->setSfUser($sfUser);
+
+
         $langIds = array();
         $langList = array();
 
@@ -253,7 +256,7 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         }
 
         $this->assertTrue(!$this->userRole->isAllowedToManageUser());
-        $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
+        $this->assertTrue(!$this->userRole->isAllowedToDownloadDirectory());
         $this->assertTrue(!$this->userRole->isAllowedToAddLabel());
         $this->assertEquals($result, array());
 
@@ -265,7 +268,18 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
      */
     public function testNormal() {
 
-        $this->userRole->setSfUser(null);
+        $_SERVER['session_id'] = 'test';
+        $dispatcher = new sfEventDispatcher();
+        $sessionPath = sys_get_temp_dir() . '/sessions_' . rand(11111, 99999);
+        $storage = new sfSessionTestStorage(array('session_path' => $sessionPath));
+
+        $sfUser = new myUser($dispatcher, $storage);
+        $sfUser->login_name = 'test_user';
+        $sfUser->password = md5('password');
+        $sfUser->setAuthenticated(false);
+        $sfUser->addCredential('null');
+
+        $this->userRole->setSfUser($sfUser);
 
         foreach ($this->userRole->getUserRoleDecorator() as $roleDecorator) {
             $roleDecorator->getUserManagementService();
