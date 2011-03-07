@@ -30,8 +30,6 @@ class UserRoleDecoratorFactory {
             case 'NormalUser':
                 return new NormalUserRoleDecorator();
                 break;
-            default:
-                break;
         }
     }
 }
