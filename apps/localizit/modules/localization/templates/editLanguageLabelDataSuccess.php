@@ -27,7 +27,7 @@
                         <input type="hidden" name="source_language_string_id[]" value="<?php echo isset($labelInnerData['source_language_label_string_id']) ? $labelInnerData['source_language_label_string_id'] : null ?>"/>
                     </td>
                     <td>
-                        <input type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" class="text_input" <?php if (array_search($targetLanguageId, $role->getAllowedLanguageList()) == null) { ?>readonly style="background-color: #CCC"<?php } ?>/>
+                        <input type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" class="text_input" <?php if (!in_array($targetLanguageId, $role->getAllowedLanguageList())) { ?>readonly style="background-color: #CCC"<?php } ?>/>
                         <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id']) ? $labelInnerData['target_language_label_string_id'] : null ?>"/>
                     </td>
                     <td>
