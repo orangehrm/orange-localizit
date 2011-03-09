@@ -62,7 +62,7 @@ class generateDictionaryAction extends sfAction {
                     $this->getResponse()->setError('Error');
                 }
             } catch (Exception $ex) {
-                $this->getResponse()->setError('Error');
+                echo 'Error : '.$ex->getMessage();
             }
         }
 
