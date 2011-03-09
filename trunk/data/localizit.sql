@@ -87,6 +87,16 @@ CREATE TABLE IF NOT EXISTS `ohrm_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Table structure for table `ohrm_user_language`
+--
+CREATE TABLE `ohrm_user_language` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
 -- Constraints for dumped tables
 --
 
