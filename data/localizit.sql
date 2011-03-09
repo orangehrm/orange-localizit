@@ -110,3 +110,4 @@ INSERT INTO `ohrm_user_type` (`id`, `user_type`) VALUES
 
 INSERT INTO `ohrm_user` (`user_id`, `login_name`,  `password`, `user_type_id`) VALUES
 (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1);
+(2, 'moderator', 'e10adc3949ba59abbe56e057f20f883e', 2);
