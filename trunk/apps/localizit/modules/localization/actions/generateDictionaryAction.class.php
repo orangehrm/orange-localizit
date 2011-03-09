@@ -55,7 +55,7 @@ class generateDictionaryAction extends sfAction {
             try {
                 $role = sfContext::getInstance()->getUser()->getUserRole();
                 $result = false;
-                if (array_search($targetLanguageId, $role->getAllowedLanguageList()) != null)
+                if (in_array($targetLanguageId, $role->getAllowedLanguageList()))
                     $result = $this->localizationService->generateDictionary($sourceLanguageId, $targetLanguageId);
 
                 if (!$result) {
