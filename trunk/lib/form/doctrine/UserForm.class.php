@@ -58,13 +58,13 @@ class UserForm extends BaseUserForm {
         ));
 
         $this->setValidators(array(
-            'user_id' => new sfValidatorChoice(array('choices' => array($this->getObject()->get('user_id')), 'empty_value' => $this->getObject()->get('user_id'), 'required' => false)),
+//            'user_id' => new sfValidatorChoice(array('choices' => array($this->getObject()->get('user_id')), 'empty_value' => $this->getObject()->get('user_id'), 'required' => false)),
             'login_name' => new sfValidatorString(array(), array('required' => 'Username required.', 'max_length' => 25)),
             'password' => new sfValidatorString(array(), array('required' => 'Password required.', 'max_length' => 25)),
             'user_type_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UserType'))),
         ));
 
-        $this->widgetSchema->setNameFormat('add_user[%s]');
+        $this->widgetSchema->setNameFormat('user[%s]');
 
         $post_validator = new sfValidatorAnd();
         $post_validator->addValidator(new sfValidatorCallback(array('callback' => array($this, 'checkDuplicateUsername'))));
@@ -94,7 +94,36 @@ class UserForm extends BaseUserForm {
                     $userManagementService->addUserLang($userLang);
                 }
             }
+            return true;
+        } catch (Exception $exc) {
+            return false;
+        }
+    }
 
+    /**
+     * Update Database
+     */
+    public function updateDb() {
+        try {
+            $userManagementService = $this->getUserManagementService();
+
+            $values = $this->getValues();
+            $user = new User();
+            $user->setUserId($values['user_id']);
+            $user->setLoginName($values['login_name']);
+            $user->setPassword($values['password']);
+            $user->setUserTypeId($values['user_type_id']);
+
+            $addUser = $userManagementService->updateUser($user);
+
+            if (isset($values['user_languages'])) {
+                foreach ($values['user_languages'] as $id) {
+                    $userLang = new UserLanguage();
+                    $userLang->setUserId($values['user_id']);
+                    $userLang->setLanguageId($id);
+                    $userManagementService->updateUserLang($userLang);
+                }
+            }
             return true;
         } catch (Exception $exc) {
             return false;
@@ -107,9 +136,9 @@ class UserForm extends BaseUserForm {
     public function checkDuplicateUsername($validator, $values) {
         $authenticationService = $this->getAuthenticationService();
 
-        if ($authenticationService->getUserByName($values['login_name']) instanceof User) {
-            throw new sfValidatorError($validator, 'Username already exists');
-        }
+//        if ((empty($values['user_id'])) && ($authenticationService->getUserByName($values['login_name']) instanceof User)) {
+//            throw new sfValidatorError($validator, 'Username already exists');
+//        }
         return $values;
     }
 

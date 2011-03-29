@@ -18,6 +18,7 @@ class editUserAction extends sfAction {
      * This method is executed before each action
      */
     public function preExecute() {
+
         $this->userManagementService = $this->getUserManagementService();
     }
 
@@ -35,8 +36,23 @@ class editUserAction extends sfAction {
      * @param <type> $request 
      */
     public function execute($request) {
-        $user = $this->userManagementService->getUserById($request['id']);
-        $this->editUserForm = new UserForm($user);
+        $userObject = $this->getUser();
+        $this->user = $this->userManagementService->getUserById($request['id']);
+        $this->userLang = $this->userManagementService->getUserLanguageList($request['id']);
+        $this->id = $request['id'];
+        $this->editUserForm = new UserForm($this->user);
+        $userObject->setAttribute('user_type_id', $this->user['user_type_id']);
+        $this->langList = $this->userManagementService->getLanguageList();
+
+        if ($request->isMethod(sfRequest::POST)) {
+            $this->editUserForm->bind($request->getParameter($this->editUserForm->getName()));
+
+            if ($this->editUserForm->isValid()) {
+                if ($this->editUserForm->updateDb()) {
+                    $this->redirect('@userManagement');
+               }
+            } 
+        }
     }
 
 }

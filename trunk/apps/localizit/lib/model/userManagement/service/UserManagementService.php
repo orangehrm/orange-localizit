@@ -69,6 +69,20 @@ class UserManagementService extends BaseService {
     }
 
     /**
+     * Update User
+     */
+    public function updateUser(User $user) {
+        $userManagementDao = $this->getUserManagementDao();
+
+        try {
+            $response = $userManagementDao->updateUser($user);
+            return $response;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    /**
      * Add User Language Method.
      * @param UserLanguage $userLang
      * @return <type> 
@@ -77,6 +91,20 @@ class UserManagementService extends BaseService {
         $userManagementDao = $this->getUserManagementDao();
         try {
             $response = $userManagementDao->addUserLang($userLang);
+            return $response;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    /**
+     * Update User Language
+     */
+    public function updateUserLang(UserLanguage $userLang) {
+        $userManagementDao = $this->getUserManagementDao();
+
+        try {
+            $response = $userManagementDao->updateUserLanguage($userLang);
             return $response;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
