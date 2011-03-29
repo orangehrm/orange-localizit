@@ -50,6 +50,9 @@ add_user:
   url: /add-user
   param: { module: userManagement, action: addUser }
 
+edit_user:
+  url: /edit-user
+  param: { module: userManagement, action: editUser }
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

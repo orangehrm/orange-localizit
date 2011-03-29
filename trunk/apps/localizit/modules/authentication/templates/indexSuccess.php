@@ -1,5 +1,5 @@
 <div class="outerBorder loginBorderOuterFrame">
-<div class="loginForm" >
+<div class="loginForm">
     <form action="<?php echo url_for('@sign_in'); ?>" method="post" id="sign_in_form" name="sign_in_form">
         <?php echo $signInForm->renderHiddenFields(); ?>
         <div class="mainLogo">

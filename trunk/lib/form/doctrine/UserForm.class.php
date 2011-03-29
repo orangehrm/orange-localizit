@@ -15,6 +15,7 @@ class UserForm extends BaseUserForm {
      * @var <type>
      */
     private $userManagementService;
+    private $authenticationService;
 
     /**
      * Get the User Management service.And bind with DAO class.
@@ -24,6 +25,15 @@ class UserForm extends BaseUserForm {
         $this->userManagementService = new UserManagementService();
         $this->userManagementService->setUserManagementDao(new UserManagementDao);
         return $this->userManagementService;
+    }
+
+    /**
+     * Get Authentication service.
+     */
+    private function getAuthenticationService() {
+        $this->authenticationService = new AuthenticationService();
+        $this->authenticationService->setAuthenticationDao(new AuthenticationDao());
+        return $this->authenticationService;
     }
 
     /**
@@ -57,6 +67,7 @@ class UserForm extends BaseUserForm {
         $this->widgetSchema->setNameFormat('add_user[%s]');
 
         $post_validator = new sfValidatorAnd();
+        $post_validator->addValidator(new sfValidatorCallback(array('callback' => array($this, 'checkDuplicateUsername'))));
         $this->validatorSchema->setPostValidator($post_validator);
         $this->validatorSchema->setOption('allow_extra_fields', true);
         $this->validatorSchema->setOption('filter_extra_fields', false);
@@ -88,6 +99,18 @@ class UserForm extends BaseUserForm {
         } catch (Exception $exc) {
             return false;
         }
+    }
+
+    /**
+     * Check username availability.
+     */
+    public function checkDuplicateUsername($validator, $values) {
+        $authenticationService = $this->getAuthenticationService();
+
+        if ($authenticationService->getUserByName($values['login_name']) instanceof User) {
+            throw new sfValidatorError($validator, 'Username already exists');
+        }
+        return $values;
     }
 
 }

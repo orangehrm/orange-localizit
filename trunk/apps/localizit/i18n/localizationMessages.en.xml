@@ -78,6 +78,10 @@
                 <source>target_label_name_min</source>
                 <target>Target Label Name must have more than {0} characters</target>
             </trans-unit>
+            <trans-unit id="20">
+                <source>update</source>
+                <target>Update</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

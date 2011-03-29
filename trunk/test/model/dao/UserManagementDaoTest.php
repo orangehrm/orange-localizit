@@ -29,15 +29,15 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
      * Define Variables.
      * @var <type>
      */
-    private $userManagement;
+    private $userManagementDao;
 
     /**
      * getter method for userManagement.
      * @return <type>
      */
     public function getUserManagement() {
-        $this->userManagement = new UserManagementDao();
-        return $this->userManagement;
+        $this->userManagementDao = new UserManagementDao();
+        return $this->userManagementDao;
     }
 
     /**
@@ -46,7 +46,7 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
     public function setup() {
         $configuration = ProjectConfiguration::getApplicationConfiguration('localizit', 'test', true);
         $this->testCases = sfYaml::load(sfConfig::get('sf_test_dir') . '/fixtures/userManagement/userManagement.yml');
-        $this->userManagement = $this->getUserManagement();
+        $this->userManagementDao = $this->getUserManagement();
         TestDataService::populate(sfConfig::get('sf_test_dir') . '/fixtures/userManagement/userManagement.yml');
     }
 
@@ -55,15 +55,33 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
      */
     public function testAddNewUser() {
         $newUser = new User();
-        $newUser->setUserId(2);
         $newUser->setLoginName('testuser1');
         $newUser->setPassword(md5('password123'));
         $newUser->setUserTypeId(1);
 
-        $saveUser = $this->userManagement->addUser($newUser);
+        $saveUser = $this->userManagementDao->addUser($newUser);
         $result = ($saveUser instanceof User) ? true : false;
         $this->assertTrue($result);
         $this->assertEquals($saveUser['login_name'], 'testuser1');
+    }
+
+    /**
+     * Test Add user with Exception
+     */
+    public function testAddNewUserEx() {
+
+        try {
+            $newUser = new User();
+            $newUser->setUserId(1);
+            $newUser->setLoginName('testuser1');
+            $newUser->setPassword(md5('password123'));
+            $newUser->setUserTypeId(1);
+
+            $userCreated = $this->userManagementDao->addUser($newUser);
+        } catch (Exception $ex) {
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
     }
 
     /**
@@ -77,7 +95,7 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
         $newUser->setUserTypeId(1);
 
         try {
-            $saveUser = $this->userManagement->addUser($newUser);
+            $saveUser = $this->userManagementDao->addUser($newUser);
             //If success fully inserted, then that's a failure.
             $this->assertTrue(false);
         } catch (Exception $e) {
@@ -97,7 +115,7 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
         $newUser->setUserTypeId(1);
 
         try {
-            $saveUser = $this->userManagement->addUser($newUser);
+            $saveUser = $this->userManagementDao->addUser($newUser);
             //If success fully inserted, then that's a failure.
             $this->assertTrue(false);
         } catch (Exception $e) {
@@ -116,7 +134,7 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
         $newUser->setUserTypeId(-1);
 
         try {
-            $saveUser = $this->userManagement->addUser($newUser);
+            $saveUser = $this->userManagementDao->addUser($newUser);
             //If success fully inserted, then that's a failure.
             $this->assertTrue(false);
         } catch (Exception $e) {
@@ -134,7 +152,7 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
         $updateUser->setPassword(md5('passwordUpdated'));
         $updateUser->setUserTypeId(1);
 
-        $result = $this->userManagement->updateUser($updateUser);
+        $result = $this->userManagementDao->updateUser($updateUser);
         $this->assertTrue($result === true);
     }
 
@@ -143,9 +161,157 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
      */
     public function testDeleteUser() {
         foreach ($this->testCases['User'] as $key => $testCase) {
-            $result = $this->userManagement->deleteUser($testCase['user_id']);
+            $result = $this->userManagementDao->deleteUser($testCase['user_id']);
             $this->assertTrue($result);
         }
+    }
+
+    /**
+     * Test Delete User with exception
+     */
+    public function testDeleteUserException() {
+        try {
+            $illegal = array('%', '-', '.');
+            $this->userManagementDao->deleteUser($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test Add User Language method.
+     */
+    public function testAddUserLang() {
+        $userLang = new UserLanguage();
+        $userLang->setUserId(2);
+        $userLang->setLanguageId(1);
+
+        $saveUserLang = $this->userManagementDao->addUserLang($userLang);
+
+        $result = ($saveUserLang instanceof UserLanguage) ? true : false;
+        $this->assertTrue($result);
+        $this->assertEquals($saveUserLang['user_id'], 2);
+    }
+
+    /**
+     * Test Add User Language  Exception
+     */
+    public function testAddUserLangEx() {
+        try {
+            $userLang = new UserLanguage();
+            $userLang->setId(2);
+            $userLang->setUserId(2);
+            $userLang->setLanguageId(1);
+
+            $saveUserLang = $this->userManagementDao->addUserLang($userLang);
+        } catch (Exception $ex) {
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test Add User Lang without user id
+     */
+    public function testNullUserId() {
+
+        $newUser = new User();
+        $newUser->setUserId(4);
+        $newUser->setLoginName('testUser2');
+        $newUser->setPassword(md5('password2'));
+        $newUser->setUserTypeId(-1);
+
+        try {
+            $saveUser = $this->userManagementDao->addUser($newUser);
+            //If success fully inserted, then that's a failure.
+            $this->assertTrue(false);
+        } catch (Exception $e) {
+            $this->assertTrue(true);
+        }
+    }
+
+    /**
+     * Test update user with exception.
+     */
+    public function testUpdateUserException() {
+        try {
+            $user = new User();
+            $user->setUserId(1);
+            $user->setLoginName(new User());
+            $user->setPassword(NULL);
+            $user->setUserTypeId(NULL);
+
+            $updateUser = $this->userManagementDao->updateUser($user);
+        } catch (Exception $ex) {
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test Get User by id
+     */
+    public function testGetUserById() {
+        foreach ($this->testCases['User'] as $key => $testCase) {
+            $result = $this->userManagementDao->getUserById($testCase['user_id']);
+            $this->assertTrue($result instanceof User);
+            $this->assertEquals($result->getLoginName(), $testCase['login_name']);
+        }
+    }
+
+    /**
+     * Test Get user Id by exception
+     */
+    public function testGetUserByIdException() {
+        try {
+            $illegal = array('%', '-', '.');
+            $user = $this->userManagementDao->getUserById($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test Get Data List
+     */
+    public function testGetDataList() {
+        $result = $this->userManagementDao->getDataList('User');
+        $this->assertTrue(($result instanceof Doctrine_Collection));
+    }
+
+    /**
+     * Test get User Data List Exception.
+     */
+    public function testGetDataListException() {
+        try {
+            $user = $this->userManagementDao->getDataList(NULL);
+        } catch (Exception $ex) {
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test get user language list method.
+     */
+    public function testGetUserLanguageList() {
+        $result = $this->userManagementDao->getUserLanguageList(1);
+        $this->assertTrue(($result instanceof Doctrine_Collection));
+    }
+
+    /**
+     * Test get user language list exception
+     */
+    public function testGetUserLanguageListException() {
+        try {
+            $illegal = array('%', '-', '.');
+            $user = $this->userManagementDao->getUserLanguageList($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
     }
 
 }

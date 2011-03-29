@@ -17,7 +17,6 @@
  * Boston, MA  02110-1301, USA
  */
 
-
 /**
  * AuthenticationDao for User operation
  *
@@ -43,34 +42,4 @@ class AuthenticationDao extends BaseDao {
         }
     }
 
-    /**
-     * get User types
-     * @returns UserType list
-     * @throws DaoException
-     */
-    public function getUserTypeList() {
-        try {
-            $q = Doctrine_Query :: create()
-                            ->from('UserType u');
-
-            return $q->execute();
-        } catch (Exception $e) {
-            throw new DaoException($e->getMessage());
-        }
-    }
-
-    /**
-     * Save User
-     * @param User $user
-     * @returns User object
-     * @throws DaoException
-     */
-    public function addUser(User $user) {
-        try {
-            $user->save();
-            return $user;
-        } catch (Exception $e) {
-            throw new DaoException($e->getMessage());
-        }
-    }
 }

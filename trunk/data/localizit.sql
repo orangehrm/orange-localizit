@@ -110,7 +110,7 @@ ALTER TABLE `ohrm_language_label_string`
 ALTER TABLE `ohrm_language_label_string` CHANGE `language_label_string_id`  `language_label_string_id`  INT( 11 ) NOT NULL AUTO_INCREMENT ;
 
 INSERT INTO `ohrm_language` (`language_id`, `language_code`, `language_name`, `language_status`) VALUES
-(1, 'en', 'English', ''),
+(1, 'en_us', 'English', ''),
 (2, 'si', 'Sinhala', ''),
 (3, 'fr', 'French', '');
 
