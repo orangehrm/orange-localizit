@@ -76,6 +76,89 @@ class UserManagementServiceTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Update User
+     */
+    public function testUpdateUser() {
+        foreach ($this->testCases['User'] as $key => $testCase) {
+            $user = new User();
+            $user->setLoginName($testCase['login_name']);
+            $user->setPassword($testCase['password']);
+            $user->setUserTypeId($testCase['user_type_id']);
+
+            $this->userManagementDao = $this->getMock('userManagementDao');
+            $this->userManagementDao->expects($this->once())
+                    ->method('updateUser')
+                    ->will($this->returnValue($user));
+
+            $this->userManagementService->setUserManagementDao($this->userManagementDao);
+
+            $result = $this->userManagementService->updateUser($user);
+            $this->assertTrue($result instanceof User);
+            $this->assertEquals($user, $result);
+        }
+    }
+
+    /**
+     * Test Update User Exception
+     */
+    public function testUpdateUserException() {
+        try {
+            $this->userManagementDao = $this->getMock('UserManagementDao');
+            $this->userManagementDao->expects($this->once())
+                    ->method('updateUser')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->userManagementService->setUserManagementDao($this->userManagementDao);
+            $result = $this->userManagementService->updateUser(new User());
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test update user language
+     */
+    public function testUpdateUserLanguage() {
+        foreach ($this->testCases['UserLanguage'] as $key => $testCase) {
+            $userLang = new UserLanguage();
+            $userLang->setUserId($testCase['user_id']);
+            $userLang->setLanguageId($testCase['language_id']);
+
+            $this->userManagementDao = $this->getMock('userManagementDao');
+            $this->userManagementDao->expects($this->once())
+                    ->method('updateUserLanguage')
+                    ->will($this->returnValue($userLang));
+
+            $this->userManagementService->setUserManagementDao($this->userManagementDao);
+
+            $result = $this->userManagementService->updateUserLang($userLang);
+            $this->assertTrue($result instanceof UserLanguage);
+            $this->assertEquals($userLang, $result);
+        }
+    }
+
+    /**
+     * Test update user language Exception
+     */
+    public function testUpdateUserLangException() {
+        try {
+            $this->userManagementDao = $this->getMock('UserManagementDao');
+            $this->userManagementDao->expects($this->once())
+                    ->method('updateUserLanguage')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->userManagementService->setUserManagementDao($this->userManagementDao);
+            $result = $this->userManagementService->updateUserLang(new UserLanguage());
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
      * Test add user language method.
      */
     public function testAddUserLanguage() {

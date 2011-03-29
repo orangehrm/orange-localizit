@@ -45,7 +45,7 @@ class userManagementComponents extends sfComponents {
         $userManagement = $this->getUserManagementService();
 
         $this->userTypeList = $userManagement->getUserTypeList();
-//        $this->sourceLanguageId = $this->getUser()->getAttribute('user_language_id');
+        $this->selected_index = $this->getUser()->getAttribute('user_type_id');
     }
 
 }

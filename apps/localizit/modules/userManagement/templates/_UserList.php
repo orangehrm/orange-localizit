@@ -1,5 +1,5 @@
-<select class="langueDropDownList" id="add_user_user_type_id" name="<?php if(isset($isArray)) {?>userTypeList<?php echo "_".$prefix."[]";
-}else {?>add_user[user_type_id]<?php }?>" onchange="displayLanguageList(this.value)">
+<select class="langueDropDownList" id="user_user_type_id" name="<?php if(isset($isArray)) {?>userTypeList<?php echo "_".$prefix."[]";
+}else {?>user[user_type_id]<?php }?>" onchange="displayLanguageList(this.value)">
             <?php if($userTypeList) {?>
                 <?php foreach ($userTypeList as $userType) { ?>
                     <?php if(!isset($selected_index)) {?>

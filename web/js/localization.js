@@ -51,7 +51,10 @@ $(document).ready(function (){
     $('#save_user').click(function(){
         submitForm('add_user_form');
     });
-
+    $('#update_user').click(function(){
+        submitForm('edit_user_form');
+    });
+ 
     if($('#show_add_label').val() == '1'){
         $('#addLabelDiv').css('display','block');
     } else {
@@ -110,8 +113,10 @@ function submitForm(formId){
 function  displayLanguageList(val){
     if(val == 2 ) {
         $('#langId').fadeIn(1000);
+        $('#displayLangId').fadeIn(1000);
     } else {
         $('#langId').fadeOut(1000);
+        $('#displayLangId').fadeOut(1000);
     }
 }
 

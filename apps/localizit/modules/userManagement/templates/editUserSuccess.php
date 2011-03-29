@@ -3,7 +3,7 @@
         <div class="mediumText pageHeader">
             <?php echo __('edit_user', null, 'userManagementMessages') ?>
         </div>
-        <form action="<?php echo url_for('@edit_user'); ?>" method="post" id="edit_user_form" name="edit_user_form">
+        <form action="<?php echo url_for('@edit_user?id='.$id); ?>" method="post" id="edit_user_form" name="edit_user_form">
             <?php echo $editUserForm->renderHiddenFields(); ?>
             <table class="mainFrame mediumText">
                 <?php
@@ -19,24 +19,16 @@
                 <tr>
                     <td class="tableIndexColumn">&nbsp;</td>
                     <td  class="tableColumnWidth removeLeftDotLine"><?php echo $editUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?> *</td>
-                    <td class="tableColumnWidth"><?php echo $editUserForm['login_name']->render() ?></td>
+                    <td class="tableColumnWidth">
+                        <input type="text" name="user[login_name]" value="<?php echo isset($user['login_name']) ? $user['login_name'] : null ?>" class="text_input" />
+                    </td>
                     <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
                     <?php if ($editUserForm['login_name']->hasError()) { ?>
                     <?php echo $editUserForm['login_name']->renderError() ?>
                     <?php } ?>
                     </td>
                 </tr>
-                <tr>
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td  class="tableColumnWidth removeLeftDotLine"><?php echo $editUserForm['password']->renderLabel(__('password', null, 'authenticationMessages')) ?> *</td>
-                    <td class="tableColumnWidth"><?php echo $editUserForm['password']->render() ?></td>
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
-                    <?php if ($editUserForm['password']->hasError()) { ?>
-                    <?php echo $editUserForm['password']->renderError() ?>
-                    <?php } ?>
-                    </td>
-                </tr>
-
+                
                 <tr>
                     <td class="tableIndexColumn">&nbsp;</td>
                     <td class="tableColumnWidth removeLeftDotLine">
@@ -49,7 +41,8 @@
                     </td>
                 </tr>
 
-               <tr id="langId">
+                <?php if (count($userLang) > 0) { ?>
+               <tr id="displayLangId">
                     <td class="tableIndexColumn">&nbsp;</td>
                     <td class="tableColumnWidth removeLeftDotLine">
                         <?php echo __('languages', null, 'userManagementMessages') ?>
@@ -58,11 +51,21 @@
                             <?php if( count($langList) > 0) { ?>
                         <table style="width: 250px; background: none; border-collapse: none; border-top: none ; border-bottom: none ">
                                 <tr>
+                                    <?php $i = 0;?>
                                 <?php foreach ($langList as $language) { ?>
+                               
+                                    <?php if($userLang[$i]['language_id'] == $language->getLanguageId()) {  ?>
                                     <td style="border-top: none; border-left: none;">
-                                        <input type="checkbox" name="add_user[user_languages][]" value="<?php echo $language->getLanguageId() ?>" />
+                                        <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getLanguageId() ?>" checked="true"/>
                                                 <?php echo $language->getLanguageCode()?>
                                     </td>
+                                    <?php } else { ?>
+                                    <td style="border-top: none; border-left: none;">
+                                        <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getLanguageId() ?>" />
+                                                <?php echo $language->getLanguageCode()?>
+                                    </td>
+                                <?php } ?>
+                                    <?php $i += 1;?>
                                 <?php } ?>
                                 </tr>
                             </table>
@@ -70,12 +73,36 @@
                     </td>
                     <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight">&nbsp;</td>
                 </tr>
-
+                <?php }  else { ?>
+                <tr id="langId">
+                    <td class="tableIndexColumn">&nbsp;</td>
+                    <td class="tableColumnWidth removeLeftDotLine">
+                        <?php echo __('languages', null, 'userManagementMessages') ?>
+                    </td>
+                    <td>
+                            <?php if( count($langList) > 0) { ?>
+                        <table style="width: 250px; background: none; border-collapse: none; border-top: none ; border-bottom: none ">
+                                <tr>
+                                <?php foreach ($langList as $language) { ?>                               
+                                    <td style="border-top: none; border-left: none;">
+                                        <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getLanguageId() ?>" />
+                                                <?php echo $language->getLanguageCode()?>
+                                    </td>                               
+                                <?php } ?>
+                                </tr>
+                            </table>
+                            <?php } ?>
+                    </td>
+                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight">&nbsp;</td>
+                </tr>
+                <?php } ?>
                  <tr>
                     <td>&nbsp;</td>
                     <td  class="removeLeftDotLine">&nbsp;</td>
                     <td>
-                        <input type="button" name="save_user" id="save_user" class="button normalText" value="<?php echo __('update', null, 'localizationMessages') ?>" />
+                        <input type="hidden" name="user[password]" value="<?php echo isset($user['login_name']) ? $user['login_name'] : null ?>" />
+                        <input type="hidden" name="user[user_id]" value="<?php echo isset($user['user_id']) ? $user['user_id'] : null ?>" />
+                        <input type="button" name="update_user" id="update_user" class="button normalText" value="<?php echo __('update', null, 'localizationMessages') ?>" />
                         <input type="button" name="cancel_user" id="cancel_user" class="button normalText" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
                     </td>
                     <td class="removeLeftDotLine addDotLinetoRight">&nbsp;</td>
