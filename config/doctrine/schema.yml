@@ -1,4 +1,4 @@
-OhrmLabel:
+Label:
   connection: doctrine
   tableName: ohrm_label
   columns:
@@ -34,7 +34,12 @@ OhrmLabel:
       local: label_id
       foreign: label_id
       type: many
-OhrmLanguage:
+    OhrmLanguageLabelString_3:
+      class: OhrmLanguageLabelString
+      local: label_id
+      foreign: label_id
+      type: many
+Language:
   connection: doctrine
   tableName: ohrm_language
   columns:
@@ -70,7 +75,12 @@ OhrmLanguage:
       local: language_id
       foreign: language_id
       type: many
-OhrmLanguageLabelString:
+    OhrmLanguageLabelString_4:
+      class: OhrmLanguageLabelString
+      local: language_id
+      foreign: language_id
+      type: many
+LanguageLabelString:
   connection: doctrine
   tableName: ohrm_language_label_string
   columns:
@@ -117,38 +127,17 @@ OhrmLanguageLabelString:
       local: language_id
       foreign: language_id
       type: one
-OhrmUser:
-  connection: doctrine
-  tableName: ohrm_user
-  columns:
-    user_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
-    login_name:
-      type: string(25)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    password:
-      type: string(100)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    user_type_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-OhrmUserType:
+    OhrmLabel_3:
+      class: OhrmLabel
+      local: label_id
+      foreign: label_id
+      type: one
+    OhrmLanguage_4:
+      class: OhrmLanguage
+      local: language_id
+      foreign: language_id
+      type: one
+UserType:
   connection: doctrine
   tableName: ohrm_user_type
   columns:
@@ -165,6 +154,42 @@ OhrmUserType:
       primary: false
       notnull: true
       autoincrement: false
+User:
+  connection: doctrine
+  tableName: ohrm_user
+  columns:
+    user_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    login_name:
+      type: string(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    user_type_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    password:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: false
+      autoincrement: false
+  relations:
+    UserType:
+      local: user_type_id
+      foreign: id
+      type: one
 UserLanguage:
   connection: doctrine
   tableName: ohrm_user_language
@@ -189,12 +214,3 @@ UserLanguage:
       primary: false
       notnull: true
       autoincrement: false
-  relations:
-    OhrmLanguage:
-      local: language_id
-      foreign: language_id
-      type: many
-    OhrmUser:
-      local: user_id
-      foreign: user_id
-      type: many

@@ -67,18 +67,17 @@ class UserManagementService extends BaseService {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
+
     /**
      * Add User Language Method.
      * @param UserLanguage $userLang
      * @return <type> 
      */
-
     public function addUserLang(UserLanguage $userLang) {
         $userManagementDao = $this->getUserManagementDao();
         try {
-             $response = $userManagementDao->addUserLang($userLang);
-             return $response;
+            $response = $userManagementDao->addUserLang($userLang);
+            return $response;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -124,6 +123,19 @@ class UserManagementService extends BaseService {
         $userManagementDao = $this->getUserManagementDao();
         try {
             $res = $userManagementDao->getUserLanguageList($userId);
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    /**
+     * Get User By Id .
+     */
+    public function getUserById($userId) {
+        $userManagementDao = $this->getUserManagementDao();
+        try {
+            $res = $userManagementDao->getUserById($userId);
             return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());

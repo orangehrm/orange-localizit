@@ -34,6 +34,10 @@
                 <source>languages</source>
                 <target>Languages</target>
             </trans-unit>
+            <trans-unit id="9">
+                <source>edit_user</source>
+                <target>Edit User</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
