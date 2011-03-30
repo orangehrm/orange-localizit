@@ -346,4 +346,27 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
         $this->fail('An expected exception has not been raised.');
     }
 
+    /**
+     * Test Delete User Languages
+     */
+    public function testDeleteUserLanguage() {
+        foreach ($this->testCases['UserLanguage'] as $key => $testCase) {
+            $result = $this->userManagementDao->deleteUserLanguages($testCase['user_id']);
+            $this->assertTrue($result);
+        }
+    }
+
+    /**
+     * Test Delete User Language Exception
+     */
+    public function testDeleteUserLanguageException() {
+        try {
+            $illegal = array('%', '-', '.');
+            $this->userManagementDao->deleteUserLanguages($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+        $this->fail('An expected exception has not been raised.');
+    }
+
 }

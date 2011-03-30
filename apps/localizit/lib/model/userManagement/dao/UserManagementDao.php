@@ -89,7 +89,25 @@ class UserManagementDao extends BaseDao {
     public function deleteUser($userId) {
         try {
             $user = $this->getUserById($userId);
+            $this->deleteUserLanguages($userId);
             $user->delete();
+            return true;
+        } catch (Exception $exception) {
+            throw new DaoException($exception->getMessage());
+        }
+    }
+
+    /**
+     * Delete user languages.
+     */
+    public function deleteUserLanguages($userId) {
+        try {
+
+            $q = Doctrine_Query :: create()
+                            ->delete()
+                            ->from('UserLanguage l')
+                            ->where('l.user_id = ?', $userId);
+            $q->execute();
             return true;
         } catch (Exception $exception) {
             throw new DaoException($exception->getMessage());
@@ -141,7 +159,7 @@ class UserManagementDao extends BaseDao {
         try {
             $q = Doctrine_Query :: create()
                             ->from('UserLanguage l')
-                            ->where('l.user_id=?', $userId);
+                            ->where('l.user_id = ?', $userId);
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());

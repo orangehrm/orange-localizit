@@ -51,22 +51,35 @@
                             <?php if( count($langList) > 0) { ?>
                         <table style="width: 250px; background: none; border-collapse: none; border-top: none ; border-bottom: none ">
                                 <tr>
-                                    <?php $i = 0;?>
-                                <?php foreach ($langList as $language) { ?>
-                               
-                                    <?php if($userLang[$i]['language_id'] == $language->getLanguageId()) {  ?>
-                                    <td style="border-top: none; border-left: none;">
-                                        <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getLanguageId() ?>" checked="true"/>
-                                                <?php echo $language->getLanguageCode()?>
-                                    </td>
-                                    <?php } else { ?>
-                                    <td style="border-top: none; border-left: none;">
-                                        <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getLanguageId() ?>" />
-                                                <?php echo $language->getLanguageCode()?>
-                                    </td>
-                                <?php } ?>
-                                    <?php $i += 1;?>
-                                <?php } ?>
+                                    <!-- Display Checked Values -->
+                                    <?php $displayLangList = $langList ;?>
+                                    <?php foreach ($userLang as $savedLang) {  ?>
+                                        <?php foreach ($langList as $id => $language) { ?>
+                                           
+                                            <?php $key = $langList->key()?>
+                                            <?php if($savedLang['language_id'] == $language->getLanguageId()) {  ?>
+                                                <?php $displayLangList->remove($key);?>
+                                               
+                                                <td style="border-top: none; border-left: none;">
+                                                    <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getLanguageId() ?>" checked="true"/>
+                                                    <?php echo $language->getLanguageCode()?>
+                                                </td>                                          
+                                                                                          
+                                            <?php } ?>
+                                        <?php } ?>
+                                                                                                          
+                                    <?php } ?>
+                                   
+                                          <?php if(count($displayLangList) > 0) { ?>
+                                             
+                                                        <?php foreach ($displayLangList as $lang) { ?>
+                                                            <td style="border-top: none; border-left: none;">
+                                                                <input type="checkbox" name="user[user_languages][]" value="<?php echo $lang->getLanguageId() ?>" />
+                                                                <?php echo $lang->getLanguageCode()?>
+                                                            </td>
+                                                        <?php }?>
+                                    <?php }?>
+                                     
                                 </tr>
                             </table>
                             <?php } ?>

@@ -126,14 +126,20 @@ class UserManagementServiceTest extends PHPUnit_Framework_TestCase {
             $userLang->setUserId($testCase['user_id']);
             $userLang->setLanguageId($testCase['language_id']);
 
+
             $this->userManagementDao = $this->getMock('userManagementDao');
+
             $this->userManagementDao->expects($this->once())
-                    ->method('updateUserLanguage')
+                    ->method('deleteUserLanguages')
+                    ->will($this->returnValue(true));
+
+            $this->userManagementDao->expects($this->once())
+                    ->method('addUserLang')
                     ->will($this->returnValue($userLang));
 
             $this->userManagementService->setUserManagementDao($this->userManagementDao);
 
-            $result = $this->userManagementService->updateUserLang($userLang);
+            $result = $this->userManagementService->updateUserLang($userLang, $userLang->getUserId());
             $this->assertTrue($result instanceof UserLanguage);
             $this->assertEquals($userLang, $result);
         }
@@ -145,12 +151,17 @@ class UserManagementServiceTest extends PHPUnit_Framework_TestCase {
     public function testUpdateUserLangException() {
         try {
             $this->userManagementDao = $this->getMock('UserManagementDao');
+
             $this->userManagementDao->expects($this->once())
-                    ->method('updateUserLanguage')
+                    ->method('deleteUserLanguages')
+                    ->will($this->returnValue(true));
+
+            $this->userManagementDao->expects($this->once())
+                    ->method('addUserLang')
                     ->will($this->throwException(New DaoException()));
 
             $this->userManagementService->setUserManagementDao($this->userManagementDao);
-            $result = $this->userManagementService->updateUserLang(new UserLanguage());
+            $result = $this->userManagementService->updateUserLang(new UserLanguage(), 1);
         } catch (Exception $ex) {
             return;
         }
@@ -338,6 +349,48 @@ class UserManagementServiceTest extends PHPUnit_Framework_TestCase {
             $this->userManagementService->setUserManagementDao($this->userManagementDao);
 
             $result = $this->userManagementService->getUserById(1);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test Delete user
+     */
+    public function testDeleteUser() {
+        foreach ($this->testCases['User'] as $key => $testCase) {
+            $user = new User();
+            $user->setLoginName($testCase['login_name']);
+            $user->setPassword($testCase['password']);
+            $user->setUserTypeId($testCase['user_type_id']);
+
+            $this->userManagementDao = $this->getMock('userManagementDao');
+            $this->userManagementDao->expects($this->once())
+                    ->method('deleteUser')
+                    ->will($this->returnValue(true));
+
+            $this->userManagementService->setUserManagementDao($this->userManagementDao);
+
+            $result = $this->userManagementService->deleteUser($user->getUserId());
+            $this->assertTrue($result === true);
+        }
+    }
+
+    /**
+     * Test Delete User exception
+     */
+    public function testDeleteUserException() {
+        try {
+            $this->userManagementDao = $this->getMock('UserManagementDao');
+        
+            $this->userManagementDao->expects($this->once())
+                    ->method('deleteUser')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->userManagementService->setUserManagementDao($this->userManagementDao);
+            $result = $this->userManagementService->deleteUser(new UserLanguage());
         } catch (Exception $ex) {
             return;
         }

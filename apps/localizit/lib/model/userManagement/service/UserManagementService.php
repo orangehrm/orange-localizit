@@ -100,11 +100,11 @@ class UserManagementService extends BaseService {
     /**
      * Update User Language
      */
-    public function updateUserLang(UserLanguage $userLang) {
+    public function updateUserLang(UserLanguage $userLang, $userId) {
         $userManagementDao = $this->getUserManagementDao();
-
         try {
-            $response = $userManagementDao->updateUserLanguage($userLang);
+            $result = $userManagementDao->deleteUserLanguages($userId);
+            $response = $userManagementDao->addUserLang($userLang);
             return $response;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
@@ -167,6 +167,19 @@ class UserManagementService extends BaseService {
             return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    /**
+     * Delete User
+     */
+    public function deleteUser($userId) {
+        $userManagementDao = $this->getUserManagementDao();
+        try {
+            $res = $userManagementDao->deleteUser($userId);
+            return $res;
+        } catch (Exception $exception) {
+            throw new ServiceException($exception->getMessage(), $exception->getCode());
         }
     }
 

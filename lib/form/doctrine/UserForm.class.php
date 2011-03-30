@@ -116,12 +116,12 @@ class UserForm extends BaseUserForm {
 
             $addUser = $userManagementService->updateUser($user);
 
-            if (isset($values['user_languages'])) {
+            if (isset($values['user_languages']) && count($values['user_languages']) > 0) {
                 foreach ($values['user_languages'] as $id) {
                     $userLang = new UserLanguage();
                     $userLang->setUserId($values['user_id']);
                     $userLang->setLanguageId($id);
-                    $userManagementService->updateUserLang($userLang);
+                    $userManagementService->updateUserLang($userLang, $user->getUserId());
                 }
             }
             return true;
@@ -136,9 +136,9 @@ class UserForm extends BaseUserForm {
     public function checkDuplicateUsername($validator, $values) {
         $authenticationService = $this->getAuthenticationService();
 
-        if (($authenticationService->getUserByName($values['login_name']) instanceof User)) {
-            throw new sfValidatorError($validator, 'Username already exists');
-        }
+//        if (($authenticationService->getUserByName($values['login_name']) instanceof User)) {
+//            throw new sfValidatorError($validator, 'Username already exists');
+//        }
         return $values;
     }
 

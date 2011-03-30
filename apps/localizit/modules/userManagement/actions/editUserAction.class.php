@@ -37,12 +37,13 @@ class editUserAction extends sfAction {
      */
     public function execute($request) {
         $userObject = $this->getUser();
+        $this->langList = $this->userManagementService->getLanguageList();
+//        $this->displayLangList = $this->userManagementService->getLanguageList();
         $this->user = $this->userManagementService->getUserById($request['id']);
         $this->userLang = $this->userManagementService->getUserLanguageList($request['id']);
         $this->id = $request['id'];
         $this->editUserForm = new UserForm($this->user);
         $userObject->setAttribute('user_type_id', $this->user['user_type_id']);
-        $this->langList = $this->userManagementService->getLanguageList();
 
         if ($request->isMethod(sfRequest::POST)) {
             $this->editUserForm->bind($request->getParameter($this->editUserForm->getName()));
