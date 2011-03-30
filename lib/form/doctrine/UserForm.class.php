@@ -136,9 +136,9 @@ class UserForm extends BaseUserForm {
     public function checkDuplicateUsername($validator, $values) {
         $authenticationService = $this->getAuthenticationService();
 
-//        if ((empty($values['user_id'])) && ($authenticationService->getUserByName($values['login_name']) instanceof User)) {
-//            throw new sfValidatorError($validator, 'Username already exists');
-//        }
+        if (($authenticationService->getUserByName($values['login_name']) instanceof User)) {
+            throw new sfValidatorError($validator, 'Username already exists');
+        }
         return $values;
     }
 
