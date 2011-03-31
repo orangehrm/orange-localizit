@@ -48,6 +48,8 @@ class addUserAction extends sfAction {
         $this->addUserForm = new UserForm();
 
         $this->langList = $this->userManagementService->getLanguageList();
+        $userObject = $this->getUser();
+        $userObject->setAttribute('user_type_id', 1);
 
         if ($request->isMethod(sfRequest::POST)) {
             $this->addUserForm->bind($request->getParameter($this->addUserForm->getName()));
