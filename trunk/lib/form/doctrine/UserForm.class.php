@@ -53,21 +53,24 @@ class UserForm extends BaseUserForm {
             'user_id' => new sfWidgetFormInputHidden(),
             'login_name' => new sfWidgetFormInputText(),
             'password' => new sfWidgetFormInputPassword(),
+            'confirm_password' => new sfWidgetFormInputPassword(),
             'user_languages' => new sfWidgetFormInputHidden(),
+            'action' => new sfWidgetFormInputHidden(),
             'user_type_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('UserType'), 'add_empty' => false)),
         ));
 
         $this->setValidators(array(
 //            'user_id' => new sfValidatorChoice(array('choices' => array($this->getObject()->get('user_id')), 'empty_value' => $this->getObject()->get('user_id'), 'required' => false)),
-            'login_name' => new sfValidatorString(array(), array('required' => 'Username required.', 'max_length' => 25)),
-            'password' => new sfValidatorString(array(), array('required' => 'Password required.', 'max_length' => 25)),
+            'login_name' => new sfValidatorString(array('min_length' => 6, 'max_length' => 25), array('required' => 'Username required.', 'min_length' => 'Username too short.','max_length' =>'Allow 25 characters only.')),
+            'password' => new sfValidatorString(array('min_length' => 6, 'max_length' => 35), array('required' => 'Password required.', 'min_length' => 'Password too short.','max_length' =>'Allow 25 characters only.')),
+            'confirm_password' => new sfValidatorString(array(), array('required' => 'Confirm password required.')),
             'user_type_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UserType'))),
         ));
 
         $this->widgetSchema->setNameFormat('user[%s]');
 
         $post_validator = new sfValidatorAnd();
-        $post_validator->addValidator(new sfValidatorCallback(array('callback' => array($this, 'checkDuplicateUsername'))));
+        $post_validator->addValidator(new sfValidatorCallback(array('callback' => array($this, 'checkPostValidations'))));
         $this->validatorSchema->setPostValidator($post_validator);
         $this->validatorSchema->setOption('allow_extra_fields', true);
         $this->validatorSchema->setOption('filter_extra_fields', false);
@@ -116,13 +119,17 @@ class UserForm extends BaseUserForm {
 
             $addUser = $userManagementService->updateUser($user);
 
-            if (isset($values['user_languages']) && count($values['user_languages']) > 0) {
+            if (isset($values['user_languages'])) {
+                $userManagementService->deleteUserLanguages($user->getUserId());
                 foreach ($values['user_languages'] as $id) {
                     $userLang = new UserLanguage();
                     $userLang->setUserId($values['user_id']);
                     $userLang->setLanguageId($id);
-                    $userManagementService->updateUserLang($userLang, $user->getUserId());
+                    $userManagementService->updateUserLang($userLang);
                 }
+            }
+            if (($user->getUserType()->getUserType() == sfConfig::get('app_admin')) && (isset($values['user_languages']) && count($values['user_languages']) > 0)) {
+                $userManagementService->deleteUserLanguages($user->getUserId());
             }
             return true;
         } catch (Exception $exc) {
@@ -133,12 +140,17 @@ class UserForm extends BaseUserForm {
     /**
      * Check username availability.
      */
-    public function checkDuplicateUsername($validator, $values) {
+    public function checkPostValidations($validator, $values) {
         $authenticationService = $this->getAuthenticationService();
 
-//        if (($authenticationService->getUserByName($values['login_name']) instanceof User)) {
-//            throw new sfValidatorError($validator, 'Username already exists');
-//        }
+        if ($values['action'] == 'add') {
+            if ($authenticationService->getUserByName($values['login_name']) instanceof User) {
+                throw new sfValidatorError($validator, 'Username already exists');
+            }
+            if (($values['confirm_password'] != $values['password'])) {
+                throw new sfValidatorError($validator, 'Password and confirm password doesnot match.');
+            }
+        }
         return $values;
     }
 

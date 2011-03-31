@@ -38,7 +38,6 @@ class editUserAction extends sfAction {
     public function execute($request) {
         $userObject = $this->getUser();
         $this->langList = $this->userManagementService->getLanguageList();
-//        $this->displayLangList = $this->userManagementService->getLanguageList();
         $this->user = $this->userManagementService->getUserById($request['id']);
         $this->userLang = $this->userManagementService->getUserLanguageList($request['id']);
         $this->id = $request['id'];
