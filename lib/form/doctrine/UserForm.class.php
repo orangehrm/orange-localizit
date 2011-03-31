@@ -51,10 +51,10 @@ class UserForm extends BaseUserForm {
 
         $this->setWidgets(array(
             'user_id' => new sfWidgetFormInputHidden(),
-            'login_name' => new sfWidgetFormInputText(),
-            'password' => new sfWidgetFormInputPassword(),
-            'confirm_password' => new sfWidgetFormInputPassword(),
-            'user_languages' => new sfWidgetFormInputHidden(),
+            'login_name' => new sfWidgetFormInputText(array(),array('class' => 'text_input')),
+            'password' => new sfWidgetFormInputPassword(array(),array('class' => 'text_input')),
+            'confirm_password' => new sfWidgetFormInputPassword(array(),array('class' => 'text_input')),
+            'user_languages' => new sfWidgetFormInputHidden(array(),array('class' => 'text_input')),
             'action' => new sfWidgetFormInputHidden(),
             'user_type_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('UserType'), 'add_empty' => false)),
         ));
