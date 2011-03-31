@@ -60,7 +60,6 @@ class UserForm extends BaseUserForm {
         ));
 
         $this->setValidators(array(
-//            'user_id' => new sfValidatorChoice(array('choices' => array($this->getObject()->get('user_id')), 'empty_value' => $this->getObject()->get('user_id'), 'required' => false)),
             'login_name' => new sfValidatorString(array('min_length' => 6, 'max_length' => 25), array('required' => 'Username required.', 'min_length' => 'Username too short.','max_length' =>'Allow 25 characters only.')),
             'password' => new sfValidatorString(array('min_length' => 6, 'max_length' => 35), array('required' => 'Password required.', 'min_length' => 'Password too short.','max_length' =>'Allow 25 characters only.')),
             'confirm_password' => new sfValidatorString(array(), array('required' => 'Confirm password required.')),

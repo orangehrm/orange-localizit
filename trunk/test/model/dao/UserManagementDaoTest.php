@@ -90,7 +90,7 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
     public function testNullLoginName() {
         $newUser = new User();
         $newUser->setUserId(3);
-        $newUser->setLoginName('');
+        $newUser->setLoginName(NULL);
         $newUser->setPassword(md5('password123'));
         $newUser->setUserTypeId(1);
 
@@ -106,7 +106,7 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
     /**
      * Try to save with out password
      */
-    public function testNullPassword() {
+    public function testEmptyPassword() {
 
         $newUser = new User();
         $newUser->setUserId(4);
@@ -131,7 +131,7 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
         $newUser->setUserId(4);
         $newUser->setLoginName('testUser2');
         $newUser->setPassword(md5('password2'));
-        $newUser->setUserTypeId(-1);
+        $newUser->setUserTypeId(NULL);
 
         try {
             $saveUser = $this->userManagementDao->addUser($newUser);
@@ -217,7 +217,7 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
     public function testNullUserId() {
 
         $newUser = new User();
-        $newUser->setUserId(4);
+        $newUser->setUserId(NULL);
         $newUser->setLoginName('testUser2');
         $newUser->setPassword(md5('password2'));
         $newUser->setUserTypeId(-1);
