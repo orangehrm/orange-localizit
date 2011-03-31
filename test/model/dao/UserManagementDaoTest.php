@@ -212,38 +212,6 @@ class UserManagementDaoTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Test update user language
-     */
-    public function testUpdateUserLanguage() {
-        $userLang = new UserLanguage();
-        $userLang->setId(1);
-        $userLang->setUserId(2);
-        $userLang->setLanguageId(3);
-
-        $saveUserLang = $this->userManagementDao->updateUserLanguage($userLang);
-
-        $this->assertTrue($saveUserLang === true);
-    }
-
-    /**
-     * Test update user exception
-     */
-    public function testUpdateUserLanguageException() {
-        try {
-            $illegal = array('%', '-', '.');
-            $userLang = new UserLanguage();
-            $userLang->setId($illegal);
-            $userLang->setUserId(NULL);
-            $userLang->setLanguageId(new UserLanguage());
-
-            $updateUser = $this->userManagementDao->updateUserLanguage($userLang);
-        } catch (Exception $ex) {
-            return;
-        }
-        $this->fail('An expected exception has not been raised.');
-    }
-
-    /**
      * Test Add User Lang without user id
      */
     public function testNullUserId() {

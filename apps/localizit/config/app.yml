@@ -6,3 +6,5 @@ all:
 
   #Custom error messagess
   error_label_alreay_exists: { code: 500, message: 'Label already exists'}
+
+  admin: Admin

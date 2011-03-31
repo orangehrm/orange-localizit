@@ -36,6 +36,16 @@
                     <?php } ?>                        
                     </td>
                 </tr>
+                <tr>
+                    <td class="tableIndexColumn">&nbsp;</td>
+                    <td  class="tableColumnWidth removeLeftDotLine"><?php echo $addUserForm['confirm_password']->renderLabel(__('confirm_password', null, 'userManagementMessages')) ?> *</td>
+                    <td class="tableColumnWidth"><?php echo $addUserForm['confirm_password']->render() ?></td>
+                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
+                    <?php if ($addUserForm['confirm_password']->hasError()) { ?>
+                    <?php echo $addUserForm['confirm_password']->renderError() ?>
+                    <?php } ?>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="tableIndexColumn">&nbsp;</td>
@@ -75,6 +85,7 @@
                     <td>&nbsp;</td>
                     <td  class="removeLeftDotLine">&nbsp;</td>
                     <td>
+                        <input type="hidden" name="user[action]" value="add" />
                         <input type="button" name="save_user" id="save_user" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" />
                         <input type="button" name="cancel_user" id="cancel_user" class="button normalText" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
                     </td>

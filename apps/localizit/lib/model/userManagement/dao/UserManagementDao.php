@@ -67,23 +67,6 @@ class UserManagementDao extends BaseDao {
     }
 
     /**
-     * Update user language
-     */
-    public function updateUserLanguage(UserLanguage $userLang) {
-        try {
-            $query = Doctrine_Query::create()
-                            ->update('UserLanguage u')
-                            ->set('u.user_id ', "\"{$userLang->getUserId()}\"")
-                            ->set('u.language_id', "\"{$userLang->getLanguageId()}\"")
-                            ->where('u.id = ?', $userLang->getId())
-                            ->execute();
-            return true;
-        } catch (Exception $exception) {
-            throw new DaoException($exception->getMessage());
-        }
-    }
-
-    /**
      * Delete user method.
      */
     public function deleteUser($userId) {
