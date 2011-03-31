@@ -54,5 +54,4 @@ class editUserAction extends sfAction {
             } 
         }
     }
-
 }
