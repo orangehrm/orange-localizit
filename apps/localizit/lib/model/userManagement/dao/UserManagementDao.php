@@ -85,7 +85,6 @@ class UserManagementDao extends BaseDao {
      */
     public function deleteUserLanguages($userId) {
         try {
-
             $q = Doctrine_Query :: create()
                             ->delete()
                             ->from('UserLanguage l')
