@@ -235,3 +235,16 @@ input.error {
 #langId {
     display: none;
 }
+
+.formBorder {
+    width: 100%;
+    float: left;
+}
+.formCellOne {
+    width :30%;
+    float: left;
+}
+.formCellTwo {
+    width :70%;
+    float: left;
+}

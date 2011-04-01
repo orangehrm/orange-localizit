@@ -176,6 +176,7 @@ class sfProjectConfiguration
     sfConfig::add(array(
       'sf_web_dir'    => $webDir,
       'sf_upload_dir' => $webDir.DIRECTORY_SEPARATOR.'uploads',
+      'sf_language_dir' => $webDir.DIRECTORY_SEPARATOR.'language_files',
     ));
   }
 

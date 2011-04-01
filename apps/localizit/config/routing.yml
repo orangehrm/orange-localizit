@@ -57,6 +57,10 @@ edit_user:
 delete-user:
   url: /delete-user
   param: { module: userManagement, action: delete }
+
+allow_edit_url:
+  url: /allow_edit_url
+  param: { module: localization, action: displayEditButton }
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

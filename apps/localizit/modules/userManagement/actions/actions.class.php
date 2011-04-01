@@ -76,12 +76,7 @@ class userManagementActions extends sfActions {
 
         $this->setTemplate('edit');
     }
-
-//    public function executeDelete(sfWebRequest $request) {
-//        //$request->checkCSRFProtection();
-//        $this->userManagementService->deleteUser($request['user_id']);
-//        $this->redirect('@userManagement');
-//    }
+ 
 
     protected function processForm(sfWebRequest $request, sfForm $form) {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));

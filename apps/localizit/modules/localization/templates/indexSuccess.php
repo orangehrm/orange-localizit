@@ -10,16 +10,26 @@
                 <td class=""><?php echo __('target_language', null, 'localizationMessages') ?></td>
                 <td class="addDotLinetoRight"><?php include_component('localization', 'LanguageList'); ?></td>
             </tr>
-            <table class="mainFrame">
+
+            
+            <table >
                 <tr>
-                <td><?php $role = sfContext::getInstance()->getUser()->getUserRole(); ?>
-                    <?php if (count($role->getAllowedLanguageList()) != 0) { ?>
-                        <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />&nbsp;
-                    <?php } ?>
-                    <?php if ($role->isAllowedToDownloadDirectory()) { ?>
-                        <input type="button" name="downloadDictionary" id="downloadDictionary" class="button normalText" value="<?php echo __('download_dictionary', null, 'localizationMessages') ?>" />
-                    <?php } ?>
-                </td>
+                    <?php $dirname = dirname(sfConfig::get('sf_language_dir')); ?>
+                    <?php $files = glob($dirname."/language_files/*");?>
+                    <?php $role = sfContext::getInstance()->getUser()->getUserRole(); ?>
+                    <div class="formBorder">
+                        <?php if (count($role->getAllowedLanguageList()) != 0) { ?>
+                    
+                            <div class="formCellOne">
+                                <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />&nbsp;
+                            </div>
+                        <?php } ?>
+                        <?php if ($role->isAllowedToDownloadDirectory() && count($files) > 0 ) { ?>
+                            <div class="formCellTwo">
+                               <input type="button" name="downloadDictionary" id="downloadDictionary" class="button normalText" value="<?php echo __('download_dictionary', null, 'localizationMessages') ?>" />
+                        <?php } ?>
+                        </div>
+                     </div>                                       
             </tr>
             </table>
         </table>
@@ -127,4 +137,5 @@
 </div> 
 <input type="hidden" id="url" value="<?php echo url_for('@language_label_data_set'); ?>" />
 <input type="hidden" id="edit_url" value="<?php echo url_for('@language_label_data_set_edit'); ?>" />
+<input type="hidden" id="allow_edit_url" value="<?php echo url_for('@allow_edit_url'); ?>" />
 <input type="hidden" id="show_add_label" value="<?php echo $showAddLabel; ?>" />

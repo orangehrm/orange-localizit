@@ -3,14 +3,19 @@ $(document).ready(function (){
     var targetLanguageId=$('#languageList').val();
     var url=$('#url').val();
     var url_edit=$('#edit_url').val();
+    var url_allow_edit = $('#allow_edit_url').val();
+
     $('#addLabelDiv').css('display','none');
     fetchLangugeLabelSet(url,targetLanguageId,'dataSet');
+    displayEditButton(url_allow_edit, targetLanguageId);
 
     $('#languageList').change(function (){
         $('#edit').css('display','');
+        $('#generateDictionary').css('display','');
         $('#save').css('display','none');
         targetLanguageId=$('#languageList').val();
         fetchLangugeLabelSet(url,targetLanguageId,'dataSet');
+        displayEditButton(url_allow_edit, targetLanguageId);
     });
 
     $('#edit').click(function (){
@@ -68,6 +73,18 @@ function fetchLangugeLabelSet(url,targetLanguageId,dataSetPane){
         success: function(data) {
             $('#'+dataSetPane).html('');
             $('#'+dataSetPane).html(data);
+        },
+        error: function(e){
+        }
+    });
+}
+
+function displayEditButton(url, targetLanguageId) {
+    $.ajax({
+        url: url+'?targetLanguageId='+targetLanguageId,
+        success: function(data) {
+           $('#edit').css('display','none');
+           $('#generateDictionary').css('display','none');
         },
         error: function(e){
         }
