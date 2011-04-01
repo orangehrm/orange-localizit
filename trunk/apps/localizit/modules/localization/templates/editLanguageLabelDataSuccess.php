@@ -31,7 +31,7 @@
                         <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id']) ? $labelInnerData['target_language_label_string_id'] : null ?>"/>
                     </td>
                     <td>
-                        <textarea cols="20" rows="2" name="label_comment[]" class="text_input"><?php echo isset($labelInnerData['comment']) ? $labelInnerData['comment'] : null ?></textarea>
+                        <textarea cols="30" rows="2" name="label_comment[]" class="text_input"><?php echo isset($labelInnerData['comment']) ? $labelInnerData['comment'] : null ?></textarea>
                     </td>
                     <td class="addDotLinetoRight">&nbsp;</td>
                 </tr>
