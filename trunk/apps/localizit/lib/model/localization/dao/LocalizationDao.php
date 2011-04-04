@@ -204,5 +204,46 @@ class LocalizationDao extends BaseDao {
         }
     }
 
+    /**
+     *  Add language group.
+     */
+    public function addLanguageGroup(LanguageGroup $langGroup) {
+        try {
+            $langGroup->save();
+            return $langGroup;
+        } catch (Exception $ex) {
+            throw new DaoException($ex->getMessage());
+        }
+    }
+
+    /**
+     * Update Language group.
+     */
+    public function updateLanguageGroup(LanguageGroup $langGroup) {
+        try {
+            $q = Doctrine_Query :: create()
+                            ->update('LanguageGroup lg')
+                            ->set('lg.group_name ', "\"{$langGroup->getGroupName()}\"")
+                            ->where('lg.id = ?', $langGroup->getId())
+                            ->execute();
+            return true;
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
+    /**
+     * Get Language group by id
+     */
+    public function getLanguageGroupById($id){
+         try {
+            $q = Doctrine_Query :: create()
+                            ->from('LanguageGroup l')
+                            ->where('l.id=?', $id);
+            return $q->fetchOne();
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
 }
 

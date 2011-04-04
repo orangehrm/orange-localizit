@@ -30,7 +30,7 @@ Label:
       notnull: true
       autoincrement: false
   relations:
-    OhrmLanguageLabelString:
+    LanguageLabelString:
       local: label_id
       foreign: label_id
       type: many
@@ -71,12 +71,12 @@ Language:
       notnull: true
       autoincrement: false
   relations:
-    OhrmLanguageLabelString:
+    LanguageLabelString:
       local: language_id
       foreign: language_id
       type: many
-    OhrmLanguageLabelString_4:
-      class: OhrmLanguageLabelString
+    LanguageLabelString_4:
+      class: LanguageLabelString
       local: language_id
       foreign: language_id
       type: many
@@ -119,11 +119,11 @@ LanguageLabelString:
       notnull: true
       autoincrement: false
   relations:
-    OhrmLabel:
+    Label:
       local: label_id
       foreign: label_id
       type: one
-    OhrmLanguage:
+    Language:
       local: language_id
       foreign: language_id
       type: one
@@ -214,3 +214,30 @@ UserLanguage:
       primary: false
       notnull: true
       autoincrement: false
+  relations:
+    User:
+      local: user_id
+      foreign: user_id
+      type: one
+    Language:
+      local: language_id
+      foreign: language_id
+      type: one
+LanguageGroup:
+  connection: doctrine
+  tableName: ohrm_language_group
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    group_name:
+      type: string(255)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false   
+  

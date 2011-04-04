@@ -355,4 +355,61 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
+
+    /**
+     * Add Language Group method.
+     */
+    public function addLanguageGroup($groupName) {
+        $localizationDao = $this->getLocalizationDao();
+
+        try {
+            $langGroup = new LanguageGroup();
+            $langGroup->setGroupName($groupName);
+
+            $res = $localizationDao->addLanguageGroup($langGroup);
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    /**
+     * Update Language Group
+     */
+    public function updateLanguageGroup(LanguageGroup $langGroup) {
+        $localizationDao = $this->getLocalizationDao();
+        try {
+            $res = $localizationDao->updateLanguageGroup($langGroup);
+            return $res;
+        } catch (Exception $exc) {
+
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    /**
+     * Get Language Group by ID.
+     */
+    public function getLanguageGroupById($id) {
+        $localizationDao = $this->getLocalizationDao();
+        try {
+            $res = $localizationDao->getLanguageGroupById($id);
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    /**
+     * Get Language Group set.
+     */
+    public function getLanguageGroupList() {
+         $localizationDao = $this->getLocalizationDao();
+        try {
+            $res = $localizationDao->getDataList('LanguageGroup');
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
 }

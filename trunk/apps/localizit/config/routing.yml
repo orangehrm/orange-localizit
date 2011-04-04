@@ -61,6 +61,19 @@ delete-user:
 allow_edit_url:
   url: /allow_edit_url
   param: { module: localization, action: displayEditButton }
+
+add_language_group:
+  url: /add_language_group
+  param: { module: localization, action: addLanguageGroup }
+
+language_group_list:
+  url: /language_group_list
+  param: { module: localization, action: languageGroupList }
+
+edit_lang_group:
+  url: /edit_lang_group
+  param: { module: localization, action: editLanguageGroup }
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

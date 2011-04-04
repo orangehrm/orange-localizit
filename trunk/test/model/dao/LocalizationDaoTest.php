@@ -208,7 +208,6 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(($result instanceof Doctrine_Collection));
     }
 
-
     /**
      * Test Get Language List
      *
@@ -390,7 +389,7 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-     /**
+    /**
      * Test Get language string list by source and target Language Id
      *
      */
@@ -398,11 +397,98 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
 
         try {
             $illegal = array('%', '-', '.');
-            $labelUpdated = $this->localizationDao->getLangStrBySrcAndTargetIds($illegal,$illegal);
+            $labelUpdated = $this->localizationDao->getLangStrBySrcAndTargetIds($illegal, $illegal);
         } catch (Exception $ex) {
             return;
         }
 
         $this->fail('An expected exception has not been raised.');
     }
+
+    /**
+     * Test Add Language Group method.
+     */
+    public function testAddLanguageGroup() {
+        $languageGroup = new LanguageGroup();
+        $languageGroup->setGroupName('group1');
+        $languageGroupCreated = $this->localizationDao->addLanguageGroup($languageGroup);
+        $result = ($languageGroupCreated instanceof LanguageGroup) ? true : false;
+        $this->assertTrue($result);
+        $this->assertEquals($languageGroupCreated->getGroupName(), 'group1');
+    }
+
+    /**
+     * Test Add Language Group Exception.
+     */
+    public function testAddLanguageGroupEx() {
+        try {
+            $langGroup = new LanguageGroup();
+            $langGroup->setId(1);
+            $langGroup->setGroupName('group_1');
+
+            $langGroupCreated = $this->localizationDao->addLanguageGroup($langGroup);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test Update Language Group method.
+     */
+    public function testUpdateLanguageGroup() {
+        foreach ($this->testCases['LanguageGroup'] as $key => $testCase) {
+            $langGroup = new LanguageGroup();
+            $langGroup->setId($testCase['id']);
+            $langGroup->setGroupName($testCase['group_name']);
+            $langGroupUpdated = $this->localizationDao->updateLanguageGroup($langGroup);
+
+            $this->assertTrue($langGroupUpdated);
+        }
+    }
+
+    /**
+     * Test Update Language Group Exception.
+     */
+    public function testUpdateLanguageGroupException() {
+        try {
+            $illegal = array('%', '-', '.');
+            $languageGroup = new LanguageGroup(NULL);
+            $languageGroup->setId($illegal);
+            $languageGroup->setGroupName(NULL);
+            $langGroupUpdated = $this->localizationDao->updateLanguageGroup($languageGroup);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test get Language Group by ID.
+     */
+    public function testGetLanguageGroupById() {
+        foreach ($this->testCases['LanguageGroup'] as $key => $testCase) {
+            $result = $this->localizationDao->getLanguageGroupById($testCase['id']);
+            $this->assertTrue($result instanceof LanguageGroup);
+            $this->assertEquals($result->getGroupName(), $testCase['group_name']);
+        }
+    }
+
+    /**
+     * Test get Language Group Id Exception
+     */
+    public function testGetLangueGroupIdException() {
+
+        try {
+            $illegal = array('%', '-', '.');
+            $langUpdated = $this->localizationDao->getLanguageGroupById($illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
 }

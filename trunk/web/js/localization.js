@@ -59,6 +59,9 @@ $(document).ready(function (){
     $('#update_user').click(function(){
         submitForm('edit_user_form');
     });
+    $('#save_group').click(function(){
+        submitForm('add_language_group_form');
+    });
  
     if($('#show_add_label').val() == '1'){
         $('#addLabelDiv').css('display','block');
@@ -83,8 +86,8 @@ function displayEditButton(url, targetLanguageId) {
     $.ajax({
         url: url+'?targetLanguageId='+targetLanguageId,
         success: function(data) {
-           $('#edit').css('display','none');
-           $('#generateDictionary').css('display','none');
+            $('#edit').css('display','none');
+            $('#generateDictionary').css('display','none');
         },
         error: function(e){
         }
@@ -142,6 +145,15 @@ function  deleteUser(id){
     jConfirm('Are you sure?', 'Delete User', function(r) {
         if(r) {
             $.get('userManagement/delete?user_id='+id);
+            location.reload();
+        }
+    });
+}
+
+function deleteLangGroup(id) {
+    jConfirm('Are you sure?', 'Delete User', function(r) {
+        if(r) {
+            $.get('localization/deleteLangGroup?    id='+id);
             location.reload();
         }
     });

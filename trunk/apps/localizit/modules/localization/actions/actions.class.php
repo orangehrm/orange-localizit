@@ -154,7 +154,7 @@ class localizationActions extends sfActions {
         $role = $this->getUser()->getUserRole();
         $allowedLanguageList = $role->getAllowedLanguageList();
         $targetLanguageId = $request->getParameter('targetLanguageId');
-        if ( !in_array($targetLanguageId, $role->getAllowedLanguageList())) {
+        if (!in_array($targetLanguageId, $role->getAllowedLanguageList())) {
             return true;
         }
     }
@@ -179,6 +179,14 @@ class localizationActions extends sfActions {
      */
     public function executeTargetLangTextArea(sfWebRequest $request) {
         $this->setTemplate('');
+    }
+
+    /**
+     * Display Language Group List.
+     */
+    public function executeLanguageGroupList(sfWebRequest $request) {
+        $localizationService = $this->getLocalizeService();
+        $this->languageGroupList = $localizationService->getLanguageGroupList();
     }
 
 }
