@@ -5,6 +5,8 @@
             <tr>
                 <td><a href="<?php echo url_for('@add_user') ?>">
                     <?php echo __('add_new_user', null, 'userManagementMessages') ?></a></td>
+                <td><a href="<?php echo url_for('@add_language_group') ?>">
+                    <?php echo __('add_language_group', null, 'localizationMessages') ?></a></td>
             </tr>
         </table>
         <div class="mediumText pageHeader">

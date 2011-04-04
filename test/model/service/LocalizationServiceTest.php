@@ -694,4 +694,166 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
         }
         $this->fail('An expected exception has not been raised.');
     }
+
+    /**
+     * Test Add Language Group 
+     */
+    public function testAddLanguageGroup() {
+        foreach ($this->testCases['LanguageGroup'] as $key => $testCase) {
+            $langGroup = new LanguageGroup ();
+            $langGroup->setGroupName($testCase['group_name']);
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('addLanguageGroup')
+                    ->will($this->returnValue($langGroup));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->addLanguageGroup($testCase['group_name']);
+            $this->assertTrue($result instanceof LanguageGroup);
+            $this->assertEquals($langGroup, $result);
+        }
+    }
+
+    /**
+     * Test Add Language Group Exception.
+     */
+    public function testAddLanguageGroupException() {
+        try {
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('addLanguageGroup')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->addLanguageGroup('group_1');
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test update Language Group
+     */
+    public function testUpdateLanguageGroup() {
+        foreach ($this->testCases['LanguageGroup'] as $key => $testCase) {
+            $langGroup = new LanguageGroup();
+            $langGroup->setGroupName($testCase['group_name']);
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('updateLanguageGroup')
+                    ->will($this->returnValue(TRUE));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->updateLanguageGroup($langGroup);
+            $this->assertTrue($result);
+        }
+    }
+
+    /**
+     * Test Update Language group Exception.
+     */
+    public function testUpdateLanguageGroupException() {
+        try {
+            $langGroup = new LanguageGroup ();
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('updateLanguageGroup')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->updateLanguageGroup($langGroup);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test Get Language Group by Id 
+     */
+    public function testGetLanguageGroupById() {
+        foreach ($this->testCases['LanguageGroup'] as $key => $testCase) {
+            $langGroup = new LanguageGroup();
+            $langGroup->setGroupName($testCase['group_name']);
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('getLanguageGroupById')
+                    ->will($this->returnValue($langGroup));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->getLanguageGroupById($testCase['id']);
+            $this->assertTrue($result instanceof LanguageGroup);
+            $this->assertEquals($langGroup, $result);
+        }
+    }
+
+    /**
+     * Test Get Language Group By Id Exception.
+     */
+    public function testGetLanguageGroupByIdException() {
+        try {
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('getLanguageGroupById')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->getLanguageGroupById('lang_id');
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test get Language Group List.
+     */
+    public function testLanguageGroupList() {
+        $this->localizationDao = $this->getMock('LocalizationDao');
+        $this->localizationDao->expects($this->once())
+                ->method('getDataList')
+                ->will($this->returnValue(Doctrine_Collection));
+
+        $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+        $result = $this->locaizationService->getLanguageGroupList();
+        $this->assertTrue(true);
+    }
+
+    /**
+     * Test Get Language Group List Exception.
+     */
+    public function testGetLanguageGroupListException() {
+        try {
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('getDataList')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->getLanguageGroupList();
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
 }
