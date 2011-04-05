@@ -62,6 +62,9 @@ $(document).ready(function (){
     $('#save_group').click(function(){
         submitForm('add_language_group_form');
     });
+    $('#update_group').click(function(){
+        submitForm('edit_language_group_form');
+    });
  
     if($('#show_add_label').val() == '1'){
         $('#addLabelDiv').css('display','block');
@@ -153,7 +156,7 @@ function  deleteUser(id){
 function deleteLangGroup(id) {
     jConfirm('Are you sure?', 'Delete User', function(r) {
         if(r) {
-            $.get('localization/deleteLangGroup?id='+id);
+            $.get('localization/deleteLanguageGroup?id='+id);
             location.reload();
         }
     });
