@@ -94,6 +94,14 @@
                 <source>new_group</source>
                 <target>New Group</target>
             </trans-unit>
+            <trans-unit>
+                <source>language_list</source>
+                <target>Language List</target>
+            </trans-unit>
+            <trans-unit>
+                <source>group_name</source>
+                <target>Group name</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
