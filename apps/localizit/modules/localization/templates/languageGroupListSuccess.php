@@ -10,12 +10,12 @@
             </tr>
         </table>
         <div class="mediumText pageHeader">
-            <?php echo __('language_list', null, 'userManagementMessages') ?>
+            <?php echo __('language_list', null, 'localizationMessages') ?>
         </div>
         <table class="mainFrame mediumText">
             <thead>
                 <tr>
-                    <th><?php echo __('group_name', null, 'userManagementMessages')?></th>
+                    <th><?php echo __('group_name', null, 'localizationMessages')?></th>
                     <th><?php echo __('edit', null, 'userManagementMessages')?></th>
                     <th><?php echo __('delete', null, 'userManagementMessages')?></th>
                 </tr>
