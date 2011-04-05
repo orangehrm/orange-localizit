@@ -86,25 +86,25 @@
                 <source>add_language_group</source>
                 <target>Add Language Group</target>
             </trans-unit>
-            <trans-unit>
-                <source>group_name</source>
-                <target>Group name</target>
-            </trans-unit>
-            <trans-unit>
+            <trans-unit id="22">
                 <source>new_group</source>
                 <target>New Group</target>
             </trans-unit>
-            <trans-unit>
+            <trans-unit id="23">
                 <source>language_list</source>
                 <target>Language List</target>
             </trans-unit>
-            <trans-unit>
+            <trans-unit id="24">
                 <source>group_name</source>
                 <target>Group name</target>
             </trans-unit>
-            <trans-unit>
+            <trans-unit id="25">
                 <source>edit_group</source>
                 <target>Edit Group</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>language_group</source>
+                <target>Language Group</target>
             </trans-unit>
         </body>
     </file>

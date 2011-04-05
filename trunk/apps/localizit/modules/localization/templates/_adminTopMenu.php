@@ -11,6 +11,9 @@
                 <li>
                     <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('language_text', null, 'localizationMessages') ?></a>
                 </li>
+                <li>
+                    <a href="<?php echo url_for('@language_group_list'); ?>"><?php echo __('language_group', null, 'localizationMessages') ?></a>
+                </li>
             </ul>
         </td>
         <?php if(!$sf_user->isAuthenticated()) { ?>
