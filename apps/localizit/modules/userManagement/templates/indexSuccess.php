@@ -20,7 +20,7 @@
                     <th><?php echo __('delete', null, 'userManagementMessages')?></th>
                 </tr>
             </thead>
-            <tbody><?php //echo url_for('userManagement/delete?user_id=' . $user->getUserId()) ?>
+            <tbody>
                 <?php foreach ($users as $user): ?>
                     <tr>
                         <td><?php echo $user->getLoginName() ?></td>
