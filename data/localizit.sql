@@ -121,3 +121,13 @@ INSERT INTO `ohrm_user_type` (`id`, `user_type`) VALUES
 INSERT INTO `ohrm_user` (`user_id`, `login_name`,  `password`, `user_type_id`) VALUES
 (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1);
 (2, 'moderator', 'e10adc3949ba59abbe56e057f20f883e', 2);
+
+--
+-- Create `ohrm_language_group`
+--
+
+CREATE TABLE `ohrm_language_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
