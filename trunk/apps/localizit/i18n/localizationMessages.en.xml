@@ -102,6 +102,10 @@
                 <source>group_name</source>
                 <target>Group name</target>
             </trans-unit>
+            <trans-unit>
+                <source>edit_group</source>
+                <target>Edit Group</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

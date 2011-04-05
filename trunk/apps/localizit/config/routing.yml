@@ -70,8 +70,8 @@ language_group_list:
   url: /language_group_list
   param: { module: localization, action: languageGroupList }
 
-edit_lang_group:
-  url: /edit_lang_group
+edit_language_group:
+  url: /edit_language_group
   param: { module: localization, action: editLanguageGroup }
 
 # generic rules
