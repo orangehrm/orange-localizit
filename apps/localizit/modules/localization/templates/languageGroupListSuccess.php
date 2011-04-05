@@ -3,12 +3,12 @@
 
         <table class="mainFrame mediumText">
             <tr>
-                <td><a href="<?php echo url_for('@add_user') ?>">
-                    <?php echo __('add_new_user', null, 'userManagementMessages') ?></a></td>
                 <td><a href="<?php echo url_for('@add_language_group') ?>">
-                    <?php echo __('add_language_group', null, 'localizationMessages') ?></a></td>
+                    <?php echo __('add_language_group', null, 'localizationMessages') ?></a>
+                </td>
             </tr>
         </table>
+        <?php if(count($languageGroupList) > 0 ) { ?>
         <div class="mediumText pageHeader">
             <?php echo __('language_list', null, 'localizationMessages') ?>
         </div>
@@ -31,6 +31,6 @@
                 </tbody>
             </table>
 
-
+            <?php } ?>
     </div>
 </div>
