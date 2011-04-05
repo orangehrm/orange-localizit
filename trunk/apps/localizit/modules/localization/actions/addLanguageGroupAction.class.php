@@ -23,6 +23,10 @@ class addLanguageGroupAction extends sfAction {
         return $this->localizationService;
     }
 
+    /**
+     * Adding Language Group
+     * @param <type> $request 
+     */
     public function execute($request) {
         $localizationService = $this->getLocalizeService();
 
@@ -32,7 +36,10 @@ class addLanguageGroupAction extends sfAction {
             $this->addLanguageGroupForm->bind($request->getParameter($this->addLanguageGroupForm->getName()));
 
             if ($this->addLanguageGroupForm->isValid()) {
-                if ($this->addLanguageGroupForm->saveToDb()) {
+
+                $languageGroup = new LanguageGroup();
+                $languageGroup->setGroupName($this->addLanguageGroupForm->getValue('group_name'));
+                if ($localizationService->saveLanguageGroup($languageGroup)) {
                     $this->redirect('@language_group_list');
                 }
             }
