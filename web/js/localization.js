@@ -153,7 +153,7 @@ function  deleteUser(id){
 function deleteLangGroup(id) {
     jConfirm('Are you sure?', 'Delete User', function(r) {
         if(r) {
-            $.get('localization/deleteLangGroup?    id='+id);
+            $.get('localization/deleteLangGroup?id='+id);
             location.reload();
         }
     });

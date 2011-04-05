@@ -357,23 +357,6 @@ XML;
     }
 
     /**
-     * Add Language Group method.
-     */
-    public function addLanguageGroup($groupName) {
-        $localizationDao = $this->getLocalizationDao();
-
-        try {
-            $langGroup = new LanguageGroup();
-            $langGroup->setGroupName($groupName);
-
-            $res = $localizationDao->addLanguageGroup($langGroup);
-            return $res;
-        } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(), $exc->getCode());
-        }
-    }
-
-    /**
      * Update Language Group
      */
     public function updateLanguageGroup(LanguageGroup $langGroup) {
@@ -404,7 +387,7 @@ XML;
      * Get Language Group set.
      */
     public function getLanguageGroupList() {
-         $localizationDao = $this->getLocalizationDao();
+        $localizationDao = $this->getLocalizationDao();
         try {
             $res = $localizationDao->getDataList('LanguageGroup');
             return $res;
@@ -412,4 +395,19 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
+
+    /**
+     * Save Language Group
+     */
+    public function saveLanguageGroup(LanguageGroup $languageGroup) {
+        $localizationDao = $this->getLocalizationDao();
+
+        try {
+            $res = $localizationDao->addLanguageGroup($languageGroup);
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
 }

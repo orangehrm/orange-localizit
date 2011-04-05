@@ -696,47 +696,6 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * Test Add Language Group 
-     */
-    public function testAddLanguageGroup() {
-        foreach ($this->testCases['LanguageGroup'] as $key => $testCase) {
-            $langGroup = new LanguageGroup ();
-            $langGroup->setGroupName($testCase['group_name']);
-
-            $this->localizationDao = $this->getMock('LocalizationDao');
-            $this->localizationDao->expects($this->once())
-                    ->method('addLanguageGroup')
-                    ->will($this->returnValue($langGroup));
-
-            $this->locaizationService->setLocalizationDao($this->localizationDao);
-
-            $result = $this->locaizationService->addLanguageGroup($testCase['group_name']);
-            $this->assertTrue($result instanceof LanguageGroup);
-            $this->assertEquals($langGroup, $result);
-        }
-    }
-
-    /**
-     * Test Add Language Group Exception.
-     */
-    public function testAddLanguageGroupException() {
-        try {
-            $this->localizationDao = $this->getMock('LocalizationDao');
-            $this->localizationDao->expects($this->once())
-                    ->method('addLanguageGroup')
-                    ->will($this->throwException(New DaoException()));
-
-            $this->locaizationService->setLocalizationDao($this->localizationDao);
-
-            $result = $this->locaizationService->addLanguageGroup('group_1');
-        } catch (Exception $ex) {
-            return;
-        }
-
-        $this->fail('An expected exception has not been raised.');
-    }
-
-    /**
      * Test update Language Group
      */
     public function testUpdateLanguageGroup() {
@@ -849,6 +808,48 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
             $this->locaizationService->setLocalizationDao($this->localizationDao);
 
             $result = $this->locaizationService->getLanguageGroupList();
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
+     * Test Save Language Group Method.
+     */
+    public function testSaveLanguageGroupMethod() {
+        foreach ($this->testCases['LanguageGroup'] as $key => $testCase) {
+            $langGroup = new LanguageGroup ();
+            $langGroup->setGroupName($testCase['group_name']);
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('addLanguageGroup')
+                    ->will($this->returnValue($langGroup));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->saveLanguageGroup($langGroup);
+            $this->assertTrue($result instanceof LanguageGroup);
+            $this->assertEquals($langGroup, $result);
+        }
+    }
+
+    /**
+     * Test Save Language Group Method Exception.
+     */
+    public function testSaveLanguageGroupMethodException() {
+        try {
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $langGroup = new LanguageGroup ();
+            $this->localizationDao->expects($this->once())
+                    ->method('addLanguageGroup')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->saveLanguageGroup($langGroup);
         } catch (Exception $ex) {
             return;
         }
