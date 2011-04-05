@@ -20,11 +20,11 @@
                     <th><?php echo __('delete', null, 'userManagementMessages')?></th>
                 </tr>
             </thead>
-            <tbody><?php //echo url_for('userManagement/delete?user_id=' . $user->getUserId()) ?>
+            <tbody>
                 <?php foreach ($languageGroupList as $lang): ?>
                     <tr>
                         <td><?php echo $lang->getGroupName() ?></td>
-                        <td style="text-align: center"><a href="<?php echo url_for('@edit_lang_group?id=' . $lang->getId()) ?>"><span  class="imageLink"><?php echo image_tag('edit.gif' , array ('border' => '0'))?></span></a></td>
+                        <td style="text-align: center"><a href="<?php echo url_for('@edit_language_group?id=' . $lang->getId()) ?>"><span  class="imageLink"><?php echo image_tag('edit.gif' , array ('border' => '0'))?></span></a></td>
                         <td style="text-align: center"><a href="#"><span  class="imageLink"><?php echo image_tag('delete.gif' , array ('onclick' => 'deleteLangGroup('.$lang->getId().')', 'border' => '0'))?></span></a></td>
                     </tr>
                 <?php endforeach; ?>

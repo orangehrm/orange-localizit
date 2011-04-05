@@ -23,11 +23,26 @@ class editLanguageGroupAction extends sfAction {
         return $this->localizationService;
     }
 
+    /**
+     * Edit Language Group .
+     * @param <type> $request
+     */
     public function execute($request) {
-        $this->langGroup = $this->localizationService->getLanguageGroupById($request->getParameter('id'));
+        $localizationService = $this->getLocalizeService();
+        $this->editLangGroupForm = new LanguageGroupForm();
+        $this->langGroup = $localizationService->getLanguageGroupById($request->getParameter('id'));
         $this->id = $request->getParameter('id');
 
-        $this->editLangGroupForm = new LanguageGroupForm($this->langGroup);
+        if ($request->isMethod(sfRequest::POST)) {
+            $this->editLangGroupForm->bind($request->getParameter($this->editLangGroupForm->getName()));
+
+            if ($this->editLangGroupForm->isValid()) {
+                $this->langGroup->setGroupName($this->editLangGroupForm->getValue('group_name'));
+                if($localizationService->updateLanguageGroup($this->langGroup)) {
+                     $this->redirect('@language_group_list');
+                }
+            }
+        }
     }
 
 }
