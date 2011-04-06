@@ -100,6 +100,19 @@ class UserRole implements RoleDecorator {
     }
 
     /**
+     * Allow user to add Language Group
+     */
+    public function isAllowedToAddLanguageGroup() {
+
+        foreach ($this->getUserRoleDecorator() as $roleDecorator) {
+            if ($roleDecorator->isAllowedToAddLanguageGroup()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * get user role Decorator
      * @return unknown_type
      */
