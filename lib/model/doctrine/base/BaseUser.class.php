@@ -9,20 +9,23 @@ Doctrine_Manager::getInstance()->bindComponent('User', 'doctrine');
  * 
  * @property integer $user_id
  * @property string $login_name
- * @property string $password
  * @property integer $user_type_id
- * @property Doctrine_Collection $UserType
+ * @property string $password
+ * @property UserType $UserType
+ * @property Doctrine_Collection $UserLanguage
  * 
  * @method integer             getUserId()       Returns the current record's "user_id" value
  * @method string              getLoginName()    Returns the current record's "login_name" value
- * @method string              getPassword()     Returns the current record's "password" value
  * @method integer             getUserTypeId()   Returns the current record's "user_type_id" value
- * @method Doctrine_Collection getUserType()     Returns the current record's "UserType" collection
+ * @method string              getPassword()     Returns the current record's "password" value
+ * @method UserType            getUserType()     Returns the current record's "UserType" value
+ * @method Doctrine_Collection getUserLanguage() Returns the current record's "UserLanguage" collection
  * @method User                setUserId()       Sets the current record's "user_id" value
  * @method User                setLoginName()    Sets the current record's "login_name" value
- * @method User                setPassword()     Sets the current record's "password" value
  * @method User                setUserTypeId()   Sets the current record's "user_type_id" value
- * @method User                setUserType()     Sets the current record's "UserType" collection
+ * @method User                setPassword()     Sets the current record's "password" value
+ * @method User                setUserType()     Sets the current record's "UserType" value
+ * @method User                setUserLanguage() Sets the current record's "UserLanguage" collection
  * 
  * @package    localizit
  * @subpackage model
@@ -51,15 +54,6 @@ abstract class BaseUser extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 25,
              ));
-        $this->hasColumn('password', 'string', 25, array(
-             'type' => 'string',
-             'fixed' => 0,
-             'unsigned' => false,
-             'primary' => false,
-             'notnull' => true,
-             'autoincrement' => false,
-             'length' => 25,
-             ));
         $this->hasColumn('user_type_id', 'integer', 4, array(
              'type' => 'integer',
              'fixed' => 0,
@@ -69,13 +63,26 @@ abstract class BaseUser extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 4,
              ));
+        $this->hasColumn('password', 'string', 255, array(
+             'type' => 'string',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => false,
+             'autoincrement' => false,
+             'length' => 255,
+             ));
     }
 
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('UserType', array(
+        $this->hasOne('UserType', array(
              'local' => 'user_type_id',
              'foreign' => 'id'));
+
+        $this->hasMany('UserLanguage', array(
+             'local' => 'user_id',
+             'foreign' => 'user_id'));
     }
 }

@@ -9,14 +9,14 @@ Doctrine_Manager::getInstance()->bindComponent('UserType', 'doctrine');
  * 
  * @property integer $id
  * @property string $user_type
- * @property User $User
+ * @property Doctrine_Collection $User
  * 
- * @method integer  getId()        Returns the current record's "id" value
- * @method string   getUserType()  Returns the current record's "user_type" value
- * @method User     getUser()      Returns the current record's "User" value
- * @method UserType setId()        Sets the current record's "id" value
- * @method UserType setUserType()  Sets the current record's "user_type" value
- * @method UserType setUser()      Sets the current record's "User" value
+ * @method integer             getId()        Returns the current record's "id" value
+ * @method string              getUserType()  Returns the current record's "user_type" value
+ * @method Doctrine_Collection getUser()      Returns the current record's "User" collection
+ * @method UserType            setId()        Sets the current record's "id" value
+ * @method UserType            setUserType()  Sets the current record's "user_type" value
+ * @method UserType            setUser()      Sets the current record's "User" collection
  * 
  * @package    localizit
  * @subpackage model
@@ -50,7 +50,7 @@ abstract class BaseUserType extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('User', array(
+        $this->hasMany('User', array(
              'local' => 'id',
              'foreign' => 'user_type_id'));
     }

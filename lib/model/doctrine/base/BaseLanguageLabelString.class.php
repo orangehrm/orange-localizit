@@ -11,24 +11,30 @@ Doctrine_Manager::getInstance()->bindComponent('LanguageLabelString', 'doctrine'
  * @property integer $label_id
  * @property integer $language_id
  * @property string $language_label_string
- * @property enum $language_label_string_status
+ * @property string $language_label_string_status
+ * @property integer $language_group_id
  * @property Label $Label
  * @property Language $Language
+ * @property LanguageGroup $LanguageGroup
  * 
  * @method integer             getLanguageLabelStringId()        Returns the current record's "language_label_string_id" value
  * @method integer             getLabelId()                      Returns the current record's "label_id" value
  * @method integer             getLanguageId()                   Returns the current record's "language_id" value
  * @method string              getLanguageLabelString()          Returns the current record's "language_label_string" value
- * @method enum                getLanguageLabelStringStatus()    Returns the current record's "language_label_string_status" value
+ * @method string              getLanguageLabelStringStatus()    Returns the current record's "language_label_string_status" value
+ * @method integer             getLanguageGroupId()              Returns the current record's "language_group_id" value
  * @method Label               getLabel()                        Returns the current record's "Label" value
  * @method Language            getLanguage()                     Returns the current record's "Language" value
+ * @method LanguageGroup       getLanguageGroup()                Returns the current record's "LanguageGroup" value
  * @method LanguageLabelString setLanguageLabelStringId()        Sets the current record's "language_label_string_id" value
  * @method LanguageLabelString setLabelId()                      Sets the current record's "label_id" value
  * @method LanguageLabelString setLanguageId()                   Sets the current record's "language_id" value
  * @method LanguageLabelString setLanguageLabelString()          Sets the current record's "language_label_string" value
  * @method LanguageLabelString setLanguageLabelStringStatus()    Sets the current record's "language_label_string_status" value
+ * @method LanguageLabelString setLanguageGroupId()              Sets the current record's "language_group_id" value
  * @method LanguageLabelString setLabel()                        Sets the current record's "Label" value
  * @method LanguageLabelString setLanguage()                     Sets the current record's "Language" value
+ * @method LanguageLabelString setLanguageGroup()                Sets the current record's "LanguageGroup" value
  * 
  * @package    localizit
  * @subpackage model
@@ -75,19 +81,23 @@ abstract class BaseLanguageLabelString extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 45,
              ));
-        $this->hasColumn('language_label_string_status', 'enum', 1, array(
-             'type' => 'enum',
+        $this->hasColumn('language_label_string_status', 'string', 1, array(
+             'type' => 'string',
              'fixed' => 0,
              'unsigned' => false,
-             'values' => 
-             array(
-              0 => '0',
-              1 => '1',
-             ),
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
              'length' => 1,
+             ));
+        $this->hasColumn('language_group_id', 'integer', 4, array(
+             'type' => 'integer',
+             'fixed' => 0,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => true,
+             'autoincrement' => false,
+             'length' => 4,
              ));
     }
 
@@ -101,5 +111,9 @@ abstract class BaseLanguageLabelString extends sfDoctrineRecord
         $this->hasOne('Language', array(
              'local' => 'language_id',
              'foreign' => 'language_id'));
+
+        $this->hasOne('LanguageGroup', array(
+             'local' => 'language_group_id',
+             'foreign' => 'id'));
     }
 }
