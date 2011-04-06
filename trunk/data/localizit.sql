@@ -105,18 +105,23 @@ CREATE TABLE `ohrm_language_group` (
   `group_name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
---
--- Constraints for dumped tables
---
 
 --
 -- Constraints for table `ohrm_language_label_string`
 --
+ALTER TABLE `ohrm_language_label_string` ADD COLUMN `language_group_id` int(11) NOT NULL ;
+
 ALTER TABLE `ohrm_language_label_string`
   ADD CONSTRAINT `fk_ohrm_language_label_string_ohrm_label` FOREIGN KEY (`label_id`) REFERENCES `ohrm_label` (`label_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_ohrm_language_label_string_ohrm_language` FOREIGN KEY (`language_id`) REFERENCES `ohrm_language` (`language_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_ohrm_language_label_string_ohrm_language` FOREIGN KEY (`language_id`) REFERENCES `ohrm_language` (`language_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_ohrm_language_label_string_ohrm_language_group` FOREIGN KEY (`language_group_id`) REFERENCES `ohrm_language_group` (`id`) ON DELETE CASCADE;
 
 ALTER TABLE `ohrm_language_label_string` CHANGE `language_label_string_id`  `language_label_string_id`  INT( 11 ) NOT NULL AUTO_INCREMENT ;
+
+ALTER TABLE `ohrm_language_label_string` ADD CONSTRAINT `fk_language_label_string_ohrm_language_group` FOREIGN KEY (`language_group_id`) REFERENCES `ohrm_language_group` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+-- INSERT Values --
 
 INSERT INTO `ohrm_language` (`language_id`, `language_code`, `language_name`, `language_status`) VALUES
 (1, 'en_us', 'English', ''),
@@ -128,6 +133,6 @@ INSERT INTO `ohrm_user_type` (`id`, `user_type`) VALUES
 (2, 'Moderator');
 
 INSERT INTO `ohrm_user` (`user_id`, `login_name`,  `password`, `user_type_id`) VALUES
-(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1);
+(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 1),
 (2, 'moderator', 'e10adc3949ba59abbe56e057f20f883e', 2);
 

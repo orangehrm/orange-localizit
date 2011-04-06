@@ -88,6 +88,13 @@
 <?php } ?>
             <tr>
                 <td>&nbsp;</td>
+                <td><?php echo $addLabelForm['language_group_id']->renderLabel(__('language_group', null, 'localizationMessages')) ?></td>
+                <td><?php include_component('localization', 'LanguageGroupList'); ?></td>
+                <td>&nbsp;</td>
+            </tr>
+
+            <tr>
+                <td>&nbsp;</td>
                 <td  class="removeLeftDotLine"><?php echo $addLabelForm['label_comment']->renderLabel(__('label_comment', null, 'localizationMessages')) ?></td>
                 <td><?php echo $addLabelForm['label_comment']->render() ?></td>
                 <td class="removeLeftDotLine addDotLinetoRight">&nbsp;</td>

@@ -7,6 +7,7 @@
                     <td class="boldText">Label</td>
                     <td class="boldText">Source Language (<?php echo $sourceLanguageLabel ?>)</td>
                     <td class="boldText">Target Language (<?php echo $targetLanguageLabel ?>)</td>
+                    <td class="boldText">Language Group</td>
                     <td class="boldText">Comments</td>
                     <td class="addDotLinetoRight">&nbsp;</td>
                 </tr>
@@ -29,6 +30,15 @@
                     <td>
                         <input type="text" name="target_language_string[]" value="<?php echo isset($labelInnerData['target_language_label']) ? $labelInnerData['target_language_label'] : null ?>" class="text_input" <?php if (!in_array($targetLanguageId, $role->getAllowedLanguageList())) { ?>readonly style="background-color: #CCC"<?php } ?>/>
                         <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id']) ? $labelInnerData['target_language_label_string_id'] : null ?>"/>
+                    </td>
+                    <td>
+                        <select class="langueDropDownList" name="language_group_id[]">
+                            <?php foreach ($lanagueGroupList as $langGroup) { ?>
+                                        <option value="<?php echo $langGroup->getId() ?>" <?php echo $labelInnerData['language_group_id']==$langGroup->getGroupName() ? 'selected="selected"':null?> >
+                                            <?php echo  $langGroup->getGroupName() ?>
+                                        </option>
+                            <?php } ?>
+                        </select>
                     </td>
                     <td>
                         <textarea cols="30" rows="2" name="label_comment[]" class="text_input"><?php echo isset($labelInnerData['comment']) ? $labelInnerData['comment'] : null ?></textarea>

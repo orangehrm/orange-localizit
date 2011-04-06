@@ -5,8 +5,8 @@ Language:
   data1: { language_id: 1, language_code: en_US, language_name: 'English Language', language_status: 0 }
   data1: { language_id: 2, language_code: fr_Fr, language_name: 'France Language', language_status: 0 }
 LanguageLabelString:
-  data1: { language_label_string_id: '1', label_id: 1, language_id: 1, language_label_string: 'test string 1', language_label_string_status: 0 }
-  data2: { language_label_string_id: '2', label_id: 2, language_id: 2, language_label_string: 'test string 2', language_label_string_status: 0 }
+  data1: { language_label_string_id: '1', label_id: 1, language_id: 1, language_label_string: 'test string 1', language_label_string_status: 0 , language_group_id: 1 }
+  data2: { language_label_string_id: '2', label_id: 2, language_id: 2, language_label_string: 'test string 2', language_label_string_status: 0 , language_group_id: 1 }
 LanguageGroup:
   data1: { id: 1, group_name: 'group1'}
   data2: { id: 2, group_name: 'group2'}

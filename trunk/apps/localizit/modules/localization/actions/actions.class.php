@@ -67,6 +67,8 @@ class localizationActions extends sfActions {
 
             $labelCommentArray = $request->getParameter('label_comment');
 
+            $languagueGroupId = $request->getParameter('language_group_id');
+
             $loopCounter = count($labelIdArray);
             $localizationService = $this->getLocalizeService();
 
@@ -84,6 +86,7 @@ class localizationActions extends sfActions {
                 $sourceLls->setLabelId($labelIdArray[$index]);
                 $sourceLls->setLanguageId($this->getUser()->getAttribute('user_language_id'));
                 $sourceLls->setLanguageLabelStringStatus(sfConfig::get('app_status_enabled'));
+                $sourceLls->setLanguageGroupId($languagueGroupId[$index]);
                 if ($sourceLanguageStringIdArray[$index]) {
                     $sourceLls->setLanguageLabelStringId($sourceLanguageStringIdArray[$index]);
                     $localizationService->updateLangStr($sourceLls);
@@ -96,6 +99,7 @@ class localizationActions extends sfActions {
                 $targetLls->setLanguageId($targetLanguageId);
                 $targetLls->setLanguageLabelStringStatus(sfConfig::get('app_status_enabled'));
                 $targetLls->setLanguageLabelString($targetLanguageStringArray[$index]);
+                $targetLls->setLanguageGroupId($languagueGroupId[$index]);
                 if ($targetLanguageStringIdArray[$index]) {
                     $targetLls->setLanguageLabelStringId($targetLanguageStringIdArray[$index]);
                     $localizationService->updateLangStr($targetLls);
@@ -172,6 +176,7 @@ class localizationActions extends sfActions {
         $this->sourceLanguageLabel = $this->getUser()->getCulture();
         $this->targetLanguageLabel = $localizationService->getLanguageById($this->targetLanguageId)->getLanguageCode();
         $this->languageLabelDataSet = $localizationService->getLabelAndLangDataSet($this->sourceLanguageId, $this->targetLanguageId);
+        $this->lanagueGroupList = $localizationService->getLanguageGroupList();
     }
 
     /**

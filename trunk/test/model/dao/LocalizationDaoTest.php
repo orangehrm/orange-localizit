@@ -308,6 +308,7 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
         $languageLabelString->setLanguageId(3);
         $languageLabelString->setLanguageLabelString('language_label_string');
         $languageLabelString->setLanguageLabelStringStatus('language_label_string_status');
+        $languageLabelString->setLanguageGroupId(1);
 
         $languageLabelStringCreated = $this->localizationDao->addLangStr($languageLabelString);
         $result = ($languageLabelStringCreated instanceof LanguageLabelString) ? true : false;
@@ -328,6 +329,7 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
             $languageLabelString->setLanguageId(3);
             $languageLabelString->setLanguageLabelString('language_label_string');
             $languageLabelString->setLanguageLabelStringStatus('language_label_string_status');
+            $languageLabelString->setLanguageGroupId(1);
 
             $languageLabelStringCreated = $this->localizationDao->addLangStr($languageLabelString);
         } catch (Exception $ex) {

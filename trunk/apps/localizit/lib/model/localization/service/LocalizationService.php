@@ -170,6 +170,7 @@ class LocalizationService extends BaseService {
                                     $dataRow[$label->getLabelId()]['source_language_id'] = $languageLabel->getLanguageId();
                                     $dataRow[$label->getLabelId()]['source_language_label'] = $languageLabel->getLanguageLabelString();
                                     $dataRow[$label->getLabelId()]['comment'] = $label->getLabelComment();
+                                    $dataRow[$label->getLabelId()]['language_group_id'] = $languageLabel->getLanguageGroup()->getGroupName();
                                 } elseif ($targetLanguageId == $languageLabel->getLanguageId()) {
                                     $dataRow[$label->getLabelId()]['target_language_label_string_id'] = $languageLabel->getLanguageLabelStringId();
                                     $dataRow[$label->getLabelId()]['target_language_id'] = $languageLabel->getLanguageId();

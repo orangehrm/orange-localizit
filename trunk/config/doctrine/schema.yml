@@ -118,6 +118,13 @@ LanguageLabelString:
       primary: false
       notnull: true
       autoincrement: false
+    language_group_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
   relations:
     Label:
       local: label_id
@@ -136,6 +143,10 @@ LanguageLabelString:
       class: OhrmLanguage
       local: language_id
       foreign: language_id
+      type: one
+    LanguageGroup:
+      local: language_group_id
+      foreign: id
       type: one
 UserType:
   connection: doctrine
