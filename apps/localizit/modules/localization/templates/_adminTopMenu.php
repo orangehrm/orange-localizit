@@ -11,9 +11,11 @@
                 <li>
                     <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('language_text', null, 'localizationMessages') ?></a>
                 </li>
+                    <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToManageUser()) { ?>
                 <li>
                     <a href="<?php echo url_for('@language_group_list'); ?>"><?php echo __('language_group', null, 'localizationMessages') ?></a>
                 </li>
+                    <?php } ?>
             </ul>
         </td>
         <?php if(!$sf_user->isAuthenticated()) { ?>

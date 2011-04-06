@@ -40,5 +40,13 @@ class localizationComponents extends sfComponents {
         $this->sourceLanguageId = $this->getUser()->getAttribute('user_language_id');
     }
 
-    
+    /**
+     * Get Language Group List.
+     */
+    public function executeLanguageGroupList(sfWebRequest $request) {
+        $localizationService = $this->getLocalizeService();
+
+        $this->languageGroupList = $localizationService->getLanguageGroupList();
+    }
+
 }

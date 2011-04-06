@@ -19,7 +19,7 @@ abstract class BaseLanguageLabelStringForm extends BaseFormDoctrine
       'label_id'                     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Label'), 'add_empty' => false)),
       'language_id'                  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Language'), 'add_empty' => false)),
       'language_label_string'        => new sfWidgetFormInputText(),
-      'language_label_string_status' => new sfWidgetFormChoice(array('choices' => array(0 => '0', 1 => '1'))),
+      'language_label_string_status' => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
@@ -27,7 +27,7 @@ abstract class BaseLanguageLabelStringForm extends BaseFormDoctrine
       'label_id'                     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Label'))),
       'language_id'                  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Language'))),
       'language_label_string'        => new sfValidatorString(array('max_length' => 45)),
-      'language_label_string_status' => new sfValidatorChoice(array('choices' => array(0 => '0', 1 => '1'))),
+      'language_label_string_status' => new sfValidatorString(array('max_length' => 1)),
     ));
 
     $this->widgetSchema->setNameFormat('language_label_string[%s]');

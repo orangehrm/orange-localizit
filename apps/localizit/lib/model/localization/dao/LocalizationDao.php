@@ -196,6 +196,7 @@ class LocalizationDao extends BaseDao {
                             ->set('lls.language_id ', $lls->getLanguageId())
                             ->set('lls.language_label_string ', "\"{$lls->getLanguageLabelString()}\"")
                             ->set('lls.language_label_string_status ', "\"{$lls->getLanguageLabelStringStatus()}\"")
+                            ->set('lls.language_group_id', "\"{$lls->getLanguageGroupId()}\"")
                             ->where('lls.language_label_string_id = ?', $lls->getLanguageLabelStringId())
                             ->execute();
             return true;

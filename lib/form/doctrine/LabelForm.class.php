@@ -22,6 +22,7 @@ class LabelForm extends sfForm {
         $this->setWidgets(array(
                 'label_name'    => new sfWidgetFormInputText(array(),array('class' => 'text_input')),
                 'label_local_language_string' => new sfWidgetFormInputText(array(),array('class' => 'text_input')),
+                'language_group_id' => new sfWidgetFormInputText(array(),array('class' => 'text_input')),
                 'label_comment' => new sfWidgetFormTextarea(array(),array('class' => 'text_input')),
                 'addLabel'     => new sfWidgetFormInputHidden(array(),array('value'=>'true')),
         ));
@@ -76,6 +77,7 @@ class LabelForm extends sfForm {
             $lls->setLanguageId(sfContext::getInstance()->getUser()->getAttribute('user_language_id'));
             $lls->setLanguageLabelStringStatus(sfConfig::get('app_status_enabled'));
             $lls->setLanguageLabelString($values['label_local_language_string']);
+            $lls->setLanguageGroupId($values['language_group_id']);
             $localizationService->addLangStr($lls);
 
             return true;
