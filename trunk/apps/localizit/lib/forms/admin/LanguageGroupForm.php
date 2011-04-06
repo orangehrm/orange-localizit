@@ -11,14 +11,7 @@
  * @author waruni
  */
 class LanguageGroupForm extends BaseForm {
-
-    private $localizationService;
-
-    public function getLocalizationService() {
-        $this->localizationService = new LocalizationService();
-        $this->localizationService->setLocalizationDao(new LocalizationDao());
-        return $this->localizationService;
-    }
+   
 
     public function configure() {
 
