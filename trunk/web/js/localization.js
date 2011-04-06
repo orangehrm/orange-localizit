@@ -20,6 +20,7 @@ $(document).ready(function (){
 
     $('#edit').click(function (){
         $('#addLabelDiv').fadeOut(1000);
+        $('#add').css('display','none');
         targetLanguageId=$('#languageList').val();
         fetchEditableLangugeLabelSet(url_edit,targetLanguageId,'dataSet');
     });
