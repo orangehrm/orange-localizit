@@ -25,6 +25,7 @@ interface RoleDecorator {
     public function isAllowedToManageUser();
     public function getAllowedLanguageList();
     public function isAllowedToDownloadDirectory();
+    public function isAllowedToAddLanguageGroup();
       
 }
 ?>

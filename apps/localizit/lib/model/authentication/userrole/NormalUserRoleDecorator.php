@@ -36,6 +36,10 @@ class NormalUserRoleDecorator extends BaseRoleDecorator implements RoleDecorator
         return false;
     }
 
+    public function isAllowedToAddLanguageGroup() {
+        return false;
+    }
+
     /**
      * @author Chameera Senarathna
      * @return Allowed Language list

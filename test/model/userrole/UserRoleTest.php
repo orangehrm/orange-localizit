@@ -89,6 +89,7 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($this->userRole->isAllowedToManageUser());
         $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
         $this->assertTrue($this->userRole->isAllowedToAddLabel());
+        $this->assertTrue($this->userRole->isAllowedToAddLanguageGroup());
         $this->assertEquals($result, $langIds);
     }
 
@@ -145,6 +146,7 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(!$this->userRole->isAllowedToManageUser());
         $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
         $this->assertTrue(!$this->userRole->isAllowedToAddLabel());
+        $this->assertTrue(!$this->userRole->isAllowedToAddLanguageGroup());
         $this->assertEquals($result, $langIds);
          
     }
@@ -204,6 +206,7 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(!$this->userRole->isAllowedToManageUser());
         $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
         $this->assertTrue(!$this->userRole->isAllowedToAddLabel());
+        $this->assertTrue(!$this->userRole->isAllowedToAddLanguageGroup());
         $this->assertEquals($result, $langIds);
 
     }
@@ -258,6 +261,7 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(!$this->userRole->isAllowedToManageUser());
         $this->assertTrue(!$this->userRole->isAllowedToDownloadDirectory());
         $this->assertTrue(!$this->userRole->isAllowedToAddLabel());
+        $this->assertTrue(!$this->userRole->isAllowedToAddLanguageGroup());
         $this->assertEquals($result, array());
 
     }
@@ -288,6 +292,7 @@ class UserRoleTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue(!$this->userRole->isAllowedToManageUser());
         $this->assertTrue($this->userRole->isAllowedToDownloadDirectory());
         $this->assertTrue(!$this->userRole->isAllowedToAddLabel());
+        $this->assertTrue(!$this->userRole->isAllowedToAddLanguageGroup());
         $this->assertEquals($this->userRole->getAllowedLanguageList(), array());
     }
 }
