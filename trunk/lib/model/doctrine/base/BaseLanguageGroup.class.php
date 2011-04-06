@@ -9,11 +9,14 @@ Doctrine_Manager::getInstance()->bindComponent('LanguageGroup', 'doctrine');
  * 
  * @property integer $id
  * @property string $group_name
+ * @property Doctrine_Collection $LanguageLabelString
  * 
- * @method integer       getId()         Returns the current record's "id" value
- * @method string        getGroupName()  Returns the current record's "group_name" value
- * @method LanguageGroup setId()         Sets the current record's "id" value
- * @method LanguageGroup setGroupName()  Sets the current record's "group_name" value
+ * @method integer             getId()                  Returns the current record's "id" value
+ * @method string              getGroupName()           Returns the current record's "group_name" value
+ * @method Doctrine_Collection getLanguageLabelString() Returns the current record's "LanguageLabelString" collection
+ * @method LanguageGroup       setId()                  Sets the current record's "id" value
+ * @method LanguageGroup       setGroupName()           Sets the current record's "group_name" value
+ * @method LanguageGroup       setLanguageLabelString() Sets the current record's "LanguageLabelString" collection
  * 
  * @package    localizit
  * @subpackage model
@@ -47,6 +50,8 @@ abstract class BaseLanguageGroup extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        
+        $this->hasMany('LanguageLabelString', array(
+             'local' => 'id',
+             'foreign' => 'language_group_id'));
     }
 }

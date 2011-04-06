@@ -10,19 +10,25 @@ Doctrine_Manager::getInstance()->bindComponent('Language', 'doctrine');
  * @property integer $language_id
  * @property string $language_code
  * @property string $language_name
- * @property enum $language_status
+ * @property string $language_status
  * @property Doctrine_Collection $LanguageLabelString
+ * @property Doctrine_Collection $LanguageLabelString_4
+ * @property Doctrine_Collection $UserLanguage
  * 
- * @method integer             getLanguageId()          Returns the current record's "language_id" value
- * @method string              getLanguageCode()        Returns the current record's "language_code" value
- * @method string              getLanguageName()        Returns the current record's "language_name" value
- * @method enum                getLanguageStatus()      Returns the current record's "language_status" value
- * @method Doctrine_Collection getLanguageLabelString() Returns the current record's "LanguageLabelString" collection
- * @method Language            setLanguageId()          Sets the current record's "language_id" value
- * @method Language            setLanguageCode()        Sets the current record's "language_code" value
- * @method Language            setLanguageName()        Sets the current record's "language_name" value
- * @method Language            setLanguageStatus()      Sets the current record's "language_status" value
- * @method Language            setLanguageLabelString() Sets the current record's "LanguageLabelString" collection
+ * @method integer             getLanguageId()            Returns the current record's "language_id" value
+ * @method string              getLanguageCode()          Returns the current record's "language_code" value
+ * @method string              getLanguageName()          Returns the current record's "language_name" value
+ * @method string              getLanguageStatus()        Returns the current record's "language_status" value
+ * @method Doctrine_Collection getLanguageLabelString()   Returns the current record's "LanguageLabelString" collection
+ * @method Doctrine_Collection getLanguageLabelString4()  Returns the current record's "LanguageLabelString_4" collection
+ * @method Doctrine_Collection getUserLanguage()          Returns the current record's "UserLanguage" collection
+ * @method Language            setLanguageId()            Sets the current record's "language_id" value
+ * @method Language            setLanguageCode()          Sets the current record's "language_code" value
+ * @method Language            setLanguageName()          Sets the current record's "language_name" value
+ * @method Language            setLanguageStatus()        Sets the current record's "language_status" value
+ * @method Language            setLanguageLabelString()   Sets the current record's "LanguageLabelString" collection
+ * @method Language            setLanguageLabelString4()  Sets the current record's "LanguageLabelString_4" collection
+ * @method Language            setUserLanguage()          Sets the current record's "UserLanguage" collection
  * 
  * @package    localizit
  * @subpackage model
@@ -60,15 +66,10 @@ abstract class BaseLanguage extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 45,
              ));
-        $this->hasColumn('language_status', 'enum', 1, array(
-             'type' => 'enum',
+        $this->hasColumn('language_status', 'string', 1, array(
+             'type' => 'string',
              'fixed' => 0,
              'unsigned' => false,
-             'values' => 
-             array(
-              0 => '0',
-              1 => '1',
-             ),
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,
@@ -80,6 +81,14 @@ abstract class BaseLanguage extends sfDoctrineRecord
     {
         parent::setUp();
         $this->hasMany('LanguageLabelString', array(
+             'local' => 'language_id',
+             'foreign' => 'language_id'));
+
+        $this->hasMany('LanguageLabelString as LanguageLabelString_4', array(
+             'local' => 'language_id',
+             'foreign' => 'language_id'));
+
+        $this->hasMany('UserLanguage', array(
              'local' => 'language_id',
              'foreign' => 'language_id'));
     }

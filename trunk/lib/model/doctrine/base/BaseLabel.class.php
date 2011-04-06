@@ -10,13 +10,13 @@ Doctrine_Manager::getInstance()->bindComponent('Label', 'doctrine');
  * @property integer $label_id
  * @property string $label_name
  * @property string $label_comment
- * @property enum $label_status
+ * @property string $label_status
  * @property Doctrine_Collection $LanguageLabelString
  * 
  * @method integer             getLabelId()             Returns the current record's "label_id" value
  * @method string              getLabelName()           Returns the current record's "label_name" value
  * @method string              getLabelComment()        Returns the current record's "label_comment" value
- * @method enum                getLabelStatus()         Returns the current record's "label_status" value
+ * @method string              getLabelStatus()         Returns the current record's "label_status" value
  * @method Doctrine_Collection getLanguageLabelString() Returns the current record's "LanguageLabelString" collection
  * @method Label               setLabelId()             Sets the current record's "label_id" value
  * @method Label               setLabelName()           Sets the current record's "label_name" value
@@ -60,15 +60,10 @@ abstract class BaseLabel extends sfDoctrineRecord
              'autoincrement' => false,
              'length' => 100,
              ));
-        $this->hasColumn('label_status', 'enum', 1, array(
-             'type' => 'enum',
+        $this->hasColumn('label_status', 'string', 1, array(
+             'type' => 'string',
              'fixed' => 0,
              'unsigned' => false,
-             'values' => 
-             array(
-              0 => '0',
-              1 => '1',
-             ),
              'primary' => false,
              'notnull' => true,
              'autoincrement' => false,

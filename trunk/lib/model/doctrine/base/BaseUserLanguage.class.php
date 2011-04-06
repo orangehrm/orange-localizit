@@ -10,19 +10,19 @@ Doctrine_Manager::getInstance()->bindComponent('UserLanguage', 'doctrine');
  * @property integer $id
  * @property integer $user_id
  * @property integer $language_id
- * @property Doctrine_Collection $OhrmLanguage
- * @property Doctrine_Collection $OhrmUser
+ * @property User $User
+ * @property Language $Language
  * 
- * @method integer             getId()           Returns the current record's "id" value
- * @method integer             getUserId()       Returns the current record's "user_id" value
- * @method integer             getLanguageId()   Returns the current record's "language_id" value
- * @method Doctrine_Collection getOhrmLanguage() Returns the current record's "OhrmLanguage" collection
- * @method Doctrine_Collection getOhrmUser()     Returns the current record's "OhrmUser" collection
- * @method UserLanguage        setId()           Sets the current record's "id" value
- * @method UserLanguage        setUserId()       Sets the current record's "user_id" value
- * @method UserLanguage        setLanguageId()   Sets the current record's "language_id" value
- * @method UserLanguage        setOhrmLanguage() Sets the current record's "OhrmLanguage" collection
- * @method UserLanguage        setOhrmUser()     Sets the current record's "OhrmUser" collection
+ * @method integer      getId()          Returns the current record's "id" value
+ * @method integer      getUserId()      Returns the current record's "user_id" value
+ * @method integer      getLanguageId()  Returns the current record's "language_id" value
+ * @method User         getUser()        Returns the current record's "User" value
+ * @method Language     getLanguage()    Returns the current record's "Language" value
+ * @method UserLanguage setId()          Sets the current record's "id" value
+ * @method UserLanguage setUserId()      Sets the current record's "user_id" value
+ * @method UserLanguage setLanguageId()  Sets the current record's "language_id" value
+ * @method UserLanguage setUser()        Sets the current record's "User" value
+ * @method UserLanguage setLanguage()    Sets the current record's "Language" value
  * 
  * @package    localizit
  * @subpackage model
@@ -65,12 +65,12 @@ abstract class BaseUserLanguage extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('OhrmLanguage', array(
-             'local' => 'language_id',
-             'foreign' => 'language_id'));
-
-        $this->hasMany('OhrmUser', array(
+        $this->hasOne('User', array(
              'local' => 'user_id',
              'foreign' => 'user_id'));
+
+        $this->hasOne('Language', array(
+             'local' => 'language_id',
+             'foreign' => 'language_id'));
     }
 }
