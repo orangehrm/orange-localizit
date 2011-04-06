@@ -20,7 +20,7 @@
         <td><?php echo isset($labelInnerData['label_name'])?$labelInnerData['label_name']:null?></td>
         <td><?php echo isset($labelInnerData['source_language_label'])?$labelInnerData['source_language_label']:null?></td>
         <td><?php echo isset($labelInnerData['target_language_label'])?$labelInnerData['target_language_label']:null?></td>
-        <td><?php echo isset($labelInnerData['language_group_id'])?$labelInnerData['language_group_id']:null?></td>
+        <td><?php echo isset($labelInnerData['language_group'])?$labelInnerData['language_group']:null?></td>
         <td><?php echo isset($labelInnerData['comment'])?$labelInnerData['comment']:null?></td>
         <td class="addDotLinetoRight">&nbsp;</td>
     </tr>

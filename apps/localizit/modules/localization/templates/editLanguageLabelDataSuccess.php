@@ -32,13 +32,17 @@
                         <input type="hidden" name="target_language_string_id[]" value="<?php echo isset($labelInnerData['target_language_label_string_id']) ? $labelInnerData['target_language_label_string_id'] : null ?>"/>
                     </td>
                     <td>
-                        <select class="langueDropDownList" name="language_group_id[]">
+                        <select class="langueDropDownList" name="language_group_id[]" <?php if (!$role->isAllowedToAddLabel()) { ?> disabled="disabled" style="background-color: #CCC"<?php } ?>>
                             <?php foreach ($lanagueGroupList as $langGroup) { ?>
-                                        <option value="<?php echo $langGroup->getId() ?>" <?php echo $labelInnerData['language_group_id']==$langGroup->getGroupName() ? 'selected="selected"':null?> >
+                                        <option value="<?php echo $langGroup->getId() ?>" <?php echo $labelInnerData['language_group_id']==$langGroup->getId() ? 'selected="selected"':null?> >
                                             <?php echo  $langGroup->getGroupName() ?>
                                         </option>
                             <?php } ?>
+                                        <?php if (!$role->isAllowedToAddLabel()) { ?>
+                                            <input type="hidden" name="language_group_id[]" value="<?php echo  $labelInnerData['language_group_id'] ?>" />
+                                        <?php } ?>
                         </select>
+
                     </td>
                     <td>
                         <textarea cols="30" rows="2" name="label_comment[]" class="text_input"><?php echo isset($labelInnerData['comment']) ? $labelInnerData['comment'] : null ?></textarea>
