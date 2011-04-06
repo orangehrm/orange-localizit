@@ -48,7 +48,7 @@ class editUserAction extends sfAction {
             $this->editUserForm->bind($request->getParameter($this->editUserForm->getName()));
 
             if ($this->editUserForm->isValid()) {
-                if ($this->editUserForm->updateDb()) {
+                if ($this->editUserForm->updateUser()) {
                     $this->redirect('@userManagement');
                }
             } 

@@ -55,7 +55,7 @@ class addUserAction extends sfAction {
             $this->addUserForm->bind($request->getParameter($this->addUserForm->getName()));
 
             if ($this->addUserForm->isValid()) {
-                if ($this->addUserForm->saveToDb()) {
+                if ($this->addUserForm->saveUser()) {
                     $this->redirect('@userManagement');
                 }
             }
