@@ -681,8 +681,9 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
             $langStr->setLabelId($testCase['label_id']);
             $langStr->setLanguageId($testCase['language_id']);
             $langStr->setLanguageLabelString($testCase['language_label_string']);
+            $langStr->setLanguageGroupId($testCase['language_group_id']);
             $langStr->setLanguageLabelStringStatus($testCase['language_label_string_status']);
-
+            
             array_push($langLabelList, $langStr);
         }
 
@@ -699,9 +700,8 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
         $this->localizationDao->expects($this->once())
                 ->method('getLanguageStringBySrcTargetAndLanguageGroupId')
                 ->will($this->returnValue($langLabelList));
-
+       
         $this->locaizationService->setLocalizationDao($this->localizationDao);
-
 
         $result = $this->locaizationService->generateDictionary('1', '2', '1');
         $this->assertTrue($result);
@@ -723,7 +723,7 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
 
             $this->locaizationService->setLocalizationDao($this->localizationDao);
 
-            $result = $this->locaizationService->generateDictionary('1', '2', '1');
+            $result = $this->locaizationService->generateDictionary('1', '1', '1');
         } catch (Exception $ex) {
             return;
         }
