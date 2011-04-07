@@ -295,7 +295,6 @@ XML;
 
             $xml = new SimpleXMLElement($xmlString);
 
-//            $languageLabelDataSet = $this->getLabelAndLangDataSet($sourceLanguageId, $targetLanguageId);
             $languageLabelDataSet = $this->getLabelAndLanguageList($sourceLanguageId, $targetLanguageId, $languageGroupId);
 
             $cont = 1; // loop counter
@@ -312,13 +311,13 @@ XML;
             foreach ($languageLabelDataSet as $labelId => $languageLabelData) {
                 $labelInnerData = $languageLabelData[$labelId];
 
-//                if ((! empty($labelInnerData['source_language_label'])) && (! empty($labelInnerData['target_language_label']))) {
+                if ((! empty($labelInnerData['source_language_label'])) && (! empty($labelInnerData['target_language_label']))) {
                     $transunit = $body->addChild('trans-unit');
                     $transunit->addAttribute('id', $cont);
                     $transunit->addChild('source', $labelInnerData['source_language_label']);
                     $transunit->addChild('target', $labelInnerData['target_language_label']);
                     $cont++;
-//                }
+                }
             }
 
             $languageFile = sfConfig::get('sf_web_dir') . "/language_files/messages." . $targetLanguageLabel . ".xml";
