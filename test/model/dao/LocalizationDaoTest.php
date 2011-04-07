@@ -408,6 +408,31 @@ class LocalizationDaoTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Get Language string list by source target and Language group id.
+     */
+    public function testGetLanguageStringBySrcTargetAndLanguageGroupId() {
+        foreach ($this->testCases['LanguageLabelString'] as $key => $testCase) {
+            $result = $this->localizationDao->
+                            getLanguageStringBySrcTargetAndLanguageGroupId($testCase['source_language_id'], $testCase['target_language_id'], $testCase['language_group_id']);
+            $this->assertTrue(($result instanceof Doctrine_Collection) || ($result->count() == false));
+        }
+    }
+
+    /**
+     * Test Get Language String list by source target and Language group id Exception.
+     */
+    public function testGetLanguageStringBySrcTargetAndLanguageGroupIdEx() {
+        try {
+            $illegal = array('%', '-', '.');
+            $labelUpdated = $this->localizationDao->getLanguageStringBySrcTargetAndLanguageGroupId($illegal, $illegal, $illegal);
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
      * Test Add Language Group method.
      */
     public function testAddLanguageGroup() {

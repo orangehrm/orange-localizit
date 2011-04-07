@@ -51,12 +51,13 @@ class generateDictionaryAction extends sfAction {
         if ($request->isMethod(sfRequest::GET)) {
             $sourceLanguageId = $this->getUser()->getAttribute('user_language_id');
             $targetLanguageId = $request->getParameter('targetLanguageId');
+            $languageGroupId = $request->getParameter('languageGroupId');
 
             try {
                 $role = sfContext::getInstance()->getUser()->getUserRole();
                 $result = false;
                 if (in_array($targetLanguageId, $role->getAllowedLanguageList()))
-                    $result = $this->localizationService->generateDictionary($sourceLanguageId, $targetLanguageId);
+                    $result = $this->localizationService->generateDictionary($sourceLanguageId, $targetLanguageId, $languageGroupId);
 
                 if (!$result) {
                     $this->getResponse()->setError('Error');
