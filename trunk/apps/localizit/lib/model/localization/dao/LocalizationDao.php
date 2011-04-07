@@ -168,6 +168,21 @@ class LocalizationDao extends BaseDao {
     }
 
     /**
+     * Get Language String list by source , target language id and language group id.
+     */
+    public function getLanguageStringBySrcTargetAndLanguageGroupId($sourceLanguageId, $targetLanguageId, $languageGroupId) {
+        try {
+            $query = Doctrine_Query:: create ()
+                            ->from('LanguageLabelString lls')
+                            ->whereIn('lls.language_id', array($sourceLanguageId, $targetLanguageId))
+                            ->andWhere('language_group_id = ?', $languageGroupId);
+            return $query->execute();
+        } catch (Exception $exp) {
+            throw new DaoException($exp->getMessage());
+        }
+    }
+
+    /**
      * Create Language String
      * @param LanguageLabelString $lls
      * @returns LanguageLabelString
@@ -236,8 +251,8 @@ class LocalizationDao extends BaseDao {
     /**
      * Get Language group by id
      */
-    public function getLanguageGroupById($id){
-         try {
+    public function getLanguageGroupById($id) {
+        try {
             $q = Doctrine_Query :: create()
                             ->from('LanguageGroup l')
                             ->where('l.id=?', $id);
@@ -246,5 +261,6 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
+
 }
 

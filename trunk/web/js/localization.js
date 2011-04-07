@@ -28,7 +28,8 @@ $(document).ready(function (){
     $('#generateDictionary').click(function (){        
         $('#addLabelDiv').fadeOut(1000);
         targetLanguageId=$('#languageList').val();
-        generateDictionary('localization/generateDictionary', targetLanguageId);
+        lanagueGroupId = $('#add_label_language_group_id').val();
+        generateDictionary('localization/generateDictionary',targetLanguageId ,lanagueGroupId);
     });
 
     $('#downloadDictionary').click(function (){
@@ -112,9 +113,9 @@ function fetchEditableLangugeLabelSet(url,targetLanguageId,dataSetPane){
     });
 }
 
-function generateDictionary(url,targetLanguageId){
+function generateDictionary(url,targetLanguageId,languageGroupId){
     $.ajax({
-        url: url+'?targetLanguageId='+targetLanguageId,
+        url: url+'?targetLanguageId='+targetLanguageId +'&languageGroupId='+languageGroupId,
         success: function() {
             jAlert('Dictionary file created successfully!', 'Success');
         },

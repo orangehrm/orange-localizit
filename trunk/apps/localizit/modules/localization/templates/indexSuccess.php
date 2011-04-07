@@ -10,6 +10,10 @@
                 <td class=""><?php echo __('target_language', null, 'localizationMessages') ?></td>
                 <td class="addDotLinetoRight"><?php include_component('localization', 'LanguageList'); ?></td>
             </tr>
+            <tr>
+                <td><?php echo __('language_group', null, 'localizationMessages') ?></td>
+                <td><?php include_component('localization', 'LanguageGroupList')?></td>
+            </tr>
 
             
             <table >

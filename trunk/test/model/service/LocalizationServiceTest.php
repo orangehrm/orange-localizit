@@ -488,6 +488,70 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test Get Label and Language Data list.
+     */
+    public function testGetLabelAndLanguageList() {
+        $labelList = array();
+        $langLabelList = array();
+
+        foreach ($this->testCases['Label'] as $key => $testCase) {
+            $label = new Label();
+            $label->setLabelId($testCase['label_id']);
+            $label->setLabelName($testCase['label_name']);
+            $label->setLabelComment($testCase['label_comment']);
+            $label->setLabelStatus($testCase['label_status']);
+
+            array_push($labelList, $label);
+        }
+
+        foreach ($this->testCases['LanguageLabelString'] as $key => $testCase) {
+            $langStr = new LanguageLabelString();
+            $langStr->setLanguageLabelStringId($testCase['language_label_string_id']);
+            $langStr->setLabelId($testCase['label_id']);
+            $langStr->setLanguageId($testCase['language_id']);
+            $langStr->setLanguageLabelString($testCase['language_label_string']);
+            $langStr->setLanguageLabelStringStatus($testCase['language_label_string_status']);
+
+            array_push($langLabelList, $langStr);
+        }
+
+        $this->localizationDao = $this->getMock('LocalizationDao');
+        $this->localizationDao->expects($this->once())
+                ->method('getDataList')
+                ->will($this->returnValue($labelList));
+
+        $this->localizationDao->expects($this->once())
+                ->method('getLanguageStringBySrcTargetAndLanguageGroupId')
+                ->will($this->returnValue($langLabelList));
+
+        $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+        $result = $this->locaizationService->getLabelAndLanguageList(2, 1, 1);
+        $this->assertTrue(true);
+    }
+
+    /**
+     * Test Get Label and Language List Exception.
+     */
+    public function testGetLabelAndLanguageListEx() {
+        try {
+
+            $this->localizationDao = $this->getMock('LocalizationDao');
+            $this->localizationDao->expects($this->once())
+                    ->method('getLanguageStringBySrcTargetAndLanguageGroupId')
+                    ->will($this->throwException(New DaoException()));
+
+            $this->locaizationService->setLocalizationDao($this->localizationDao);
+
+            $result = $this->locaizationService->getLabelAndLanguageList('s_lang_id', 't_lang_id', 'group_id');
+        } catch (Exception $ex) {
+            return;
+        }
+
+        $this->fail('An expected exception has not been raised.');
+    }
+
+    /**
      * Test Add Language String
      *
      */
@@ -633,14 +697,15 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
                 ->will($this->returnValue($labelList));
 
         $this->localizationDao->expects($this->once())
-                ->method('getLangStrBySrcAndTargetIds')
+                ->method('getLanguageStringBySrcTargetAndLanguageGroupId')
                 ->will($this->returnValue($langLabelList));
 
         $this->locaizationService->setLocalizationDao($this->localizationDao);
 
-        $result = $this->locaizationService->generateDictionary('1', '2');
+
+        $result = $this->locaizationService->generateDictionary('1', '2', '1');
         $this->assertTrue($result);
-        $this->assertFileExists(sfConfig::get('sf_web_dir') . "/language_files/messages.en_US.xml");
+        $this->assertFileExists(sfConfig::get('sf_web_dir') . "/language_files/messages.si.xml");
     }
 
     /**
@@ -658,7 +723,7 @@ class LocalizationServiceTest extends PHPUnit_Framework_TestCase {
 
             $this->locaizationService->setLocalizationDao($this->localizationDao);
 
-            $result = $this->locaizationService->generateDictionary('1', '2');
+            $result = $this->locaizationService->generateDictionary('1', '2', '1');
         } catch (Exception $ex) {
             return;
         }
