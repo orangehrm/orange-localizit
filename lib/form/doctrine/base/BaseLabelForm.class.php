@@ -18,14 +18,14 @@ abstract class BaseLabelForm extends BaseFormDoctrine
       'label_id'      => new sfWidgetFormInputHidden(),
       'label_name'    => new sfWidgetFormInputText(),
       'label_comment' => new sfWidgetFormInputText(),
-      'label_status'  => new sfWidgetFormChoice(array('choices' => array(0 => '0', 1 => '1'))),
+      'label_status'  => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
       'label_id'      => new sfValidatorChoice(array('choices' => array($this->getObject()->get('label_id')), 'empty_value' => $this->getObject()->get('label_id'), 'required' => false)),
       'label_name'    => new sfValidatorString(array('max_length' => 45)),
       'label_comment' => new sfValidatorString(array('max_length' => 100, 'required' => false)),
-      'label_status'  => new sfValidatorChoice(array('choices' => array(0 => '0', 1 => '1'))),
+      'label_status'  => new sfValidatorString(array('max_length' => 1)),
     ));
 
     $this->widgetSchema->setNameFormat('label[%s]');

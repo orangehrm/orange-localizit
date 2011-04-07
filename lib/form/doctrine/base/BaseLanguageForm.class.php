@@ -18,14 +18,14 @@ abstract class BaseLanguageForm extends BaseFormDoctrine
       'language_id'     => new sfWidgetFormInputHidden(),
       'language_code'   => new sfWidgetFormInputText(),
       'language_name'   => new sfWidgetFormInputText(),
-      'language_status' => new sfWidgetFormChoice(array('choices' => array(0 => '0', 1 => '1'))),
+      'language_status' => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
       'language_id'     => new sfValidatorChoice(array('choices' => array($this->getObject()->get('language_id')), 'empty_value' => $this->getObject()->get('language_id'), 'required' => false)),
       'language_code'   => new sfValidatorString(array('max_length' => 10)),
       'language_name'   => new sfValidatorString(array('max_length' => 45)),
-      'language_status' => new sfValidatorChoice(array('choices' => array(0 => '0', 1 => '1'))),
+      'language_status' => new sfValidatorString(array('max_length' => 1)),
     ));
 
     $this->widgetSchema->setNameFormat('language[%s]');
