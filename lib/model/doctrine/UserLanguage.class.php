@@ -12,48 +12,4 @@
  */
 class UserLanguage extends BaseUserLanguage
 {
-     /**
-     * Define Parameters
-     * @var <type>
-     */
-    private $userManagementService;
-
-    /**
-     * Get the User Management service.And bind with DAO class.
-     * @return <type>
-     */
-    private function getUserManagementService() {
-        $this->userManagementService = new UserManagementService();
-        $this->userManagementService->setUserManagementDao(new UserManagementDao);
-        return $this->userManagementService;
-    }
-
-    /**
-     * Constructor. Initialization Authentication Service.
-     */
-    public function __construct() {
-        $this->userManagementService = $this->getUserManagementService();
-        parent::__construct();
-    }
-
-
-    /**
-     *  Save records to database.
-     * @return <type>
-     */
-    public function saveLang() {
-
-        try {
-            $userManagementService = $this->getUserManagementService();
-
-            $values = $this->getValues();
-
-            $addUser = $userManagementService->addUserLang($values['login_name'], $values['password'], $values['user_type']);
-
-            return true;
-        } catch (Exception $exc) {
-            return false;
-        }
-    }
-
 }
