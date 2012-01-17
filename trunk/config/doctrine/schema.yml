@@ -1,254 +1,153 @@
-Label:
-  connection: doctrine
-  tableName: ohrm_label
-  columns:
-    label_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
-    label_name:
-      type: string(45)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    label_comment:
-      type: string(100)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
-    label_status:
-      type: string(1)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-  relations:
-    LanguageLabelString:
-      local: label_id
-      foreign: label_id
-      type: many
-    OhrmLanguageLabelString_3:
-      class: OhrmLanguageLabelString
-      local: label_id
-      foreign: label_id
-      type: many
-Language:
-  connection: doctrine
-  tableName: ohrm_language
-  columns:
-    language_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
-    language_code:
-      type: string(10)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    language_name:
-      type: string(45)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    language_status:
-      type: string(1)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-  relations:
-    LanguageLabelString:
-      local: language_id
-      foreign: language_id
-      type: many
-    LanguageLabelString_4:
-      class: LanguageLabelString
-      local: language_id
-      foreign: language_id
-      type: many
-LanguageLabelString:
-  connection: doctrine
-  tableName: ohrm_language_label_string
-  columns:
-    language_label_string_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
-    label_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    language_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    language_label_string:
-      type: string(45)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    language_label_string_status:
-      type: string(1)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-    language_group_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false
-  relations:
-    Label:
-      local: label_id
-      foreign: label_id
-      type: one
-    Language:
-      local: language_id
-      foreign: language_id
-      type: one
-    OhrmLabel_3:
-      class: OhrmLabel
-      local: label_id
-      foreign: label_id
-      type: one
-    OhrmLanguage_4:
-      class: OhrmLanguage
-      local: language_id
-      foreign: language_id
-      type: one
-    LanguageGroup:
-      local: language_group_id
-      foreign: id
-      type: one
-UserType:
-  connection: doctrine
-  tableName: ohrm_user_type
+Source:
+  tableName: ohrm_source
   columns:
     id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
+      type: integer
       primary: true
       autoincrement: true
-    user_type:
-      type: string(25)
-      fixed: false
-      unsigned: false
-      primary: false
+    value:
+      type: text
       notnull: true
-      autoincrement: false
+    group_id:
+      name: group_id as groupId
+      type: integer
+    note:
+      type: text
+  relations:
+    Group:
+      onDelete: set null
+      local: groupId
+      foreign: id
+      class: Group
+      type: one
+      foreignAlias: Source
+      foreignType: many
+
+Target:
+  tableName: ohrm_target
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    source_id:
+      name: source_id as sourceId
+      type: integer
+      notnull: true
+    language_id:
+      name: language_id as languageId
+      type: integer
+      notnull: true
+    value:
+      type: text
+    note:
+      type: text
+  relations:
+    Source:
+      onDelete: CASCADE
+      local: sourceId
+      foreign: id
+      class: Source
+      type: one
+      foreignAlias: Target
+      foreignType: many
+    Language:
+      local: languageId
+      foreign: id
+      class: Language
+      type: one
+      foreignAlias: Target
+      foreignType: many
+
+Group:
+  tableName: ohrm_group
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+
+Language: 
+  tableName: ohrm_language
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+    code:
+      type: string(255)
+
 User:
-  connection: doctrine
   tableName: ohrm_user
   columns:
-    user_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
+    id:
+      type: integer
       primary: true
       autoincrement: true
-    login_name:
+    username:
       type: string(25)
-      fixed: false
-      unsigned: false
-      primary: false
       notnull: true
       autoincrement: false
     user_type_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
+      name: user_type_id as userTypeId
+      type: integer
       notnull: true
-      autoincrement: false
     password:
       type: string(255)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: false
-      autoincrement: false
   relations:
     UserType:
-      local: user_type_id
+      local: userTypeId
       foreign: id
+      class: UserType
       type: one
+      foreignAlias: User
+      foreignType: many
+
+UserType:
+  tableName: ohrm_user_type
+  columns:
+    id:
+      type: integer
+      primary: true
+      autoincrement: true
+    user_type:
+      name: user_type as userType
+      type: string(25)
+      notnull: true
+
 UserLanguage:
-  connection: doctrine
   tableName: ohrm_user_language
   columns:
     id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
+      type: integer
       primary: true
       autoincrement: true
     user_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
+      name: user_id as userId
+      type: integer
       notnull: true
-      autoincrement: false
     language_id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: false
+      name: language_id as languageId
+      type: integer
       notnull: true
-      autoincrement: false
   relations:
-    User:
-      local: user_id
-      foreign: user_id
-      type: one
     Language:
-      local: language_id
-      foreign: language_id
+      onDelete: CASCADE
+      local: languageId
+      foreign: id
+      class: Language
       type: one
-LanguageGroup:
-  connection: doctrine
-  tableName: ohrm_language_group
-  columns:
-    id:
-      type: integer(4)
-      fixed: false
-      unsigned: false
-      primary: true
-      autoincrement: true
-    group_name:
-      type: string(255)
-      fixed: false
-      unsigned: false
-      primary: false
-      notnull: true
-      autoincrement: false   
-  
+      foreignAlias: UserLanguage
+      foreignType: many
+    User:
+      onDelete: CASCADE
+      local: userId
+      foreign: id
+      class: User
+      type: one
+      foreignAlias: UserLanguage
+      foreignType: many
