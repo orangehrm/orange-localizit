@@ -6,12 +6,12 @@
                         <?php if($langGroup->getId() !=0) {?>
 
     <option value="<?php echo $langGroup->getId() ?>">
-            <?php echo  $langGroup->getGroupName() ?>
+            <?php echo  $langGroup->getName() ?>
     </option>
                     <?php }?>
                 <?php }else {?>
     <option value="<?php echo $langGroup->getId() ?>" <?php echo $selected_index==$langGroup->getId() ? 'selected="selected"':null?>>
-                    <?php echo $langGroup->getGroupName() ?>
+                    <?php echo $langGroup->getName() ?>
     </option>
                 <?php }?>
             <?php }?>

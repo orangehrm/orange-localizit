@@ -45,16 +45,16 @@ class LocalizationDao extends BaseDao {
     }
 
     /**
-     * get Label object By Lable Id
-     * @param int $labelId
-     * @returns Label object
+     * get Source object By id
+     * @param int $Id
+     * @returns Source object
      * @throws DaoException
      */
-    public function getLabelById($labelId) {
+    public function getSourceById($id) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Label l')
-                            ->where('l.label_id = ?', $labelId);
+                            ->from('Source s')
+                            ->where('s.id = ?', $id);
 
             return $q->fetchOne();
         } catch (Exception $e) {
@@ -63,16 +63,16 @@ class LocalizationDao extends BaseDao {
     }
 
     /**
-     * get Label object By name
-     * @param string $labelName
-     * @returns Label Object
+     * get Source object By value
+     * @param string $value
+     * @returns Source Object
      * @throws DaoException
      */
-    public function getLabelByName($labelName) {
+    public function getSourceByValue($value) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Label l')
-                            ->where('l.label_name = ?', $labelName);
+                            ->from('Source s')
+                            ->where('s.value = ?', $value);
 
             return $q->fetchOne();
         } catch (Exception $e) {
@@ -81,36 +81,33 @@ class LocalizationDao extends BaseDao {
     }
 
     /**
-     * Save Label
-     * @param Label $label
-     * @returns Label object
+     * Save Source
+     * @param Source $source
      * @throws DaoException
      */
-    public function addLabel(Label $label) {
+    public function addSource(Source $source) {
         try {
-            $label->save();
-            return $label;
+            $source->save();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
 
     /**
-     * Update Label
-     * @param Label $label
-     * @returns boolean
+     * Update Source
+     * @param Source $source
+     * @returns Row count
      * @throws DaoException
      */
-    public function updateLabel(Label $label) {
+    public function updateSource(Source $source) {
         try {
             $q = Doctrine_Query :: create()
-                            ->update('Label l')
-                            ->set('l.label_name ', "\"{$label->getLabelName()}\"")
-                            ->set('l.label_comment ', "\"{$label->getLabelComment()}\"")
-                            ->set('l.label_status ', "\"{$label->getLabelStatus()}\"")
-                            ->where('l.label_id = ?', $label->getLabelId())
-                            ->execute();
-            return true;
+                            ->update('Source s')
+                            ->set('s.value ', "\"{$source->getValue()}\"")
+                            ->set('s.groupId ', "\"{$source->getGroupId()}\"")
+                            ->set('s.note ', "\"{$source->getComment()}\"")
+                            ->where('s.id = ?', $source->getId());
+            return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
@@ -118,15 +115,15 @@ class LocalizationDao extends BaseDao {
 
     /**
      * Get Language By id
-     * @param int $languageId
+     * @param int $id
      * @returns Language object
      * @throws DaoException
      */
-    public function getLanguageById($languageId) {
+    public function getLanguageById($id) {
         try {
             $q = Doctrine_Query :: create()
                             ->from('Language l')
-                            ->where('l.language_id=?', $languageId);
+                            ->where('l.id=?', $id);
             return $q->fetchOne();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -135,15 +132,15 @@ class LocalizationDao extends BaseDao {
 
     /**
      * Get Language By Code
-     * @param string $languageCode
+     * @param string $code
      * @returns Language object
      * @throws DaoException
      */
-    public function getLanguageByCode($languageCode) {
+    public function getLanguageByCode($code) {
         try {
             $q = Doctrine_Query :: create()
                             ->from('Language l')
-                            ->where('l.language_code=?', $languageCode);
+                            ->where('l.code=?', $code);
             return $q->fetchOne();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -151,16 +148,16 @@ class LocalizationDao extends BaseDao {
     }
 
     /**
-     * Retrive language string list by source and target Language Id
-     * @param int $sourceLanguageId, int $targetLanguageId
+     * Retrive Target string list by target Language Id
+     * @param int $targetLanguageId
      * @returns Collection
      * @throws DaoException
      */
-    public function getLangStrBySrcAndTargetIds($sourceLanguageId, $targetLanguageId) {
+    public function getLangStrByTargetIds($languageId) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('LanguageLabelString lls')
-                            ->whereIn('lls.language_id', array($sourceLanguageId, $targetLanguageId));
+                            ->from('Target t')
+                            ->where('t.language_id = ?', $languageId);
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -168,14 +165,16 @@ class LocalizationDao extends BaseDao {
     }
 
     /**
-     * Get Language String list by source , target language id and language group id.
+     * Get Target String list by target language id and source group id.
      */
-    public function getLanguageStringBySrcTargetAndLanguageGroupId($sourceLanguageId, $targetLanguageId, $languageGroupId) {
+    public function getTargetStringByTargetAndSourceGroupId($languageId, $groupId) {
         try {
             $query = Doctrine_Query:: create ()
-                            ->from('LanguageLabelString lls')
-                            ->whereIn('lls.language_id', array($sourceLanguageId, $targetLanguageId))
-                            ->andWhere('language_group_id = ?', $languageGroupId);
+                            ->select('t.*')
+                            ->from('Source s')
+                            ->leftJoin('s.Target t')
+                            ->where('s.group_id = ?', $groupId)
+                            ->andWhere('t.language_id = ?', $languageId);
             return $query->execute();
         } catch (Exception $exp) {
             throw new DaoException($exp->getMessage());
@@ -183,79 +182,73 @@ class LocalizationDao extends BaseDao {
     }
 
     /**
-     * Create Language String
-     * @param LanguageLabelString $lls
-     * @returns LanguageLabelString
+     * Save Target
+     * @param Target $target
      * @throws DaoException
      */
-    public function addLangStr(LanguageLabelString $lls) {
+    public function addTarget(Target $target) {
         try {
-            $lls->save();
-            return $lls;
+            $target->save();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
 
     /**
-     * Update Language String
-     * @param LanguageLabelString $lls
+     * Update Target
+     * @param Target $target
      * @returns boolean
      * @throws DaoException
      */
-    public function updateLangStr(LanguageLabelString $lls) {
+    public function updateTarget(Target $target) {
         try {
             $q = Doctrine_Query :: create()
-                            ->update('LanguageLabelString lls')
-                            ->set('lls.label_id ', $lls->getLabelId())
-                            ->set('lls.language_id ', $lls->getLanguageId())
-                            ->set('lls.language_label_string ', "\"{$lls->getLanguageLabelString()}\"")
-                            ->set('lls.language_label_string_status ', "\"{$lls->getLanguageLabelStringStatus()}\"")
-                            ->set('lls.language_group_id', "\"{$lls->getLanguageGroupId()}\"")
-                            ->where('lls.language_label_string_id = ?', $lls->getLanguageLabelStringId())
-                            ->execute();
-            return true;
+                            ->update('Target t')
+                            ->set('t.source_id ', $target->getSourceId())
+                            ->set('t.language_id ', $target->getLanguageId())
+                            ->set('t.value ', "\"{$target->getValue()}\"")
+                            ->set('t.note ', "\"{$target->getNote()}\"")
+                            ->where('t.id = ?', $target->getId());
+            return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
 
     /**
-     *  Add language group.
+     *  Save Group.
      */
-    public function addLanguageGroup(LanguageGroup $langGroup) {
+    public function addGroup(Group $group) {
         try {
-            $langGroup->save();
-            return $langGroup;
+            $group->save();
         } catch (Exception $ex) {
             throw new DaoException($ex->getMessage());
         }
     }
 
     /**
-     * Update Language group.
+     * Update Group.
      */
-    public function updateLanguageGroup(LanguageGroup $langGroup) {
+    public function updateGroup(Group $group) {
         try {
             $q = Doctrine_Query :: create()
-                            ->update('LanguageGroup lg')
-                            ->set('lg.group_name ', "\"{$langGroup->getGroupName()}\"")
-                            ->where('lg.id = ?', $langGroup->getId())
-                            ->execute();
-            return true;
+                            ->update('Group g')
+                            ->set('g.name ', "\"{$group->getName()}\"")
+                            ->where('g.id = ?', $group->getId());
+            return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
 
     /**
-     * Get Language group by id
+     * Get Group by id
      */
-    public function getLanguageGroupById($id) {
+    public function getGroupById($id) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('LanguageGroup l')
-                            ->where('l.id=?', $id);
+                            ->from('Group g')
+                            ->where('g.id=?', $id);
             return $q->fetchOne();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());

@@ -46,7 +46,7 @@ class localizationComponents extends sfComponents {
     public function executeLanguageGroupList(sfWebRequest $request) {
         $localizationService = $this->getLocalizeService();
 
-        $this->languageGroupList = $localizationService->getLanguageGroupList();
+        $this->languageGroupList = $localizationService->getGroupList();
     }
 
 }
