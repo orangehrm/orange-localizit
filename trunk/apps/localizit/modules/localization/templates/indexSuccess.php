@@ -4,7 +4,7 @@
         <table class="mainFrame mediumText">
             <tr class="mainRowWidth">
                 <td class="tableColumnWidth"><?php echo __('source_language', null, 'localizationMessages') ?></td>
-                <td class="tableColumnWidth addDotLinetoRight"><?php echo $sourceLanguageLabel; ?></td>
+                <td class="tableColumnWidth addDotLinetoRight"><?php echo $sourceLanguage; ?></td>
             </tr>
             <tr>
                 <td class=""><?php echo __('target_language', null, 'localizationMessages') ?></td>

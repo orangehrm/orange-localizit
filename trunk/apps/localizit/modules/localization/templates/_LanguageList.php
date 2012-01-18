@@ -3,14 +3,14 @@
             <?php if($languageList) {?>
                 <?php foreach ($languageList as $language) { ?>
                     <?php if(!isset($selected_index)) {?>
-                        <?php if($language->getLanguageId()!=$sourceLanguageId) {?>
-    <option value="<?php echo $language->getLanguageId() ?>">
-            <?php echo $language->getLanguageCode() ?>
+                        <?php if($language->getId()!=$sourceLanguageId) {?>
+    <option value="<?php echo $language->getId() ?>">
+            <?php echo $language->getCode() ?>
     </option>
                     <?php }?>
                 <?php }else {?>
-    <option value="<?php echo $language->getLanguageId() ?>" <?php echo $selected_index==$language->getLanguageId() ? 'selected="selected"':null?>>
-                    <?php echo $language->getLanguageCode() ?>
+    <option value="<?php echo $language->getId() ?>" <?php echo $selected_index==$language->getId() ? 'selected="selected"':null?>>
+                    <?php echo $language->getCode() ?>
     </option>
                 <?php }?>
             <?php }?>

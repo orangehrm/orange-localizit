@@ -42,7 +42,7 @@ class localizationActions extends sfActions {
 
         if (!$userObject->getAttribute('user_language_id')) {
             $localizationService = $this->getLocalizeService();
-            $userObject->setAttribute('user_language_id', $localizationService->getLanguageByCode($userObject->getCulture())->getLanguageId());
+            $userObject->setAttribute('user_language_id', $localizationService->getLanguageByCode($userObject->getCulture())->getId());
             unset($localizationDao);
         }
     }
@@ -53,7 +53,7 @@ class localizationActions extends sfActions {
      */
     public function executeIndex(sfWebRequest $request) {
 
-        if ($request->isMethod(sfRequest::POST)) {
+/*        if ($request->isMethod(sfRequest::POST)) {
             $labelIdArray = $request->getParameter('label_id');
             $labelTextArray = $request->getParameter('label_name');
 
@@ -107,10 +107,10 @@ class localizationActions extends sfActions {
                     $localizationService->addLangStr($targetLls);
                 }
             }
-        }
+        }*/
         $localizationService = $this->getLocalizeService();
         $this->addLabelForm = new LabelForm($localizationService);
-        $this->sourceLanguageLabel = $this->getUser()->getCulture();
+        $this->sourceLanguage= $this->getUser()->getCulture();
         $this->showAddLabel = false;
     }
 
@@ -176,7 +176,7 @@ class localizationActions extends sfActions {
         $this->sourceLanguageLabel = $this->getUser()->getCulture();
         $this->targetLanguageLabel = $localizationService->getLanguageById($this->targetLanguageId)->getLanguageCode();
         $this->languageLabelDataSet = $localizationService->getLabelAndLangDataSet($this->sourceLanguageId, $this->targetLanguageId);
-        $this->lanagueGroupList = $localizationService->getLanguageGroupList();
+        $this->lanagueGroupList = $localizationService->getGroupList();
     }
 
     /**
@@ -191,7 +191,7 @@ class localizationActions extends sfActions {
      */
     public function executeLanguageGroupList(sfWebRequest $request) {
         $localizationService = $this->getLocalizeService();
-        $this->languageGroupList = $localizationService->getLanguageGroupList();
+        $this->languageGroupList = $localizationService->getGroupList();
     }
 
     /**

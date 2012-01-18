@@ -35,55 +35,46 @@ class LocalizationService extends BaseService {
     }
 
     /**
-     * Add new label
-     * @param $labelName,$labelComment
+     * Add Source
+     * @param $source
      * @throws ServiceException
      * @return Label
      */
-    public function addLabel($labelName, $labelComment) {
+    public function addSource($source) {
 
         $localizationDao = $this->getLocalizationDao();
-
         try {
-            $label = new Label();
-            $label->setLabelName($labelName);
-            $label->setLabelComment($labelComment);
-            $label->setLabelStatus(sfConfig::get('app_status_enabled'));
-
-            $res = $localizationDao->addLabel($label);
-            return $res;
+            $localizationDao->addSource($source);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
     /**
-     * Get label
-     * @param $labelName
+     * Get Source
+     * @param $value
      * @throws ServiceException
-     * @return Label
+     * @return Source
      */
-    public function getLabelByName($labelName) {
+    public function getSourceByValue($value) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->getLabelByName($labelName);
-            return $res;
+            return $localizationDao->getSourceByValue($value);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
     /**
-     * Update Label
-     * @param Label $label
-     * @returns boolean
-     * @throws DaoException
+     * Update Source
+     * @param Source $source
+     * @returns update row count
+     * @throws ServiceExeption
      */
-    public function updateLabel(Label $label) {
+    public function updateSource(Source $source) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->updateLabel($label);
-            return $res;
+            return $localizationDao->updateSource($source);
         } catch (Exception $exc) {
 
             throw new ServiceException($exc->getMessage(), $exc->getCode());
@@ -110,11 +101,10 @@ class LocalizationService extends BaseService {
      * @param string $languageCode
      * @return Label
      */
-    public function getLanguageByCode($languageCode) {
+    public function getLanguageByCode($code) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->getLanguageByCode($languageCode);
-            return $res;
+            return $localizationDao->getLanguageByCode($code);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -125,11 +115,10 @@ class LocalizationService extends BaseService {
      * @param int $languageId
      * @return Label
      */
-    public function getLanguageById($languageId) {
+    public function getLanguageById($id) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->getLanguageById($languageId);
-            return $res;
+            return $localizationDao->getLanguageById($id);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -238,32 +227,29 @@ class LocalizationService extends BaseService {
     }
 
     /**
-     * Create Language String
-     * @param LanguageLabelString $lls
-     * @returns LanguageLabelString
+     * Create Target
+     * @param Target $target
      * @throws ServiceException
      */
-    public function addLangStr(LanguageLabelString $lls) {
+    public function addTarget(Target $target) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->addLangStr($lls);
-            return $res;
+            $localizationDao->addTarget($target);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
     /**
-     * Update Language String
-     * @param LanguageLabelString $lls
-     * @returns boolean
+     * Update Target
+     * @param Target $target
+     * @returns update row count
      * @throws ServiceException
      */
-    public function updateLangStr(LanguageLabelString $lls) {
+    public function updateTarget(Target $target) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->updateLangStr($lls);
-            return $res;
+            return $localizationDao->updateTarget($target);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -409,13 +395,12 @@ XML;
     }
 
     /**
-     * Update Language Group
+     * Update Group
      */
-    public function updateLanguageGroup(LanguageGroup $langGroup) {
+    public function updateGroup(Group $group) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->updateLanguageGroup($langGroup);
-            return $res;
+            return $localizationDao->updateGroup($group);
         } catch (Exception $exc) {
 
             throw new ServiceException($exc->getMessage(), $exc->getCode());
@@ -423,40 +408,37 @@ XML;
     }
 
     /**
-     * Get Language Group by ID.
+     * Get Group by ID.
      */
-    public function getLanguageGroupById($id) {
+    public function getGroupById($id) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->getLanguageGroupById($id);
-            return $res;
+            return $localizationDao->getGroupById($id);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
     /**
-     * Get Language Group set.
+     * Get Group set.
      */
-    public function getLanguageGroupList() {
+    public function getGroupList() {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->getDataList('LanguageGroup');
-            return $res;
+            return $localizationDao->getDataList('Group');
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
     /**
-     * Save Language Group
+     * Save Group
      */
-    public function saveLanguageGroup(LanguageGroup $languageGroup) {
+    public function saveGroup(Group $group) {
         $localizationDao = $this->getLocalizationDao();
 
         try {
-            $res = $localizationDao->addLanguageGroup($languageGroup);
-            return $res;
+            $localizationDao->addGroup($group);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }

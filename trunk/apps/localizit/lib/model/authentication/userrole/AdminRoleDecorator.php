@@ -50,7 +50,7 @@ class AdminRoleDecorator extends BaseRoleDecorator implements RoleDecorator {
         $langIdList = array();
 
         foreach ($langList as $lang) {
-            array_push($langIdList, $lang->getLanguageId());
+            array_push($langIdList, $lang->getId());
         }
 
         return $langIdList;
