@@ -2,11 +2,11 @@
   <tbody>
     <tr>
       <th>User:</th>
-      <td><?php echo $user->getUserId() ?></td>
+      <td><?php echo $user->getId() ?></td>
     </tr>
     <tr>
       <th>Login name:</th>
-      <td><?php echo $user->getLoginName() ?></td>
+      <td><?php echo $user->getUsername() ?></td>
     </tr>
     <tr>
       <th>Password:</th>
@@ -21,6 +21,6 @@
 
 <hr />
 
-<a href="<?php echo url_for('authentication/edit?user_id='.$user->getUserId()) ?>">Edit</a>
+<a href="<?php echo url_for('authentication/edit?user_id='.$user->getId()) ?>">Edit</a>
 &nbsp;
 <a href="<?php echo url_for('authentication/index') ?>">List</a>

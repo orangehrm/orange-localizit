@@ -53,13 +53,18 @@ class UserManagementDao extends BaseDao {
      */
     public function updateUser(User $user) {
         try {
+            echo $user->getUsername(). "/";
+            echo $user->getPassword() . "/";
+            echo $user->getUserTypeId(). "/";
+            echo $user->getId();
+            
             $query = Doctrine_Query::create()
                             ->update('User u')
-                            ->set('u.login_name ', "\"{$user->getLoginName()}\"")
+                            ->set('u.username ', "\"{$user->getUsername()}\"")
                             ->set('u.password', "\"{$user->getPassword()}\"")
-                            ->set('u.user_type_id', "\"{$user->getUserTypeId()}\"")
-                            ->where('u.user_id = ?', $user->getUserId())
-                            ->execute();
+                            ->set('u.userTypeId', (int) $user->getUserTypeId())
+                            ->where('u.id = ?', $user->getId());
+                            $query->execute();
             return true;
         } catch (Exception $exception) {
             throw new DaoException($exception->getMessage());
@@ -103,7 +108,7 @@ class UserManagementDao extends BaseDao {
         try {
             $query = Doctrine_Query :: create()
                             ->from('User u')
-                            ->where('u.user_id = ?', $userId);
+                            ->where('u.id = ?', $userId);
 
             return $query->fetchOne();
         } catch (Exception $exception) {
@@ -141,7 +146,7 @@ class UserManagementDao extends BaseDao {
         try {
             $q = Doctrine_Query :: create()
                             ->from('UserLanguage l')
-                            ->where('l.user_id = ?', $userId);
+                            ->where('l.userId = ?', $userId);
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());

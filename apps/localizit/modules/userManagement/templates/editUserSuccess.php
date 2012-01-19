@@ -20,7 +20,7 @@
                     <td class="tableIndexColumn">&nbsp;</td>
                     <td  class="tableColumnWidth removeLeftDotLine"><?php echo $editUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?> *</td>
                     <td class="tableColumnWidth">
-                        <input type="text" name="user[login_name]" value="<?php echo isset($user['login_name']) ? $user['login_name'] : null ?>" class="text_input" />
+                        <input type="text" name="user[login_name]" value="<?php echo isset($user['username']) ? $user['username'] : null ?>" class="text_input" />
                     </td>
                     <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
                     <?php if ($editUserForm['login_name']->hasError()) { ?>
@@ -57,12 +57,13 @@
                                             <?php foreach ($langList as $id => $language) { ?>
                                            
                                                 <?php $key = $langList->key()?>
-                                                    <?php if($savedLang['language_id'] == $language->getLanguageId()) {  ?>
+                                                    <?php if($savedLang['languageId'] == $language->getId()) {  ?>
+                                                    
                                                         <?php  $displayLangList->remove($key);?>
                                                
                                                         <td style="border-top: none; border-left: none;">
-                                                            <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getLanguageId() ?>" checked="true"/>
-                                                            <?php echo $language->getLanguageCode(); ?>
+                                                            <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getId() ?>" checked="true"/>
+                                                            <?php echo $language->getCode(); ?>
                                                         </td>                                                                                          
                                             <?php } ?>
                                         <?php } ?>                                                                                                          
@@ -71,10 +72,10 @@
                                     <?php if(count($displayLangList) > 0) { ?>
                                                         <?php $j = 0; ?>
                                                             <?php while($j < count($displayLangList)) { ?>
-                                                                <?php if (($displayLangList[$j]->getLanguageId() > 0)) { ?>
+                                                                <?php if (($displayLangList[$j]->getId() > 0)) { ?>
                                                                     <td style="border-top: none; border-left: none;">
-                                                                        <input type="checkbox" name="user[user_languages][]" value="<?php echo $displayLangList[$j]->getLanguageId() ?>" />
-                                                                        <?php echo $displayLangList[$j]->getLanguageCode(); ?>
+                                                                        <input type="checkbox" name="user[user_languages][]" value="<?php echo $displayLangList[$j]->getId() ?>" />
+                                                                        <?php echo $displayLangList[$j]->getCode(); ?>
                                                                     </td>
                                                                 <?php }?>
                                                                 <?php $j += 1 ;?>
@@ -99,8 +100,8 @@
                                 <tr>
                                 <?php foreach ($langList as $language) { ?>                               
                                     <td style="border-top: none; border-left: none;">
-                                        <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getLanguageId() ?>" />
-                                                <?php echo $language->getLanguageCode()?>
+                                        <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getId() ?>" />
+                                                <?php echo $language->getCode()?>
                                     </td>                               
                                 <?php } ?>
                                 </tr>
@@ -117,7 +118,7 @@
                         <input type="hidden" name="user[password]" value="<?php echo isset($user['password']) ? $user['password'] : null ?>" />
                         <input type="hidden" name="user[action]" value="edit" />
                         <input type="hidden" name="user[confirm_password]" value="<?php echo isset($user['password']) ? $user['password'] : null ?>" />
-                        <input type="hidden" name="user[user_id]" value="<?php echo isset($user['user_id']) ? $user['user_id'] : null ?>" />
+                        <input type="hidden" name="user[user_id]" value="<?php echo isset($user['id']) ? $user['id'] : null ;?>" />
                         <input type="button" name="update_user" id="update_user" class="button normalText" value="<?php echo __('update', null, 'localizationMessages') ?>" />
                         <input type="button" name="cancel_user" id="cancel_user" class="button normalText" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
                     </td>

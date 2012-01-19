@@ -44,6 +44,7 @@ class UserForm extends BaseUserForm {
     public function __construct() {
         $this->userManagementService = $this->getUserManagementService();
         parent::__construct();
+        
     }
 
     /**
@@ -87,13 +88,13 @@ class UserForm extends BaseUserForm {
             $userManagementService = $this->getUserManagementService();
 
             $values = $this->getValues();
-
+;
             $addUser = $userManagementService->addUser($values['login_name'], $values['password'], $values['user_type_id']);
 
             if (isset($values['user_languages'])) {
                 foreach ($values['user_languages'] as $id) {
                     $userLang = new UserLanguage();
-                    $userLang->setUserId($addUser->getUserId());
+                    $userLang->setUserId($addUser->getId());
                     $userLang->setLanguageId($id);
                     $userManagementService->addUserLang($userLang);
                 }
@@ -113,15 +114,15 @@ class UserForm extends BaseUserForm {
 
             $values = $this->getValues();
             $user = new User();
-            $user->setUserId($values['user_id']);
-            $user->setLoginName($values['login_name']);
+            $user->setId($values['user_id']);
+            $user->setUsername($values['login_name']);
             $user->setPassword($values['password']);
             $user->setUserTypeId($values['user_type_id']);
 
             $addUser = $userManagementService->updateUser($user);
 
             if (isset($values['user_languages'])) {
-                $userManagementService->deleteUserLanguages($user->getUserId());
+                $userManagementService->deleteUserLanguages($user->getId());
                 foreach ($values['user_languages'] as $id) {
                     $userLang = new UserLanguage();
                     $userLang->setUserId($values['user_id']);
@@ -130,7 +131,7 @@ class UserForm extends BaseUserForm {
                 }
             }
             if (($user->getUserType()->getUserType() == sfConfig::get('app_admin')) && (isset($values['user_languages']) && count($values['user_languages']) > 0)) {
-                $userManagementService->deleteUserLanguages($user->getUserId());
+                $userManagementService->deleteUserLanguages($user->getId());
             }
             return true;
         } catch (Exception $exc) {

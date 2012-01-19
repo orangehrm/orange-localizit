@@ -22,7 +22,7 @@ abstract class BaseUserForm extends BaseFormDoctrine
     ));
 
     $this->setValidators(array(
-      'user_id'      => new sfValidatorChoice(array('choices' => array($this->getObject()->get('user_id')), 'empty_value' => $this->getObject()->get('user_id'), 'required' => false)),
+      'user_id'      => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
       'login_name'   => new sfValidatorString(array('max_length' => 25)),
       'user_type_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UserType'))),
       'password'     => new sfValidatorString(array('max_length' => 255, 'required' => false)),
