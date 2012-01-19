@@ -25,6 +25,8 @@ Source:
 
 Target:
   tableName: ohrm_target
+  options:
+    collate: utf8_unicode_ci
   columns:
     id:
       type: integer
