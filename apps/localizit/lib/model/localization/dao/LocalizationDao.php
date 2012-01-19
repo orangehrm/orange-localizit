@@ -170,11 +170,11 @@ class LocalizationDao extends BaseDao {
     public function getTargetStringByTargetAndSourceGroupId($languageId, $groupId) {
         try {
             $query = Doctrine_Query:: create ()
-                            ->select('t.*')
+                            ->select('t.*, s.id')
                             ->from('Source s')
                             ->leftJoin('s.Target t')
                             ->where('s.group_id = ?', $groupId)
-                            ->andWhere('t.language_id = ?', $languageId);
+                            ->addWhere('t.language_id = ?', $languageId);
             return $query->execute();
         } catch (Exception $exp) {
             throw new DaoException($exp->getMessage());
