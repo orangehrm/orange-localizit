@@ -53,7 +53,7 @@ class localizationActions extends sfActions {
      */
     public function executeIndex(sfWebRequest $request) {
 
-/*        if ($request->isMethod(sfRequest::POST)) {
+        if ($request->isMethod(sfRequest::POST)) {
             $labelIdArray = $request->getParameter('label_id');
             $labelTextArray = $request->getParameter('label_name');
 
@@ -107,10 +107,10 @@ class localizationActions extends sfActions {
                     $localizationService->addLangStr($targetLls);
                 }
             }
-        }*/
+        }
         $localizationService = $this->getLocalizeService();
         $this->addLabelForm = new LabelForm($localizationService);
-        $this->sourceLanguage= $this->getUser()->getCulture();
+        $this->sourceLanguage= $localizationService->getLanguageByCode($this->getUser()->getCulture());
         $this->showAddLabel = false;
     }
 
@@ -148,7 +148,7 @@ class localizationActions extends sfActions {
 
         $this->sourceLanguageLabel = $this->getUser()->getCulture();
         $this->targetLanguageLabel = $localizationService->getLanguageById($targetLanguageId)->getLanguageCode();
-        $this->languageLabelDataSet = $localizationService->getLabelAndLangDataSet($sourceLanguageId, $targetLanguageId);
+        $this->languageLabelDataSet = $localizationService->getSourceTargetDataSet($sourceLanguageId, $targetLanguageId);
     }
 
     /**
@@ -175,7 +175,7 @@ class localizationActions extends sfActions {
 
         $this->sourceLanguageLabel = $this->getUser()->getCulture();
         $this->targetLanguageLabel = $localizationService->getLanguageById($this->targetLanguageId)->getLanguageCode();
-        $this->languageLabelDataSet = $localizationService->getLabelAndLangDataSet($this->sourceLanguageId, $this->targetLanguageId);
+        $this->languageLabelDataSet = $localizationService->getSourceTargetDataSet($this->sourceLanguageId, $this->targetLanguageId);
         $this->lanagueGroupList = $localizationService->getGroupList();
     }
 

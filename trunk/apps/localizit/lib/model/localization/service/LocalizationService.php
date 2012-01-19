@@ -125,45 +125,28 @@ class LocalizationService extends BaseService {
     }
 
     /**
-     * Get Lebel and Language set by source ,targetLanguage and Language group.
+     * Get target set by source 
      */
-    public function getLabelAndLanguageList($sourceLanguageId, $targetLanguageId, $languageGroupId) {
+    public function getSourceTargetList($targetLanguageId, $languageGroupId) {
         $localizationDao = $this->getLocalizationDao();
         $dataSet = array();
         try {
-            $labelList = $localizationDao->getDataList('Label');
-            $languageLabelSet = $localizationDao->getLanguageStringBySrcTargetAndLanguageGroupId($sourceLanguageId, $targetLanguageId, $languageGroupId);
-
-            if ($labelList) {
-
-                foreach ($labelList as $label) {
-
-                    $dataRow[$label->getLabelId()]['label_id'] = $label->getLabelId();
-                    $dataRow[$label->getLabelId()]['label_name'] = $label->getLabelName();
-
-                    foreach ($languageLabelSet as $languageLabel) {
-
-                        if ($languageLabel->getLanguageLabelStringStatus() == sfConfig::get('app_status_enabled')) {
-
-                            if ($label->getLabelId() == $languageLabel->getLabelId()) {
-
-                                if ($sourceLanguageId == $languageLabel->getLanguageId()) {
-
-                                    $dataRow[$label->getLabelId()]['source_language_label_string_id'] = $languageLabel->getLanguageLabelStringId();
-                                    $dataRow[$label->getLabelId()]['source_language_id'] = $languageLabel->getLanguageId();
-                                    $dataRow[$label->getLabelId()]['source_language_label'] = $languageLabel->getLanguageLabelString();
-                                    $dataRow[$label->getLabelId()]['comment'] = $label->getLabelComment();
-                                    $dataRow[$label->getLabelId()]['language_group'] = $languageLabel->getLanguageGroup()->getGroupName();
-                                    $dataRow[$label->getLabelId()]['language_group_id'] = $languageLabel->getLanguageGroupId();
-                                } elseif ($targetLanguageId == $languageLabel->getLanguageId()) {
-                                    $dataRow[$label->getLabelId()]['target_language_label_string_id'] = $languageLabel->getLanguageLabelStringId();
-                                    $dataRow[$label->getLabelId()]['target_language_id'] = $languageLabel->getLanguageId();
-                                    $dataRow[$label->getLabelId()]['target_language_label'] = $languageLabel->getLanguageLabelString();
-                                }
-                            }
+            $sourceList = $localizationDao->getDataList('Source');
+            $sourceSet = $localizationDao->getTargetStringByTargetAndSourceGroupId($targetLanguageId, $languageGroupId);
+            if($sourceSet){
+                foreach ($sourceSet as $source) {
+                    $dataRow[$source->getId()]['source_id'] = $source->getId();
+                    $dataRow[$source->getId()]['source_value'] = $source->getValue();
+                    
+                    $targetSet = $source->getTarget();
+                    foreach ($targetSet as $target) {
+                        if ($targetLanguageId == $target->getLanguageId()) {
+                            $dataRow[$source->getId()]['target_id'] = $target->getId();
+                            $dataRow[$source->getId()]['target_language_id'] = $target->getLanguageId();
+                            $dataRow[$source->getId()]['target_value'] = $target->getValue();
                         }
                     }
-                    $dataSet[$label->getLabelId()] = $dataRow;
+                    $dataSet[$source->getId()] = $dataRow;
                 }
             }
             return $dataSet;
@@ -173,12 +156,12 @@ class LocalizationService extends BaseService {
     }
 
     /**
-     * Get Label and Language set by source and targetLanguage
+     * Get Target data set by source and targetLanguage
      * @param $sourceLanguageId,$targetLanguageId
      * @param string $languageCode
      * @return array
      */
-    public function getLabelAndLangDataSet($sourceLanguageId, $targetLanguageId) {
+    public function getSourceTargetDataSet($sourceLanguageId, $targetLanguageId) {
 
         $localizationDao = $this->getLocalizationDao();
         $dataSet = array();
@@ -267,8 +250,8 @@ class LocalizationService extends BaseService {
 
         try {
 
-            $targetLanguageLabel = $this->getLanguageById($targetLanguageId)->getLanguageCode();
-            $sourceLanguageLabel = $this->getLanguageById($sourceLanguageId)->getLanguageCode();
+            $targetLanguageCode = $this->getLanguageById($targetLanguageId)->getCode();
+            $sourceLanguageCode = $this->getLanguageById($sourceLanguageId)->getCode();
             $date = date('Y-m-d\TG:i:s\Z');
 
             $xmlString = <<<XML
@@ -281,12 +264,12 @@ XML;
 
             $xml = new SimpleXMLElement($xmlString);
 
-            $languageLabelDataSet = $this->getLabelAndLanguageList($sourceLanguageId, $targetLanguageId, $languageGroupId);
+            $languageLabelDataSet = $this->getSourceTargetList($targetLanguageId, $languageGroupId);
 
             $cont = 1; // loop counter
             $file = $xml->addChild('file');
-            $file->addAttribute('source-language', $sourceLanguageLabel);
-            $file->addAttribute('target-language', $targetLanguageLabel);
+            $file->addAttribute('source-language', $sourceLanguageCode);
+            $file->addAttribute('target-language', $targetLanguageCode);
             $file->addAttribute('datatype', 'plaintext');
             $file->addAttribute('original', 'messages');
             $file->addAttribute('date', $date);
@@ -295,18 +278,19 @@ XML;
             $body = $file->addChild('body');
 
             foreach ($languageLabelDataSet as $labelId => $languageLabelData) {
+
                 $labelInnerData = $languageLabelData[$labelId];
 
-                if ((! empty($labelInnerData['source_language_label'])) && (! empty($labelInnerData['target_language_label']))) {
+                if ((! empty($labelInnerData['source_value'])) && (! empty($labelInnerData['target_value']))) {
                     $transunit = $body->addChild('trans-unit');
                     $transunit->addAttribute('id', $cont);
-                    $transunit->addChild('source', $labelInnerData['source_language_label']);
-                    $transunit->addChild('target', $labelInnerData['target_language_label']);
+                    $transunit->addChild('source', $labelInnerData['source_value']);
+                    $transunit->addChild('target', $labelInnerData['target_value']);
                     $cont++;
                 }
             }
 
-            $languageFile = sfConfig::get('sf_web_dir') . "/language_files/messages." . $targetLanguageLabel . ".xml";
+            $languageFile = sfConfig::get('sf_web_dir') . "/language_files/messages." . $targetLanguageCode . ".xml";
             $fh = fopen($languageFile, 'w');
             if ($fh) {
                 $formatted = $this->formatXmlString($xml->saveXML());

@@ -5,12 +5,12 @@
                     <?php if(!isset($selected_index)) {?>
                         <?php if($language->getId()!=$sourceLanguageId) {?>
     <option value="<?php echo $language->getId() ?>">
-            <?php echo $language->getCode() ?>
+            <?php echo $language->getName()." (".$language->getCode().")" ?>
     </option>
                     <?php }?>
                 <?php }else {?>
     <option value="<?php echo $language->getId() ?>" <?php echo $selected_index==$language->getId() ? 'selected="selected"':null?>>
-                    <?php echo $language->getCode() ?>
+                    <?php echo $language->getName()." (".$language->getCode().")" ?>
     </option>
                 <?php }?>
             <?php }?>

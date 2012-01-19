@@ -57,6 +57,8 @@ abstract class BaseTarget extends sfDoctrineRecord
         $this->hasColumn('note', 'text', null, array(
              'type' => 'text',
              ));
+
+        $this->option('collate', 'utf8_unicode_ci');
     }
 
     public function setUp()

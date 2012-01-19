@@ -9,7 +9,7 @@
                     <?php } ?>
                 </li>
                 <li>
-                    <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('language_text', null, 'localizationMessages') ?></a>
+                    <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('generate_dictionary', null, 'localizationMessages') ?></a>
                 </li>
                     <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToAddLanguageGroup()) { ?>
                 <li>
