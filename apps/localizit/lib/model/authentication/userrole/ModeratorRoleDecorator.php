@@ -46,11 +46,11 @@ class ModeratorRoleDecorator extends BaseRoleDecorator implements RoleDecorator 
      */
     public function getAllowedLanguageList() {
 
-        $langList = $this->getUserManagementService()->getUserLanguageList($this->getUser()->getUserId());
+        $langList = $this->getUserManagementService()->getUserLanguageList($this->getUser()->getId());
         $langIdList = array();
 
         foreach ($langList as $lang) {
-            array_push($langIdList, $lang->getLanguageId());
+            array_push($langIdList, $lang->getId());
         }
 
         return $langIdList;
