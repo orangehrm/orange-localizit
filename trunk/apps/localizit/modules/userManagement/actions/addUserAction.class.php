@@ -52,9 +52,11 @@ class addUserAction extends sfAction {
         $userObject->setAttribute('user_type_id', 1);
 
         if ($request->isMethod(sfRequest::POST)) {
+
             $this->addUserForm->bind($request->getParameter($this->addUserForm->getName()));
 
             if ($this->addUserForm->isValid()) {
+                            echo 'okay';
                 if ($this->addUserForm->saveUser()) {
                     $this->redirect('@userManagement');
                 }

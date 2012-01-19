@@ -40,6 +40,9 @@ class AdminRoleDecorator extends BaseRoleDecorator implements RoleDecorator {
         return true;
     }
 
+    public function isAllowedToTranslateText() {
+        return true;
+    }
     /**
      * @author Chameera Senarathna
      * @return Allowed Language list

@@ -99,6 +99,16 @@ class UserRole implements RoleDecorator {
         return false;
     }
 
+    public function isAllowedToTranslateText() {
+
+        foreach ($this->getUserRoleDecorator() as $roleDecorator) {
+            if ($roleDecorator->isAllowedToTranslateText()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /**
      * Allow user to add Language Group
      */

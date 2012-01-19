@@ -83,7 +83,7 @@ class userManagementActions extends sfActions {
         if ($form->isValid()) {
             $user = $form->save();
 
-            $this->redirect('userManagement/edit?user_id=' . $user->getUserId());
+            $this->redirect('userManagement/edit?user_id=' . $user->getId());
         }
     }
 

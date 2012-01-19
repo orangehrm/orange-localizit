@@ -57,7 +57,7 @@ class UserManagementService extends BaseService {
 
         try {
             $user = new User();
-            $user->setLoginName($userName);
+            $user->setUsername($userName);
             $user->setPassword($this->hashPassword($password));
             $user->setUserTypeId($userTypeId);
 
@@ -73,9 +73,9 @@ class UserManagementService extends BaseService {
      */
     public function updateUser(User $user) {
         $userManagementDao = $this->getUserManagementDao();
-
         try {
             $response = $userManagementDao->updateUser($user);
+            
             return $response;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());

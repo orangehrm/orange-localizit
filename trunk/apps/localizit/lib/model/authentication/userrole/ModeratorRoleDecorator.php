@@ -39,6 +39,10 @@ class ModeratorRoleDecorator extends BaseRoleDecorator implements RoleDecorator 
     public function isAllowedToAddLanguageGroup() {
         return false;
     }
+    
+    public function isAllowedToTranslateText() {
+        return true;
+    }
 
     /**
      * @author Chameera Senarathna
