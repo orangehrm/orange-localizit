@@ -201,7 +201,7 @@ tfoot td {
 .homePageBorder{
     width: 630px;
     position: relative;
-    /*    margin-left: 450px;*/
+        margin-left:30px;
     /*    margin-top: 50px;*/
 }
 
@@ -247,4 +247,26 @@ input.error {
 .formCellTwo {
     width :70%;
     float: left;
+}
+.source_label{
+    width: 25%;
+}
+.source_note{
+    width: 25%;
+}
+.target_label{
+    width: 25%;
+}
+.target_note{
+    width: 25%;
+}
+
+.target_label_input{
+    width: 300px;
+}
+
+.target_note_input{
+    width: 300px;
+    border: 2px inset;
+    height: 35px;
 }

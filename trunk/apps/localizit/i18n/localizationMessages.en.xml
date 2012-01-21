@@ -106,6 +106,34 @@
                 <source>language_group</source>
                 <target>Language Group</target>
             </trans-unit>
+            <trans-unit id="27">
+                <source>translate_text</source>
+                <target>Translate Text</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>cancel</source>
+                <target>Cancel</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>source_label</source>
+                <target>Source Label</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>source_note</source>
+                <target>Source Note</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>target_label</source>
+                <target>Target Label</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>target_note</source>
+                <target>Target Note (Optional)</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>display</source>
+                <target>Display</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

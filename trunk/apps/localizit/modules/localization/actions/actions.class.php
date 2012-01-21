@@ -53,61 +53,6 @@ class localizationActions extends sfActions {
      */
     public function executeIndex(sfWebRequest $request) {
 
-        if ($request->isMethod(sfRequest::POST)) {
-            $labelIdArray = $request->getParameter('label_id');
-            $labelTextArray = $request->getParameter('label_name');
-
-            $sourceLanguageStringArray = $request->getParameter('source_language_string');
-            $sourceLanguageStringIdArray = $request->getParameter('source_language_string_id');
-
-            $targetLanguageStringArray = $request->getParameter('target_language_string');
-            $targetLanguageStringIdArray = $request->getParameter('target_language_string_id');
-
-            $targetLanguageId = $request->getParameter('target_language_selected_id');
-
-            $labelCommentArray = $request->getParameter('label_comment');
-
-            $languagueGroupId = $request->getParameter('language_group_id');
-
-            $loopCounter = count($labelIdArray);
-            $localizationService = $this->getLocalizeService();
-
-            for ($index = 0; $index < $loopCounter; $index++) {
-
-                $label = new Label();
-                $label->setLabelId($labelIdArray[$index]);
-                $label->setLabelName($labelTextArray[$index]);
-                $label->setLabelComment($labelCommentArray[$index]);
-                $label->setLabelStatus(sfConfig::get('app_status_enabled'));
-                $localizationService->updateLabel($label);
-
-                $sourceLls = new LanguageLabelString();
-                $sourceLls->setLanguageLabelString($sourceLanguageStringArray[$index]);
-                $sourceLls->setLabelId($labelIdArray[$index]);
-                $sourceLls->setLanguageId($this->getUser()->getAttribute('user_language_id'));
-                $sourceLls->setLanguageLabelStringStatus(sfConfig::get('app_status_enabled'));
-                $sourceLls->setLanguageGroupId($languagueGroupId[$index]);
-                if ($sourceLanguageStringIdArray[$index]) {
-                    $sourceLls->setLanguageLabelStringId($sourceLanguageStringIdArray[$index]);
-                    $localizationService->updateLangStr($sourceLls);
-                } else {
-                    $localizationService->addLangStr($sourceLls);
-                }
-
-                $targetLls = new LanguageLabelString();
-                $targetLls->setLabelId($labelIdArray[$index]);
-                $targetLls->setLanguageId($targetLanguageId);
-                $targetLls->setLanguageLabelStringStatus(sfConfig::get('app_status_enabled'));
-                $targetLls->setLanguageLabelString($targetLanguageStringArray[$index]);
-                $targetLls->setLanguageGroupId($languagueGroupId[$index]);
-                if ($targetLanguageStringIdArray[$index]) {
-                    $targetLls->setLanguageLabelStringId($targetLanguageStringIdArray[$index]);
-                    $localizationService->updateLangStr($targetLls);
-                } else {
-                    $localizationService->addLangStr($targetLls);
-                }
-            }
-        }
         $localizationService = $this->getLocalizeService();
         $this->addLabelForm = new LabelForm($localizationService);
         $this->sourceLanguage= $localizationService->getLanguageByCode($this->getUser()->getCulture());

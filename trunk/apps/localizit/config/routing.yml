@@ -66,6 +66,10 @@ add_language_group:
   url: /add_language_group
   param: { module: localization, action: addLanguageGroup }
 
+translate_text:
+  url: /translate_text
+  param: { module: localization, action: viewTranslateText }
+
 language_group_list:
   url: /language_group_list
   param: { module: localization, action: languageGroupList }

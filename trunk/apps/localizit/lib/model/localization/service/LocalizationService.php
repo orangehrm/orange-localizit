@@ -64,6 +64,21 @@ class LocalizationService extends BaseService {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
+    
+    /**
+     * Get Source by group
+     * @param $groupId
+     * @throws ServiceException
+     * @return Source
+     */
+    public function getTargetStringByTargetAndSourceGroupId($languageId, $groupId) {
+        $localizationDao = $this->getLocalizationDao();
+        try {
+            return $localizationDao->getTargetStringByTargetAndSourceGroupId($languageId, $groupId);
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
 
     /**
      * Update Source
@@ -90,6 +105,21 @@ class LocalizationService extends BaseService {
         $localizationDao = $this->getLocalizationDao();
         try {
             $res = $localizationDao->getDataList('Language');
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+    
+    /**
+     * Get Language List for user
+     * @returns Language Collection
+     * @return Language
+     */
+    public function getUserLanguageList($ids) {
+        $localizationDao = $this->getLocalizationDao();
+        try {
+            $res = $localizationDao->getUserLanguageList($ids);
             return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
@@ -238,6 +268,15 @@ class LocalizationService extends BaseService {
         }
     }
 
+    public function deleteTarget($id) {
+            $localizationDao = $this->getLocalizationDao();
+        try {
+            return $localizationDao->deleteTarget($id);
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+    
     /**
      * Generates Language Dictionary file in XML format
      * @param $sourceLanguageId
@@ -251,6 +290,7 @@ class LocalizationService extends BaseService {
         try {
 
             $targetLanguageCode = $this->getLanguageById($targetLanguageId)->getCode();
+            $targetGroup = $this->getGroupById($languageGroupId);
             $sourceLanguageCode = $this->getLanguageById($sourceLanguageId)->getCode();
             $date = date('Y-m-d\TG:i:s\Z');
 
@@ -290,7 +330,7 @@ XML;
                 }
             }
 
-            $languageFile = sfConfig::get('sf_web_dir') . "/language_files/messages." . $targetLanguageCode . ".xml";
+            $languageFile = sfConfig::get('sf_web_dir') . "/language_files/messages_".$targetGroup .".". $targetLanguageCode . ".xml";
             $fh = fopen($languageFile, 'w');
             if ($fh) {
                 $formatted = $this->formatXmlString($xml->saveXML());
