@@ -66,10 +66,12 @@ class downloadDictionaryAction extends sfAction {
 
         if ($request->isMethod(sfRequest::GET)) {
             $targetLanguageId = $request->getParameter('targetLanguageId');
+            $lanagueGroupId = $request->getParameter('languageGroupId');
             $targetLanguageCode = $this->localizationService->getLanguageById($targetLanguageId)->getCode();
             $sourceLanguageCode = $this->getUser()->getCulture();
+            $lanagueGroup = $this->localizationService->getGroupById($lanagueGroupId);
 
-            $file = "language_files/messages." . $targetLanguageCode . ".xml";
+            $file = "language_files/messages_" .$lanagueGroup.".".$targetLanguageCode . ".xml";
 
             if (!file_exists($file)) {
                 $role = sfContext::getInstance()->getUser()->getUserRole();

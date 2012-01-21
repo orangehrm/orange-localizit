@@ -152,5 +152,26 @@ class UserRole implements RoleDecorator {
 
         return $roleDecoratorChain;
     }
+    
+        /**
+     * get user type
+     * @return string
+     */
+    public function getUserType() {
+        $user = $this->getUser();
+        $SfUser = $this->getSfUser();
+        $decoratorFactory = $this->getUserRoleDecoratorFactory();
+
+        if ($SfUser->isAuthenticated()) {
+            if ($SfUser->hasCredential('Admin')) {
+                return "Admin";
+            }
+
+            if ($SfUser->hasCredential('Moderator')) {
+                return "Moderator";
+            }
+        }
+    }
+    
 
 }

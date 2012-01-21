@@ -11,6 +11,11 @@
                 <li>
                     <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('generate_dictionary', null, 'localizationMessages') ?></a>
                 </li>
+                    <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToTranslateText()) { ?>
+                <li>
+                    <a href="<?php echo url_for('@translate_text'); ?>"><?php echo __('translate_text', null, 'localizationMessages') ?></a>
+                </li>
+                    <?php } ?>
                     <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToAddLanguageGroup()) { ?>
                 <li>
                     <a href="<?php echo url_for('@language_group_list'); ?>"><?php echo __('language_group', null, 'localizationMessages') ?></a>
