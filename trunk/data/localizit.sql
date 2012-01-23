@@ -58,9 +58,9 @@ CREATE TABLE IF NOT EXISTS `ohrm_language` (
 --
 
 INSERT INTO `ohrm_language` (`id`, `name`, `code`) VALUES
-(1, 'Sinhala', 'si'),
-(2, 'French', 'fr'),
-(3, 'English', 'en_Us');
+(1, 'Sinhala', 'si_SI'),
+(2, 'French', 'fr_FR'),
+(3, 'English', 'en_US');
 
 -- --------------------------------------------------------
 
