@@ -39,9 +39,8 @@ class addLanguageGroupAction extends sfAction {
 
                 $languageGroup = new Group();
                 $languageGroup->setName($this->addLanguageGroupForm->getValue('group_name'));
-                if ($localizationService->saveGroup($languageGroup)) {
-                    $this->redirect('@language_group_list');
-                }
+                $localizationService->saveGroup($languageGroup);
+                $this->redirect('@language_group_list');
             }
         }
     }
