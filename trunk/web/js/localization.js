@@ -79,6 +79,7 @@ $(document).ready(function (){
     $('#addSourceCancelButton').click(function (){
        $('#labelUploadDiv').fadeIn(3000);
        $('#addLabelDiv2').fadeOut(10); 
+       $('#addAdminLabel').val('Add');
     });
     
     $('.labelNameData input').attr("disabled", "disabled");
@@ -139,6 +140,22 @@ $(document).ready(function (){
     });
     $('#update_group').click(function(){
         submitForm('edit_language_group_form');
+    });
+    
+    $("#uploadForm_Target_language").attr("disabled", "disabled");
+    $("#uploadForm_Target_note").attr("disabled", "disabled");
+    $('#uploadForm_Include_target_value').click(function(){
+        if ($('#uploadForm_Include_target_value').is(':checked'))
+        {
+            $("#uploadForm_Target_language").removeAttr("disabled");
+            $("#uploadForm_Target_note").removeAttr("disabled");
+        }
+        else
+        {
+            $("#uploadForm_Target_language").attr("disabled", "disabled");
+            $("#uploadForm_Target_note").attr("disabled", "disabled");
+        }
+       
     });
  
     if($('#show_add_label').val() == '1'){
