@@ -121,10 +121,12 @@ class LocalizationDao extends BaseDao {
         try {
             $q = Doctrine_Query :: create()
                             ->update('Source s')
-                            ->set('s.value ', "\"{$source->getValue()}\"")
-                            ->set('s.note ', "\"{$source->getNote()}\"")
+                            ->set('s.value', '?', $source->getValue())
+                            ->set('s.note', '?', $source->getNote())
                             ->where('s.id = ?', $source->getId());
+
             return $q->execute();
+            die;
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }

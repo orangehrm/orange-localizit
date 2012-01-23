@@ -81,7 +81,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php if ($LabelDataArray) {?>
+        <?php if ($LabelDataArray) { array_multisort($LabelDataArray[1], SORT_ASC, SORT_STRING); ?>
         <?php $j=0; foreach ($LabelDataArray as $item) { $j++?>
     <tr>
         <td><input class="checkbox_list" type="checkbox" name="checkedid[]" value="<?php echo $item[0]; ?>" onclick="uncheckCheckAll();"/></td>
