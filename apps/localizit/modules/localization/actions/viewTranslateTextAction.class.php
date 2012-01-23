@@ -21,6 +21,9 @@ class viewTranslateTextAction extends sfAction {
      * This method is executed before each action
      */
     public function preExecute() {
+        if(!$this->getUser()->isAuthenticated()) {
+            $this->redirect('@loginpage');
+        }
         $this->sourceList = null;
         $userObject = $this->getUser();
         $this->role = sfContext::getInstance()->getUser()->getUserRole();
