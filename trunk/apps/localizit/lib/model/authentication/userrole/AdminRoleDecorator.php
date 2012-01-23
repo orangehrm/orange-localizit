@@ -63,5 +63,10 @@ class AdminRoleDecorator extends BaseRoleDecorator implements RoleDecorator {
 
         return true;
     }
+    
+    public function isAllowedToGenerateDirectory() {
+
+        return true;
+    }
 
 }
