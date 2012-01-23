@@ -24,12 +24,12 @@ class LabelUploadForm extends sfForm
     
     
     
-    $lanGroups = array('' => "-- " . ('Select') . " --");
+    $lanGroups = array('' => "-- " . ('select') . " --");
      foreach ($languageGroupArray as $type) {
             $lanGroups[$type->getId()] = $type->getName();
         }
     
-    $targetLan = array('' => "-- " . ('Select') . " --");
+    $targetLan = array('' => "-- " . ('select') . " --");
     foreach ($targetLanguageArray as $type) {
             $targetLan[$type->getId()] = $type->getName();
         }
