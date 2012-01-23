@@ -98,6 +98,16 @@ class UserRole implements RoleDecorator {
         }
         return false;
     }
+    
+    public function isAllowedToGenerateDirectory() {
+
+        foreach ($this->getUserRoleDecorator() as $roleDecorator) {
+            if ($roleDecorator->isAllowedToGenerateDirectory()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public function isAllowedToTranslateText() {
 

@@ -75,8 +75,8 @@ class downloadDictionaryAction extends sfAction {
 
             if (!file_exists($file)) {
                 $role = sfContext::getInstance()->getUser()->getUserRole();
-                if (in_array($targetLanguageId, $role->getAllowedLanguageList())) {
-                    $this->redirect("@generate_dictionary?targetLanguageId=$targetLanguageId&return=download");
+                if (in_array($targetLanguageId, $role->getAllowedLanguageList()) && $role->isAllowedToGenerateDirectory()) {
+                    $this->redirect("@generate_dictionary?targetLanguageId=$targetLanguageId&languageGroupId=$lanagueGroupId&return=download");
                 } else {
                     $this->getUser()->setFlash('message', 'Sorry, Language file not found.');
                     $this->redirect('@homepage');

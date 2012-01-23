@@ -22,7 +22,7 @@
                     <?php $files = glob($dirname."/language_files/*");?>
                     <?php $role = sfContext::getInstance()->getUser()->getUserRole(); ?>
                     <div class="formBorder">
-                        <?php if (count($role->getAllowedLanguageList()) != 0) { ?>
+                        <?php if ($role->isAllowedToGenerateDirectory()) { ?>
                     
                             <div class="formCellOne">
                                 <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />&nbsp;

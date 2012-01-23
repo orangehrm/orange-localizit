@@ -68,7 +68,7 @@ class generateDictionaryAction extends sfAction {
         }
 
         if ($request->getParameter('return') == 'download')
-            $this->redirect('@download_dictionary?targetLanguageId=' . $targetLanguageId);
+            $this->redirect("@download_dictionary?targetLanguageId=$targetLanguageId&languageGroupId=$languageGroupId");
 
         $this->setTemplate('index');
     }
