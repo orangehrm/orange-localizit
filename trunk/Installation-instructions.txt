@@ -1,5 +1,5 @@
 (1) Create an empty database for using in Localizit.
 (2) Edit config/databases.yml with database information.
-(3) Dump the SQL file located at data/sql/localizit.sql (mysql -u root -p localizit_lzitdev < data/sql/localizit.sql).
+(3) Dump the SQL file located at data/localizit.sql (mysql -u root -p localizit_lzitdev < data/localizit.sql).
 (4) Access the installation relative to name of installation (http://localhost/localizit/web/).
 (5) Admin username: admin, Admin password: admin (Changed the password upon first login).
