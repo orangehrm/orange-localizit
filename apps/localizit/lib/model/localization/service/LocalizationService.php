@@ -619,7 +619,7 @@ XML;
     public function getSourceList(){
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->getDataList('Source');
+            $res = $localizationDao->getAllSourceList();
             return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());

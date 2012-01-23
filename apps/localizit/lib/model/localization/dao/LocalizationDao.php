@@ -44,6 +44,25 @@ class LocalizationDao extends BaseDao {
         }
     }
 
+    
+    /**
+     * get All Records From a table
+     * @param $tblName
+     * @returns Array
+     * @throws DaoException
+     */
+    public function getAllSourceList() {
+        try {
+                $q = Doctrine_Query :: create()
+                                ->from("Source s")
+                                ->orderBy('s.value');
+                return $q->execute();
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+    
+
     /**
      * get Source object By id
      * @param int $Id
@@ -54,8 +73,8 @@ class LocalizationDao extends BaseDao {
         try {
             $q = Doctrine_Query :: create()
                             ->from('Source s')
-                            ->where('s.id = ?', $id);
-
+                            ->where('s.id = ?', $id)
+                            ->orderBy('s.value');
             return $q->fetchOne();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -72,7 +91,8 @@ class LocalizationDao extends BaseDao {
         try {
             $q = Doctrine_Query :: create()
                             ->from('Source s')
-                            ->where('s.value = ?', $value);
+                            ->where('s.value = ?', $value)
+                            ->orderBy('s.value');
 
             return $q->fetchOne();
         } catch (Exception $e) {
@@ -90,8 +110,8 @@ class LocalizationDao extends BaseDao {
         try {
             $q = Doctrine_Query :: create()
                             ->from('Source s')
-                            ->where('s.groupId = ?', $gropuId);
-
+                            ->where('s.groupId = ?', $gropuId)
+                            ->orderBy('s.value');
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -371,7 +391,8 @@ class LocalizationDao extends BaseDao {
         try {
             $q = Doctrine_Query :: create()
                             ->select('value')
-                            ->from('Source l');
+                            ->from('Source l')
+                            ->orderBy('l.value');
             return $q->fetchArray();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
