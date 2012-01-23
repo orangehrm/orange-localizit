@@ -194,9 +194,19 @@ class LocalizationDao extends BaseDao {
                             ->from('Source s')
                             ->leftJoin('s.Target t')
                             ->addWhere('s.group_id = ?', $groupId)
-                            ->addWhere('t.language_id = ? OR t.language_id IS NULL', array($languageId))
                             ->orderBy('s.value');
-                            return $query->execute();
+            $sourceList = $query->execute();
+    
+            foreach ($sourceList as $source) {
+                $targets = $source->getTarget();
+                foreach ($targets as $key => $target) {
+                    if($target->getLanguageId() != $languageId ){
+                        $source->getTarget()->remove($key);
+                        
+                    }
+                }
+            }
+            return $sourceList;
         } catch (Exception $exp) {
             throw new DaoException($exp->getMessage());
         }
