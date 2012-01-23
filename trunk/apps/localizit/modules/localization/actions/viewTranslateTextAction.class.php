@@ -37,7 +37,7 @@ class viewTranslateTextAction extends sfAction {
             $this->targetLanguageId = $request->getParameter('languageList');
             $form = $request->getParameter('add_label');
             $this->languageGroupId = $form['language_group_id'];
-            $this->sourceList = $this->getLocalizeService()->getTargetStringByTargetAndSourceGroupId($this->targetLanguageId, $this->languageGroupId);
+            $this->sourceList = $this->getLocalizeService()->getTargetStringByLanguageAndSourceGroupId($this->targetLanguageId, $this->languageGroupId);
         }
         
         $localizationService = $this->getLocalizeService();

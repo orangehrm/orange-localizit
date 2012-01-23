@@ -23,7 +23,6 @@
 class localizationActions extends sfActions {
 
     private $localizationService;
-
     /**
      * Get Localization Service
      */
@@ -67,18 +66,30 @@ class localizationActions extends sfActions {
         $localizationService = $this->getLocalizeService();
         $this->addLabelForm = new LabelForm($localizationService);
         if ($request->isMethod(sfRequest::POST)) {
-            $this->addLabelForm->bind($request->getParameter('add_label'));
-
+            $this->addLabelForm->bind($request->getParameter('addSourceForm'));
+            
             if ($this->addLabelForm->isValid()) {
-                if ($this->addLabelForm->saveToDb()) {
-                    $this->redirect('@homepage');
+                $source = $this->addLabelForm->getValue('Label');
+                $lanGroupID = $this->addLabelForm->getValue('Language_group');
+                $sourceNote = $this->addLabelForm->getValue('Label_note');
+                
+                $sourcedata = new Source();
+                $sourcedata->setValue($source);
+                $sourcedata->setGroupId($lanGroupID);
+                $sourcedata->setNote($sourceNote);
+                
+                if($localizationService->checkSourceByGroupIdValue($lanGroupID, $source) > 0)
+                {   
+                    
                 }
+                else
+                {
+                    $localizationService->addSource($sourcedata);
+                }
+                
+                $this->redirect("localization/manageLabel");
             }
-            $this->showAddLabel = true;
         }
-
-        $this->sourceLanguageLabel = $this->getUser()->getCulture();
-        $this->setTemplate('index');
     }
 
     /**
@@ -148,5 +159,93 @@ class localizationActions extends sfActions {
         $languageGroup->delete();
         $this->setTemplate('');
     }
+    
+    /**
+     * Manage Labels
+     */
+    public function executeManageLabel(sfWebRequest $request){
+        
+        $localizationService = $this->getLocalizeService();
+        $this->addLabelUploadForm = new LabelUploadForm($localizationService);
+        
+        if ($request->isMethod(sfRequest::POST)) {
+            $this->addLabelUploadForm->bind($request->getParameter('uploadForm'), $request->getFiles('uploadForm'));
+ 
+            if($this->addLabelUploadForm->isValid()) {
+                
+                $lanGroupID = $this->addLabelUploadForm->getValue('Language_group');
+                $targetLanguage = $this->addLabelUploadForm->getValue('Target_language');
+                $fileName = $this->addLabelUploadForm->getValue('File');
+                $tempFilePath = $fileName->getTempName();
+                $sourceNote = $this->addLabelUploadForm->getValue('Source_note');
+                $targetNote = $this->addLabelUploadForm->getValue('Target_note');
+                
+                if($this->addLabelUploadForm->getValue('Include_target_value'))
+                {
+                    $targetData = new Target();
+                    $targetData->setLanguageId($targetLanguage);
+                    $targetData->setNote($targetNote);
+                    
+                    $sourceData = new Source();
+                    $sourceData->setGroupId($lanGroupID);
+                    $sourceData->setNote($sourceNote);
+                    
+                    $localizationService->addSourceWithTarget($tempFilePath, $targetData, $sourceData);
+                    
+                    $this->redirect("localization/manageLabel");
+                }
+                else
+                {
+                   $res = $localizationService->addSourceWithGroupID($tempFilePath, $lanGroupID, $sourceNote); 
+                   $this->redirect("localization/manageLabel");
+                }
+            } else {echo $this->addLabelUploadForm->getErrorSchema();}
+        }
+        
+        $localizationService = $this->getLocalizeService();
+        $this->addLabelForm = new LabelForm($localizationService);
+        
+        $localizationService = $this->getLocalizeService();
+        
+        $labelSet = $localizationService->getSourceList();
+        $labelDataArray = null;
+        foreach ($labelSet as $item)
+        {
+            $labelDataArray[] = array($item->getId() ,$item->getValue(), $item->getNote());
+        }
+        $this->LabelDataArray = $labelDataArray;
+        
+        
+    }
+    
+    public function executeDeleteLabelList(sfWebRequest $request) {
+        
+        $checkedid = $request->getParameter('checkedid');
+        if(!empty ($checkedid))
+        {
+            $localizationService = $this->getLocalizeService();
+            $localizationService->deleteSourceById($checkedid);
+            $this->redirect("localization/manageLabel");
+        }
+        else
+        {
+            $this->forward("localization", "updateLabelList");
+            $this->redirect("localization/manageLabel");
+        }
+    }
+    
+    public function executeUpdateLabelList(sfWebRequest $request)
+    {
+        $editedLabelNameArray = $request->getParameter('labelName');
+        $editedLabelNoteArray = $request->getParameter('labelNote');
+        $editedLabelIdArray = $request->getParameter('labelId');
+        $localizationService = $this->getLocalizeService();
+        $localizationService->updateSource($editedLabelIdArray,$editedLabelNameArray, $editedLabelNoteArray);
+        $this->redirect("localization/manageLabel");
+    
+        
+    }
+    
+    
 
 }

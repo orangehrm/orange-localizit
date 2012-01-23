@@ -20,6 +20,9 @@
                 <li>
                     <a href="<?php echo url_for('@language_group_list'); ?>"><?php echo __('language_group', null, 'localizationMessages') ?></a>
                 </li>
+                <li>
+                    <a href="<?php echo url_for('@manage_labels'); ?>"><?php echo __('Manage Labels', null, 'localizationMessages') ?></a>
+                </li>
                     <?php } ?>
             </ul>
         </td>

@@ -50,20 +50,6 @@ class LocalizationService extends BaseService {
         }
     }
 
-    /**
-     * Get Source
-     * @param $value
-     * @throws ServiceException
-     * @return Source
-     */
-    public function getSourceByValue($value) {
-        $localizationDao = $this->getLocalizationDao();
-        try {
-            return $localizationDao->getSourceByValue($value);
-        } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(), $exc->getCode());
-        }
-    }
     
     /**
      * Get Source by group
@@ -71,30 +57,15 @@ class LocalizationService extends BaseService {
      * @throws ServiceException
      * @return Source
      */
-    public function getTargetStringByTargetAndSourceGroupId($languageId, $groupId) {
+    public function getTargetStringByLanguageAndSourceGroupId($languageId, $groupId) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            return $localizationDao->getTargetStringByTargetAndSourceGroupId($languageId, $groupId);
+            return $localizationDao->getTargetStringByLanguageAndSourceGroupId($languageId, $groupId);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
-    /**
-     * Update Source
-     * @param Source $source
-     * @returns update row count
-     * @throws ServiceExeption
-     */
-    public function updateSource(Source $source) {
-        $localizationDao = $this->getLocalizationDao();
-        try {
-            return $localizationDao->updateSource($source);
-        } catch (Exception $exc) {
-
-            throw new ServiceException($exc->getMessage(), $exc->getCode());
-        }
-    }
 
     /**
      * Get Language List
@@ -162,7 +133,7 @@ class LocalizationService extends BaseService {
         $dataSet = array();
         try {
             $sourceList = $localizationDao->getDataList('Source');
-            $sourceSet = $localizationDao->getTargetStringByTargetAndSourceGroupId($targetLanguageId, $languageGroupId);
+            $sourceSet = $localizationDao->getTargetStringByLanguageAndSourceGroupId($targetLanguageId, $languageGroupId);
             if($sourceSet){
                 foreach ($sourceSet as $source) {
                     $dataRow[$source->getId()]['source_id'] = $source->getId();
@@ -278,10 +249,10 @@ class LocalizationService extends BaseService {
     }
     
     /**
-     * Generates Language Dictionary file in XML format
+     * Generates  Dictionary file in XML format
      * @param $sourceLanguageId
      * @param $targetLanguageId
-     * @param $sourceLanguageLabel
+     * @param $languageGroupId
      * @returns boolean
      * @throws ServiceException
      */
@@ -390,7 +361,7 @@ XML;
     }
 
     /**
-     * Download Language Dictionary file
+     * Download Dictionary file
      * @param $file
      * @returns boolean
      * @throws ServiceException
@@ -420,6 +391,9 @@ XML;
 
     /**
      * Update Group
+     * @param Group $group
+     * @return update count
+     * @throws Service Exception
      */
     public function updateGroup(Group $group) {
         $localizationDao = $this->getLocalizationDao();
@@ -433,6 +407,9 @@ XML;
 
     /**
      * Get Group by ID.
+     * @param integer $id
+     * @return Doctrine collection
+     * @throws Service Exception
      */
     public function getGroupById($id) {
         $localizationDao = $this->getLocalizationDao();
@@ -445,6 +422,8 @@ XML;
 
     /**
      * Get Group set.
+     * @return Doctrine collection
+     * @throws Service Exception
      */
     public function getGroupList() {
         $localizationDao = $this->getLocalizationDao();
@@ -457,6 +436,8 @@ XML;
 
     /**
      * Save Group
+     * @param Group $group
+     * @throws Service Exception
      */
     public function saveGroup(Group $group) {
         $localizationDao = $this->getLocalizationDao();
@@ -467,5 +448,269 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
+    
+     /* Read Label from XML
+     * @returns label array
+     * @throws DaoException
+     */
+    public function readSourceByXML($docName) {
+        $doc = new DOMDocument();
+        $doc->load($docName);
+        
+        if ($doc) {
+            $labels = $doc->getElementsByTagName("trans-unit");
+            foreach ($labels as $label) {
+                $sources = $label->getElementsByTagName("source");
+                $source = $sources->item(0)->nodeValue;
+                $trimsource[] = trim($source);
+            }
+        } else {
+            die("cannot load the xml");
+        }
+        
+        return $trimsource;
+    }
+    
+     /* Read Target Language from XML
+     * @returns label array
+     * @throws DaoException
+     */
+    public function readTargetLanguageByXML($docName) {
+        $doc = new DOMDocument();
+        $doc->load($docName);
+        
+        if ($doc) {
+            $labels = $doc->getElementsByTagName("trans-unit");
+            foreach ($labels as $label) {
+                $sources = $label->getElementsByTagName("source");
+                $source = $sources->item(0)->nodeValue;
+                $targets = $label->getElementsByTagName("target");
+                $target = $targets->item(0)->nodeValue;
+                $trimsource[] = array(trim($source),trim($target));
+            }
+        } else {
+            die("cannot load the xml");
+        }
+        
+        return $trimsource;
+    }
+    
+    
+    /* save the array dif to the database
+     * @return saved Source List
+     * @throws Dao Exception
+     */
+    public function addSourceWithGroupID($docName, $groupID, $note)
+    {
+        $localizationDao = $this->getLocalizationDao();
+        try
+        {
+            $xmlarray = $this->readSourceByXML($docName);
+            $uxmlarray = array_unique($xmlarray);
+            $databasearray = $this->getSource($groupID);
+            
+            foreach($databasearray as $dbitem)
+            {
+                $dblabelarray[] = $dbitem['value'];
+            }
 
+            foreach ($uxmlarray as $value)
+            {
+                if(!in_array($value, $dblabelarray))
+                {
+                    $result[] = $value;
+                }
+            }
+            
+            $uresult = array_unique($result);
+            
+            foreach($uresult as $item)
+            {
+                $label = new Source();
+                $label->setValue($item);
+                $label->setGroupId($groupID);
+                $label->setNote($note);
+                $localizationDao->addSource($label);
+            }
+        }
+        catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+
+    
+    /* save the array dif to the database with target 
+     * @return saved label list
+     * @throws Dao Exception
+     */
+    public function addSourceWithTarget($docName , Target $lstable, Source $sorcedata)
+    {
+        $localizationDao = $this->getLocalizationDao();
+        try
+        {
+            $xmlarray = $this->readSourceByXML($docName);
+            $uxmlarray = array_unique($xmlarray);
+
+            $databasearray = $this->getSource($sorcedata->getGroupId());
+            $dblabelarray = array();
+            foreach($databasearray as $dbitem)
+            {
+                $dblabelarray[] = $dbitem["value"];
+            }
+              
+            foreach ($uxmlarray as $value)
+            {
+                if(!in_array($value, $dblabelarray))
+                {
+                    $result[] = $value;
+                }
+            }
+            $uresult = array_unique($result);
+              
+             
+            $targetLanguageXml = $this->readTargetLanguageByXML($docName);
+            foreach($targetLanguageXml as $item)
+            {
+                $xmltargetarray[] = array($item[0], $item[1]);                
+            }
+            
+            
+            $j=0;
+            foreach($uresult as $item)
+            {
+                $sourceData = new Source();
+                $sourceData->setValue($item);
+                $sourceData->setGroupId($sorcedata->getGroupId());
+                $sourceData->setNote($sorcedata->getNote());
+                $localizationDao->addSource($sourceData);
+
+                $stringArray;
+                foreach($xmltargetarray as $targetitem)
+                {
+                    if(strcmp($targetitem[0], $item) == 0)
+                    {
+                        $stringArray[] = array($targetitem[0],$targetitem[1]);
+                    }
+                }
+            }
+            
+            
+
+            foreach ($stringArray as $stringItem)
+            {
+                $targetData = new Target();
+                $targetData->setSourceId($this->getSourceByValue($stringItem[0]));
+                $targetData->setLanguageId($lstable->getLanguageId());
+                $targetData->setValue($stringItem[1]);
+                $targetData->setNote($lstable->getNote());
+                $localizationDao->addTarget($targetData); 
+            }
+        }
+        catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+    
+    
+     /**
+     * Get Source list.
+     * @return Doctrine Collection
+     */
+    public function getSourceList(){
+        $localizationDao = $this->getLocalizationDao();
+        try {
+            $res = $localizationDao->getDataList('Source');
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+    
+    
+    /**
+     * Delete Source
+     * @param $id
+     * @returns delete row count
+     * @throws DaoException
+     */
+    public function deleteSourceById($id) {
+        
+        $localizationDao = $this->getLocalizationDao();
+        try {
+            $res = $localizationDao->deleteSourceById($id);
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+    
+    /**
+     * Update Source
+     * @returns boolean
+     * @throws DaoException
+     */
+    public function updateSource($id, $value, $Note) {
+        $localizationDao = $this->getLocalizationDao();
+        try {
+            $i=0;
+            foreach ($id as $item)
+            {
+                $source = new Source();
+                $source->setId($item);
+                $source->setValue($value[$i]);
+                $source->setNote($Note[$i]);
+                $res = $localizationDao->updateSource($source);
+                $i++;
+            }
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+    
+    
+    /* get Source
+     * @returns Source array
+     * @throws ServiceException
+     */
+    public function getSource($groupid) {
+      $localizationDao = $this->getLocalizationDao();  
+        try {
+            $labelArray = $localizationDao->getSourceListByGroupId($groupid);
+            return $labelArray;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+    
+    /**
+     * Get Source By Value
+     * @param $value
+     * @throws ServiceException
+     * @return Label
+     */
+    public function getSourceByValue($value) {
+        $localizationDao = $this->getLocalizationDao();
+        try {
+            $res = $localizationDao->getSourceByValue($value);
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+    
+    /**
+     * Check Source by groupid and value
+     * @param $labelName
+     * @throws ServiceException
+     * @return Label
+     */
+    public function checkSourceByGroupIdValue($groupId , $source) {
+        $localizationDao = $this->getLocalizationDao();
+        try {
+            $res = $localizationDao->getSourceIdByByGroupIdValue($groupId , $source);
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+    
 }
