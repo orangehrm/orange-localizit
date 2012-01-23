@@ -595,8 +595,8 @@ XML;
             }
             
             
-
-            foreach ($stringArray as $stringItem)
+            $ustringArray = array_unique($stringArray);
+            foreach ($ustringArray as $stringItem)
             {
                 $targetData = new Target();
                 $targetData->setSourceId($this->getSourceByValue($stringItem[0]));
