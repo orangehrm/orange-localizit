@@ -9,6 +9,10 @@ homepage:
 add_label:
   url:   /add-label
   param: { module: localization, action: addLabel }
+  
+manage_labels:
+  url:   /manage-labels
+  param: { module: localization, action: manageLabel }
 
 language_list:
   url:   /language-list

@@ -46,6 +46,64 @@ $(document).ready(function (){
             jAlert('Select valid group and language!', 'Error');
         }
     });
+    
+    $('#deleteAdminLabel').click(function (){
+        var r=confirm("Are you sure you want to delete selected labels");
+        if (r==true)
+        {
+            submitForm('deleteLanguageLabelList');
+        }
+    });
+    
+    $('#upload_and_save_xml').click(function (){
+        if(validateUploadForm())
+            {
+                submitForm('upload_label_form');
+            }
+    }); 
+    $('#addAdminLabel').click(function (){
+        var a = $(this).val();
+        if(a == 'Add')
+            {
+                $(this).val('Upload');
+                $('#labelUploadDiv').fadeOut(10);
+                $('#addLabelDiv2').fadeIn(3000);
+            }
+        if(a == 'Upload')
+            {
+                $(this).val('Add');
+                $('#addLabelDiv2').fadeOut(10);
+                $('#labelUploadDiv').fadeIn(3000);
+            }
+    });
+    $('#addSourceCancelButton').click(function (){
+       $('#labelUploadDiv').fadeIn(3000);
+       $('#addLabelDiv2').fadeOut(10); 
+    });
+    
+    $('.labelNameData input').attr("disabled", "disabled");
+    //$('.checkbox_list').attr("disabled", "disabled");
+    $('#editAdminLabel').click(function (){          
+        var a = $(this).val();
+        if(a == 'Edit')
+            {
+                $(this).val('Save');
+                $('.labelNameData input').removeAttr("disabled");
+                //$('.checkbox_list').removeAttr("disabled");
+
+            }
+        if(a == 'Save')
+            {
+                submitForm('deleteLanguageLabelList');
+                $(this).val('Edit');
+                $('.labelNameData input').attr("disabled", "disabled");
+                //$('.checkbox_list').attr("disabled", "disabled");
+            }
+    });
+    
+    
+    
+    
     $('#save').click(function (){
         targetLanguageId=$('#languageList').val();
         $('#target_language_selected_id').val(targetLanguageId);
@@ -54,6 +112,12 @@ $(document).ready(function (){
     $('#save_label').click(function (){
         $('#addLabelDiv').fadeIn(1000);
         submitForm('add_label_form');
+    });
+    $('#addSourceButton').click(function (){
+        if(validateAddSourceForm())
+            {
+                submitForm('add_label_form');
+            }
     });
     $('#add').click(function (){
         $('#addLabelDiv').fadeIn(1000);
@@ -222,4 +286,42 @@ function deleteLangGroup(id) {
             location.reload();
         }
     });
+}
+
+checked = false;
+function checkedAll()
+{
+    if (checked == false){checked = true}else{checked = false}
+    for (var i = 0; i < document.getElementById('deleteLanguageLabelList').elements.length; i++) {
+      document.getElementById('deleteLanguageLabelList').elements[i].checked = checked;
+    }  
+}
+
+function uncheckCheckAll()
+{
+    document.getElementById('deleteLanguageLabelList').elements[0].checked = false;
+}
+
+function validateUploadForm()
+{
+    var lanGroup = $('#uploadForm_Language_group').val();
+    var tarLan = $('#uploadForm_Target_language').val();
+    var file = $('#uploadForm_File').val();
+    
+    if(lanGroup == ''){alert ("Please select language Group");}
+    else if(tarLan == ''){alert ("Please select a lanuage to translate");}
+    else if(file == ''){alert ("Please select a file");}
+    else {return true;}
+
+    
+}
+
+function validateAddSourceForm()
+{
+    var label = $('#addSourceForm_Label').val();
+    var lanGroup = $('#addSourceForm_Language_group').val();
+    
+    if(label == ''){alert("Please enter a label");}
+    else if(lanGroup == ''){alert("Please select a language group");}
+    else{return true;}
 }

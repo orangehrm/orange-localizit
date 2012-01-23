@@ -18,72 +18,28 @@ class LabelForm extends sfForm {
         $this->localizeService = $localizeService;
         parent::__construct();
     }
-    public function configure() {
+    
+    public function configure(){
+        $localService = $this->getLocalizeService();
+        $languageGroupArray = $localService->getGroupList();
+        
+        $lanGroups = array('' => "-- " . ('Select') . " --");
+        foreach ($languageGroupArray as $type) {
+            $lanGroups[$type->getId()] = $type->getName();
+        }
+        
         $this->setWidgets(array(
-                'label_name'    => new sfWidgetFormInputText(array(),array('class' => 'text_input')),
-                'label_local_language_string' => new sfWidgetFormInputText(array(),array('class' => 'text_input')),
-                'language_group_id' => new sfWidgetFormInputText(array(),array('class' => 'text_input')),
-                'label_comment' => new sfWidgetFormTextarea(array(),array('class' => 'text_input')),
-                'addLabel'     => new sfWidgetFormInputHidden(array(),array('value'=>'true')),
+            'Label' => new sfWidgetFormInput(array(), array('class' => 'text_input')),
+            'Language_group' => new sfWidgetFormSelect(array('choices' => $lanGroups)),
+            'Label_note' => new sfWidgetFormTextarea(array(), array('class' => 'text_input'))
         ));
 
         $this->setValidators(array(
-                'label_name'    => new sfValidatorString(array('max_length' => 45, 'required' => true)),
-                'label_local_language_string'    => new sfValidatorString(array('max_length' => 45, 'required' => true)),
-                'label_comment' => new sfValidatorString(array('max_length' => 100, 'required' => false)),
+            'Label' => new sfValidatorString(array('required' => false, 'max_length' => 255)),
+            'Language_group' => new sfValidatorString(array('required' => false)),
+            'Label_note' => new sfValidatorString(array('required' => false))
         ));
 
-        $post_validator = new sfValidatorAnd();
-        $post_validator->addValidator(new sfValidatorCallback(array('callback' => array($this, 'checkDuplicateLabel'))));
-        
-        $this->validatorSchema->setPostValidator($post_validator);
-
-
-        $this->widgetSchema->setNameFormat('add_label[%s]');
-
-        $this->validatorSchema->setOption('allow_extra_fields', true);
-        $this->validatorSchema->setOption('filter_extra_fields', false);
-    }
-    public function checkDuplicateLabel($validator, $values) {
-
-        $localizationService=$this->getLocalizeService();
-
-        if(empty($values['label_name'])) {
-            throw new sfValidatorError($validator, 'Label value required');
-        }
-
-        if(empty($values['label_local_language_string'])) {
-            throw new sfValidatorError($validator, 'Label translation required');
-        }
-
-        if($localizationService->getLabelByName($values['label_name']) instanceof Label) {
-            throw new sfValidatorError($validator, 'Label already exists');
-        }
-
-        return $values;
-    }
-
-    public function saveToDb() {
-
-        try {
-            $localizationService=$this->getLocalizeService();
-
-            $values=$this->getValues();
-
-            $addLabel=$localizationService->addLabel($values['label_name'],$values['label_comment']);
-
-            $lls=new LanguageLabelString();
-            $lls->setLabelId($addLabel->getLabelId());
-            $lls->setLanguageId(sfContext::getInstance()->getUser()->getAttribute('user_language_id'));
-            $lls->setLanguageLabelStringStatus(sfConfig::get('app_status_enabled'));
-            $lls->setLanguageLabelString($values['label_local_language_string']);
-            $lls->setLanguageGroupId($values['language_group_id']);
-            $localizationService->addLangStr($lls);
-
-            return true;
-
-        } catch(Exception $exc) {
-            return false;
-        }
+        $this->widgetSchema->setNameFormat('addSourceForm[%s]');
     }
 }
