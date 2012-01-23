@@ -3,6 +3,9 @@
 class saveTranslateTextAction extends sfAction {
     
     public function preExecute() {
+        if(!$this->getUser()->isAuthenticated()) {
+            $this->redirect('@loginpage');
+        }
         $this->localizationService = new LocalizationService();
         $locaizationDao = new LocalizationDao();
         $this->localizationService->setLocalizationDao($locaizationDao);

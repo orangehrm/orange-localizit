@@ -3,11 +3,6 @@
     <tr>
         <td>
             <ul class="sf-menu">
-                <li class="current">
-                    <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToManageUser()) { ?>
-                        <a href="<?php echo url_for('@userManagement'); ?>"><?php echo __('users', null, 'localizationMessages') ?></a>
-                    <?php } ?>
-                </li>
                 <li>
                     <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('generate_dictionary', null, 'localizationMessages') ?></a>
                 </li>
@@ -24,6 +19,11 @@
                     <a href="<?php echo url_for('@manage_labels'); ?>"><?php echo __('Manage Labels', null, 'localizationMessages') ?></a>
                 </li>
                     <?php } ?>
+                <li class="current">
+                    <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToManageUser()) { ?>
+                        <a href="<?php echo url_for('@userManagement'); ?>"><?php echo __('users', null, 'localizationMessages') ?></a>
+                    <?php } ?>
+                </li>
             </ul>
         </td>
         <?php if(!$sf_user->isAuthenticated()) { ?>
