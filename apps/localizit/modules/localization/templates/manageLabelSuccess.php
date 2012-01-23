@@ -7,12 +7,14 @@
             <table width="100%">
                 <tr><td><?php echo $addLabelUploadForm['Language_group']->renderLabel(); ?></td>
                     <td><?php echo $addLabelUploadForm['Language_group']->render(); ?></td></tr>
-                <tr><td><?php echo $addLabelUploadForm['Target_language']->renderLabel(); ?></td>
-                    <td><?php echo $addLabelUploadForm['Target_language']->render(); ?></td></tr>
-                <tr><td><?php echo $addLabelUploadForm['Include_target_value']->renderLabel(); ?></td>
-                    <td><?php echo $addLabelUploadForm['Include_target_value']->render(); ?></td></tr>
+                
                 <tr><td><?php echo $addLabelUploadForm['Source_note']->renderLabel(); ?></td>
                     <td><?php echo $addLabelUploadForm['Source_note']->render(); ?></td></tr>
+                
+                <tr><td><?php echo $addLabelUploadForm['Include_target_value']->renderLabel(); ?></td>
+                    <td><?php echo $addLabelUploadForm['Include_target_value']->render(); ?></td></tr>
+                <tr><td><?php echo $addLabelUploadForm['Target_language']->renderLabel(); ?></td>
+                    <td><?php echo $addLabelUploadForm['Target_language']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelUploadForm['Target_note']->renderLabel(); ?></td>
                     <td><?php echo $addLabelUploadForm['Target_note']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelUploadForm['File']->renderLabel(); ?></td>
