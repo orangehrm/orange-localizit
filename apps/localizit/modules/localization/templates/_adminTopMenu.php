@@ -4,7 +4,7 @@
         <td>
             <ul class="sf-menu">
                 <li>
-                    <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('generate_dictionary', null, 'localizationMessages') ?></a>
+                    <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('download_dictionary', null, 'localizationMessages') ?></a>
                 </li>
                     <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToTranslateText()) { ?>
                 <li>
