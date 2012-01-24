@@ -102,9 +102,6 @@ $(document).ready(function (){
             }
     });
     
-    
-    
-    
     $('#save').click(function (){
         targetLanguageId=$('#languageList').val();
         $('#target_language_selected_id').val(targetLanguageId);
@@ -194,9 +191,14 @@ $(document).ready(function (){
         $("#show_label_form").find("input#cancel").hide();
         $("#show_label_form").find("input#edit").show();
     });
+    
+    $(".target_label_input, .target_note_input").change(function() {
+        $(this).addClass("changed");
+    });
+    
     $("#show_label_form").find("input#save").click(function () {
         event.preventDefault();
-        var showLableForm = $("#show_label_form").serialize();
+        var showLableForm = $("#show_label_form .changed, #show_label_form input[type='hidden']").serialize();
         var saveurl = $("#show_label_form").attr('action');
         $.ajax(
             {
