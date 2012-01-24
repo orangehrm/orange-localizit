@@ -193,10 +193,17 @@ $(document).ready(function (){
     });
     
     $(".target_label_input, .target_note_input").change(function() {
-        $(this).addClass("changed");
+        $(this).closest('tr').find(".target_note_input").addClass("changed");
+        $(this).closest('tr').find(".target_label_input").addClass("changed");
     });
     
-    $("#show_label_form").find("input#save").click(function () {
+    $("#show_label_form input#cancel").click(function() {
+        $(".changed").each(function(){
+            $(this).removeClass('changed');
+        })
+    });
+    
+    $("#show_label_form").find("input#save").click(function (event) {
         event.preventDefault();
         var showLableForm = $("#show_label_form .changed, #show_label_form input[type='hidden']").serialize();
         var saveurl = $("#show_label_form").attr('action');
