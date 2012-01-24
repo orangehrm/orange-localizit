@@ -1,3 +1,8 @@
+<script type="text/javascript">
+<?php $dirname = dirname(sfConfig::get('sf_language_dir')); ?>
+<?php $files = glob($dirname."/language_files/*");?>
+    var fileCount = "<?php echo count($files)?>";
+</script>
 <div class="outerBorder homePageBorder">
     <div class="homePage">
         <span class="errorMsg"><?php echo $sf_user->getFlash('message'); ?></span>
@@ -31,8 +36,8 @@
                         <?php if ($role->isAllowedToDownloadDirectory() && count($files) > 0 ) { ?>
                             <div class="formCellTwo">
                                <input type="button" name="downloadDictionary" id="downloadDictionary" class="button normalText" value="<?php echo __('download_dictionary', null, 'localizationMessages') ?>" />
-                        <?php } ?>
                         </div>
+                        <?php } ?>
                      </div>                                       
             </tr>
             </table>
