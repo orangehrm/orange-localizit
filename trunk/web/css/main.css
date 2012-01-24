@@ -19,7 +19,11 @@ caption {
 }
 
 /* reduced font size to save space */
-tr { font-size: 90%; }
+tr { 
+    font-size: 90%;
+    border: #CCCCCC 1px dotted;
+
+}
 /* prevent nested tables reducing font size further */
 tr tr { font-size: 100%; }
 
