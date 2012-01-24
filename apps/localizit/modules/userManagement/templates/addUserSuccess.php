@@ -71,7 +71,7 @@
                                 <?php foreach ($langList as $language) { ?>
                                     <td style="border-top: none; border-left: none;">
                                         <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getId() ?>" />
-                                                <?php echo $language->getCode()?>
+                                                <?php echo $language->getName() . "(". $language->getCode() . ")"?>
                                     </td>
                                 <?php } ?>
                                 </tr>
