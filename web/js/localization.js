@@ -260,7 +260,11 @@ function generateDictionary(url,targetLanguageId,languageGroupId){
     $.ajax({
         url: url+'?targetLanguageId='+targetLanguageId +'&languageGroupId='+languageGroupId,
         success: function() {
-            jAlert('Dictionary file created successfully!', 'Success');
+            if(fileCount == 0) {
+                jAlert('Dictionary file created successfully!', 'Success', function() { location.reload();});
+            } else {
+                jAlert('Dictionary file created successfully!', 'Success');
+            }
         },
         error: function(){
             jAlert('Sorry, You have no access for this language!', 'Error');
