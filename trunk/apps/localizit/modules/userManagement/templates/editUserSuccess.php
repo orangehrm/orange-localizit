@@ -20,35 +20,29 @@
                 <?php }
                 } ?>
                 <tr>
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td  class="tableColumnWidth removeLeftDotLine"><?php echo $editUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?> *</td>
+                    <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $editUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?> <span class="mandatoryStar">*</span></td>
                     <td class="tableColumnWidth">
                         <input type="text" name="user[login_name]" value="<?php echo isset($user['username']) ? $user['username'] : null ?>" class="text_input" />
-                    </td>
+                    </td><!--
                     <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
                     <?php if ($editUserForm['login_name']->hasError()) { ?>
                     <?php echo $editUserForm['login_name']->renderError() ?>
                     <?php } ?>
                     </td>
-                </tr>            
+                --></tr>            
                 
                 <tr>
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td class="tableColumnWidth removeLeftDotLine">
-                       <?php echo $editUserForm['user_type_id']->renderLabel(__('user_type', null, 'authenticationMessages')) ?> *
+                    <td class="tableColumnWidth removeLeftDotLine labelColumn">
+                       <?php echo $editUserForm['user_type_id']->renderLabel(__('user_type', null, 'authenticationMessages')) ?> <span class="mandatoryStar">*</span>
                     </td>
                     <td><?php include_component('userManagement', 'UserList'); ?>
-                    </td>
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight">
-                    &nbsp;
                     </td>
                 </tr>
 
                 <?php if (count($userLang) > 0) { ?>
                <tr id="displayLangId">
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td class="tableColumnWidth removeLeftDotLine">
-                        <?php echo __('languages', null, 'userManagementMessages') ?>
+                    <td class="tableColumnWidth removeLeftDotLine labelColumn">
+                        <?php echo __('languages', null, 'userManagementMessages'); ?> <span class="mandatoryStar">*</span>
                     </td>
                     <td>
                             <?php if( count($langList) > 0) { ?>
@@ -89,13 +83,11 @@
                             </table>
                             <?php } ?>
                     </td>
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight">&nbsp;</td>
                 </tr>
                 <?php }  else { ?>
                 <tr id="langId">
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td class="tableColumnWidth removeLeftDotLine">
-                        <?php echo __('languages', null, 'userManagementMessages') ?>
+                    <td class="tableColumnWidth removeLeftDotLine labelColumn">
+                        <?php echo __('languages', null, 'userManagementMessages') ?> <span class="mandatoryStar">*</span>
                     </td>
                     <td>
                             <?php if( count($langList) > 0) { ?>
@@ -111,24 +103,18 @@
                             </table>
                             <?php } ?>
                     </td>
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight">&nbsp;</td>
                 </tr>
                 <?php } ?>
-                 <tr>
-                    <td>&nbsp;</td>
-                    <td  class="removeLeftDotLine">&nbsp;</td>
-                    <td>
                         <input type="hidden" name="user[password]" value="<?php echo isset($user['password']) ? $user['password'] : null ?>" />
                         <input type="hidden" name="user[action]" value="edit" />
                         <input type="hidden" name="user[confirm_password]" value="<?php echo isset($user['password']) ? $user['password'] : null ?>" />
                         <input type="hidden" name="user[user_id]" value="<?php echo isset($user['id']) ? $user['id'] : null ;?>" />
-                        <input type="button" name="update_user" id="update_user" class="button normalText" value="<?php echo __('update', null, 'localizationMessages') ?>" />
-                        <input type="button" name="cancel_user" id="cancel_user" class="button normalText" onclick="redircetToPage('<?php echo url_for("@userManagement")?>')" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
-                    </td>
-                    <td class="removeLeftDotLine addDotLinetoRight">&nbsp;</td>
                 </tr>
 
             </table>
+            <?php include_partial('localization/mandetoryFieldMessage')?>
+            <input type="button" name="update_user" id="update_user" class="button normalText" value="<?php echo __('update', null, 'localizationMessages') ?>" />
+            <input type="button" name="cancel_user" id="cancel_user" class="button normalText" onclick="redircetToPage('<?php echo url_for("@userManagement")?>')" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
         </form>
     </div>
 </div>

@@ -153,9 +153,7 @@ tfoot td {
 .mainRowWidth{
     /*    width: 100%;*/
 }
-.tableColumnWidth {
-    width: 30%;
-}
+
 .tableIndexColumn {
     width: 4%;
 }
@@ -277,4 +275,42 @@ input.error {
 
 ul.sf-menu li.current{
     background: #78d578;
+}
+
+span.mandatoryStar {
+    position: relative;
+    color: #fb0000;
+    top: 3px;
+    left: 3px;
+}
+
+div#requiredField {
+    position: relative;
+    bottom: 10px;
+    font-size: 10px;
+}
+
+
+#xmlHelpMessage{
+    font-size: 10px;
+}
+#xmlHelpMessage span.mandatoryStar {
+    position: relative;
+    left: 0px;
+}
+
+#add_language_group_form table td.labelColumn{
+    width: 175px;
+}
+
+#edit_language_group_form td.labelColumn{
+    width: 175px;
+}
+
+#add_user_form table td.labelColumn{
+    width: 175px;
+}
+
+#edit_user_form table td.labelColumn{
+    width: 175px;
 }

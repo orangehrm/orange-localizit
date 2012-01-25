@@ -10,8 +10,8 @@
             
         <form action="<?php echo url_for('@manage_labels'); ?>" method="post" id="upload_label_form" name="upload_label_form" enctype="multipart/form-data">
             <?php echo $addLabelUploadForm->renderHiddenFields(); ?>
-            <table width="100%">
-                <tr><td><?php echo $addLabelUploadForm['Language_group']->renderLabel(); ?></td>
+            <table width="100%" class="mediumText mainFrame">
+                <tr><td><?php echo $addLabelUploadForm['Language_group']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
                     <td><?php echo $addLabelUploadForm['Language_group']->render(); ?></td></tr>
                 
                 <tr><td><?php echo $addLabelUploadForm['Source_note']->renderLabel(); ?></td>
@@ -19,19 +19,14 @@
                 
                 <tr><td><?php echo $addLabelUploadForm['Include_target_value']->renderLabel(); ?></td>
                     <td><?php echo $addLabelUploadForm['Include_target_value']->render(); ?></td></tr>
-                <tr><td><?php echo $addLabelUploadForm['Target_language']->renderLabel(); ?></td>
+                <tr><td><?php echo $addLabelUploadForm['Target_language']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
                     <td><?php echo $addLabelUploadForm['Target_language']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelUploadForm['Target_note']->renderLabel(); ?></td>
                     <td><?php echo $addLabelUploadForm['Target_note']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelUploadForm['File']->renderLabel(); ?></td>
-                    <td><?php echo $addLabelUploadForm['File']->render(); ?><br/><font style="color: red;">*</font><font style="color: black; font-size: 12px;">support only valid XML files only.</font></td></tr>
-                
-                <tr><td></td>
-                    <td>
-                        
-                    </td>
-                </tr>
+                    <td><?php echo $addLabelUploadForm['File']->render(); ?><div id="xmlHelpMessage"><span class="mandatoryStar">*</span>Support only valid XML files.</font></div></td></tr>
             </table>
+            <?php include_partial('localization/mandetoryFieldMessage')?>
             <input type="button" name="upload_and_save_xml" id="upload_and_save_xml" class="button normalText" value="<?php echo __('Upload', null, 'localizationMessages') ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="button" name="upload_and_cancel_xml" id="upload_and_cancel_xml" class="button normalText" value="<?php echo __('Cancel', null, 'localizationMessages') ?>" style="display: none;"/>
         </form>
@@ -45,16 +40,16 @@
     <div class="homePage">
     <form action="<?php echo url_for('@add_label'); ?>" method="post" id="add_label_form" name="add_label_form">
     <?php echo $addLabelForm->renderHiddenFields(); ?>
-        <table>
-                <tr><td><?php echo $addLabelForm['Label']->renderLabel(); ?></td>
+        <table class="mediumText mainFrame">
+                <tr><td><?php echo $addLabelForm['Label']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
                     <td><?php echo $addLabelForm['Label']->render(); ?></td></tr>
-                <tr><td><?php echo $addLabelForm['Language_group']->renderLabel(); ?></td>
+                <tr><td><?php echo $addLabelForm['Language_group']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
                     <td><?php echo $addLabelForm['Language_group']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelForm['Label_note']->renderLabel(); ?></td>
                     <td><?php echo $addLabelForm['Label_note']->render(); ?></td></tr>
-             
               
             </table>
+            <?php include_partial('localization/mandetoryFieldMessage')?>
         <input type="button" name="addSourceButton" id="addSourceButton" class="button normalText" value="<?php echo __('Add', null, 'localizationMessages') ?>" />
         <input type="button" name="addSourceCancelButton" id="addSourceCancelButton" class="button normalText" value="<?php echo __('cancel', null, 'localizationMessages') ?>" />
     </form>

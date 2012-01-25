@@ -20,27 +20,20 @@
                 <?php }
                 } ?>
                 <tr>
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td  class="tableColumnWidth removeLeftDotLine"><?php echo $addLanguageGroupForm['group_name']->renderLabel(__('group_name', null, 'localizationMessages')) ?> *</td>
+                    <td  class="labelColumn"><?php echo $addLanguageGroupForm['group_name']->renderLabel(__('group_name', null, 'localizationMessages')) ?> <span class="mandatoryStar">*</span></td>
                     <td class="tableColumnWidth"><?php echo $addLanguageGroupForm['group_name']->render() ?></td>
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
+                    <!--<td class="tableColumnWidth removeLeftDotLine errorMsg addDotLinetoRight">
                     <?php if ($addLanguageGroupForm['group_name']->hasError()) { ?>
                     <?php echo $addLanguageGroupForm['group_name']->renderError() ?>
                     <?php } ?>
                     </td>
-                </tr>                     
+                --></tr>                     
                
-                 <tr>
-                    <td>&nbsp;</td>
-                    <td  class="removeLeftDotLine">&nbsp;</td>
-                    <td>
-                        <input type="button" name="save_group" id="save_group" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" />
-                        <input type="button" name="cancel_user" id="cancel_user" class="button normalText" onclick="redircetToPage('<?php echo url_for("@language_group_list")?>')" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
-                    </td>
-                    <td class="removeLeftDotLine addDotLinetoRight">&nbsp;</td>
-                </tr>
-
             </table>
+            <?php include_partial('localization/mandetoryFieldMessage')?>
+            <input type="button" name="save_group" id="save_group" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" />
+            <input type="button" name="cancel_user" id="cancel_user" class="button normalText" onclick="redircetToPage('<?php echo url_for("@language_group_list")?>')" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
+            
         </form>
     </div>
 </div>

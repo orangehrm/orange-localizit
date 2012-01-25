@@ -20,51 +20,45 @@
                 <?php }
                 } ?>
                 <tr>
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td  class="tableColumnWidth removeLeftDotLine"><?php echo $addUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?> *</td>
-                    <td class="tableColumnWidth"><?php echo $addUserForm['login_name']->render() ?></td>
+                    <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $addUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?><span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth"><?php echo $addUserForm['login_name']->render() ?></td><!--
                     <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
                     <?php if ($addUserForm['login_name']->hasError()) { ?>
                     <?php echo $addUserForm['login_name']->renderError() ?>
                     <?php } ?>                        
-                    </td>
+                    --></td>
                 </tr>
                 <tr>
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td  class="tableColumnWidth removeLeftDotLine"><?php echo $addUserForm['password']->renderLabel(__('password', null, 'authenticationMessages')) ?> *</td>
-                    <td class="tableColumnWidth"><?php echo $addUserForm['password']->render() ?></td>
+                    <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $addUserForm['password']->renderLabel(__('password', null, 'authenticationMessages')) ?><span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth"><?php echo $addUserForm['password']->render() ?></td><!--
                     <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
                     <?php if ($addUserForm['password']->hasError()) { ?>
                     <?php echo $addUserForm['password']->renderError() ?>
                     <?php } ?>                        
                     </td>
-                </tr>
+                --></tr>
                 <tr>
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td  class="tableColumnWidth removeLeftDotLine"><?php echo $addUserForm['confirm_password']->renderLabel(__('confirm_password', null, 'userManagementMessages')) ?> *</td>
-                    <td class="tableColumnWidth"><?php echo $addUserForm['confirm_password']->render() ?></td>
+                    <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $addUserForm['confirm_password']->renderLabel(__('confirm_password', null, 'userManagementMessages')) ?><span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth"><?php echo $addUserForm['confirm_password']->render() ?></td><!--
                     <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
                     <?php if ($addUserForm['confirm_password']->hasError()) { ?>
                     <?php echo $addUserForm['confirm_password']->renderError() ?>
                     <?php } ?>
                     </td>
-                </tr>
+                --></tr>
 
                 <tr>
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td class="tableColumnWidth removeLeftDotLine">
-                       <?php echo $addUserForm['user_type_id']->renderLabel(__('user_type', null, 'authenticationMessages')) ?> *
+                    <td class="tableColumnWidth removeLeftDotLine labelColumn">
+                       <?php echo $addUserForm['user_type_id']->renderLabel(__('user_type', null, 'authenticationMessages')) ?> <span class="mandatoryStar">*</span>
                     </td>
                     <td><?php include_component('userManagement', 'UserList'); ?>
                     </td>
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight">
                     &nbsp;
                     </td>
                 </tr>
                 
                <tr id="langId">
-                    <td class="tableIndexColumn">&nbsp;</td>
-                    <td class="tableColumnWidth removeLeftDotLine">
+                    <td class="tableColumnWidth removeLeftDotLine labelColumn">
                         <?php echo __('languages', null, 'userManagementMessages') ?>
                     </td>
                     <td>
@@ -81,21 +75,14 @@
                             </table>
                             <?php } ?>
                     </td>
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight">&nbsp;</td>
                 </tr>
-
-                 <tr>
-                    <td>&nbsp;</td>
-                    <td  class="removeLeftDotLine">&nbsp;</td>
-                    <td>
-                        <input type="hidden" name="user[action]" value="add" />
-                        <input type="button" name="save_user" id="save_user" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" />
-                        <input type="button" name="cancel_user" onclick="redircetToPage('<?php echo url_for("@userManagement")?>')" id="cancel_user" class="button normalText" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
-                    </td>
-                    <td class="removeLeftDotLine addDotLinetoRight">&nbsp;</td>
-                </tr>
-
+                 
             </table>
+            <?php include_partial('localization/mandetoryFieldMessage')?></td>
+            <input type="hidden" name="user[action]" value="add" />
+            <input type="button" name="save_user" id="save_user" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" />
+            <input type="button" name="cancel_user" onclick="redircetToPage('<?php echo url_for("@userManagement")?>')" id="cancel_user" class="button normalText" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
+            
         </form>
     </div>
 </div>

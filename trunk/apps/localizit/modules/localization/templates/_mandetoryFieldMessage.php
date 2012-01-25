@@ -1,0 +1,1 @@
+<div id="requiredField">Fields marked with an asterisk <span class="mandatoryStar">*</span> &nbsp;are required.</div>

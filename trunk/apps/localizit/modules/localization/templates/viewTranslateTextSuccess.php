@@ -27,23 +27,16 @@
                 <td class="tableColumnWidth addDotLinetoRight"><?php echo $sourceLanguage->getName()." (". $sourceLanguage->getCode().")"; ?></td>
             </tr>
             <tr>
-                <td class=""><?php echo __('target_language', null, 'localizationMessages') ?></td>
+                <td class=""><?php echo __('target_language', null, 'localizationMessages') ?><span class="mandatoryStar">*</span></td>
                 <td class="addDotLinetoRight"><?php include_component('localization', 'LanguageList'); ?></td>
             </tr>
             <tr>
-                <td><?php echo __('language_group', null, 'localizationMessages') ?></td>
+                <td><?php echo __('language_group', null, 'localizationMessages') ?><span class="mandatoryStar">*</span></td>
                 <td><?php include_component('localization', 'GroupList')?></td>
             </tr>
-            <table>
-                <tr>
-                    <div class="formBorder">
-                            <div class="formCellOne">
-                                <input type="submit" name="display" id="dispay" class="button normalText" value="<?php echo __('display', null, 'localizationMessages') ?>" />&nbsp;
-                            </div>
-                     </div>                                       
-                </tr>
-            </table>
         </table>
+        <?php include_partial('localization/mandetoryFieldMessage')?>
+        <input type="submit" name="display" id="dispay" class="button normalText" value="<?php echo __('display', null, 'localizationMessages') ?>" />&nbsp;
         </form>
     </div>
 </div>
