@@ -42,7 +42,14 @@ class viewTranslateTextAction extends sfAction {
             $this->targetLanguageId = $request->getParameter('languageList');
             $form = $request->getParameter('add_label');
             $this->languageGroupId = $form['language_group_id'];
-            $this->sourceList = $this->getLocalizeService()->getTargetStringByLanguageAndSourceGroupId($this->targetLanguageId, $this->languageGroupId);
+            if(($this->targetLanguageId == 0) || ($this->languageGroupId == 0)) {
+                $this->getUser()->setFlash('errorMessage', "Select Valid Target Language and Language Group", false);
+            } else {
+                $this->sourceList = $this->getLocalizeService()->getTargetStringByLanguageAndSourceGroupId($this->targetLanguageId, $this->languageGroupId);
+                if(count($this->sourceList) == 0) {
+                    $this->getUser()->setFlash('errorMessage', "Result Count is Zero", false);
+                }
+            }
         }
         
         $localizationService = $this->getLocalizeService();

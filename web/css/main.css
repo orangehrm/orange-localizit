@@ -220,6 +220,7 @@ tfoot td {
 .pageHeader {
     font: bold small-caps 120%/1.3 "trebuchet ms",Helvetica,Arial,Sans-Serif;
     color: #363;
+    padding-bottom: 5px;
 }
 
 label.error {
@@ -313,4 +314,22 @@ div#requiredField {
 
 #edit_user_form table td.labelColumn{
     width: 175px;
+}
+
+.messageBar{
+    position: relative;
+    left: 30px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 630px;
+    font-size: 17px;
+    font-family: Helvetica,Arial,Sans-Serif;
+}
+
+.messageBar span.error{
+    color: #FB0000;
+}
+
+.messageBar span.success{
+    color: #390;
 }

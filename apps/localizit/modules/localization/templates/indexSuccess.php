@@ -4,6 +4,13 @@
     var fileCount = "<?php echo count($files)?>";
     $(".sf-menu li.homepage").addClass("current");
 </script>
+<div class="messageBar">
+        <?php if($sf_user->getFlash('errorMessage') != '') { ?>
+            <span class="error"><?php echo $sf_user->getFlash('errorMessage'); ?></span>
+        <?php } else if($sf_user->getFlash('successMessage') != '') { ?>
+            <span class="success"><?php   echo $sf_user->getFlash('successMessage');?></span>
+        <?php } ?>
+</div>
 <div class="outerBorder homePageBorder">
     <div class="homePage">
         <div class="mediumText pageHeader">

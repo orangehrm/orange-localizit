@@ -56,11 +56,13 @@ class generateDictionaryAction extends sfAction {
             try {
                 $role = sfContext::getInstance()->getUser()->getUserRole();
                 $result = false;
-                if (in_array($targetLanguageId, $role->getAllowedLanguageList()))
+                if (in_array($targetLanguageId, $role->getAllowedLanguageList())) {
                     $result = $this->localizationService->generateDictionary($sourceLanguageId, $targetLanguageId, $languageGroupId);
-
+                }
                 if (!$result) {
                     $this->getResponse()->setError('Error');
+                } else {
+                    $this->getUser()->setFlash('successMessage', "Dictionary File Created Successfully", true);
                 }
             } catch (Exception $ex) {
                 echo 'Error : '.$ex->getMessage();

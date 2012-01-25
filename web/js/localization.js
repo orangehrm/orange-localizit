@@ -30,9 +30,10 @@ $(document).ready(function (){
         targetLanguageId=$('#languageList').val();
         lanagueGroupId = $('#add_label_language_group_id').val();
         if ((lanagueGroupId != "0") && (targetLanguageId != 0)) {
+            $(".messageBar").html('');
             generateDictionary('localization/generateDictionary',targetLanguageId ,lanagueGroupId);
         } else {
-            jAlert('Select valid Target Language and Language Group!', 'Error');
+            $(".messageBar").html("<span class='error'>Select Valid Target Language and Language Group</span>");
         }
     });
 
@@ -41,9 +42,10 @@ $(document).ready(function (){
         targetLanguageId=$('#languageList').val();
         languageGroupId = $('#add_label_language_group_id').val();
         if((languageGroupId != "0") && (targetLanguageId != 0)) {
+            $(".messageBar").html('');
             downloadDictionary('localization/downloadDictionary', targetLanguageId, languageGroupId);
         } else {
-            jAlert('Select valid Target Language and Language Group!', 'Error');
+            $(".messageBar").html("<span class='error'>Select Valid Target Language and Language Group</span>");
         }
     });
     
@@ -189,6 +191,7 @@ $(document).ready(function (){
         $(this).hide();
     });
     $("#show_label_form").find("input#cancel").click(function () {
+        $(".messageBar span").remove();
         $(".target_label_input").attr("disabled", "disabled");
         $(".target_note_input").attr("disabled", "disabled");
         $("#show_label_form").find("input#save").hide();
@@ -276,13 +279,13 @@ function generateDictionary(url,targetLanguageId,languageGroupId){
         url: url+'?targetLanguageId='+targetLanguageId +'&languageGroupId='+languageGroupId,
         success: function() {
             if(fileCount == 0) {
-                jAlert('Dictionary file created successfully!', 'Success', function() { location.reload();});
+                location.reload();
             } else {
-                jAlert('Dictionary file created successfully!', 'Success');
+                $(".messageBar").html("<span class='success'>Dictionary File Created Successfully</span>");
             }
         },
         error: function(){
-            jAlert('Sorry, You have no access for this language!', 'Error');
+            $(".messageBar").html("<span class='error'>Sorry, You Have No Access for This Language</span>");
         }
     });
 }

@@ -142,6 +142,10 @@
                 <source>group</source>
                 <target>Group</target>
             </trans-unit>
+            <trans-unit id="36">
+                <source>language_group</source>
+                <target>Language Group</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
