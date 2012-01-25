@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    $(".sf-menu li.userManagement").addClass("current");
+</script>
 <div class="outerBorder homePageBorder">
     <div class="homePage">
         <div class="mediumText pageHeader">

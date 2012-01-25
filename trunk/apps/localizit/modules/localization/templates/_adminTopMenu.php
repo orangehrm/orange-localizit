@@ -3,23 +3,23 @@
     <tr>
         <td>
             <ul class="sf-menu">
-                <li>
+                <li class="homepage">
                     <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('download_dictionary', null, 'localizationMessages') ?></a>
                 </li>
                     <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToTranslateText()) { ?>
-                <li>
+                <li class="translateText">
                     <a href="<?php echo url_for('@translate_text'); ?>"><?php echo __('translate_text', null, 'localizationMessages') ?></a>
                 </li>
                     <?php } ?>
                     <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToAddLanguageGroup()) { ?>
-                <li>
-                    <a href="<?php echo url_for('@language_group_list'); ?>"><?php echo __('language_group', null, 'localizationMessages') ?></a>
+                <li class="group">
+                    <a href="<?php echo url_for('@language_group_list'); ?>"><?php echo __('group', null, 'localizationMessages') ?></a>
                 </li>
-                <li>
-                    <a href="<?php echo url_for('@manage_labels'); ?>"><?php echo __('Manage Labels', null, 'localizationMessages') ?></a>
+                <li class="manageLabels">
+                    <a href="<?php echo url_for('@manage_labels'); ?>"><?php echo __('manage_labels', null, 'localizationMessages') ?></a>
                 </li>
                     <?php } ?>
-                <li class="current">
+                <li class="userManagement">
                     <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToManageUser()) { ?>
                         <a href="<?php echo url_for('@userManagement'); ?>"><?php echo __('users', null, 'localizationMessages') ?></a>
                     <?php } ?>

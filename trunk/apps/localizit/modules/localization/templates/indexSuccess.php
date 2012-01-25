@@ -2,9 +2,13 @@
 <?php $dirname = dirname(sfConfig::get('sf_language_dir')); ?>
 <?php $files = glob($dirname."/language_files/*");?>
     var fileCount = "<?php echo count($files)?>";
+    $(".sf-menu li.homepage").addClass("current");
 </script>
 <div class="outerBorder homePageBorder">
     <div class="homePage">
+        <div class="mediumText pageHeader">
+            <?php echo __('download_dictionary', null, 'localizationMessages') ?>
+        </div>
         <span class="errorMsg"><?php echo $sf_user->getFlash('message'); ?></span>
         <table class="mainFrame mediumText">
             <tr class="mainRowWidth">
