@@ -32,7 +32,7 @@ $(document).ready(function (){
         if ((lanagueGroupId != "0") && (targetLanguageId != 0)) {
             generateDictionary('localization/generateDictionary',targetLanguageId ,lanagueGroupId);
         } else {
-            jAlert('Select valid group and language!', 'Error');
+            jAlert('Select valid Target Language and Language Group!', 'Error');
         }
     });
 
@@ -43,7 +43,7 @@ $(document).ready(function (){
         if((languageGroupId != "0") && (targetLanguageId != 0)) {
             downloadDictionary('localization/downloadDictionary', targetLanguageId, languageGroupId);
         } else {
-            jAlert('Select valid group and language!', 'Error');
+            jAlert('Select valid Target Language and Language Group!', 'Error');
         }
     });
     
@@ -224,6 +224,10 @@ $(document).ready(function (){
             });
     });
 });
+
+function redircetToPage(path) {
+    window.location.href = path;
+}
 
 function fetchLangugeLabelSet(url,targetLanguageId,dataSetPane){
     $.ajax({
