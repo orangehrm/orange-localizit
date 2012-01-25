@@ -12,15 +12,15 @@
                 </li>
                     <?php } ?>
                     <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToAddLanguageGroup()) { ?>
-                <li class="group">
-                    <a href="<?php echo url_for('@language_group_list'); ?>"><?php echo __('group', null, 'localizationMessages') ?></a>
-                </li>
                 <li class="manageLabels">
                     <a href="<?php echo url_for('@manage_labels'); ?>"><?php echo __('manage_labels', null, 'localizationMessages') ?></a>
                 </li>
                     <?php } ?>
-                <li class="userManagement">
                     <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToManageUser()) { ?>
+                <li class="group">
+                    <a href="<?php echo url_for('@language_group_list'); ?>"><?php echo __('group', null, 'localizationMessages') ?></a>
+                </li>
+                <li class="userManagement">
                         <a href="<?php echo url_for('@userManagement'); ?>"><?php echo __('users', null, 'localizationMessages') ?></a>
                     <?php } ?>
                 </li>
