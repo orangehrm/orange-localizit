@@ -87,7 +87,7 @@
                     <td>
                         <input type="hidden" name="user[action]" value="add" />
                         <input type="button" name="save_user" id="save_user" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>" />
-                        <input type="button" name="cancel_user" id="cancel_user" class="button normalText" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
+                        <input type="button" name="cancel_user" onclick="redircetToPage('<?php echo url_for("@userManagement")?>')" id="cancel_user" class="button normalText" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
                     </td>
                     <td class="removeLeftDotLine addDotLinetoRight">&nbsp;</td>
                 </tr>

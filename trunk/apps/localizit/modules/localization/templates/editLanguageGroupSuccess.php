@@ -34,7 +34,7 @@
                     <td  class="removeLeftDotLine">&nbsp;</td>
                     <td>
                         <input type="button" name="update_group" id="update_group" class="button normalText" value="<?php echo __('update', null, 'localizationMessages') ?>" />
-                        <input type="button" name="cancel_user" id="cancel_user" class="button normalText" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
+                        <input type="button" name="cancel_user" id="cancel_user" class="button normalText" onclick="redircetToPage('<?php echo url_for("@language_group_list")?>')" value="<?php echo __('cancel', null, 'authenticationMessages') ?>" />
                     </td>
                     <td class="removeLeftDotLine addDotLinetoRight">&nbsp;</td>
                 </tr>
