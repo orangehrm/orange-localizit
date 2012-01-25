@@ -141,16 +141,20 @@ $(document).ready(function (){
     
     $("#uploadForm_Target_language").attr("disabled", "disabled");
     $("#uploadForm_Target_note").attr("disabled", "disabled");
+    $("#uploadForm_Target_language").closest("tr").find("td .mandatoryStar").hide();
     $('#uploadForm_Include_target_value').click(function(){
         if ($('#uploadForm_Include_target_value').is(':checked'))
         {
             $("#uploadForm_Target_language").removeAttr("disabled");
             $("#uploadForm_Target_note").removeAttr("disabled");
+            $("#uploadForm_Target_language").closest("tr").find("td .mandatoryStar").show();
+            
         }
         else
         {
             $("#uploadForm_Target_language").attr("disabled", "disabled");
             $("#uploadForm_Target_note").attr("disabled", "disabled");
+            $("#uploadForm_Target_language").closest("tr").find("td .mandatoryStar").hide();
         }
        
     });
