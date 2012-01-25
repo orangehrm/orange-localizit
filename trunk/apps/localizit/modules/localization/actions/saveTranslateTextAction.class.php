@@ -44,5 +44,6 @@ class saveTranslateTextAction extends sfAction {
                 }
             }
         }
+        $this->getUser()->setFlash('editSuccessmessage', "Records Updated Successfully", true);
     }
 }

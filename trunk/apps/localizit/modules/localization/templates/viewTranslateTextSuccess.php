@@ -14,12 +14,18 @@
     var setLanguageId = "<?php echo $targetLanguageId;?>";
     var languageGroupId = "<?php echo $languageGroupId?>";
 </script>
+<div class="messageBar">
+        <?php if($sf_user->getFlash('errorMessage') != '') { ?>
+            <span class="error"><?php echo $sf_user->getFlash('errorMessage'); ?></span>
+        <?php } else if($sf_user->getFlash('successMessage') != '') { ?>
+            <span class="success"><?php echo $sf_user->getFlash('successMessage');?></span>
+        <?php } ?>
+</div>
 <div class="outerBorder homePageBorder">
     <div class="homePage">
         <div class="mediumText pageHeader">
             <?php echo __('translate_text', null, 'localizationMessages') ?>
         </div>
-        <span class="errorMsg"><?php echo $sf_user->getFlash('message'); ?></span>
         <form id="language_search_form" name="language_search_form" action="" method="post">
         <table class="mainFrame mediumText">
             <tr class="mainRowWidth">
@@ -40,9 +46,18 @@
         </form>
     </div>
 </div>
-<?php if($sourceList) {?>
+
+<?php if(count($sourceList) > 0) {?>
 <div class="aouterBorder">
+
     <div class="homePage">
+    <div class="messageBar">
+        <?php if($sf_user->getFlash('editErrorMessage') != '') { ?>
+            <span class="error"><?php echo $sf_user->getFlash('editErrorMessage'); ?></span>
+        <?php } else if($sf_user->getFlash('editSuccessmessage') != '') { ?>
+            <span class="success"><?php   echo $sf_user->getFlash('editSuccessmessage');?></span>
+        <?php } ?>
+    </div>
     <form action="localization/saveTranslateText" method="post" id="show_label_form" name="show_label_form">
     <input type="hidden" name="add_label[language_group_id]" value="<?php echo $languageGroupId;?>"/>
     <input type="hidden" name="languageList" value="<?php echo $targetLanguageId;?>"/>
