@@ -1,3 +1,6 @@
+<script type="text/javascript">
+$(".sf-menu li.group").addClass("current");
+</script>
 <div class="outerBorder homePageBorder">
     <div class="homePage">
 
@@ -10,7 +13,7 @@
         </table>
         <?php if(count($languageGroupList) > 0 ) { ?>
         <div class="mediumText pageHeader">
-            <?php echo __('language_list', null, 'localizationMessages') ?>
+            <?php echo __('group_list', null, 'localizationMessages') ?>
         </div>
         <table class="mainFrame mediumText">
             <thead>

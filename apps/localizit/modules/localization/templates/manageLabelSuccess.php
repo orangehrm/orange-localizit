@@ -1,5 +1,11 @@
+<script type="text/javascript">
+    $(".sf-menu li.manageLabels").addClass("current");
+</script>
 <div id="labelUploadDiv" class="outerBorder homePageBorder" style="width: 600px; display: block;">
     <div class="homePage">
+        <div class="mediumText pageHeader">
+            <?php echo __('manage_labels', null, 'localizationMessages') ?>
+        </div>
         <div >
             
         <form action="<?php echo url_for('@manage_labels'); ?>" method="post" id="upload_label_form" name="upload_label_form" enctype="multipart/form-data">

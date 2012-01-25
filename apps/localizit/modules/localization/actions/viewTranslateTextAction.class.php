@@ -24,6 +24,8 @@ class viewTranslateTextAction extends sfAction {
         if(!$this->getUser()->isAuthenticated()) {
             $this->redirect('@loginpage');
         }
+        $this->targetLanguageId = null;
+        $this->languageGroupId = null;
         $this->sourceList = null;
         $userObject = $this->getUser();
         $this->role = sfContext::getInstance()->getUser()->getUserRole();

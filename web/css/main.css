@@ -274,3 +274,7 @@ input.error {
     border: 2px inset;
     height: 35px;
 }
+
+ul.sf-menu li.current{
+    background: #78d578;
+}

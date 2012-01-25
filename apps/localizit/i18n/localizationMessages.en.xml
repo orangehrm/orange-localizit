@@ -103,8 +103,8 @@
                 <target>Edit Group</target>
             </trans-unit>
             <trans-unit id="26">
-                <source>language_group</source>
-                <target>Language Group</target>
+                <source>group_list</source>
+                <target>Group List</target>
             </trans-unit>
             <trans-unit id="27">
                 <source>translate_text</source>
@@ -133,6 +133,14 @@
             <trans-unit id="33">
                 <source>display</source>
                 <target>Display</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>manage_labels</source>
+                <target>Manage Labels</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>group</source>
+                <target>Group</target>
             </trans-unit>
         </body>
     </file>

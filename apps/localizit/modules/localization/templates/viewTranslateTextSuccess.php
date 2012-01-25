@@ -1,4 +1,5 @@
 <script type="text/javascript">
+    $(".sf-menu li.translateText").addClass("current");
     var languageArray = new Array();
     var i = 0;
     <?php 
@@ -15,6 +16,9 @@
 </script>
 <div class="outerBorder homePageBorder">
     <div class="homePage">
+        <div class="mediumText pageHeader">
+            <?php echo __('translate_text', null, 'localizationMessages') ?>
+        </div>
         <span class="errorMsg"><?php echo $sf_user->getFlash('message'); ?></span>
         <form id="language_search_form" name="language_search_form" action="" method="post">
         <table class="mainFrame mediumText">
