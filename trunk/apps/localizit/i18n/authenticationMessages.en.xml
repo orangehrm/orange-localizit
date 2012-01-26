@@ -26,6 +26,22 @@
                 <source>user_type</source>
                 <target>User type</target>
             </trans-unit>
+            <trans-unit id="7">
+                <source>change password</source>
+                <target>Change Password</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>current password</source>
+                <target>Current Password</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>new password</source>
+                <target>New Password</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>confirm new password</source>
+                <target>Confirm New Password</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
