@@ -93,7 +93,7 @@ tfoot td {
 }
 
 .errorMsg ul.error_list li{
-	position: relative;
+    position: relative;
     left: -23px;
 }
 
@@ -328,6 +328,18 @@ div#requiredField {
     padding-bottom: 10px;
     text-align: center;
     width: 630px;
+    font-size: 17px;
+    font-family: Helvetica,Arial,Sans-Serif;
+}
+
+
+.messageBar.loginpage{
+    position: relative;
+    left: 440px;
+    top: 50px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 400px;
     font-size: 17px;
     font-family: Helvetica,Arial,Sans-Serif;
 }
