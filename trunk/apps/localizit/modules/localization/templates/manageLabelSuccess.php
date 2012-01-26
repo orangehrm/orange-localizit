@@ -14,9 +14,6 @@
                 <tr><td><?php echo $addLabelUploadForm['Language_group']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
                     <td><?php echo $addLabelUploadForm['Language_group']->render(); ?></td></tr>
                 
-                <tr><td><?php echo $addLabelUploadForm['Source_note']->renderLabel(); ?></td>
-                    <td><?php echo $addLabelUploadForm['Source_note']->render(); ?></td></tr>
-                
                 <tr><td><?php echo $addLabelUploadForm['Include_target_value']->renderLabel(); ?></td>
                     <td><?php echo $addLabelUploadForm['Include_target_value']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelUploadForm['Target_language']->renderLabel(); ?><span class="mandatoryStar">*</span></td>

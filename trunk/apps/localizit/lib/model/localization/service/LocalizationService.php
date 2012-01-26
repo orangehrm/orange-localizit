@@ -471,6 +471,28 @@ XML;
         return $trimsource;
     }
     
+     /* Read note from XML
+     * @returns source note array
+     * @throws DaoException
+     */
+    public function readNoteByXML($docName) {
+        $doc = new DOMDocument();
+        $doc->load($docName);
+        
+        if ($doc) {
+            $elements = $doc->getElementsByTagName("trans-unit");
+            foreach ($elements as $element) {
+                $notes = $element->getElementsByTagName("note");
+                $note = $notes->item(0)->nodeValue;
+                $trimsource[] = trim($note);
+            }
+        } else {
+            die("cannot load the xml");
+        }
+        
+        return $trimsource;
+    }
+    
      /* Read Target Language from XML
      * @returns label array
      * @throws DaoException
@@ -494,63 +516,22 @@ XML;
         
         return $trimsource;
     }
-    
-    
-    /* save the array dif to the database
-     * @return saved Source List
-     * @throws Dao Exception
-     */
-    public function addSourceWithGroupID($docName, $groupID, $note)
-    {
-        $localizationDao = $this->getLocalizationDao();
-        try
-        {
-            $xmlarray = $this->readSourceByXML($docName);
-            $uxmlarray = array_unique($xmlarray);
-            $databasearray = $this->getSource($groupID);
-            
-            foreach($databasearray as $dbitem)
-            {
-                $dblabelarray[] = $dbitem['value'];
-            }
-
-            foreach ($uxmlarray as $value)
-            {
-                if(!in_array($value, $dblabelarray))
-                {
-                    $result[] = $value;
-                }
-            }
-            
-            $uresult = array_unique($result);
-            
-            foreach($uresult as $item)
-            {
-                $label = new Source();
-                $label->setValue($item);
-                $label->setGroupId($groupID);
-                $label->setNote($note);
-                $localizationDao->addSource($label);
-            }
-        }
-        catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(), $exc->getCode());
-        }
-    }
 
     
     /* save the array dif to the database with target 
      * @return saved label list
      * @throws Dao Exception
      */
-    public function addSourceWithTarget($docName , Target $lstable, Source $sorcedata)
+    public function addSourceWithTarget($docName , Target $lstable, Source $sorcedata, $withTarget = false)
     {
         $localizationDao = $this->getLocalizationDao();
         try
         {
             $xmlarray = $this->readSourceByXML($docName);
+            
+            $unotearray = $this->readNoteByXML($docName);
             $uxmlarray = array_unique($xmlarray);
-
+            
             $databasearray = $this->getSource($sorcedata->getGroupId());
             $dblabelarray = array();
             foreach($databasearray as $dbitem)
@@ -558,52 +539,59 @@ XML;
                 $dblabelarray[] = $dbitem["value"];
             }
               
-            foreach ($uxmlarray as $value)
+            foreach ($uxmlarray as $key => $value)
             {
                 if(!in_array($value, $dblabelarray))
                 {
-                    $result[] = $value;
+                    $result[0][] = $value;
+                    $result[1][] = $unotearray[$key];
                 }
             }
-            $uresult = array_unique($result);
-              
-             
-            $targetLanguageXml = $this->readTargetLanguageByXML($docName);
-            foreach($targetLanguageXml as $item)
-            {
-                $xmltargetarray[] = array($item[0], $item[1]);                
+            $usourceresults = array_unique($result[0]);
+            foreach ($usourceresults as $key => $usourceresult) {
+                $uresult[0][$key] = $usourceresult;
+                $uresult[1][$key] = $result[1][$key];
+            }
+            if ($withTarget) {
+                $targetLanguageXml = $this->readTargetLanguageByXML($docName);
+                
+                foreach($targetLanguageXml as $item)
+                {
+                    $xmltargetarray[] = array($item[0], $item[1]);
+                }
             }
             
             
             $j=0;
-            foreach($uresult as $item)
+            foreach($uresult[0] as $key => $item)
             {
                 $sourceData = new Source();
                 $sourceData->setValue($item);
                 $sourceData->setGroupId($sorcedata->getGroupId());
-                $sourceData->setNote($sorcedata->getNote());
+                $sourceData->setNote($uresult[1][$key]);
                 $localizationDao->addSource($sourceData);
-
-                $stringArray;
-                foreach($xmltargetarray as $targetitem)
-                {
-                    if(strcmp($targetitem[0], $item) == 0)
+                if ($withTarget) {
+                    $stringArray;
+                    foreach($xmltargetarray as $targetitem)
                     {
-                        $stringArray[] = array($targetitem[0],$targetitem[1]);
+                        if(strcmp($targetitem[0], $item) == 0)
+                        {
+                            $stringArray[$targetitem[0]] = array($targetitem[0],$targetitem[1]);
+                        }
                     }
                 }
             }
             
-            
-            $ustringArray = array_unique($stringArray);
-            foreach ($ustringArray as $stringItem)
-            {
-                $targetData = new Target();
-                $targetData->setSourceId($this->getSourceByValue($stringItem[0]));
-                $targetData->setLanguageId($lstable->getLanguageId());
-                $targetData->setValue($stringItem[1]);
-                $targetData->setNote($lstable->getNote());
-                $localizationDao->addTarget($targetData); 
+            if ($withTarget) {
+                foreach ($stringArray as $stringItem)
+                {
+                    $targetData = new Target();
+                    $targetData->setSourceId($this->getSourceByValue($stringItem[0]));
+                    $targetData->setLanguageId($lstable->getLanguageId());
+                    $targetData->setValue($stringItem[1]);
+                    $targetData->setNote($lstable->getNote());
+                    $localizationDao->addTarget($targetData); 
+                }
             }
         }
         catch (Exception $exc) {

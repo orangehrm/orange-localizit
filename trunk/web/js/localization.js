@@ -348,9 +348,10 @@ function validateUploadForm()
     var lanGroup = $('#uploadForm_Language_group').val();
     var tarLan = $('#uploadForm_Target_language').val();
     var file = $('#uploadForm_File').val();
+    var withTarget = $("#uploadForm_Include_target_value").is(':checked');
     
     if(lanGroup == ''){alert ("Please select language Group");}
-    else if(tarLan == ''){alert ("Please select a lanuage to translate");}
+    else if((tarLan == '') && withTarget){alert ("Please select a lanuage to translate");}
     else if(file == ''){alert ("Please select a file");}
     else {return true;}
 
