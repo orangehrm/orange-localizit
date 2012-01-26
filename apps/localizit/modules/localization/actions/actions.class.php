@@ -187,12 +187,13 @@ class localizationActions extends sfActions {
                     $targetData->setLanguageId($targetLanguage);
                     $targetData->setNote($targetNote);
                     $localizationService->addSourceWithTarget($tempFilePath, $targetData, $sourceData, true);
-                    
+                    $this->getUser()->setFlash("successMessage", "Successfully Loaded the Language File", true);
                     $this->redirect("localization/manageLabel");
                 }
                 else
                 {
                    $res = $localizationService->addSourceWithTarget($tempFilePath, new Target(), $sourceData);
+                   $this->getUser()->setFlash("successMessage", "Successfully Loaded the Language File", true);
                    $this->redirect("localization/manageLabel");
                 }
             } else {echo $this->addLabelUploadForm->getErrorSchema();}
