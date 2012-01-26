@@ -339,3 +339,6 @@ div#requiredField {
 .messageBar span.success{
     color: #390;
 }
+.emptyRows{
+    background: #C0C0C0;
+}
