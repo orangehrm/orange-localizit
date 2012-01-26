@@ -138,7 +138,7 @@ class LocalizationService extends BaseService {
                 foreach ($sourceSet as $source) {
                     $dataRow[$source->getId()]['source_id'] = $source->getId();
                     $dataRow[$source->getId()]['source_value'] = $source->getValue();
-                    
+                    $dataRow[$source->getId()]['source_note'] = $source->getNote();
                     $targetSet = $source->getTarget();
                     foreach ($targetSet as $target) {
                         if ($targetLanguageId == $target->getLanguageId()) {
@@ -297,6 +297,7 @@ XML;
                     $transunit->addAttribute('id', $cont);
                     $transunit->addChild('source', $labelInnerData['source_value']);
                     $transunit->addChild('target', $labelInnerData['target_value']);
+                    $transunit->addChild('note', $labelInnerData['source_note']);
                     $cont++;
                 }
             }

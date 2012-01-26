@@ -79,11 +79,12 @@ class localizationActions extends sfActions {
                 
                 if($localizationService->checkSourceByGroupIdValue($lanGroupID, $source) > 0)
                 {   
-                    
+                    $this->getUser()->setFlash('errorMessage', "Duplicate Source Value", true);
                 }
                 else
                 {
                     $localizationService->addSource($sourcedata);
+                    $this->getUser()->setFlash('successMessage', "Successfully Added Source", true);
                 }
                 
                 $this->redirect("localization/manageLabel");
