@@ -1,3 +1,10 @@
+<div class="messageBar loginpage">
+        <?php if($sf_user->getFlash('errorMessage') != '') { ?>
+            <span class="error"><?php echo $sf_user->getFlash('errorMessage'); ?></span>
+        <?php } else if($sf_user->getFlash('successMessage') != '') { ?>
+            <span class="success"><?php echo $sf_user->getFlash('successMessage');?></span>
+        <?php } ?>
+</div>
 <div class="outerBorder loginBorderOuterFrame">
 <div class="loginForm">
     <form action="<?php echo url_for('@sign_in'); ?>" method="post" id="sign_in_form" name="sign_in_form">
@@ -6,26 +13,18 @@
             <?php echo __("orange_localizit", null, 'authenticationMessages'); ?>
         </div>
         <table class="mediumText loginFormBackGround">
-            <?php $globalErrors=$signInForm->getGlobalErrors();
-            if(count($globalErrors)>0) {
-                foreach ($globalErrors as $name => $error) { ?>
-            <tr>
-                <td> <span class="errorMsg"><?php echo $error ?> </span></td>
-            </tr>
-                    <?php }
-            }?>
-            <tr>
+             <tr>
                 <td >
                     <?php echo $signInForm['loginName']->renderLabel( __('username', null, 'authenticationMessages')) ?>
                 </td>
                 <td class="addDotLinetoRight">
                     <?php echo $signInForm['loginName']->render() ?>
-                </td>
+                    <div class="errorMsg">
                 <?php if ($signInForm['loginName']->hasError()) { ?>
-                <td class="errorMsg addDotLinetoRight">
                       <?php echo $signInForm['loginName']->renderError() ?>
-                </td>
                 <?php } ?>
+                </div>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -33,21 +32,19 @@
                 </td>
                 <td class="addDotLinetoRight">
                     <?php echo $signInForm['password']->render() ?>
-                </td>
+                <div class="errorMsg">
                 <?php if ($signInForm['password']->hasError()) { ?>
-                <td class="errorMsg addDotLinetoRight addDotLineToBottom">
                     <?php echo $signInForm['password']->renderError() ?>
-                </td>
                 <?php } ?>
+                </div></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <td class="addDotLinetoRight">
                     <input type="button" name="login_label" id="login" class="button normalText" value="<?php echo __('login', null , 'authenticationMessages') ?>" />
-                    <input type="reset" name="cancel_label" id="cancel_label" class="button normalText" value="<?php echo __('cancel', null , 'authenticationMessages') ?>" />
+                    <input type="reset" name="cancel_label" id="cancel_label" class="button normalText" onclick="redircetToPage('<?php echo url_for("@homepage")?>')" value="<?php echo __('cancel', null , 'authenticationMessages') ?>" />
                 </td>
                 <?php if ($signInForm['password']->hasError() || $signInForm['loginName']->hasError()) { ?>
-                <td class="addDotLinetoRight">&nbsp;</td>
                 <?php } ?>
             </tr>
         </table>

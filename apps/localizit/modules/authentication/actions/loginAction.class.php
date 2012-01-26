@@ -45,6 +45,13 @@ class loginAction extends sfAction {
                     $this->getUser()->setAttribute('username', $signIn['loginName']);
                     
                     $this->redirect('@homepage');
+                } {
+                    $globalErrors=$this->signInForm->getGlobalErrors();
+                    if(count($globalErrors)>0) {
+                        foreach ($globalErrors as $name => $error) {
+                            $this->getUser()->setFlash('errorMessage', $error, false);
+                        }
+                    }
                 }
             }
         } else {
