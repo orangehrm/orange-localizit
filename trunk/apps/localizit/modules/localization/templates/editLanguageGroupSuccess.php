@@ -22,14 +22,12 @@
                 <tr>
                     <td  class="tableColumnWidth removeLeftDotLine"><?php echo $editLangGroupForm['group_name']->renderLabel(__('group_name', null, 'localizationMessages')) ?> <span class="mandatoryStar">*</span></td>
                     <td class="tableColumnWidth">
-                        <input type="text" name="add_language_group[group_name]" id="add_language_group_group_name" value="<?php echo isset($langGroup['group_name']) ? $langGroup['group_name'] : null ?>" />
-                    </td><!--
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
+                        <?php echo $editLangGroupForm['group_name']->render()?>
+                    <div class="errorMsg">
                     <?php if ($editLangGroupForm['group_name']->hasError()) { ?>
                     <?php echo $editLangGroupForm['group_name']->renderError() ?>
                     <?php } ?>
-                    </td>
-                --></tr>
+                    </div></tr>
             </table>
             <?php include_partial('localization/mandetoryFieldMessage')?>
             <input type="button" name="update_group" id="update_group" class="button normalText" value="<?php echo __('update', null, 'localizationMessages') ?>" />

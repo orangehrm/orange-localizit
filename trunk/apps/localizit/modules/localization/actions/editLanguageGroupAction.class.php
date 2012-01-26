@@ -32,7 +32,7 @@ class editLanguageGroupAction extends sfAction {
         $this->editLangGroupForm = new LanguageGroupForm();
         $this->langGroup = $localizationService->getGroupById($request->getParameter('id'));
         $this->id = $request->getParameter('id');
-
+        $this->editLangGroupForm->setDefault('group_name', $this->langGroup->getName());
         if ($request->isMethod(sfRequest::POST)) {
             $this->editLangGroupForm->bind($request->getParameter($this->editLangGroupForm->getName()));
 

@@ -23,13 +23,11 @@
                     <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $editUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?> <span class="mandatoryStar">*</span></td>
                     <td class="tableColumnWidth">
                         <input type="text" name="user[login_name]" value="<?php echo isset($user['username']) ? $user['username'] : null ?>" class="text_input" />
-                    </td><!--
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
+                    <div class="errorMsg">
                     <?php if ($editUserForm['login_name']->hasError()) { ?>
                     <?php echo $editUserForm['login_name']->renderError() ?>
                     <?php } ?>
-                    </td>
-                --></tr>            
+                    </div></tr>            
                 
                 <tr>
                     <td class="tableColumnWidth removeLeftDotLine labelColumn">

@@ -21,31 +21,29 @@
                 } ?>
                 <tr>
                     <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $addUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?><span class="mandatoryStar">*</span></td>
-                    <td class="tableColumnWidth"><?php echo $addUserForm['login_name']->render() ?></td><!--
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
+                    <td class="tableColumnWidth"><?php echo $addUserForm['login_name']->render() ?>
+                    <div class="errorMsg">
                     <?php if ($addUserForm['login_name']->hasError()) { ?>
                     <?php echo $addUserForm['login_name']->renderError() ?>
                     <?php } ?>                        
-                    --></td>
+                    </div></td>
                 </tr>
                 <tr>
                     <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $addUserForm['password']->renderLabel(__('password', null, 'authenticationMessages')) ?><span class="mandatoryStar">*</span></td>
-                    <td class="tableColumnWidth"><?php echo $addUserForm['password']->render() ?></td><!--
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
+                    <td class="tableColumnWidth"><?php echo $addUserForm['password']->render() ?>
+                    <div class="errorMsg">
                     <?php if ($addUserForm['password']->hasError()) { ?>
                     <?php echo $addUserForm['password']->renderError() ?>
                     <?php } ?>                        
-                    </td>
-                --></tr>
+                    </div></tr>
                 <tr>
                     <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $addUserForm['confirm_password']->renderLabel(__('confirm_password', null, 'userManagementMessages')) ?><span class="mandatoryStar">*</span></td>
-                    <td class="tableColumnWidth"><?php echo $addUserForm['confirm_password']->render() ?></td><!--
-                    <td class="tableColumnWidth removeLeftDotLine addDotLinetoRight errorMsg">
+                    <td class="tableColumnWidth"><?php echo $addUserForm['confirm_password']->render() ?>
+                    <div class="errorMsg">
                     <?php if ($addUserForm['confirm_password']->hasError()) { ?>
                     <?php echo $addUserForm['confirm_password']->renderError() ?>
                     <?php } ?>
-                    </td>
-                --></tr>
+                    </div></tr>
 
                 <tr>
                     <td class="tableColumnWidth removeLeftDotLine labelColumn">
