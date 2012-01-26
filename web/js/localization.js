@@ -350,9 +350,9 @@ function validateUploadForm()
     var file = $('#uploadForm_File').val();
     var withTarget = $("#uploadForm_Include_target_value").is(':checked');
     
-    if(lanGroup == ''){alert ("Please select language Group");}
-    else if((tarLan == '') && withTarget){alert ("Please select a lanuage to translate");}
-    else if(file == ''){alert ("Please select a file");}
+    if(lanGroup == ''){$(".messageBar").html("<span class='error'>Please Select Language Group</span>");}
+    else if((tarLan == '') && withTarget){$(".messageBar").html("<span class='error'>Please Select a Lanuage to Translate</span>");}
+    else if(file == ''){$(".messageBar").html("<span class='error'>Please Select a File</span>");}
     else {return true;}
 
     
@@ -363,7 +363,7 @@ function validateAddSourceForm()
     var label = $('#addSourceForm_Label').val();
     var lanGroup = $('#addSourceForm_Language_group').val();
     
-    if(label == ''){alert("Please enter a label");}
-    else if(lanGroup == ''){alert("Please select a language group");}
+    if(label == ''){$(".messageBar").html("<span class='error'>Please Enter a Source</span>");}
+    else if(lanGroup == ''){$(".messageBar").html("<span class='error'>Please Select a Group</span>");}
     else{return true;}
 }
