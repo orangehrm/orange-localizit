@@ -50,10 +50,13 @@ $(document).ready(function (){
     });
     
     $('#deleteAdminLabel').click(function (){
-        var r=confirm("Are you sure you want to delete selected labels");
-        if (r==true)
-        {
-            submitForm('deleteLanguageLabelList');
+        var withTarget = $(".checkbox_list").is(':checked');
+        if(withTarget) {
+            jConfirm("Are you sure you want to delete selected labels","Warning", function(r) {
+                if (r) submitForm('deleteLanguageLabelList');
+            });
+        } else {
+            $(".listMessageBar").html("<span class='error'>Please Select at Least One Row to Delete</span>");
         }
     });
     

@@ -38,7 +38,13 @@
 </div>
 </div>
 
-
+<div class="listMessageBar">
+        <?php if($sf_user->getFlash('listErrorMessage') != '') { ?>
+            <span class="error"><?php echo $sf_user->getFlash('listErrorMessage'); ?></span>
+        <?php } else if($sf_user->getFlash('listSuccessMessage') != '') { ?>
+            <span class="success"><?php echo $sf_user->getFlash('listSuccessMessage');?></span>
+        <?php } ?>
+</div>
 <div id="addLabelDiv2" style="display: none;">
 <div class="outerBorder homePageBorder addLabelPage">
     <div class="homePage">
