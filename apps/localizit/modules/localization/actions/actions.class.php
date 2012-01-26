@@ -176,26 +176,23 @@ class localizationActions extends sfActions {
                 $targetLanguage = $this->addLabelUploadForm->getValue('Target_language');
                 $fileName = $this->addLabelUploadForm->getValue('File');
                 $tempFilePath = $fileName->getTempName();
-                $sourceNote = $this->addLabelUploadForm->getValue('Source_note');
                 $targetNote = $this->addLabelUploadForm->getValue('Target_note');
                 
+                
+                $sourceData = new Source();
+                $sourceData->setGroupId($lanGroupID);
                 if($this->addLabelUploadForm->getValue('Include_target_value'))
                 {
                     $targetData = new Target();
                     $targetData->setLanguageId($targetLanguage);
                     $targetData->setNote($targetNote);
-                    
-                    $sourceData = new Source();
-                    $sourceData->setGroupId($lanGroupID);
-                    $sourceData->setNote($sourceNote);
-                    
-                    $localizationService->addSourceWithTarget($tempFilePath, $targetData, $sourceData);
+                    $localizationService->addSourceWithTarget($tempFilePath, $targetData, $sourceData, true);
                     
                     $this->redirect("localization/manageLabel");
                 }
                 else
                 {
-                   $res = $localizationService->addSourceWithGroupID($tempFilePath, $lanGroupID, $sourceNote); 
+                   $res = $localizationService->addSourceWithTarget($tempFilePath, new Target(), $sourceData);
                    $this->redirect("localization/manageLabel");
                 }
             } else {echo $this->addLabelUploadForm->getErrorSchema();}

@@ -39,7 +39,6 @@ class LabelUploadForm extends sfForm
         
       'Target_language' => new sfWidgetFormSelect(array('choices' => $targetLan)),
       'Include_target_value' => new sfWidgetFormInputCheckbox(array(),array('class' => 'text_input')),
-      'Source_note' => new sfWidgetFormTextarea(array(),array('class' => 'text_input')),
       'Target_note' => new sfWidgetFormTextarea(array(),array('class' => 'text_input')),
       'File' => new sfWidgetFormInputFile()
     ));
@@ -48,7 +47,6 @@ class LabelUploadForm extends sfForm
       'Language_group'   => new sfValidatorString(array('required' => false)),
       'Target_language' => new sfValidatorString(array('required' => false , 'max_length' => 255)),
       'Include_target_value' => new sfValidatorString(array('required' => false)),
-      'Source_note' => new sfValidatorString(array('required' => false)),
       'Target_note' => new sfValidatorString(array('required' => false)),
       'File' => new sfValidatorFile(array('max_size' => 5000000   ,'required' => false, 'path' => sfConfig::get('sf_upload_dir')))
     ));
