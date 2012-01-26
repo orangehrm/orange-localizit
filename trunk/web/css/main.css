@@ -332,6 +332,23 @@ div#requiredField {
     font-family: Helvetica,Arial,Sans-Serif;
 }
 
+.listMessageBar{
+    position: relative;
+    left: 30px;
+    top: 20px;
+    text-align: center;
+    width: 630px;
+    font-size: 17px;
+    font-family: Helvetica,Arial,Sans-Serif;
+}
+
+.listMessageBar span.error{
+    color: #FB0000;
+}
+
+.listMessageBar span.success{
+    color: #390;
+}
 
 .messageBar.loginpage{
     position: relative;

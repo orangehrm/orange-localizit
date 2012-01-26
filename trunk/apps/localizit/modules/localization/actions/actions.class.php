@@ -223,10 +223,12 @@ class localizationActions extends sfActions {
         {
             $localizationService = $this->getLocalizeService();
             $localizationService->deleteSourceById($checkedid);
+            $this->getUser()->setFlash('listSuccessMessage', "Successfully Deleted", true);
             $this->redirect("localization/manageLabel");
         }
         else
         {
+            $this->getUser()->setFlash('listErrorMessage', "Please Select at Least One Row to Delete", true);
             $this->forward("localization", "updateLabelList");
             $this->redirect("localization/manageLabel");
         }
