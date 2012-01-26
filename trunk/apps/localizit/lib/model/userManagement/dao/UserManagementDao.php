@@ -53,11 +53,6 @@ class UserManagementDao extends BaseDao {
      */
     public function updateUser(User $user) {
         try {
-            echo $user->getUsername(). "/";
-            echo $user->getPassword() . "/";
-            echo $user->getUserTypeId(). "/";
-            echo $user->getId();
-            
             $query = Doctrine_Query::create()
                             ->update('User u')
                             ->set('u.username ', "\"{$user->getUsername()}\"")
