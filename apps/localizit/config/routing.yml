@@ -81,7 +81,10 @@ language_group_list:
 edit_language_group:
   url: /edit_language_group
   param: { module: localization, action: editLanguageGroup }
-
+change_password:
+  url: /change_password
+  param: { module: localization, action: changePassword }
+  
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
