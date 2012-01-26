@@ -230,6 +230,14 @@ $(document).ready(function (){
                     }
             });
     });
+    
+    $("#show_label_form input.target_label_input").each(function() {
+        if($(this).val() == '') {
+            $(this).closest('tr').addClass('emptyRows');
+        } else {
+            $(this).closest('tr').removeClass('emptyRows');
+        }
+    });
 });
 
 function redircetToPage(path) {
