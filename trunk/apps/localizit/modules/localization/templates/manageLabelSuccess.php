@@ -1,6 +1,13 @@
 <script type="text/javascript">
     $(".sf-menu li.manageLabels").addClass("current");
 </script>
+<div class="messageBar">
+        <?php if($sf_user->getFlash('errorMessage') != '') { ?>
+            <span class="error"><?php echo $sf_user->getFlash('errorMessage'); ?></span>
+        <?php } else if($sf_user->getFlash('successMessage') != '') { ?>
+            <span class="success"><?php echo $sf_user->getFlash('successMessage');?></span>
+        <?php } ?>
+</div>
 <div id="labelUploadDiv" class="outerBorder homePageBorder" style="width: 600px; display: block;">
     <div class="homePage">
         <div class="mediumText pageHeader">
