@@ -36,9 +36,12 @@ CREATE TABLE IF NOT EXISTS `ohrm_group` (
 --
 
 INSERT INTO `ohrm_group` (`id`, `name`) VALUES
-(1, 'pim'),
-(4, 'admin'),
-(5, 'general');
+(1, 'Admin'),
+(2, 'PIM'),
+(3, 'Leave'),
+(4, 'Time'),
+(5, 'Recruitment '),
+(6, 'Performance ');
 
 -- --------------------------------------------------------
 
@@ -58,9 +61,8 @@ CREATE TABLE IF NOT EXISTS `ohrm_language` (
 --
 
 INSERT INTO `ohrm_language` (`id`, `name`, `code`) VALUES
-(1, 'Sinhala', 'si_SI'),
-(2, 'French', 'fr_FR'),
-(3, 'English', 'en_US');
+(1, 'English', 'en_US'),
+(2, 'Spanish ', 'es_ES');
 
 -- --------------------------------------------------------
 
@@ -77,12 +79,6 @@ CREATE TABLE IF NOT EXISTS `ohrm_source` (
   KEY `group_id_idx` (`group_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
---
--- Dumping data for table `ohrm_source`
---
-
-INSERT INTO `ohrm_source` (`id`, `value`, `group_id`, `note`) VALUES
-(1, 'Name', 1, 'Name');
 
 -- --------------------------------------------------------
 
@@ -101,12 +97,6 @@ CREATE TABLE IF NOT EXISTS `ohrm_target` (
   KEY `language_id_idx` (`language_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
---
--- Dumping data for table `ohrm_target`
---
-
-INSERT INTO `ohrm_target` (`id`, `source_id`, `language_id`, `value`, `note`) VALUES
-(3, 1, 1, 'නම', 'නම');
 
 -- --------------------------------------------------------
 
