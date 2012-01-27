@@ -31,9 +31,11 @@ $(document).ready(function (){
         lanagueGroupId = $('#add_label_language_group_id').val();
         if ((lanagueGroupId != "0") && (targetLanguageId != 0)) {
             $(".messageBar").html('');
+            checkMessageBar();
             generateDictionary('localization/generateDictionary',targetLanguageId ,lanagueGroupId);
         } else {
             $(".messageBar").html("<span class='error'>Select Valid Target Language and Language Group</span>");
+            checkMessageBar();
         }
     });
 
@@ -43,20 +45,27 @@ $(document).ready(function (){
         languageGroupId = $('#add_label_language_group_id').val();
         if((languageGroupId != "0") && (targetLanguageId != 0)) {
             $(".messageBar").html('');
+            checkMessageBar();
             downloadDictionary('localization/downloadDictionary', targetLanguageId, languageGroupId);
         } else {
             $(".messageBar").html("<span class='error'>Select Valid Target Language and Language Group</span>");
+            checkMessageBar();
         }
     });
     
     $('#deleteAdminLabel').click(function (){
-        var withTarget = $(".checkbox_list").is(':checked');
-        if(withTarget) {
+        $(".messageBar span").remove();
+        checkMessageBar();
+        var isSelected = $(".checkbox_list").is(':checked');
+        if(isSelected) {
+            $(".listMessageBar span").remove();
+            checkMessageBar();
             jConfirm("Are you sure you want to delete selected labels","Warning", function(r) {
                 if (r) submitForm('deleteLanguageLabelList');
             });
         } else {
             $(".listMessageBar").html("<span class='error'>Please Select at Least One Row to Delete</span>");
+            checkMessageBar();
         }
     });
     
@@ -194,7 +203,8 @@ $(document).ready(function (){
         $(this).hide();
     });
     $("#show_label_form").find("input#cancel").click(function () {
-        $(".messageBar span").remove();
+        $(".listMessageBar span").remove();
+        checkMessageBar();
         $(".target_label_input").attr("disabled", "disabled");
         $(".target_note_input").attr("disabled", "disabled");
         $("#show_label_form").find("input#save").hide();
@@ -233,6 +243,7 @@ $(document).ready(function (){
                     }
             });
     });
+    checkMessageBar();
     
     $("#show_label_form input.target_label_input").each(function() {
         if($(this).val() == '') {
@@ -243,6 +254,19 @@ $(document).ready(function (){
     });
 });
 
+function checkMessageBar() {
+    if($('.messageBar span').length > 0){
+        $('.messageBar').show();
+    } else {
+        $('.messageBar').hide();
+    }
+    
+    if($(".listMessageBar span").length > 0) {
+        $('.listMessageBar').show();
+    } else {
+        $('.listMessageBar').hide();
+    }
+}
 function redircetToPage(path) {
     window.location.href = path;
 }
@@ -293,10 +317,12 @@ function generateDictionary(url,targetLanguageId,languageGroupId){
                 location.reload();
             } else {
                 $(".messageBar").html("<span class='success'>Dictionary File Created Successfully</span>");
+                checkMessageBar();
             }
         },
         error: function(){
             $(".messageBar").html("<span class='error'>Sorry, You Have No Access for This Language</span>");
+            checkMessageBar();
         }
     });
 }
@@ -360,10 +386,11 @@ function validateUploadForm()
     var tarLan = $('#uploadForm_Target_language').val();
     var file = $('#uploadForm_File').val();
     var withTarget = $("#uploadForm_Include_target_value").is(':checked');
-    
-    if(lanGroup == ''){$(".messageBar").html("<span class='error'>Please Select Language Group</span>");}
-    else if((tarLan == '') && withTarget){$(".messageBar").html("<span class='error'>Please Select a Lanuage to Translate</span>");}
-    else if(file == ''){$(".messageBar").html("<span class='error'>Please Select a File</span>");}
+    $(".listMessageBar span").remove();
+    checkMessageBar();
+    if(lanGroup == ''){$(".messageBar").html("<span class='error'>Please Select Language Group</span>");checkMessageBar();}
+    else if((tarLan == '') && withTarget){$(".messageBar").html("<span class='error'>Please Select a Lanuage to Translate</span>");checkMessageBar();}
+    else if(file == ''){$(".messageBar").html("<span class='error'>Please Select a File</span>");checkMessageBar();}
     else {return true;}
 
     
@@ -374,7 +401,7 @@ function validateAddSourceForm()
     var label = $('#addSourceForm_Label').val();
     var lanGroup = $('#addSourceForm_Language_group').val();
     
-    if(label == ''){$(".messageBar").html("<span class='error'>Please Enter a Source</span>");}
-    else if(lanGroup == ''){$(".messageBar").html("<span class='error'>Please Select a Group</span>");}
+    if(label == ''){$(".messageBar").html("<span class='error'>Please Enter a Source</span>");checkMessageBar();}
+    else if(lanGroup == ''){$(".messageBar").html("<span class='error'>Please Select a Group</span>");checkMessageBar();}
     else{return true;}
 }

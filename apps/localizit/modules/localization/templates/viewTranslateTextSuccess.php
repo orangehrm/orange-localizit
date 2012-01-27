@@ -51,7 +51,7 @@
 <div class="aouterBorder">
 
     <div class="homePage">
-    <div class="messageBar">
+    <div class="listMessageBar">
         <?php if($sf_user->getFlash('editErrorMessage') != '') { ?>
             <span class="error"><?php echo $sf_user->getFlash('editErrorMessage'); ?></span>
         <?php } else if($sf_user->getFlash('editSuccessmessage') != '') { ?>

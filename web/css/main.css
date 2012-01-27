@@ -88,7 +88,7 @@ tfoot td {
 }
 
 .errorMsg {
-    color: #CC0000;
+    color: #CC6600;
     font-size: 11px;
 }
 
@@ -132,7 +132,15 @@ tfoot td {
     font-size: 14px;
     font-family: Helvetica,Arial,Sans-Serif;
 }
+.mediumText {
+    font-size: 14px;
+    font-family: Helvetica,Arial,Sans-Serif;
+}
 
+.loginBar {
+    font-size: 12px;
+    font-family: Helvetica,Arial,Sans-Serif;
+}
 .top_menu {
     margin-bottom:10px;
     margin-right:0;
@@ -153,7 +161,7 @@ tfoot td {
     clear: both;
 }
 .menuBackground {
-    background: #ebf8a3;
+    background: #FAD163;
 }
 
 .mainRowWidth{
@@ -165,11 +173,10 @@ tfoot td {
 }
 .button{
     font-weight: bold;
-    background-color:#A2F8A2;
+    background-color: #FA9E00;
+    border-color: #FF850A;
 }
-.text_input {
-    border: 1px solid #336633;
-}
+
 .removeLeftDotLine{
     border-left: #CCCCCC 1px ;
 }
@@ -196,14 +203,12 @@ tfoot td {
 }
 
 .loginBorderOuterFrame {
-    background-color: #f2ffc6;
     margin-left: 450px;
     margin-top: 50px;
     position: absolute;
 }
 
 .loginFormBackGround {
-    background-color: #f2ffc6;
 }
 
 .homePageBorder{
@@ -281,7 +286,7 @@ input.error {
 }
 
 ul.sf-menu li.current{
-    background: #78d578;
+    background: #FF850A;
 }
 
 span.mandatoryStar {
@@ -330,20 +335,39 @@ div#requiredField {
     width: 630px;
     font-size: 17px;
     font-family: Helvetica,Arial,Sans-Serif;
+    background-color: #FAD163;
+    margin-bottom: 10px;
+    border: #FA9E00 1px solid;
+}
+.messageBar span {
+    position: relative;
+    top: 5px;
+}
+.messageBar.manageLabels{
+    width: 600px;
 }
 
 .listMessageBar{
     position: relative;
-    left: 30px;
-    top: 20px;
+    top: 7px;
+    padding-bottom: 10px;
     text-align: center;
     width: 630px;
     font-size: 17px;
     font-family: Helvetica,Arial,Sans-Serif;
+    background-color: #FAD163;
+    margin-bottom: 10px;
+    border: #FA9E00 1px solid;
+    vertical-align: middle;
+}
+
+.listMessageBar span {
+    position: relative;
+    top: 5px;
 }
 
 .listMessageBar span.error{
-    color: #FB0000;
+    color: #CC6600;
 }
 
 .listMessageBar span.success{
@@ -362,12 +386,12 @@ div#requiredField {
 }
 
 .messageBar span.error{
-    color: #FB0000;
+    color: #CC6600;
 }
 
 .messageBar span.success{
     color: #390;
 }
 .emptyRows{
-    background: #C0C0C0;
+    background: #FFCD75;
 }

@@ -1,4 +1,4 @@
-<form action="<?php echo url_for('@sign_in'); ?>" method="post" id="sign_in_form" name="sign_in_form">
+<form action="<?php echo url_for('@sign_in'); ?>" class="loginBar mediumText" method="post" id="sign_in_form" name="sign_in_form">
     <?php
     $signInForm = new SignInForm();
     echo $signInForm['_csrf_token']->render();

@@ -35,7 +35,7 @@ class deleteAction extends sfAction {
      */
 
     public function execute($request) {
-        $this->userManagementService->deleteUser($request['user_id']);
+        $result = $this->userManagementService->deleteUser($request['user_id']);
         $this->redirect('@userManagement');
     }
 
