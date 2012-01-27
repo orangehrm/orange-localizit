@@ -61,13 +61,16 @@
     <form action="localization/saveTranslateText" method="post" id="show_label_form" name="show_label_form">
     <input type="hidden" name="add_label[language_group_id]" value="<?php echo $languageGroupId;?>"/>
     <input type="hidden" name="languageList" value="<?php echo $targetLanguageId;?>"/>
-        <div class="mediumText pageHeader">
+        <div class="mediumText pageHeader ">
             <table class="mainFrame">
                 <tr>
                     <td>
                         <input type="submit" name="save" id="save" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>"/>
                         <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>"/>
                         <input type="reset" name="cancel" id="cancel" class="button normalText" value="<?php echo __('cancel', null, 'localizationMessages') ?>"/>
+                    </td>
+                    <td class="viewTanslateTextmessage removeLeftDotLine">
+                        <span id="TranslateTextHelpText">Text to be translated are highlighted </span>
                     </td>
                 </tr>
             </table>
