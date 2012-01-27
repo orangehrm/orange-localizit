@@ -66,7 +66,7 @@ class ChangePasswordForm extends sfForm {
             } else if((strlen($values['new_password']) < 6) || (strlen($values['new_password']) > 35)) {
                 throw new sfValidatorError($validator, 'New Password Lenth is Invalid');
             } else if (($values['confirm_new_password'] != $values['new_password'])) {
-                throw new sfValidatorError($validator, 'New Password and New Confirm Password Does Not Match');
+                throw new sfValidatorError($validator, 'New Password and New Confirm Password Do Not Match');
             }
         return $values;
     }

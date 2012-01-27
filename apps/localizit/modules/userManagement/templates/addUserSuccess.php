@@ -1,6 +1,13 @@
 <script type="text/javascript">
     $(".sf-menu li.userManagement").addClass("current");
 </script>
+<div class="messageBar">
+        <?php if($sf_user->getFlash('errorMessage') != '') { ?>
+            <span class="error"><?php echo $sf_user->getFlash('errorMessage'); ?></span>
+        <?php } else if($sf_user->getFlash('successMessage') != '') { ?>
+            <span class="success"><?php echo $sf_user->getFlash('successMessage');?></span>
+        <?php } ?>
+</div>
 <div class="outerBorder homePageBorder">
     <div class="homePage">
         <div class="mediumText pageHeader">
@@ -9,16 +16,6 @@
         <form action="<?php echo url_for('@add_user'); ?>" method="post" id="add_user_form" name="add_user_form">
             <?php echo $addUserForm->renderHiddenFields(); ?>
             <table class="mainFrame mediumText">
-                <?php
-                $globalErrors = $addUserForm->getGlobalErrors();
-                if (count($globalErrors) > 0) {
-                    foreach ($globalErrors as $name => $error) {
-                ?>
-                        <tr>
-                            <td colspan="4" class="errorMsg"><?php echo $error ?></td>
-                        </tr>
-                <?php }
-                } ?>
                 <tr>
                     <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $addUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?><span class="mandatoryStar">*</span></td>
                     <td class="tableColumnWidth"><?php echo $addUserForm['login_name']->render() ?>

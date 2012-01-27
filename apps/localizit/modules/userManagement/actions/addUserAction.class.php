@@ -56,9 +56,17 @@ class addUserAction extends sfAction {
             $this->addUserForm->bind($request->getParameter($this->addUserForm->getName()));
 
             if ($this->addUserForm->isValid()) {
-                            echo 'okay';
                 if ($this->addUserForm->saveUser()) {
+                    $this->getUser()->setFlash('successMessage', "Successfully Added User", false);
                     $this->redirect('@userManagement');
+                }
+            }
+            else {
+                $globalErrors = $this->addUserForm->getGlobalErrors();
+                if (count($globalErrors) > 0) {
+                    foreach ($globalErrors as $name => $error) {
+                       $this->getUser()->setFlash("errorMessage",$error, false);
+                    }
                 }
             }
         }
