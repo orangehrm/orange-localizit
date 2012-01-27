@@ -303,7 +303,16 @@ div#requiredField {
     font-family: Helvetica,Arial,Sans-Serif;
 }
 
-
+.pageHeader span{
+    font-size: 10px;
+    font-family: Helvetica,Arial,Sans-Serif;
+    font: bold 70%/1.3 "trebuchet ms",Helvetica,Arial,Sans-Serif;
+}
+.viewTanslateTextmessage{
+	position: relative;
+    text-align: right;
+    vertical-align: middle;
+}
 #xmlHelpMessage{
     font-size: 10px;
 }
