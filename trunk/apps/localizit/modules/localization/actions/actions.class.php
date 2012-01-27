@@ -228,7 +228,6 @@ class localizationActions extends sfActions {
         }
         else
         {
-            $this->getUser()->setFlash('listErrorMessage', "Please Select at Least One Row to Delete", true);
             $this->forward("localization", "updateLabelList");
             $this->redirect("localization/manageLabel");
         }
@@ -241,6 +240,7 @@ class localizationActions extends sfActions {
         $editedLabelIdArray = $request->getParameter('labelId');
         $localizationService = $this->getLocalizeService();
         $localizationService->updateSource($editedLabelIdArray,$editedLabelNameArray, $editedLabelNoteArray);
+        $this->getUser()->setFlash('listSuccessMessage', "Successfully Updated", true);
         $this->redirect("localization/manageLabel");
     
         

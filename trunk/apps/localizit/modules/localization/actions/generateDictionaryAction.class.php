@@ -49,7 +49,7 @@ class generateDictionaryAction extends sfAction {
     public function execute($request) {
 
         if ($request->isMethod(sfRequest::GET)) {
-            $sourceLanguageId = $this->getUser()->getAttribute('user_language_id');
+            $sourceLanguageId = $this->localizationService->getLanguageByCode('en_US')->getId();
             $targetLanguageId = $request->getParameter('targetLanguageId');
             $languageGroupId = $request->getParameter('languageGroupId');
 
@@ -65,7 +65,7 @@ class generateDictionaryAction extends sfAction {
                     $this->getUser()->setFlash('successMessage', "Dictionary File Created Successfully", true);
                 }
             } catch (Exception $ex) {
-                echo 'Error : '.$ex->getMessage();
+                $this->getUser()->setFlash('errorMessage', $ex->getMessage(), true);
             }
         }
 

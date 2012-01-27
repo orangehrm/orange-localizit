@@ -58,7 +58,7 @@ $(document).ready(function (){
         checkMessageBar();
         var isSelected = $(".checkbox_list").is(':checked');
         if(isSelected) {
-            $(".listMessageBar span").remove();
+        $(".listMessageBar span").remove();
             checkMessageBar();
             jConfirm("Are you sure you want to delete selected labels","Warning", function(r) {
                 if (r) submitForm('deleteLanguageLabelList');
