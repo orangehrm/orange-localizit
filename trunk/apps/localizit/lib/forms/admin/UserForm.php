@@ -147,10 +147,10 @@ class UserForm extends BaseUserForm {
 
         if ($values['action'] == 'add') {
             if ($authenticationService->getUserByName($values['login_name']) instanceof User) {
-                throw new sfValidatorError($validator, 'Username already exists');
+                throw new sfValidatorError($validator, 'Username Already Exists');
             }
             if (($values['confirm_password'] != $values['password'])) {
-                throw new sfValidatorError($validator, 'Password and confirm password doesnot match.');
+                throw new sfValidatorError($validator, 'Password and Confirm Password Do Not Match');
             }
         }
         return $values;

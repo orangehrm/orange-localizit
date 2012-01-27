@@ -301,6 +301,7 @@ div#requiredField {
     bottom: 10px;
     font-size: 10px;
     font-family: Helvetica,Arial,Sans-Serif;
+    width: 300px;
 }
 
 .pageHeader span{
