@@ -31,7 +31,9 @@ class LabelUploadForm extends sfForm
     
     $targetLan = array('' => "-- " . ('select') . " --");
     foreach ($targetLanguageArray as $type) {
-            $targetLan[$type->getId()] = $type->getName(). " (".$type->getCode().")" ;
+            if($type->getCode() != 'en_US') {
+                $targetLan[$type->getId()] = $type->getName(). " (".$type->getCode().")" ;
+            }
         }
         
     $this->setWidgets(array(
