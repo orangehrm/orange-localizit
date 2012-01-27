@@ -78,7 +78,7 @@ class downloadDictionaryAction extends sfAction {
                 if (in_array($targetLanguageId, $role->getAllowedLanguageList()) && $role->isAllowedToGenerateDirectory()) {
                     $this->redirect("@generate_dictionary?targetLanguageId=$targetLanguageId&languageGroupId=$lanagueGroupId&return=download");
                 } else {
-                    $this->getUser()->setFlash('errorMessage', 'Sorry, Language file not found.');
+                    $this->getUser()->setFlash('errorMessage', 'Language File Not Found');
                     $this->redirect('@homepage');
                 }
             }
