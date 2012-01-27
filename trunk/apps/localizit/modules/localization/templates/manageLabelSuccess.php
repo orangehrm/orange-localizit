@@ -90,7 +90,7 @@
             <td class="boldText" width="10px" >ID</td>
             <td width="320px" class="boldText">Label</td>
             <td class="boldText">Note</td>
-            <td class="addDotLinetoRight">&nbsp;</td>
+            <td class="removeLeftDotLine addDotLinetoRight">&nbsp;</td>
         </tr>
     </thead>
     <tbody>
@@ -101,8 +101,7 @@
         <td class="labelNameData"><?php echo $j; ?></td>
         <td class="labelNameData"><input name="labelName[]"  style="width: 300px;" type="text" value="<?php echo $item[1]; ?>" /></td>
         <td class="labelNameData"><input name="labelNote[]"  style="width: 700px;" type="text" value="<?php echo $item[2]; ?>"  /></td>
-        <td class="labelNameData"><input name="labelId[]" style="display: none;" type="text" value="<?php echo $item[0]; ?>" /></td>
-        <td class="addDotLinetoRight">&nbsp;</td>
+        <td class="labelNameData removeLeftDotLine"><input name="labelId[]" style="display: none;" type="text" value="<?php echo $item[0]; ?>" /></td>
     </tr>
         <?php }
         }
