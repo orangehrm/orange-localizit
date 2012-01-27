@@ -100,7 +100,7 @@
                     } else { 
                         ?>
                             <td class="target_label <?php echo $source->getId();?>"><input name="targetLabel[<?php echo $source->getId();?>][<?php echo -1;?>]" class="target_label_input" type="text" value=""/></td>
-                            <td class="target_note <?php echo $source->getId();?>"><input  name="targetNote[<?php echo $source->getId();?>][<?php echo -1;?>]" class="target_note_input" type="text" value=""/></td>
+                            <td class="target_note <?php echo $source->getId();?>"><textarea  name="targetNote[<?php echo $source->getId();?>][<?php echo -1;?>]" class="target_note_input" type="text"></textarea></td>
             <?php 
                     }
                     ?>
