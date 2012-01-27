@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(".sf-menu li.manageLabels").addClass("current");
 </script>
-<div class="messageBar">
+<div class="messageBar manageLabels">
         <?php if($sf_user->getFlash('errorMessage') != '') { ?>
             <span class="error"><?php echo $sf_user->getFlash('errorMessage'); ?></span>
         <?php } else if($sf_user->getFlash('successMessage') != '') { ?>

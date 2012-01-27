@@ -68,7 +68,7 @@ ul.sf-menu li li li.sfHover ul {
         font-size:  12px;
 }
 .sf-menu li {
-	background:		#a2f8a2;
+	background:		#FA9E00;
 }
 .sf-menu li li {
 	background:		#a2f8a2;
@@ -78,7 +78,7 @@ ul.sf-menu li li li.sfHover ul {
 }
 .sf-menu li:hover, .sf-menu li.sfHover,
 .sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
-	background:		#78d578;
+	background:		#FF850A;
 	outline:		0;
 }
 
