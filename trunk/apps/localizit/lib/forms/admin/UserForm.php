@@ -63,8 +63,8 @@ class UserForm extends BaseUserForm {
         ));
 
         $this->setValidators(array(
-            'login_name' => new sfValidatorString(array('min_length' => 6, 'max_length' => 25), array('required' => 'Username required.', 'min_length' => 'Username too short.', 'max_length' => 'Allow 25 characters only.')),
-            'password' => new sfValidatorString(array('min_length' => 6, 'max_length' => 35), array('required' => 'Password required.', 'min_length' => 'Password too short.', 'max_length' => 'Allow 25 characters only.')),
+            'login_name' => new sfValidatorString(array('min_length' => 6, 'max_length' => 25), array('required' => 'Username required.', 'min_length' => 'Password Length Should Be at Least 6 Characters', 'max_length' => 'Password Length Should Be Less Than 35 Characters')),
+            'password' => new sfValidatorString(array('min_length' => 6, 'max_length' => 35), array('required' => 'Password required.', 'min_length' => 'Password Length Should Be at Least 6 Characters', 'max_length' => 'Password Length Should Be Less Than 35 Characters')),
             'confirm_password' => new sfValidatorString(array(), array('required' => 'Confirm password required.')),
             'user_type_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UserType'))),
         ));
@@ -148,8 +148,9 @@ class UserForm extends BaseUserForm {
         if ($values['action'] == 'add') {
             if ($authenticationService->getUserByName($values['login_name']) instanceof User) {
                 throw new sfValidatorError($validator, 'Username Already Exists');
-            }
-            if (($values['confirm_password'] != $values['password'])) {
+            } else if((strlen($values['password']) < 6)) {
+                throw new sfValidatorError($validator, 'Password Length Should Be at Least 6 Characters');
+            } else if (($values['confirm_password'] != $values['password'])) {
                 throw new sfValidatorError($validator, 'Password and Confirm Password Do Not Match');
             }
         }
