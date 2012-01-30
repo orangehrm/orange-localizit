@@ -27,7 +27,7 @@
                     <td><?php echo $addLabelUploadForm['Target_language']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelUploadForm['Target_note']->renderLabel(); ?></td>
                     <td><?php echo $addLabelUploadForm['Target_note']->render(); ?></td></tr>
-                <tr><td><?php echo $addLabelUploadForm['File']->renderLabel(); ?></td>
+                <tr><td><?php echo $addLabelUploadForm['File']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
                     <td><?php echo $addLabelUploadForm['File']->render(); ?><div id="xmlHelpMessage"><span class="mandatoryStar">*</span>Support only valid XML files.</font></div></td></tr>
             </table>
             <?php include_partial('localization/mandetoryFieldMessage')?>
