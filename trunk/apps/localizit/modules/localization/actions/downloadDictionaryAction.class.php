@@ -74,13 +74,8 @@ class downloadDictionaryAction extends sfAction {
             $file = "language_files/messages_" .$lanagueGroup.".".$targetLanguageCode . ".xml";
 
             if (!file_exists($file)) {
-                $role = sfContext::getInstance()->getUser()->getUserRole();
-                if (in_array($targetLanguageId, $role->getAllowedLanguageList()) && $role->isAllowedToGenerateDirectory()) {
-                    $this->redirect("@generate_dictionary?targetLanguageId=$targetLanguageId&languageGroupId=$lanagueGroupId&return=download");
-                } else {
-                    $this->getUser()->setFlash('errorMessage', 'Language File Not Found');
-                    $this->redirect('@homepage');
-                }
+                $this->getUser()->setFlash('errorMessage', 'Language File Not Found');
+                $this->redirect('@homepage');
             }
 
             if (file_exists($file)) {
