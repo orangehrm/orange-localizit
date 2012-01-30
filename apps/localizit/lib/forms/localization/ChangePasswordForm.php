@@ -48,7 +48,7 @@ class ChangePasswordForm extends sfForm {
         $this->setValidators(array(
             'id' => new sfValidatorNumber(array('required' => true)),
             'current_password' => new sfValidatorString(array('required' => true), array('required' => 'Current Password is required.')),
-            'new_password' => new sfValidatorString(array('required' => true, 'min_length' => 6, 'max_length' => 35), array('required' => 'New Password is required.', 'min_length' => 'New Password is too short.', 'max_length' => 'Allow 25 characters only.')),
+            'new_password' => new sfValidatorString(array('required' => true, 'min_length' => 6, 'max_length' => 35), array('required' => 'New Password is required.', 'min_length' => 'Password Length Should Be at Least 6 Characters', 'max_length' => 'Password Length Should Be Less Than 35 Characters')),
             'confirm_new_password' => new sfValidatorString(array('required' => true), array('required' => 'Confirm new password required.')),
         ));
 
@@ -63,8 +63,8 @@ class ChangePasswordForm extends sfForm {
             $existingUser = $this->user;
             if ($existingUser->getPassword() != md5($values['current_password'])) {
                 throw new sfValidatorError($validator, 'Invalid Current Password');
-            } else if((strlen($values['new_password']) < 6) || (strlen($values['new_password']) > 35)) {
-                throw new sfValidatorError($validator, 'New Password Lenth is Invalid');
+            } else if((strlen($values['new_password']) < 6)) {
+                throw new sfValidatorError($validator, 'Password Length Should Be at Least 6 Characters');
             } else if (($values['confirm_new_password'] != $values['new_password'])) {
                 throw new sfValidatorError($validator, 'New Password and New Confirm Password Do Not Match');
             }

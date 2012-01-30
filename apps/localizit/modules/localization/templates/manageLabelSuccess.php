@@ -100,9 +100,9 @@
     <tr>
         <td><input class="checkbox_list" type="checkbox" name="checkedid[]" value="<?php echo $item[0]; ?>" onclick="uncheckCheckAll();"/></td>
         <td class="labelNameData"><?php echo $j; ?></td>
-        <td class="labelNameData"><input name="labelName[]"  style="width: 300px;" type="text" value="<?php echo $item[1]; ?>" /></td>
-        <td class="labelNameData"><input name="labelNote[]"  style="width: 700px;" type="text" value="<?php echo $item[2]; ?>"  /></td>
-        <td class="labelNameData removeLeftDotLine"><input name="labelId[]" style="display: none;" type="text" value="<?php echo $item[0]; ?>" /></td>
+        <td class="labelNameData"><input class="sourceValueInput" name="labelName[]"  style="width: 300px;" type="text" value="<?php echo $item[1]; ?>" /></td>
+        <td class="labelNameData"><input class="sourceNoteInput" name="labelNote[]"  style="width: 700px;" type="text" value="<?php echo $item[2]; ?>"  /></td>
+        <td class="labelNameData removeLeftDotLine"><input class="sourceIdInput" name="labelId[]" style="display: none;" type="text" value="<?php echo $item[0]; ?>" /></td>
     </tr>
         <?php }
         ?>
