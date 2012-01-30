@@ -1,6 +1,6 @@
 <select class="langueDropDownList" id="add_label_language_group_id" name="<?php if(isset($isArray)) {?>languageGroupList<?php echo "_".$prefix."[]";
         }else {?>add_label[language_group_id]<?php }?>">
-        <option value="0">-select-</option>
+        <option value="0">--Select--</option>
             <?php if($groupList) {?>
                 <?php foreach ($groupList as $group) { ?>
                     <?php if(!isset($selected_index)) {?>
