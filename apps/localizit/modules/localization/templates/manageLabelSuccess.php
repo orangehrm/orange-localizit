@@ -72,8 +72,10 @@
 <br/>
 <div>
     <table width="100%"><tr><td>
-    <input type="button" name="edit" id="editAdminLabel" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />&nbsp;
-    <input type="button" name="delete" id="deleteAdminLabel" class="button normalText" value="<?php echo __('delete', null, 'localizationMessages') ?>" /> &nbsp;
+    <?php if(count($LabelDataArray) > 0) {?>
+        <input type="button" name="edit" id="editAdminLabel" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />&nbsp;
+        <input type="button" name="delete" id="deleteAdminLabel" class="button normalText" value="<?php echo __('delete', null, 'localizationMessages') ?>" /> &nbsp;
+    <?php }?>
     <input type="button" name="addAdminLabel" id="addAdminLabel" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" />
             </td></tr></table>
 </div>
@@ -82,7 +84,7 @@
 
 
 <form name="deleteLanguageLabelList" id="deleteLanguageLabelList" method="post" action="<?php echo url_for("localization/deleteLabelList") ?>">
-
+<?php if(count($LabelDataArray) > 0) {?>
 <table class="mainFrame mediumText">
     <thead>
         <tr>
@@ -94,7 +96,6 @@
         </tr>
     </thead>
     <tbody>
-        <?php if ($LabelDataArray) { array_multisort($LabelDataArray[1], SORT_ASC, SORT_STRING); ?>
         <?php $j=0; foreach ($LabelDataArray as $item) { $j++?>
     <tr>
         <td><input class="checkbox_list" type="checkbox" name="checkedid[]" value="<?php echo $item[0]; ?>" onclick="uncheckCheckAll();"/></td>
@@ -104,9 +105,9 @@
         <td class="labelNameData removeLeftDotLine"><input name="labelId[]" style="display: none;" type="text" value="<?php echo $item[0]; ?>" /></td>
     </tr>
         <?php }
-        }
         ?>
     </tbody>
 </table>
+<?php }?>
 </form>
     
