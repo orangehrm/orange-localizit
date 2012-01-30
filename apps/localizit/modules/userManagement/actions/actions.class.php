@@ -24,7 +24,9 @@ class userManagementActions extends sfActions {
      * This method is executed before each action
      */
     public function preExecute() {
-
+        if(!$this->getUser()->isAuthenticated()) {
+            $this->redirect('@loginpage');
+        }
         $this->userManagementService = $this->getUserManagementService();
     }
 
