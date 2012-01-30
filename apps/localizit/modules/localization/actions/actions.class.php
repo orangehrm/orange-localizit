@@ -217,9 +217,16 @@ class localizationActions extends sfActions {
         
         $labelSet = $localizationService->getSourceList();
         $labelDataArray = null;
+        
+        $groupList = $localizationService->getGroupList();
+        $groupArray = array();
+        foreach ($groupList as $group) {
+            $groupArray[$group->getId()] = $group->getName();
+        }
+        
         foreach ($labelSet as $item)
         {
-            $labelDataArray[] = array($item->getId() ,$item->getValue(), $item->getNote());
+            $labelDataArray[] = array($item->getId() ,$item->getValue(), $item->getNote(), $groupArray[$item->getGroupId()]);
         }
         $this->LabelDataArray = $labelDataArray;
         
