@@ -146,6 +146,9 @@ class localizationActions extends sfActions {
      * Display Language Group List.
      */
     public function executeLanguageGroupList(sfWebRequest $request) {
+        if(!$this->getUser()->isAuthenticated()) {
+            $this->redirect('@loginpage');
+        }
         $localizationService = $this->getLocalizeService();
         $this->languageGroupList = $localizationService->getGroupList();
     }
@@ -164,7 +167,9 @@ class localizationActions extends sfActions {
      * Manage Labels
      */
     public function executeManageLabel(sfWebRequest $request){
-        
+        if(!$this->getUser()->isAuthenticated()) {
+            $this->redirect('@loginpage');
+        }
         $localizationService = $this->getLocalizeService();
         $this->addLabelUploadForm = new LabelUploadForm($localizationService);
         

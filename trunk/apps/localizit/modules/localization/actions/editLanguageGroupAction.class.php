@@ -22,6 +22,12 @@ class editLanguageGroupAction extends sfAction {
         $this->localizationService->setLocalizationDao(new LocalizationDao);
         return $this->localizationService;
     }
+    
+    public function preExecute() {
+        if(!$this->getUser()->isAuthenticated()) {
+            $this->redirect('@loginpage');
+        }
+    }
 
     /**
      * Edit Language Group .

@@ -23,6 +23,12 @@ class addLanguageGroupAction extends sfAction {
         return $this->localizationService;
     }
 
+    public function preExecute() {
+        if(!$this->getUser()->isAuthenticated()) {
+            $this->redirect('@loginpage');
+        }
+    }
+    
     /**
      * Adding Language Group
      * @param <type> $request 
