@@ -508,11 +508,9 @@ XML;
         if ($doc) {
             $labels = $doc->getElementsByTagName("trans-unit");
             foreach ($labels as $label) {
-                $sources = $label->getElementsByTagName("source");
-                $source = $sources->item(0)->nodeValue;
                 $targets = $label->getElementsByTagName("target");
                 $target = $targets->item(0)->nodeValue;
-                $trimsource[] = array(trim($source),trim($target));
+                $trimsource[] = trim($target);
             }
         } else {
             die("cannot load the xml");
@@ -534,6 +532,10 @@ XML;
             $xmlarray = $this->readSourceByXML($docName);
             
             $unotearray = $this->readNoteByXML($docName);
+            
+            if ($withTarget) {
+                $targetLanguageXml = $this->readTargetLanguageByXML($docName);
+            }
             $uxmlarray = array_unique($xmlarray);
             
             $databasearray = $this->getSource($sorcedata->getGroupId());
@@ -549,23 +551,16 @@ XML;
                 {
                     $result[0][] = $value;
                     $result[1][] = $unotearray[$key];
+                    $result[2][] = $targetLanguageXml[$key];
                 }
             }
             $usourceresults = array_unique($result[0]);
             foreach ($usourceresults as $key => $usourceresult) {
                 $uresult[0][$key] = $usourceresult;
                 $uresult[1][$key] = $result[1][$key];
+                $uresult[2][$key] = $result[2][$key];
             }
-            if ($withTarget) {
-                $targetLanguageXml = $this->readTargetLanguageByXML($docName);
-                
-                foreach($targetLanguageXml as $item)
-                {
-                    $xmltargetarray[] = array($item[0], $item[1]);
-                }
-            }
-            
-            
+
             $j=0;
             foreach($uresult[0] as $key => $item)
             {
@@ -573,29 +568,15 @@ XML;
                 $sourceData->setValue($item);
                 $sourceData->setGroupId($sorcedata->getGroupId());
                 $sourceData->setNote($uresult[1][$key]);
-                $localizationDao->addSource($sourceData);
                 if ($withTarget) {
-                    $stringArray;
-                    foreach($xmltargetarray as $targetitem)
-                    {
-                        if(strcmp($targetitem[0], $item) == 0)
-                        {
-                            $stringArray[$targetitem[0]] = array($targetitem[0],$targetitem[1]);
-                        }
-                    }
-                }
-            }
-            
-            if ($withTarget) {
-                foreach ($stringArray as $stringItem)
-                {
                     $targetData = new Target();
-                    $targetData->setSourceId($this->getSourceByValue($stringItem[0]));
+                    $targetData->setSource($sourceData);
                     $targetData->setLanguageId($lstable->getLanguageId());
-                    $targetData->setValue($stringItem[1]);
+                    $targetData->setValue($uresult[2][$key]);
                     $targetData->setNote($lstable->getNote());
-                    $localizationDao->addTarget($targetData); 
+                    $sourceData->getTarget()->add($targetData);
                 }
+                $localizationDao->addSource($sourceData);
             }
         }
         catch (Exception $exc) {
