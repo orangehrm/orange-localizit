@@ -40,8 +40,9 @@ INSERT INTO `ohrm_group` (`id`, `name`) VALUES
 (2, 'PIM'),
 (3, 'Leave'),
 (4, 'Time'),
-(5, 'Recruitment '),
-(6, 'Performance ');
+(5, 'Recruitment'),
+(6, 'Performance'),
+(7, 'General');
 
 -- --------------------------------------------------------
 
