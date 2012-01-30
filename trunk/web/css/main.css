@@ -140,6 +140,7 @@ tfoot td {
 .loginBar {
     font-size: 12px;
     font-family: Helvetica,Arial,Sans-Serif;
+    float: right;
 }
 .top_menu {
     margin-bottom:10px;
