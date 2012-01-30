@@ -5,14 +5,14 @@ all:
   doctrine:
     class: sfDoctrineDatabase
     param:
-      dsn:      mysql:host=localhost;dbname=orhrm_localization
+      dsn:      mysql:host=localhost;dbname=localizit_lzitdev
       username: root
       password: root
 test:
   doctrine:
     class: sfDoctrineDatabase
     param:
-      dsn: 'mysql:host=localhost;dbname=test_orhrm_localization'
+      dsn: 'mysql:host=localhost;dbname=test_localizit_lzitdev'
       username: root
       password: root
       port: 3306
