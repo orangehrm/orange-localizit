@@ -32,7 +32,7 @@
             </tr>
 
             
-            <table>
+            <table class="mainFrame">
                 <tr>
             <?php include_partial('localization/mandetoryFieldMessage')?>
                 </tr>
