@@ -47,7 +47,7 @@ class viewTranslateTextAction extends sfAction {
             } else {
                 $this->sourceList = $this->getLocalizeService()->getTargetStringByLanguageAndSourceGroupId($this->targetLanguageId, $this->languageGroupId);
                 if(count($this->sourceList) == 0) {
-                    $this->getUser()->setFlash('errorMessage', "Result Count is Zero", false);
+                    $this->getUser()->setFlash('errorMessage', "No Records to Display", false);
                 }
             }
         }
