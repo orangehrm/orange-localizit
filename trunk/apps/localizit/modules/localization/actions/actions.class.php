@@ -181,6 +181,11 @@ class localizationActions extends sfActions {
                 $lanGroupID = $this->addLabelUploadForm->getValue('Language_group');
                 $targetLanguage = $this->addLabelUploadForm->getValue('Target_language');
                 $fileName = $this->addLabelUploadForm->getValue('File');
+                $fileType = pathinfo($fileName->getOriginalName(), PATHINFO_EXTENSION);
+                if($fileType != 'xml') {
+                    $this->getUser()->setFlash("errorMessage", "Please Upload a Valid Xml File", true);
+                    $this->redirect("localization/manageLabel");
+                }
                 $tempFilePath = $fileName->getTempName();
                 $targetNote = $this->addLabelUploadForm->getValue('Target_note');
                 

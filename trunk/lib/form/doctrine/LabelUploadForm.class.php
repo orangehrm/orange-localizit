@@ -24,12 +24,12 @@ class LabelUploadForm extends sfForm
     
     
     
-    $lanGroups = array('' => "-- " . ('select') . " --");
+    $lanGroups = array('' => "-- " . ('Select') . " --");
      foreach ($languageGroupArray as $type) {
             $lanGroups[$type->getId()] = $type->getName();
         }
     
-    $targetLan = array('' => "-- " . ('select') . " --");
+    $targetLan = array('' => "-- " . ('Select') . " --");
     foreach ($targetLanguageArray as $type) {
             if($type->getCode() != 'en_US') {
                 $targetLan[$type->getId()] = $type->getName(). " (".$type->getCode().")" ;
@@ -37,11 +37,11 @@ class LabelUploadForm extends sfForm
         }
         
     $this->setWidgets(array(
-      'Language_group'   => new sfWidgetFormSelect(array('choices' => $lanGroups)),
+      'Language_group'   => new sfWidgetFormSelect(array('label' => 'Language Group', 'choices' => $lanGroups)),
         
-      'Target_language' => new sfWidgetFormSelect(array('choices' => $targetLan)),
-      'Include_target_value' => new sfWidgetFormInputCheckbox(array(),array('class' => 'text_input')),
-      'Target_note' => new sfWidgetFormTextarea(array(),array('class' => 'text_input')),
+      'Target_language' => new sfWidgetFormSelect(array('label' => 'Target Language','choices' => $targetLan)),
+      'Include_target_value' => new sfWidgetFormInputCheckbox(array('label' => 'Include Target Value'),array('class' => 'text_input')),
+      'Target_note' => new sfWidgetFormTextarea(array('label' => 'Target Note'),array('class' => 'text_input')),
       'File' => new sfWidgetFormInputFile()
     ));
  
