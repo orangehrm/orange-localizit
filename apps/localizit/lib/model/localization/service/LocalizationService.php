@@ -287,12 +287,13 @@ XML;
             $file->addAttribute('product-name', 'messages');
 
             $body = $file->addChild('body');
-
+            $targetsAvailable = false;
             foreach ($languageLabelDataSet as $labelId => $languageLabelData) {
 
                 $labelInnerData = $languageLabelData[$labelId];
 
                 if ((! empty($labelInnerData['source_value'])) && (! empty($labelInnerData['target_value']))) {
+                    $targetsAvailable = true;
                     $transunit = $body->addChild('trans-unit');
                     $transunit->addAttribute('id', $cont);
                     $transunit->addChild('source', $labelInnerData['source_value']);
@@ -301,7 +302,9 @@ XML;
                     $cont++;
                 }
             }
-
+            if(!$targetsAvailable) {
+                return false;
+            }
             $languageFile = sfConfig::get('sf_web_dir') . "/language_files/messages_".$targetGroup .".". $targetLanguageCode . ".xml";
             $fh = fopen($languageFile, 'w');
             if ($fh) {

@@ -313,12 +313,7 @@ function generateDictionary(url,targetLanguageId,languageGroupId){
     $.ajax({
         url: url+'?targetLanguageId='+targetLanguageId +'&languageGroupId='+languageGroupId,
         success: function() {
-            if(fileCount == 0) {
-                location.reload();
-            } else {
-                $(".messageBar").html("<span class='success'>Dictionary File Created Successfully</span>");
-                checkMessageBar();
-            }
+            location.reload();
         },
         error: function(){
             $(".messageBar").html("<span class='error'>Sorry, You Have No Access for This Language</span>");

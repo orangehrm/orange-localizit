@@ -60,7 +60,7 @@ class generateDictionaryAction extends sfAction {
                     $result = $this->localizationService->generateDictionary($sourceLanguageId, $targetLanguageId, $languageGroupId);
                 }
                 if (!$result) {
-                    $this->getResponse()->setError('Error');
+                    $this->getUser()->setFlash('errorMessage', "No Records Are Available for This Group", true);
                 } else {
                     $this->getUser()->setFlash('successMessage', "Dictionary File Created Successfully", true);
                 }
