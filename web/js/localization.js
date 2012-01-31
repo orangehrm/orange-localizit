@@ -178,8 +178,8 @@ $(document).ready(function (){
     }
     if((typeof(languageArray) !== 'undefined') && userType == 'Moderator'){
         $("#languageList option").each(function() {
-            if($.inArray(parseInt($.trim($(this).val())), languageArray) == -1){
-                $(this).hide();
+            if(($.inArray(parseInt($.trim($(this).val())), languageArray) == -1) && ($(this).val() != 0)){
+                $(this).remove();
             }
         });
     }
