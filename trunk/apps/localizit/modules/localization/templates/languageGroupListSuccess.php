@@ -6,7 +6,7 @@ $(".sf-menu li.group").addClass("current");
 
         <table class="mainFrame mediumText">
             <tr>
-                <td><a href="<?php echo url_for('@add_language_group') ?>">
+                <td class="addDotLinetoRight"><a href="<?php echo url_for('@add_language_group') ?>">
                     <?php echo __('add_language_group', null, 'localizationMessages') ?></a>
                 </td>
             </tr>
@@ -28,7 +28,7 @@ $(".sf-menu li.group").addClass("current");
                     <tr>
                         <td><?php echo $lang->getName() ?></td>
                         <td style="text-align: center"><a href="<?php echo url_for('@edit_language_group?id=' . $lang->getId()) ?>"><span  class="imageLink"><?php echo image_tag('edit.gif' , array ('border' => '0'))?></span></a></td>
-                        <td style="text-align: center"><a href="#"><span  class="imageLink"><?php echo image_tag('delete.gif' , array ('onclick' => 'deleteLangGroup('.$lang->getId().')', 'border' => '0'))?></span></a></td>
+                        <td class="addDotLinetoRight" style="text-align: center"><a href="#"><span  class="imageLink"><?php echo image_tag('delete.gif' , array ('onclick' => 'deleteLangGroup('.$lang->getId().')', 'border' => '0'))?></span></a></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

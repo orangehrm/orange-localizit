@@ -21,7 +21,7 @@
                 } ?>
                 <tr>
                     <td  class="labelColumn"><?php echo $addLanguageGroupForm['group_name']->renderLabel(__('group_name', null, 'localizationMessages')) ?> <span class="mandatoryStar">*</span></td>
-                    <td class="tableColumnWidth"><?php echo $addLanguageGroupForm['group_name']->render() ?>
+                    <td class="tableColumnWidth addDotLinetoRight"><?php echo $addLanguageGroupForm['group_name']->render() ?>
                     <div class="errorMsg">
                     <?php if ($addLanguageGroupForm['group_name']->hasError()) { ?>
                     <?php echo $addLanguageGroupForm['group_name']->renderError() ?>

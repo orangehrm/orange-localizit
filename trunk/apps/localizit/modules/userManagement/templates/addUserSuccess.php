@@ -17,8 +17,8 @@
             <?php echo $addUserForm->renderHiddenFields(); ?>
             <table class="mainFrame mediumText">
                 <tr>
-                    <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $addUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?><span class="mandatoryStar">*</span></td>
-                    <td class="tableColumnWidth"><?php echo $addUserForm['login_name']->render() ?>
+                    <td  class="tableColumnWidth labelColumn"><?php echo $addUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?><span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight"><?php echo $addUserForm['login_name']->render() ?>
                     <div class="errorMsg">
                     <?php if ($addUserForm['login_name']->hasError()) { ?>
                     <?php echo $addUserForm['login_name']->renderError() ?>
@@ -26,16 +26,16 @@
                     </div></td>
                 </tr>
                 <tr>
-                    <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $addUserForm['password']->renderLabel(__('password', null, 'authenticationMessages')) ?><span class="mandatoryStar">*</span></td>
-                    <td class="tableColumnWidth"><?php echo $addUserForm['password']->render() ?>
+                    <td  class="tableColumnWidth labelColumn"><?php echo $addUserForm['password']->renderLabel(__('password', null, 'authenticationMessages')) ?><span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight"><?php echo $addUserForm['password']->render() ?>
                     <div class="errorMsg">
                     <?php if ($addUserForm['password']->hasError()) { ?>
                     <?php echo $addUserForm['password']->renderError() ?>
                     <?php } ?>                        
                     </div></tr>
                 <tr>
-                    <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $addUserForm['confirm_password']->renderLabel(__('confirm_password', null, 'userManagementMessages')) ?><span class="mandatoryStar">*</span></td>
-                    <td class="tableColumnWidth"><?php echo $addUserForm['confirm_password']->render() ?>
+                    <td  class="tableColumnWidth labelColumn"><?php echo $addUserForm['confirm_password']->renderLabel(__('confirm_password', null, 'userManagementMessages')) ?><span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight"><?php echo $addUserForm['confirm_password']->render() ?>
                     <div class="errorMsg">
                     <?php if ($addUserForm['confirm_password']->hasError()) { ?>
                     <?php echo $addUserForm['confirm_password']->renderError() ?>
@@ -43,28 +43,35 @@
                     </div></tr>
 
                 <tr>
-                    <td class="tableColumnWidth removeLeftDotLine labelColumn">
+                    <td class="tableColumnWidth  labelColumn">
                        <?php echo $addUserForm['user_type_id']->renderLabel(__('user_type', null, 'authenticationMessages')) ?> <span class="mandatoryStar">*</span>
                     </td>
-                    <td><?php include_component('userManagement', 'UserList'); ?>
+                    <td class="addDotLinetoRight"><?php include_component('userManagement', 'UserList'); ?>
                     </td>
                     &nbsp;
                     </td>
                 </tr>
                 
                <tr id="langId">
-                    <td class="tableColumnWidth removeLeftDotLine labelColumn">
+                    <td class="tableColumnWidth labelColumn">
                         <?php echo __('languages', null, 'userManagementMessages') ?>
                     </td>
-                    <td>
+                    <td class="addDotLinetoRight">
                             <?php if( count($langList) > 0) { ?>
-                        <table style="width: 250px; background: none; border-collapse: none; border-top: none ; border-bottom: none ">
+                        <table style="width: 95%; background: none; border-collapse: none; border-top: none ; border-bottom: none ">
                                 <tr>
+                                <?php $count=0;?>
                                 <?php foreach ($langList as $language) { ?>
+                                <?php if($language->getCode() != "en_US") {?>
+                                 <?php $count++;?>
+                                 <?php if($count%3 == 0) {?> 
+                                     <?php echo "</tr><tr>";?>
+                                 <?php }?>
                                     <td style="border-top: none; border-left: none;">
                                         <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getId() ?>" />
                                                 <?php echo $language->getName() . "(". $language->getCode() . ")"?>
                                     </td>
+                                    <?php }?>
                                 <?php } ?>
                                 </tr>
                             </table>

@@ -20,8 +20,8 @@
                 <?php }
                 } ?>
                 <tr>
-                    <td  class="tableColumnWidth removeLeftDotLine labelColumn"><?php echo $editUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?> <span class="mandatoryStar">*</span></td>
-                    <td class="tableColumnWidth">
+                    <td  class="tableColumnWidth labelColumn"><?php echo $editUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?> <span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight">
                         <input type="text" name="user[login_name]" value="<?php echo isset($user['username']) ? $user['username'] : null ?>" class="text_input" />
                     <div class="errorMsg">
                     <?php if ($editUserForm['login_name']->hasError()) { ?>
@@ -30,48 +30,59 @@
                     </div></tr>            
                 
                 <tr>
-                    <td class="tableColumnWidth removeLeftDotLine labelColumn">
+                    <td class="tableColumnWidth  labelColumn">
                        <?php echo $editUserForm['user_type_id']->renderLabel(__('user_type', null, 'authenticationMessages')) ?> <span class="mandatoryStar">*</span>
                     </td>
-                    <td><?php include_component('userManagement', 'UserList'); ?>
+                    <td class="addDotLinetoRight"><?php include_component('userManagement', 'UserList'); ?>
                     </td>
                 </tr>
 
                 <?php if (count($userLang) > 0) { ?>
+                <?php $count=0;?>
                <tr id="displayLangId">
-                    <td class="tableColumnWidth removeLeftDotLine labelColumn">
+                    <td class="tableColumnWidth  labelColumn">
                         <?php echo __('languages', null, 'userManagementMessages'); ?> <span class="mandatoryStar">*</span>
                     </td>
-                    <td>
+                    <td class="addDotLinetoRight">
                             <?php if( count($langList) > 0) { ?>
-                        <table style="width: 250px; background: none; border-collapse: none; border-top: none ; border-bottom: none ">
+                        <table style="width: 95%; background: none; border-collapse: none; border-top: none ; border-bottom: none ">
                                 <tr>
                                     <!-- Display Checked Values -->
                                     <?php $displayLangList = $langList ;?>
                                         <?php foreach ($userLang as $savedLang) {  ?>
-                                            <?php foreach ($langList as $id => $language) { ?>
-                                           
+                                           <?php foreach ($langList as $id => $language) { ?>
+                                           <?php if($language->getCode() != "en_US") {?> 
                                                 <?php $key = $langList->key()?>
                                                     <?php if($savedLang['languageId'] == $language->getId()) {  ?>
-                                                    
+                                                        <?php $count++;?>
+                                                        <?php if($count%3 == 0) {?> 
+                                                            <?php echo "</tr><tr>";?>
+                                                        <?php }?>
                                                         <?php  $displayLangList->remove($key);?>
-                                               
-                                                        <td style="border-top: none; border-left: none;">
+                                                
+                                                        <td class="languageCell addDotLinetoRight" style="border-top: none; border-left: none;">
                                                             <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getId() ?>" checked="true"/>
-                                                            <?php echo $language->getCode(); ?>
+                                                            <?php echo trim($language->getName()."(".$language->getCode().")")?>
                                                         </td>                                                                                          
                                             <?php } ?>
-                                        <?php } ?>                                                                                                          
+                                        <?php } ?>
+                                        <?php }?>                                                                                                          
                                     <?php } ?>
                                    
                                     <?php if(count($displayLangList) > 0) { ?>
                                                         <?php $j = 0; ?>
                                                             <?php while($j < count($displayLangList)) { ?>
+                                                            <?php if($displayLangList[$j]->getCode() != "en_US") {?> 
                                                                 <?php if (($displayLangList[$j]->getId() > 0)) { ?>
-                                                                    <td style="border-top: none; border-left: none;">
+                                                                    <?php $count++;?>
+                                                                    <?php if($count%3 == 0) {?> 
+                                                                        <?php echo "</tr><tr>";?>
+                                                                    <?php }?>
+                                                                    <td class="languageCell addDotLinetoRight" style="border-top: none; border-left: none;">
                                                                         <input type="checkbox" name="user[user_languages][]" value="<?php echo $displayLangList[$j]->getId() ?>" />
-                                                                        <?php echo $displayLangList[$j]->getCode(); ?>
+                                                                        <?php echo trim($displayLangList[$j]->getName()."(".$displayLangList[$j]->getCode().")"); ?>
                                                                     </td>
+                                                                <?php }?>
                                                                 <?php }?>
                                                                 <?php $j += 1 ;?>
                                                             <?php }?>                                                        
@@ -83,19 +94,26 @@
                     </td>
                 </tr>
                 <?php }  else { ?>
-                <tr id="langId">
-                    <td class="tableColumnWidth removeLeftDotLine labelColumn">
+                <tr id="langId" class="addDotLinetoRight">
+                    <td class="tableColumnWidth labelColumn">
                         <?php echo __('languages', null, 'userManagementMessages') ?> <span class="mandatoryStar">*</span>
                     </td>
-                    <td>
+                    <td class="addDotLinetoRight">
                             <?php if( count($langList) > 0) { ?>
-                        <table style="width: 250px; background: none; border-collapse: none; border-top: none ; border-bottom: none ">
+                        <table style="width: 95%; background: none; border-collapse: none; border-top: none ; border-bottom: none ">
                                 <tr>
-                                <?php foreach ($langList as $language) { ?>                               
-                                    <td style="border-top: none; border-left: none;">
+                                <?php $count=0;?>
+                                <?php foreach ($langList as $language) { ?>
+                                <?php if($language->getCode() != "en_US") {?>
+                                 <?php $count++;?>
+                                 <?php if($count%3 == 0) {?> 
+                                     <?php echo "</tr><tr>";?>
+                                 <?php }?>
+                                    <td class="languageCell"style="border-top: none; border-left: none;">
                                         <input type="checkbox" name="user[user_languages][]" value="<?php echo $language->getId() ?>" />
-                                                <?php echo $language->getCode()?>
-                                    </td>                               
+                                                <?php echo trim($language->getName()."(".$language->getCode().")");?>
+                                    </td> 
+                                    <?php }?>                              
                                 <?php } ?>
                                 </tr>
                             </table>

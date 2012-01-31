@@ -256,6 +256,12 @@ $(document).ready(function (){
             $(this).closest('tr').removeClass('emptyRows');
         }
     });
+    
+    if($('#langId').length > 0) {
+        if($('#user_user_type_id').val() != 2) {
+            $('#langId').hide();
+        }
+    }
 });
 
 function checkMessageBar() {
