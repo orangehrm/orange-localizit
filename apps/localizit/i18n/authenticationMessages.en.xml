@@ -8,7 +8,7 @@
             </trans-unit>
             <trans-unit id="2">
                 <source>username</source>
-                <target>User Name</target>
+                <target>Username</target>
             </trans-unit>
             <trans-unit id="3">
                 <source>password</source>
