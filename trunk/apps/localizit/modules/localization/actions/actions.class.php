@@ -53,7 +53,7 @@ class localizationActions extends sfActions {
     public function executeIndex(sfWebRequest $request) {
         $localizationService = $this->getLocalizeService();
         $this->addLabelForm = new LabelForm($localizationService);
-        $this->sourceLanguage= $localizationService->getLanguageByCode($this->getUser()->getCulture());
+        $this->sourceLanguage= $localizationService->getLanguageByCode('en_US');
         $this->showAddLabel = false;
     }
 
