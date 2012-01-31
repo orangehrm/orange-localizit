@@ -179,8 +179,13 @@ tfoot td {
 }
 
 .removeLeftDotLine{
-    border-left: #CCCCCC 1px ;
+    border-left: #CCCCCC 0px ;
 }
+
+tbody tr:first-child td.removetopDotLine{
+    border-top: #CCCCCC 0px ;
+}
+
 .addDotLinetoRight {
     border-right: #CCCCCC 1px dotted;
 }
@@ -247,9 +252,6 @@ input.error {
     background-color: #FAAFBE;
 }
 
-#langId {
-    display: none;
-}
 
 .formBorder {
     width: 100%;
@@ -406,4 +408,8 @@ div#requiredField {
 }
 .emptyRows{
     background: #FFCD75;
+}
+
+.languageCell{
+    width: 150px;
 }
