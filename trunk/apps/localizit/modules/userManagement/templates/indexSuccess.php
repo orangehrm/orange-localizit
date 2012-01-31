@@ -17,7 +17,7 @@
         <table class="mainFrame mediumText">
             <thead>
                 <tr>
-                    <th><?php echo __('login_name', null, 'userManagementMessages')?></th>
+                    <th><?php echo __('username', null, 'userManagementMessages')?></th>
                     <th><?php echo __('user_type', null, 'userManagementMessages')?></th>
                     <th><?php echo __('edit', null, 'userManagementMessages')?></th>
                     <th><?php echo __('delete', null, 'userManagementMessages')?></th>

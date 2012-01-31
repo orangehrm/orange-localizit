@@ -7,8 +7,8 @@
                 <target>User List</target>
             </trans-unit>
             <trans-unit id="2">
-                <source>login_name</source>
-                <target>Login Name</target>
+                <source>username</source>
+                <target>Username</target>
             </trans-unit>
             <trans-unit id="3">
                 <source>user_type</source>
