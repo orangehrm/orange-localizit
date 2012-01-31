@@ -38,7 +38,7 @@
             </tr>
             <tr>
                 <td><?php echo __('language_group', null, 'localizationMessages') ?><span class="mandatoryStar">*</span></td>
-                <td><?php include_component('localization', 'GroupList')?></td>
+                <td class="addDotLinetoRight"><?php include_component('localization', 'GroupList')?></td>
             </tr>
         </table>
         <?php include_partial('localization/mandetoryFieldMessage')?>
@@ -69,7 +69,7 @@
                         <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>"/>
                         <input type="reset" name="cancel" id="cancel" class="button normalText" value="<?php echo __('cancel', null, 'localizationMessages') ?>"/>
                     </td>
-                    <td class="viewTanslateTextmessage removeLeftDotLine">
+                    <td class="viewTanslateTextmessage removeLeftDotLine removetopDotLine">
                         <span id="TranslateTextHelpText">Text to be translated are highlighted </span>
                     </td>
                 </tr>
@@ -103,7 +103,7 @@
                     } else { 
                         ?>
                             <td class="target_label <?php echo $source->getId();?>"><input name="targetLabel[<?php echo $source->getId();?>][<?php echo -1;?>]" class="target_label_input" type="text" value=""/></td>
-                            <td class="target_note <?php echo $source->getId();?>"><textarea  name="targetNote[<?php echo $source->getId();?>][<?php echo -1;?>]" class="target_note_input" type="text"></textarea></td>
+                            <td class="addDotLinetoRight target_note <?php echo $source->getId();?>"><textarea  name="targetNote[<?php echo $source->getId();?>][<?php echo -1;?>]" class="target_note_input" type="text"></textarea></td>
             <?php 
                     }
                     ?>

@@ -6,7 +6,7 @@
 
         <table class="mainFrame mediumText">
             <tr>
-                <td><a href="<?php echo url_for('@add_user') ?>">
+                <td class="addDotLinetoRight"><a href="<?php echo url_for('@add_user') ?>">
                     <?php echo __('add_new_user', null, 'userManagementMessages') ?></a>
                 </td>
             </tr>
@@ -29,7 +29,7 @@
                         <td><?php echo $user->getUsername() ?></td>
                         <td><?php echo $user->getUserType()->getUserType() ?></td>
                         <td style="text-align: center"><a href="<?php echo url_for('@edit_user?id=' . $user->getId()) ?>"><span  class="imageLink"><?php echo image_tag('edit.gif' , array ('border' => '0'))?></span></a></td>
-                        <td style="text-align: center"><a href="#"><span  class="imageLink">
+                        <td class="addDotLinetoRight" style="text-align: center"><a href="#"><span  class="imageLink">
                         <?php if ($user->getId() ==1 ) { ?>
                                     -
                          <?php } else { ?>

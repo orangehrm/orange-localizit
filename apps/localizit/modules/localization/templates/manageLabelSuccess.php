@@ -19,16 +19,15 @@
             <?php echo $addLabelUploadForm->renderHiddenFields(); ?>
             <table width="100%" class="mediumText mainFrame">
                 <tr><td><?php echo $addLabelUploadForm['Language_group']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
-                    <td><?php echo $addLabelUploadForm['Language_group']->render(); ?></td></tr>
-                
+                    <td class="addDotLinetoRight"><?php echo $addLabelUploadForm['Language_group']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelUploadForm['Include_target_value']->renderLabel(); ?></td>
-                    <td><?php echo $addLabelUploadForm['Include_target_value']->render(); ?></td></tr>
+                    <td class="addDotLinetoRight"><?php echo $addLabelUploadForm['Include_target_value']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelUploadForm['Target_language']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
-                    <td><?php echo $addLabelUploadForm['Target_language']->render(); ?></td></tr>
+                    <td class="addDotLinetoRight"><?php echo $addLabelUploadForm['Target_language']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelUploadForm['Target_note']->renderLabel(); ?></td>
-                    <td><?php echo $addLabelUploadForm['Target_note']->render(); ?></td></tr>
+                    <td class="addDotLinetoRight"><?php echo $addLabelUploadForm['Target_note']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelUploadForm['File']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
-                    <td><?php echo $addLabelUploadForm['File']->render(); ?><div id="xmlHelpMessage"><span class="mandatoryStar">*</span>Support only valid XML files.</font></div></td></tr>
+                    <td class="addDotLinetoRight"><?php echo $addLabelUploadForm['File']->render(); ?><div id="xmlHelpMessage"><span class="mandatoryStar">*</span>Support only valid XML files.</font></div></td></tr>
             </table>
             <?php include_partial('localization/mandetoryFieldMessage')?>
             <input type="button" name="upload_and_save_xml" id="upload_and_save_xml" class="button normalText" value="<?php echo __('Upload', null, 'localizationMessages') ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -52,11 +51,11 @@
     <?php echo $addLabelForm->renderHiddenFields(); ?>
         <table class="mediumText mainFrame">
                 <tr><td><?php echo $addLabelForm['Label']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
-                    <td><?php echo $addLabelForm['Label']->render(); ?></td></tr>
+                    <td class="addDotLinetoRight"><?php echo $addLabelForm['Label']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelForm['Language_group']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
-                    <td><?php echo $addLabelForm['Language_group']->render(); ?></td></tr>
+                    <td class="addDotLinetoRight"><?php echo $addLabelForm['Language_group']->render(); ?></td></tr>
                 <tr><td><?php echo $addLabelForm['Label_note']->renderLabel(); ?></td>
-                    <td><?php echo $addLabelForm['Label_note']->render(); ?></td></tr>
+                    <td class="addDotLinetoRight"><?php echo $addLabelForm['Label_note']->render(); ?></td></tr>
               
             </table>
             <?php include_partial('localization/mandetoryFieldMessage')?>

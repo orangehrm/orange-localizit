@@ -20,8 +20,8 @@
                 <?php }
                 } ?>
                 <tr>
-                    <td  class="tableColumnWidth removeLeftDotLine"><?php echo $editLangGroupForm['group_name']->renderLabel(__('group_name', null, 'localizationMessages')) ?> <span class="mandatoryStar">*</span></td>
-                    <td class="tableColumnWidth">
+                    <td  class="tableColumnWidth"><?php echo $editLangGroupForm['group_name']->renderLabel(__('group_name', null, 'localizationMessages')) ?> <span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight">
                         <?php echo $editLangGroupForm['group_name']->render()?>
                     <div class="errorMsg">
                     <?php if ($editLangGroupForm['group_name']->hasError()) { ?>

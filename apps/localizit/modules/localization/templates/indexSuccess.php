@@ -28,7 +28,7 @@
             </tr>
             <tr>
                 <td><?php echo __('language_group', null, 'localizationMessages') ?><span class="mandatoryStar">*</span></td>
-                <td><?php include_component('localization', 'GroupList')?></td>
+                <td class="addDotLinetoRight"><?php include_component('localization', 'GroupList')?></td>
             </tr>
 
             
