@@ -262,6 +262,20 @@ $(document).ready(function (){
             $('#langId').hide();
         }
     }
+    
+    if($('.sourceValueInput').length > 0) {
+        var stringCount = 1;
+        var stringArray = new Array();
+        $(".sourceValueInput").each(function() {
+            var sourceValue = $.trim($(this).val());
+            if($.inArray(sourceValue,stringArray) < 0) {
+                stringArray[stringCount] = sourceValue;
+                stringCount++;
+            } else {
+                $(".sourceValueInput[value="+sourceValue+"]").closest('tr').addClass('duplicate')
+            }
+        });
+    }
 });
 
 function checkMessageBar() {

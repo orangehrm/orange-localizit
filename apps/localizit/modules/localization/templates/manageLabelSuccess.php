@@ -69,14 +69,19 @@
 
 
 <br/>
-<div>
-    <table width="100%"><tr><td>
+<div class="mediumText pageHeader ">
+    <table width="100%" class="mainFrame"><tr><td>
     <?php if(count($LabelDataArray) > 0) {?>
         <input type="button" name="edit" id="editAdminLabel" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />&nbsp;
         <input type="button" name="delete" id="deleteAdminLabel" class="button normalText" value="<?php echo __('delete', null, 'localizationMessages') ?>" /> &nbsp;
     <?php }?>
     <input type="button" name="addAdminLabel" id="addAdminLabel" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" />
-            </td></tr></table>
+            </td>
+            <td class="viewTanslateTextmessage removeLeftDotLine removetopDotLine">
+                <span id="TranslateTextHelpText">Duplicate labels are highlighted </span>
+            </td>
+      </tr>
+      </table>
 </div>
 <br/>
 
