@@ -413,3 +413,7 @@ div#requiredField {
 .languageCell{
     width: 150px;
 }
+
+.duplicate{
+    background: #EFD5A7;
+}
