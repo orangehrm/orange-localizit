@@ -298,7 +298,9 @@ XML;
                     $transunit->addAttribute('id', $cont);
                     $transunit->addChild('source', $labelInnerData['source_value']);
                     $transunit->addChild('target', $labelInnerData['target_value']);
-                    $transunit->addChild('note', $labelInnerData['source_note']);
+                    if($labelInnerData['source_note'] != '') {
+                        $transunit->addChild('note', $labelInnerData['source_note']);
+                    }
                     $cont++;
                 }
             }
