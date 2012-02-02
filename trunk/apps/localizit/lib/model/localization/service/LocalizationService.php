@@ -542,18 +542,67 @@ XML;
             
             $databasearray = $this->getSource($sorcedata->getGroupId());
             $dblabelarray = array();
-            foreach($databasearray as $dbitem)
-            {
-                $dblabelarray[] = $dbitem["value"];
+            
+            if($withTarget) {
+                $sourceTargetList = $this->getTargetStringByLanguageAndSourceGroupId($lstable->getLanguageId(),$sorcedata->getGroupId());
+                $targetArray = array();
+                foreach ($sourceTargetList as $source) {
+                    $targets = $source->getTarget();
+                    $targetArray[2][] = $source->getId();
+                    $targetArray[3][] = $source->getValue();
+                    if($source->getNote()) {
+                        $targetArray[4][] = $source->getNote();
+                    } else {
+                        $targetArray[4][] = NULL;
+                    }
+                    
+                    if(count($targets) == 0 ) {
+                        $targetArray[0][] = NULL;
+                        $targetArray[1][] = NULL;
+                    } else {
+                        foreach($targets as $target) {
+                            $targetArray[0][] = $target->getId();
+                            $targetArray[1][] = $target->getValue();
+                        }
+                    }
+                }
             }
-              
+            
             foreach ($uxmlarray as $key => $value)
             {
-                if(!in_array($value, $dblabelarray))
+                if(!in_array($value, $targetArray[3]))
                 {
                     $result[0][] = $value;
                     $result[1][] = $unotearray[$key];
                     $result[2][] = $targetLanguageXml[$key];
+                } else {
+                    $id = array_search($value, $targetArray[3]);
+                    if($withTarget) {
+                        if($targetArray[0][$id]) {
+                            if($targetLanguageXml[$key] != $targetArray[1][$id]) {
+                                $targetData = new Target();
+                                $targetData->setSourceId($targetArray[2][$id]);
+                                $targetData->setLanguageId($lstable->getLanguageId());
+                                $targetData->setValue($targetLanguageXml[$key]);
+                                $targetData->setNote($lstable->getNote());
+                                $targetData->setId($targetArray[0][$id]);
+                                $this->updateTarget($targetData);
+                            }
+                        } else {
+                            $targetData = new Target();
+                            $targetData->setSourceId($targetArray[2][$id]);
+                            $targetData->setLanguageId($lstable->getLanguageId());
+                            $targetData->setValue($targetLanguageXml[$key]);
+                            $targetData->setNote($lstable->getNote());
+                            $this->addTarget($targetData);
+                        }
+                    }
+                    if($unotearray[$key] != $targetArray[4][$id]) {
+                        $idArray = array($targetArray[2][$id]);
+                        $valueArray = array($targetArray[3][$id]);
+                        $noteArray = array($unotearray[$key]);
+                        $this->updateSource($idArray, $valueArray, $noteArray);
+                    }
                 }
             }
             $usourceresults = array_unique($result[0]);
