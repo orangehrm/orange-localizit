@@ -94,7 +94,7 @@
         <tr>
             <td width="10px" ><input type="checkbox" class="checkbox_list" name="checkall" id="checkall" onclick='checkedAll();' /></td>
             <td class="boldText" width="10px" >ID</td>
-            <td width="120px" class="boldText">Group</td>
+            <td width="80px" class="boldText">Group</td>
             <td width="320px" class="boldText">Label</td>
             <td class="boldText">Note</td>
             <td class="removeLeftDotLine addDotLinetoRight">&nbsp;</td>
@@ -106,8 +106,8 @@
         <td><input class="checkbox_list" type="checkbox" name="checkedid[]" value="<?php echo $item[0]; ?>" onclick="uncheckCheckAll();"/></td>
         <td class="labelNameData"><?php echo $j; ?></td>
         <td class="labelNameData"><?php echo $item[3]; ?></td>
-        <td class="labelNameData"><input class="sourceValueInput" name="labelName[]"  style="width: 300px;" type="text" value="<?php echo $item[1]; ?>" /></td>
-        <td class="labelNameData"><input class="sourceNoteInput" name="labelNote[]"  style="width: 700px;" type="text" value="<?php echo $item[2]; ?>"  /></td>
+        <td class="labelNameData"><input class="sourceValueInput" name="labelName[]"  style="width: 700px;" type="text" value="<?php echo $item[1]; ?>" /></td>
+        <td class="labelNameData"><textarea class="sourceNoteInput" name="labelNote[]"  style="width: 350px;"><?php echo $item[2]; ?></textarea></td>
         <td class="labelNameData removeLeftDotLine addDotLinetoRight"><input class="sourceIdInput" name="labelId[]" style="display: none;" type="text" value="<?php echo $item[0]; ?>" /></td>
     </tr>
         <?php }

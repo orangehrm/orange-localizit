@@ -97,6 +97,7 @@ $(document).ready(function (){
     });
     
     $('.labelNameData input').attr("disabled", "disabled");
+    $('.labelNameData textarea').attr("disabled", "disabled");
     //$('.checkbox_list').attr("disabled", "disabled");
     $('#editAdminLabel').click(function (){          
         var a = $(this).val();
@@ -104,6 +105,7 @@ $(document).ready(function (){
             {
                 $(this).val('Save');
                 $('.labelNameData input').removeAttr("disabled");
+                $('.labelNameData textarea').removeAttr("disabled");
             }
         if(a == 'Save')
             {
