@@ -274,7 +274,7 @@ $(document).ready(function (){
                 stringArray[stringCount] = sourceValue;
                 stringCount++;
             } else {
-                $(".sourceValueInput[value="+sourceValue+"]").closest('tr').addClass('duplicate')
+                $(".sourceValueInput[value='"+sourceValue+"']").closest('tr').addClass('duplicate')
             }
         });
     }

@@ -566,6 +566,18 @@ XML;
                         }
                     }
                 }
+            } else {
+                $sourceList = $this->getSourceList();
+                $targetArray = array();
+                foreach ($sourceList as $source) {
+                    $targetArray[2][] = $source->getId();
+                    $targetArray[3][] = $source->getValue();
+                    if($source->getNote()) {
+                        $targetArray[4][] = $source->getNote();
+                    } else {
+                        $targetArray[4][] = NULL;
+                    }
+                }
             }
             
             foreach ($uxmlarray as $key => $value)
