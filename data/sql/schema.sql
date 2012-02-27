@@ -2,7 +2,7 @@ CREATE TABLE ohrm_group (id BIGINT AUTO_INCREMENT, name VARCHAR(255), PRIMARY KE
 CREATE TABLE ohrm_language (id BIGINT AUTO_INCREMENT, name VARCHAR(255), code VARCHAR(255), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE ohrm_source (id BIGINT AUTO_INCREMENT, value text NOT NULL, group_id BIGINT, note text, INDEX group_id_idx (group_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE ohrm_target (id BIGINT AUTO_INCREMENT, source_id BIGINT NOT NULL, language_id BIGINT NOT NULL, value text, note text, INDEX source_id_idx (source_id), INDEX language_id_idx (language_id), PRIMARY KEY(id)) COLLATE utf8_unicode_ci ENGINE = INNODB;
-CREATE TABLE ohrm_user (id BIGINT AUTO_INCREMENT, username VARCHAR(25) NOT NULL, user_type_id BIGINT NOT NULL, password VARCHAR(255), INDEX user_type_id_idx (user_type_id), PRIMARY KEY(id)) ENGINE = INNODB;
+CREATE TABLE ohrm_user (id BIGINT AUTO_INCREMENT, firstname VARCHAR(250) NOT NULL, lastname VARCHAR(250) NOT NULL, email VARCHAR(250) NOT NULL, username VARCHAR(25) NOT NULL, user_type_id BIGINT NOT NULL, password VARCHAR(255), INDEX user_type_id_idx (user_type_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE ohrm_user_language (id BIGINT AUTO_INCREMENT, user_id BIGINT NOT NULL, language_id BIGINT NOT NULL, INDEX language_id_idx (language_id), INDEX user_id_idx (user_id), PRIMARY KEY(id)) ENGINE = INNODB;
 CREATE TABLE ohrm_user_type (id BIGINT AUTO_INCREMENT, user_type VARCHAR(25) NOT NULL, PRIMARY KEY(id)) ENGINE = INNODB;
 ALTER TABLE ohrm_source ADD CONSTRAINT ohrm_source_group_id_ohrm_group_id FOREIGN KEY (group_id) REFERENCES ohrm_group(id) ON DELETE SET NULL;

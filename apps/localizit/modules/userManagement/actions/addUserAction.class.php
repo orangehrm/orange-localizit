@@ -59,6 +59,8 @@ class addUserAction extends sfAction {
                 if ($this->addUserForm->saveUser()) {
                     $this->getUser()->setFlash('successMessage', "Successfully Added User", false);
                     $this->redirect('@userManagement');
+                } else {
+                    $this->getUser()->setFlash('errorMessage', "Failed to Save", false);
                 }
             }
             else {

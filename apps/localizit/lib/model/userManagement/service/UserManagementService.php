@@ -51,12 +51,15 @@ class UserManagementService extends BaseService {
      * @param <type> $userTypeId
      * @return <type> 
      */
-    public function addUser($userName, $password, $userTypeId) {
+    public function addUser($first_name, $last_name, $email, $userName, $password, $userTypeId) {
 
         $userManagementDao = $this->getUserManagementDao();
 
         try {
             $user = new User();
+            $user->setFirstName($first_name);
+            $user->setLastName($last_name);
+            $user->setEmail($email);
             $user->setUsername($userName);
             $user->setPassword($this->hashPassword($password));
             $user->setUserTypeId($userTypeId);

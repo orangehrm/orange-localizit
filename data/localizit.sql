@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 19, 2012 at 09:16 AM
+-- Generation Time: Feb 27, 2012 at 10:57 AM
 -- Server version: 5.1.49
--- PHP Version: 5.3.3-1ubuntu9.7
+-- PHP Version: 5.3.3-1ubuntu9.10
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `new`
+-- Database: `localization_new`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `ohrm_group` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `ohrm_group`
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `ohrm_language` (
   `name` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `ohrm_language`
@@ -78,7 +78,11 @@ CREATE TABLE IF NOT EXISTS `ohrm_source` (
   `note` text,
   PRIMARY KEY (`id`),
   KEY `group_id_idx` (`group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `ohrm_source`
+--
 
 
 -- --------------------------------------------------------
@@ -96,7 +100,11 @@ CREATE TABLE IF NOT EXISTS `ohrm_target` (
   PRIMARY KEY (`id`),
   KEY `source_id_idx` (`source_id`),
   KEY `language_id_idx` (`language_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `ohrm_target`
+--
 
 
 -- --------------------------------------------------------
@@ -107,20 +115,23 @@ CREATE TABLE IF NOT EXISTS `ohrm_target` (
 
 CREATE TABLE IF NOT EXISTS `ohrm_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(250) NOT NULL,
+  `lastname` varchar(250) NOT NULL,
+  `email` varchar(250) NOT NULL,
   `username` varchar(25) NOT NULL,
   `user_type_id` bigint(20) NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_type_id_idx` (`user_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `ohrm_user`
 --
 
-INSERT INTO `ohrm_user` (`id`, `username`, `user_type_id`, `password`) VALUES
-(1, 'admin', 1, '21232f297a57a5a743894a0e4a801fc3'),
-(2, 'moderator', 2, '0408f3c997f309c03b08bf3a4bc7b730');
+INSERT INTO `ohrm_user` (`id`, `firstname`, `lastname`, `email`, `username`, `user_type_id`, `password`) VALUES
+(1, 'Admin', 'Admin', 'admin@localizit.orangehrm.com', 'admin', 1, '21232f297a57a5a743894a0e4a801fc3'),
+(2, 'Moderator', 'Moderator', 'moderator@localizit.orangehrm.com', 'moderator', 2, '0408f3c997f309c03b08bf3a4bc7b730');
 
 -- --------------------------------------------------------
 
