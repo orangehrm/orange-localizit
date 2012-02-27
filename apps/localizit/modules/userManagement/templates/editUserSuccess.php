@@ -20,6 +20,35 @@
                 <?php }
                 } ?>
                 <tr>
+                    <td  class="tableColumnWidth labelColumn"><?php echo $editUserForm['first_name']->renderLabel(__('first_name', null, 'userManagementMessages')) ?> <span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight">
+                        <input type="text" name="user[first_name]" value="<?php echo isset($user['firstName']) ? $user['firstName'] : null ?>" class="text_input" />
+                    <div class="errorMsg">
+                    <?php if ($editUserForm['first_name']->hasError()) { ?>
+                    <?php echo $editUserForm['first_name']->renderError() ?>
+                    <?php } ?>
+                    </div>
+                </tr><tr>
+                    <td  class="tableColumnWidth labelColumn"><?php echo $editUserForm['last_name']->renderLabel(__('last_name', null, 'userManagementMessages')) ?> <span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight">
+                        <input type="text" name="user[last_name]" value="<?php echo isset($user['lastName']) ? $user['lastName'] : null ?>" class="text_input" />
+                    <div class="errorMsg">
+                    <?php if ($editUserForm['last_name']->hasError()) { ?>
+                    <?php echo $editUserForm['last_name']->renderError() ?>
+                    <?php } ?>
+                    </div>
+                </tr>
+                <tr>
+                    <td  class="tableColumnWidth labelColumn"><?php echo $editUserForm['email']->renderLabel(__('email', null, 'userManagementMessages')) ?> <span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight">
+                        <input type="text" name="user[email]" value="<?php echo isset($user['email']) ? $user['email'] : null ?>" class="text_input" />
+                    <div class="errorMsg">
+                    <?php if ($editUserForm['email']->hasError()) { ?>
+                    <?php echo $editUserForm['email']->renderError() ?>
+                    <?php } ?>
+                    </div>
+                </tr>
+                <tr>
                     <td  class="tableColumnWidth labelColumn"><?php echo $editUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?> <span class="mandatoryStar">*</span></td>
                     <td class="tableColumnWidth addDotLinetoRight">
                         <input type="text" name="user[login_name]" value="<?php echo isset($user['username']) ? $user['username'] : null ?>" class="text_input" />
@@ -27,8 +56,8 @@
                     <?php if ($editUserForm['login_name']->hasError()) { ?>
                     <?php echo $editUserForm['login_name']->renderError() ?>
                     <?php } ?>
-                    </div></tr>            
-                
+                    </div>
+                </tr>
                 <tr>
                     <td class="tableColumnWidth  labelColumn">
                        <?php echo $editUserForm['user_type_id']->renderLabel(__('user_type', null, 'authenticationMessages')) ?> <span class="mandatoryStar">*</span>

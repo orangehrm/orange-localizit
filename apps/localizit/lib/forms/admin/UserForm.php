@@ -120,6 +120,9 @@ class UserForm extends BaseUserForm {
 
             $values = $this->getValues();
             $user = new User();
+            $user->setFirstName($values['first_name']);
+            $user->setLastName($values['last_name']);
+            $user->setEmail($values['email']);
             $user->setId($values['user_id']);
             $user->setUsername($values['login_name']);
             $user->setPassword($values['password']);
