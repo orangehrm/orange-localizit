@@ -54,6 +54,9 @@ class UserForm extends BaseUserForm {
 
         $this->setWidgets(array(
             'user_id' => new sfWidgetFormInputHidden(),
+            'first_name' => new sfWidgetFormInputText(array(), array('class' => 'text_input')),
+            'last_name' => new sfWidgetFormInputText(array(), array('class' => 'text_input')),
+            'email' => new sfWidgetFormInputText(array(), array('class' => 'text_input')),
             'login_name' => new sfWidgetFormInputText(array(), array('class' => 'text_input')),
             'password' => new sfWidgetFormInputPassword(array(), array('class' => 'text_input')),
             'confirm_password' => new sfWidgetFormInputPassword(array(), array('class' => 'text_input')),
@@ -63,9 +66,12 @@ class UserForm extends BaseUserForm {
         ));
 
         $this->setValidators(array(
-            'login_name' => new sfValidatorString(array('min_length' => 6, 'max_length' => 25), array('required' => 'Username required.', 'min_length' => 'Password Length Should Be at Least 6 Characters', 'max_length' => 'Password Length Should Be Less Than 35 Characters')),
-            'password' => new sfValidatorString(array('min_length' => 6, 'max_length' => 35), array('required' => 'Password required.', 'min_length' => 'Password Length Should Be at Least 6 Characters', 'max_length' => 'Password Length Should Be Less Than 35 Characters')),
-            'confirm_password' => new sfValidatorString(array(), array('required' => 'Confirm password required.')),
+            'first_name' => new sfValidatorString(array('max_length' => 250, 'required' => true), array('max_length' => 'Should Be Less Than 250 Characters', 'required' => 'Required')),
+            'last_name' => new sfValidatorString(array('max_length' => 250, 'required' => true), array('max_length' => 'Should Be Less Than 250 Characters', 'required' => 'Required')),
+            'email' => new sfValidatorEmail(array('required' => true), array('required' => 'Required', 'invalid' => 'Expected format: admin@example.com')),
+            'login_name' => new sfValidatorString(array('min_length' => 6, 'max_length' => 25), array('required' => 'Required', 'min_length' => 'Should Be at Least 6 Characters', 'max_length' => 'Should Be Less Than 35 Characters')),
+            'password' => new sfValidatorString(array('min_length' => 6, 'max_length' => 35), array('required' => 'Required', 'min_length' => 'Should Be at Least 6 Characters', 'max_length' => 'Should Be Less Than 35 Characters')),
+            'confirm_password' => new sfValidatorString(array(), array('required' => 'Required')),
             'user_type_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UserType'))),
         ));
 
@@ -89,7 +95,7 @@ class UserForm extends BaseUserForm {
 
             $values = $this->getValues();
 ;
-            $addUser = $userManagementService->addUser($values['login_name'], $values['password'], $values['user_type_id']);
+            $addUser = $userManagementService->addUser($values['first_name'],$values['last_name'],$values['email'],$values['login_name'], $values['password'], $values['user_type_id']);
 
             if (isset($values['user_languages'])) {
                 foreach ($values['user_languages'] as $id) {

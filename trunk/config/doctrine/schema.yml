@@ -90,6 +90,15 @@ User:
       type: integer
       primary: true
       autoincrement: true
+    firstName:
+      type: string(250)
+      notnull: true
+    lastName:
+      type: string(250)
+      notnull: true
+    email:
+      type: string(250)
+      notnull: true
     username:
       type: string(25)
       notnull: true

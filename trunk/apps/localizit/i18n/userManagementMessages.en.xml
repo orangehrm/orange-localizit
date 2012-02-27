@@ -42,6 +42,18 @@
                 <source>confirm_password</source>
                 <target>Confirm Password</target>
             </trans-unit>
+            <trans-unit id="10">
+                <source>first_name</source>
+                <target>First Name</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>last_name</source>
+                <target>Last Name</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>email</source>
+                <target>Email</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -17,6 +17,33 @@
             <?php echo $addUserForm->renderHiddenFields(); ?>
             <table class="mainFrame mediumText">
                 <tr>
+                    <td  class="tableColumnWidth labelColumn"><?php echo $addUserForm['first_name']->renderLabel(__('first_name', null, 'userManagementMessages')) ?><span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight"><?php echo $addUserForm['first_name']->render() ?>
+                    <div class="errorMsg">
+                    <?php if ($addUserForm['first_name']->hasError()) { ?>
+                    <?php echo $addUserForm['first_name']->renderError() ?>
+                    <?php } ?>                        
+                    </div></td>
+                </tr>
+                <tr>
+                    <td  class="tableColumnWidth labelColumn"><?php echo $addUserForm['last_name']->renderLabel(__('last_name', null, 'userManagementMessages')) ?><span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight"><?php echo $addUserForm['last_name']->render() ?>
+                    <div class="errorMsg">
+                    <?php if ($addUserForm['last_name']->hasError()) { ?>
+                    <?php echo $addUserForm['last_name']->renderError() ?>
+                    <?php } ?>                        
+                    </div></td>
+                </tr>
+                <tr>
+                    <td  class="tableColumnWidth labelColumn"><?php echo $addUserForm['email']->renderLabel(__('email', null, 'userManagementMessages')) ?><span class="mandatoryStar">*</span></td>
+                    <td class="tableColumnWidth addDotLinetoRight"><?php echo $addUserForm['email']->render() ?>
+                    <div class="errorMsg">
+                    <?php if ($addUserForm['email']->hasError()) { ?>
+                    <?php echo $addUserForm['email']->renderError() ?>
+                    <?php } ?>                        
+                    </div></td>
+                </tr>
+                <tr>
                     <td  class="tableColumnWidth labelColumn"><?php echo $addUserForm['login_name']->renderLabel(__('username', null, 'authenticationMessages')) ?><span class="mandatoryStar">*</span></td>
                     <td class="tableColumnWidth addDotLinetoRight"><?php echo $addUserForm['login_name']->render() ?>
                     <div class="errorMsg">
