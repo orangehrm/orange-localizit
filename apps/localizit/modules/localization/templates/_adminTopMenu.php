@@ -3,9 +3,11 @@
     <tr>
         <td>
             <ul class="sf-menu">
+                <?php if (sfContext::getInstance()->getUser()->isAuthenticated()) { ?>
                 <li class="homepage">
                     <a href="<?php echo url_for('@homepage'); ?>"><?php echo __('download_dictionary', null, 'localizationMessages') ?></a>
                 </li>
+                <?php } ?>
                     <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToTranslateText()) { ?>
                 <li class="translateText">
                     <a href="<?php echo url_for('@translate_text'); ?>"><?php echo __('translate_text', null, 'localizationMessages') ?></a>
