@@ -347,6 +347,27 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
+    
+    /**
+     * Get User List by LanguageId
+     * @param int $languageId
+     * @return Collection
+     * @throws DaoException
+     */
+    public function getUserListByLanguage($languageId) {
+        try {
+            $q = Doctrine_Query :: create()
+                            ->select('u.*')
+                            ->from('User u')
+                            ->leftJoin('u.UserLanguage ul')
+                            ->addWhere('ul.languageId = ?', $languageId)
+                            ->orderBy('u.firstName');
+            return $q->execute();
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+    
     /**
      * Retrive language string list by source and target Language Id
      * @param int $sourceLanguageId, int $targetLanguageId
