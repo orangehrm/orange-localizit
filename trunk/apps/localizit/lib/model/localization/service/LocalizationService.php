@@ -98,6 +98,22 @@ class LocalizationService extends BaseService {
     }
 
     /**
+     * Get User List by Language
+     * @param int $languageId
+     * @return Collection
+     */
+    public function getUserListByLanguage($languageId) {
+        $localizationDao = $this->getLocalizationDao();
+        try {
+            $res = $localizationDao->getUserListByLanguage($languageId);
+            return $res;
+        } catch (Exception $exc) {
+            throw new ServiceException($exc->getMessage(), $exc->getCode());
+        }
+    }
+    
+    
+    /**
      * Get Language By Code
      * @param string $languageCode
      * @return Label
@@ -264,13 +280,26 @@ class LocalizationService extends BaseService {
             $targetGroup = $this->getGroupById($languageGroupId);
             $sourceLanguageCode = $this->getLanguageById($sourceLanguageId)->getCode();
             $date = date('Y-m-d\TG:i:s\Z');
-
+            $contributorList = $this->getUserListByLanguage($targetLanguageId);
+            $nameString = '';
+            $nameCount = 0;
+            foreach($contributorList as $contributor) {
+                $nameCount++; 
+                if($nameCount > 1) {
+                    $nameString .= ' , ';
+                }
+                $nameString .= $contributor->getFirstName() .' ' . $contributor->getLastName();
+            }
+            if($nameString != '') {
+                $nameString = '<!-- Contributed By: '. $nameString . " -->";
+            }
             $xmlString = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
 <header/>
 </xliff>
+$nameString
 XML;
 
             $xml = new SimpleXMLElement($xmlString);
