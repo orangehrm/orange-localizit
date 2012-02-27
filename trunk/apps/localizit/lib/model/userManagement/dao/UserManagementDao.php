@@ -55,6 +55,9 @@ class UserManagementDao extends BaseDao {
         try {
             $query = Doctrine_Query::create()
                             ->update('User u')
+                            ->set('u.firstName ', "\"{$user->getFirstName()}\"")
+                            ->set('u.lastName ', "\"{$user->getLastName()}\"")
+                            ->set('u.email ', "\"{$user->getEmail()}\"")
                             ->set('u.username ', "\"{$user->getUsername()}\"")
                             ->set('u.password', "\"{$user->getPassword()}\"")
                             ->set('u.userTypeId', (int) $user->getUserTypeId())
