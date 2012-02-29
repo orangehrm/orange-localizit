@@ -43,7 +43,21 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
+    
+    public function getLanguageList() {
+        
+        try {
+            
+            $q = Doctrine_Query :: create()
+                            ->from("Language")
+                            ->orderBy("name");
+            return $q->execute();
 
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+        
+    }    
     
     /**
      * get All Records From a table

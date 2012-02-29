@@ -35,14 +35,16 @@ CREATE TABLE IF NOT EXISTS `ohrm_group` (
 -- Dumping data for table `ohrm_group`
 --
 
-INSERT INTO `ohrm_group` (`id`, `name`) VALUES
-(1, 'Admin'),
-(2, 'PIM'),
-(3, 'Leave'),
-(4, 'Time'),
-(5, 'Recruitment'),
-(6, 'Performance'),
-(7, 'General');
+INSERT INTO `ohrm_group` (`id`, `name`) VALUES 
+(1, 'General'), 
+(2, 'Admin'), 
+(3, 'PIM'), 
+(4, 'Leave'), 
+(5, 'Time'), 
+(6, 'Attendance'), 
+(7, 'Recruitment'), 
+(8, 'RecruitmentApply'), 
+(9, 'Performance'); 
 
 -- --------------------------------------------------------
 
@@ -62,8 +64,25 @@ CREATE TABLE IF NOT EXISTS `ohrm_language` (
 --
 
 INSERT INTO `ohrm_language` (`id`, `name`, `code`) VALUES
-(1, 'English', 'en_US'),
-(2, 'Spanish ', 'es_ES');
+(1, 'English - US', 'en_US'),
+(2, 'Sinhala - 	Sri Lanka', 'si_LK'),
+(3, 'German - Germany', 'de_DE'),
+(4, 'Spanish - Paraguay', 'es_PY'),
+(5, 'Polish - Poland', 'pl_PL'),
+(6, 'Romanian - Romania', 'ro_RO'),
+(7, 'Amharic - Ethiopia', 'am_ET'),
+(8, 'Oromo - Ethiopia', 'om_ET'),
+(9, 'Indonesian - Indonesia', 'id_ID'),
+(10, 'Danish - Denmark', 'da_DK'),
+(11, 'Bulgarian - Bulgaria', 'bg_BG'),
+(12, 'Spanish - Argentina', 'es_AR'),
+(13, 'Arabic - Saudi Arabia', 'ar_SA'),
+(14, 'Chinese - China', 'zh_CN'),
+(15, 'Russian - Ukraine', 'ru_UA'),
+(16, 'Italian - Italy', 'it_IT'),
+(17, 'Spanish - Guatemala', 'es_GT'),
+(18, 'Serbian - Serbia', 'sr_RS');
+
 
 -- --------------------------------------------------------
 
