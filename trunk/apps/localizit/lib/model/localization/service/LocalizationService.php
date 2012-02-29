@@ -75,7 +75,7 @@ class LocalizationService extends BaseService {
     public function getLanguageList() {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->getDataList('Language');
+            $res = $localizationDao->getLanguageList();
             return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
