@@ -26,6 +26,11 @@
                         <a href="<?php echo url_for('@userManagement'); ?>"><?php echo __('users', null, 'localizationMessages') ?></a>
                     <?php } ?>
                 </li>
+                <?php if (sfContext::getInstance()->getUser()->isAuthenticated()) { ?>
+                <li class="help">
+                    <a href="<?php echo url_for('@help'); ?>"><?php echo __('help', null, 'localizationMessages') ?></a>
+                </li>
+                <?php } ?>
             </ul>
         </td>
         <?php if(!$sf_user->isAuthenticated()) { ?>

@@ -74,6 +74,11 @@ translate_text:
   url: /translate_text
   param: { module: localization, action: viewTranslateText }
 
+help:
+  url: /help
+  param: { module: localization, action: help }
+
+
 language_group_list:
   url: /language_group_list
   param: { module: localization, action: languageGroupList }

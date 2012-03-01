@@ -146,6 +146,10 @@
                 <source>language_group</source>
                 <target>Language Group</target>
             </trans-unit>
+            <trans-unit id="37">
+                <source>help</source>
+                <target>Help</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
