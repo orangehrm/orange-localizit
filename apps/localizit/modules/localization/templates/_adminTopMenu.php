@@ -28,7 +28,7 @@
                 </li>
                 <?php if (sfContext::getInstance()->getUser()->isAuthenticated()) { ?>
                 <li class="help">
-                    <a href="<?php echo url_for('@help'); ?>"><?php echo __('help', null, 'localizationMessages') ?></a>
+                    <a href="<?php echo url_for('@help'); ?>"><?php echo __('Help', null, 'localizationMessages') ?></a>
                 </li>
                 <?php } ?>
             </ul>
