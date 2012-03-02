@@ -91,7 +91,7 @@
 <li><a href="../en_US.zip">Download the zip file</a> containing email templates.</li>
 <li>You need to translate each template.</li> 
 <li>When translating leave out variables and the term OrangeHRM similar to labels.</li>
-<li>Once you finished the translation create a zip (like es_ES.zip) file and email to OrangeHRM by replying to Localizit welcome email.</li>
+<li>Once you finished the translation create a zip file mentioning the locale in name (like es_ES.zip) and email to OrangeHRM by replying to Localizit welcome email.</li>
 </ul>
 
 </div> <!-- #content -- >
