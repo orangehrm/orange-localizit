@@ -4,7 +4,7 @@
     
     #content {
         font-family: Arial;
-        margin-top: -20px;
+        margin-top: -10px;
         margin-left: 15px;
         padding-bottom: 50px;
     }
