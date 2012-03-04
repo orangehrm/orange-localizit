@@ -49,7 +49,7 @@ class addUserAction extends sfAction {
 
         $this->langList = $this->userManagementService->getLanguageList();
         $userObject = $this->getUser();
-        $userObject->setAttribute('user_type_id', 1);
+        $userObject->setAttribute('user_type_id', 2);
 
         if ($request->isMethod(sfRequest::POST)) {
 
