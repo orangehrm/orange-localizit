@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<?php if(count($sourceList) > 0) {?>
+<?php if(count($listValues) > 0) {?>
 <div class="aouterBorder">
 
     <div class="homePage">
@@ -85,33 +85,29 @@
             </thead>
             <tbody>
                 <?php $count = 1 ?>
-                <?php foreach ($sourceList as $source) {
-                    $targets = $source->getTarget(); ?>
-                    <tr class="<?php echo $source->getId();?>">
+                <?php foreach ($listValues as $sourceId => $item) : ?>
+                    <tr class="<?php echo $sourceId;?>">
                             <td><?php echo $count;?></td>
-                            <td class="source_label <?php echo $source->getId();?>"><?php echo $source->getValue();?></td>
-                            <td class="source_note <?php echo $source->getId();?>"><?php echo $source->getNote();?></td>
-                    <?php if(count($targets) > 0) {?>
-                    <?php  foreach ($targets as $target) {
-                 ?>
-                        
-                            <td class="target_label <?php echo $source->getId();?>"><input name="targetLabel[<?php echo $source->getId();?>][<?php echo $target->getId();?>]" class="target_label_input <?php echo $target->getId();?>" type="text" value="<?php echo $target->getValue();?>"/></td>
-                            <td class="target_note <?php echo $source->getId();?>"><textarea  name="targetNote[<?php echo $source->getId();?>][<?php echo $target->getId();?>]" class="target_note_input <?php echo $target->getId();?>" type="text"><?php echo $target->getNote();?></textarea></td>
-                       
-                 <?php 
-                    }
-                    } else { 
-                        ?>
-                            <td class="target_label <?php echo $source->getId();?>"><input name="targetLabel[<?php echo $source->getId();?>][<?php echo -1;?>]" class="target_label_input" type="text" value=""/></td>
-                            <td class="addDotLinetoRight target_note <?php echo $source->getId();?>"><textarea  name="targetNote[<?php echo $source->getId();?>][<?php echo -1;?>]" class="target_note_input" type="text"></textarea></td>
-            <?php 
-                    }
-                    ?>
+                            <td class="source_label <?php echo $sourceId;?>"><?php echo $item['sourceValue'];?></td>
+                            <td class="source_note <?php echo $sourceId;?>"><?php echo $item['sourceNote'];?></td>
+                    <?php if(!empty($item['targetId'])) : ?>
+                            <td class="target_label <?php echo $sourceId;?>"><input name="targetLabel[<?php echo $sourceId;?>][<?php echo $item['targetId'];?>]" class="target_label_input <?php echo $item['targetId'];?>" type="text" value="<?php echo $item['targetValue'];?>"/></td>
+                            <td class="target_note <?php echo $sourceId;?>"><textarea  name="targetNote[<?php echo $sourceId;?>][<?php echo $item['targetId'];?>]" class="target_note_input <?php echo $item['targetId'];?>" type="text"><?php echo $item['targetNote'];?></textarea></td>
+                    <?php else : ?>
+                           <td class="target_label <?php echo $sourceId;?>"><input name="targetLabel[<?php echo $sourceId;?>][<?php echo -1;?>]" class="target_label_input" type="text" value=""/></td>
+                            <td class="addDotLinetoRight target_note <?php echo $sourceId;?>"><textarea  name="targetNote[<?php echo $sourceId;?>][<?php echo -1;?>]" class="target_note_input" type="text"></textarea></td>
+                    <?php endif; ?>
+
                      </tr>
-                     <?php $count++;
-                }
-                        
-                ?>
+                     <?php $count++; endforeach; ?>                
+                
+                
+                
+                
+                
+                
+                
+                
             </tbody>
         </table>
     </form>
