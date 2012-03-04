@@ -246,8 +246,56 @@ class LocalizationDao extends BaseDao {
         } catch (Exception $exp) {
             throw new DaoException($exp->getMessage());
         }
+    }    
+    
+    public function getTargetAsArray($languageId, $groupId) {
+        
+        $q  = "SELECT s.id AS sourceId, t.id AS targetId, t.value AS targetValue, t.note AS targetNote                
+               FROM `ohrm_source` AS s LEFT JOIN `ohrm_target` AS t ON s.id = t.source_id 
+               WHERE s.group_id = $groupId AND t.language_id = $languageId";
+        
+        $pdo = Doctrine_Manager::connection()->getDbh();
+        $r   = $pdo->query($q);        
+        
+        $a = array();
+        
+        while ($row = $r->fetch(PDO::FETCH_ASSOC)) {
+            
+            $a[$row['sourceId']] = array(
+                                            'targetId'      => $row['targetId'], 
+                                            'targetValue'   => $row['targetValue'],
+                                            'targetNote'   => $row['targetNote']
+                                        );
+            
+        }
+        
+        return $a;        
+        
     }
-
+    
+    public function getSourceAsArray($groupId) {
+        
+        $q  = "SELECT s.id AS sourceId, s.value AS sourceValue, s.note AS sourceNote 
+               FROM `ohrm_source` AS s WHERE s.group_id = $groupId";
+        
+        $pdo = Doctrine_Manager::connection()->getDbh();
+        $r   = $pdo->query($q);        
+        
+        $a = array();
+        
+        while ($row = $r->fetch(PDO::FETCH_ASSOC)) {
+            
+            $a[$row['sourceId']] = array(
+                                            'sourceValue'   => $row['sourceValue'], 
+                                            'sourceNote'    => $row['sourceNote']
+                                        );
+            
+        }
+        
+        return $a;        
+        
+    }    
+    
     /**
      * Save Target
      * @param Target $target

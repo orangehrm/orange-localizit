@@ -45,8 +45,10 @@ class viewTranslateTextAction extends sfAction {
             if(($this->targetLanguageId == 0) || ($this->languageGroupId == 0)) {
                 $this->getUser()->setFlash('errorMessage', "Select Valid Target Language and Language Group", false);
             } else {
-                $this->sourceList = $this->getLocalizeService()->getTargetStringByLanguageAndSourceGroupId($this->targetLanguageId, $this->languageGroupId);
-                if(count($this->sourceList) == 0) {
+                
+                $this->listValues = $this->getLocalizeService()->getTranslateListAsArray($this->targetLanguageId, $this->languageGroupId);
+                
+                if(count($this->listValues) == 0) {
                     $this->getUser()->setFlash('errorMessage', "No Records to Display", false);
                 }
             }

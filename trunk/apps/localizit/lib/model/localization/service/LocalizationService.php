@@ -65,7 +65,34 @@ class LocalizationService extends BaseService {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
+    
+    public function getTranslateListAsArray($languageId, $groupId) {
 
+        $sourceArray    = $this->getLocalizationDao()->getSourceAsArray($groupId);
+        $targetArray    = $this->getLocalizationDao()->getTargetAsArray($languageId, $groupId);
+        $combinedArray  = array();
+        
+        foreach ($sourceArray as $sourceId => $source) {
+            
+            $combinedArray[$sourceId]['sourceValue']    = $source['sourceValue'];
+            $combinedArray[$sourceId]['sourceNote']     = $source['sourceNote'];
+            $combinedArray[$sourceId]['targetId']       = '';
+            $combinedArray[$sourceId]['targetValue']    = '';
+            $combinedArray[$sourceId]['targetNote']     = '';            
+            
+            if (isset($targetArray[$sourceId])) {
+                
+                $combinedArray[$sourceId]['targetId']       = $targetArray[$sourceId]['targetId'];
+                $combinedArray[$sourceId]['targetValue']    = $targetArray[$sourceId]['targetValue'];
+                $combinedArray[$sourceId]['targetNote']     = $targetArray[$sourceId]['targetNote'];
+                
+            }
+            
+        }
+        
+        return $combinedArray;
+        
+    }    
 
     /**
      * Get Language List

@@ -81,8 +81,18 @@ INSERT INTO `ohrm_language` (`id`, `name`, `code`) VALUES
 (15, 'Russian - Ukraine', 'ru_UA'),
 (16, 'Italian - Italy', 'it_IT'),
 (17, 'Spanish - Guatemala', 'es_GT'),
-(18, 'Serbian - Serbia', 'sr_RS');
-
+(18, 'Serbian - Serbia', 'sr_RS'),
+(19, 'French - France', 'fr_FR'),
+(20, 'Spanish - Chile', 'es_CL'),
+(21, 'Georgian - Georgia', 'ka_GE'),
+(22, 'Portuguese - Brazil', 'pt_BR'),
+(23, 'Hungarian - Hungary', 'hu_HU'),
+(24, 'Spanish - Ecuador', 'es_EC'),
+(25, 'Spanish - Honduras', 'es_HN'),
+(26, 'Spanish - Spain', 'es_ES'),
+(27, 'Arabic - Egypt', 'ar_EG'),
+(28, 'Portuguese - Bouvet Island', 'pt_BV'),
+(29, 'French - Cameroon', 'fr_CM');
 
 -- --------------------------------------------------------
 
