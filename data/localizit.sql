@@ -147,9 +147,9 @@ CREATE TABLE IF NOT EXISTS `ohrm_user` (
   `firstname` varchar(250) NOT NULL,
   `lastname` varchar(250) NOT NULL,
   `email` varchar(250) NOT NULL,
-  `username` varchar(25) NOT NULL,
+  `username` varchar(250) NOT NULL,
   `user_type_id` bigint(20) NOT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `password` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_type_id_idx` (`user_type_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;

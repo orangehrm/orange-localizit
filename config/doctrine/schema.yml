@@ -100,7 +100,7 @@ User:
       type: string(250)
       notnull: true
     username:
-      type: string(25)
+      type: string(250)
       notnull: true
       autoincrement: false
     user_type_id:
@@ -108,7 +108,7 @@ User:
       type: integer
       notnull: true
     password:
-      type: string(255)
+      type: string(250)
   relations:
     UserType:
       local: userTypeId

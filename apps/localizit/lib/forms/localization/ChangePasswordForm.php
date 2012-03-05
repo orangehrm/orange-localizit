@@ -48,7 +48,7 @@ class ChangePasswordForm extends sfForm {
         $this->setValidators(array(
             'id' => new sfValidatorNumber(array('required' => true)),
             'current_password' => new sfValidatorString(array('required' => true), array('required' => 'Current Password is required.')),
-            'new_password' => new sfValidatorString(array('required' => true, 'min_length' => 6, 'max_length' => 35), array('required' => 'New Password is required.', 'min_length' => 'Password Length Should Be at Least 6 Characters', 'max_length' => 'Password Length Should Be Less Than 35 Characters')),
+            'new_password' => new sfValidatorString(array('required' => true, 'min_length' => 6, 'max_length' => 250), array('required' => 'New Password is required.', 'min_length' => 'Password Length Should Be at Least 6 Characters', 'max_length' => 'Password Length Should Be Less Than 250 Characters')),
             'confirm_new_password' => new sfValidatorString(array('required' => true), array('required' => 'Confirm new password required.')),
         ));
 
