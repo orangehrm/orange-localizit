@@ -69,8 +69,8 @@ class UserForm extends BaseUserForm {
             'first_name' => new sfValidatorString(array('max_length' => 250, 'required' => true), array('max_length' => 'Should Be Less Than 250 Characters', 'required' => 'Required')),
             'last_name' => new sfValidatorString(array('max_length' => 250, 'required' => true), array('max_length' => 'Should Be Less Than 250 Characters', 'required' => 'Required')),
             'email' => new sfValidatorEmail(array('required' => true), array('required' => 'Required', 'invalid' => 'Expected format: admin@example.com')),
-            'login_name' => new sfValidatorString(array('min_length' => 6, 'max_length' => 25), array('required' => 'Required', 'min_length' => 'Should Be at Least 6 Characters', 'max_length' => 'Should Be Less Than 35 Characters')),
-            'password' => new sfValidatorString(array('min_length' => 6, 'max_length' => 35), array('required' => 'Required', 'min_length' => 'Should Be at Least 6 Characters', 'max_length' => 'Should Be Less Than 35 Characters')),
+            'login_name' => new sfValidatorString(array('min_length' => 6, 'max_length' => 250), array('required' => 'Required', 'min_length' => 'Should Be at Least 6 Characters', 'max_length' => 'Should Be Less Than 250 Characters')),
+            'password' => new sfValidatorString(array('min_length' => 6, 'max_length' => 250), array('required' => 'Required', 'min_length' => 'Should Be at Least 6 Characters', 'max_length' => 'Should Be Less Than 250 Characters')),
             'confirm_password' => new sfValidatorString(array(), array('required' => 'Required')),
             'user_type_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UserType'))),
         ));

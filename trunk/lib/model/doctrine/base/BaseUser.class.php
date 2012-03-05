@@ -64,19 +64,19 @@ abstract class BaseUser extends sfDoctrineRecord
              'notnull' => true,
              'length' => 250,
              ));
-        $this->hasColumn('username', 'string', 25, array(
+        $this->hasColumn('username', 'string', 250, array(
              'type' => 'string',
              'notnull' => true,
              'autoincrement' => false,
-             'length' => 25,
+             'length' => 250,
              ));
         $this->hasColumn('user_type_id as userTypeId', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
              ));
-        $this->hasColumn('password', 'string', 255, array(
+        $this->hasColumn('password', 'string', 250, array(
              'type' => 'string',
-             'length' => 255,
+             'length' => 250,
              ));
     }
 
