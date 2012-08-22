@@ -230,6 +230,7 @@ class LocalizationDao extends BaseDao {
                             ->from('Source s')
                             ->leftJoin('s.Target t')
                             ->addWhere('s.group_id = ?', $groupId)
+                            ->addWhere('t.languageId = ?', $languageId)
                             ->orderBy('s.value');
             $sourceList = $query->execute();
     
