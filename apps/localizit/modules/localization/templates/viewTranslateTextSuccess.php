@@ -13,6 +13,20 @@
     var userType = "<?php echo $role->getUserType();?>";
     var setLanguageId = "<?php echo $targetLanguageId;?>";
     var languageGroupId = "<?php echo $languageGroupId?>";
+
+    setInterval(autoSave, 5*60*1000);
+
+    function autoSave() {
+        if($('#save').is(":visible")) {
+            $("#show_label_form").submit();
+        }
+     }
+
+    $(document).ready(function (){
+        if ('<?php echo $redirectByAutoSubmit?>' == '1') {
+            $('#edit').trigger('click');
+        }
+    });
 </script>
 <div class="messageBar">
         <?php if($sf_user->getFlash('errorMessage') != '') { ?>
@@ -26,7 +40,7 @@
         <div class="mediumText pageHeader">
             <?php echo __('translate_text', null, 'localizationMessages') ?>
         </div>
-        <form id="language_search_form" name="language_search_form" action="" method="post">
+        <form id="language_search_form" name="language_search_form" action="<?php echo url_for('localization/viewTranslateText')?>" method="post">
         <table class="mainFrame mediumText">
             <tr class="mainRowWidth">
                 <td class="tableColumnWidth"><?php echo __('source_language', null, 'localizationMessages') ?></td>
@@ -58,7 +72,7 @@
             <span class="success"><?php   echo $sf_user->getFlash('editSuccessmessage');?></span>
         <?php } ?>
     </div>
-    <form action="localization/saveTranslateText" method="post" id="show_label_form" name="show_label_form">
+    <form action="<?php echo url_for('localization/saveTranslateText')?>" method="post" id="show_label_form" name="show_label_form">
     <input type="hidden" name="add_label[language_group_id]" value="<?php echo $languageGroupId;?>"/>
     <input type="hidden" name="languageList" value="<?php echo $targetLanguageId;?>"/>
         <div class="mediumText pageHeader ">
