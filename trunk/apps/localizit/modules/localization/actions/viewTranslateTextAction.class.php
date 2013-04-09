@@ -38,6 +38,7 @@ class viewTranslateTextAction extends sfAction {
     public function execute($request) {
         $userLanguageIds = $this->role->getAllowedLanguageList();
         $this->languageIds = $this->getLocalizeService()->getUserLanguageList($userLanguageIds);
+        
         if ($request->isMethod(sfRequest::POST)) {
             $this->targetLanguageId = $request->getParameter('languageList');
             $form = $request->getParameter('add_label');
@@ -53,6 +54,8 @@ class viewTranslateTextAction extends sfAction {
                 }
             }
         }
+        
+        $this->redirectByAutoSubmit = $request->getParameter('redirectByAutoSubmit');
         
         $localizationService = $this->getLocalizeService();
         $this->addLabelForm = new LabelForm($localizationService);
