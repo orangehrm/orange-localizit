@@ -152,11 +152,12 @@ class LocalizationDao extends BaseDao {
      * @throws DaoException
      */
     public function updateSource(Source $source) {
-        try {
+        try {   
             $q = Doctrine_Query :: create()
                             ->update('Source s')
                             ->set('s.value', '?', $source->getValue())
                             ->set('s.note', '?', $source->getNote())
+                            ->set('s.groupId', '?', $source->getGroupId())
                             ->where('s.id = ?', $source->getId());
 
             return $q->execute();

@@ -217,6 +217,8 @@ class localizationActions extends sfActions {
         
         $labelSet = $localizationService->getSourceList();
         $labelDataArray = null;
+       
+        $this->languageGroupList = $localizationService->getGroupList();
         
         $groupList = $localizationService->getGroupList();
         $groupArray = array();
@@ -236,6 +238,7 @@ class localizationActions extends sfActions {
     public function executeDeleteLabelList(sfWebRequest $request) {
         
         $checkedid = $request->getParameter('checkedid');
+        
         if(!empty ($checkedid))
         {
             $localizationService = $this->getLocalizeService();
@@ -245,6 +248,7 @@ class localizationActions extends sfActions {
         }
         else
         {
+            
             $this->forward("localization", "updateLabelList");
             $this->redirect("localization/manageLabel");
         }
@@ -255,8 +259,10 @@ class localizationActions extends sfActions {
         $editedLabelNameArray = $request->getParameter('labelName');
         $editedLabelNoteArray = $request->getParameter('labelNote');
         $editedLabelIdArray = $request->getParameter('labelId');
+        $editedLabelGroupArray = $request->getParameter('labelGroup');
+        
         $localizationService = $this->getLocalizeService();
-        $localizationService->updateSource($editedLabelIdArray,$editedLabelNameArray, $editedLabelNoteArray);
+        $localizationService->updateSource($editedLabelIdArray,$editedLabelNameArray, $editedLabelNoteArray, $editedLabelGroupArray);
         $this->getUser()->setFlash('listSuccessMessage', "Successfully Updated", true);
         $this->redirect("localization/manageLabel");
     

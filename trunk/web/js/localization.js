@@ -98,6 +98,7 @@ $(document).ready(function (){
     
     $('.labelNameData input').attr("disabled", "disabled");
     $('.labelNameData textarea').attr("disabled", "disabled");
+    $('.labelNameData select').attr("disabled", "disabled");
     //$('.checkbox_list').attr("disabled", "disabled");
     $('#editAdminLabel').click(function (){          
         var a = $(this).val();
@@ -106,15 +107,20 @@ $(document).ready(function (){
                 $(this).val('Save');
                 $('.labelNameData input').removeAttr("disabled");
                 $('.labelNameData textarea').removeAttr("disabled");
+                $('.labelNameData select').removeAttr("disabled");
             }
         if(a == 'Save')
             {
             var editSourceForm = $("#deleteLanguageLabelList .changed, #deleteLanguageLabelList input[type='hidden']").serialize();
             var saveurl = $("#deleteLanguageLabelList").attr('action');
-            $.post(saveurl, editSourceForm);
-            location.reload();
+            $.post(saveurl, editSourceForm, reloadForm);
+            
             }
     });
+    
+    function reloadForm() {
+        location.reload();
+    }
     
     $('#save').click(function (){
         targetLanguageId=$('#languageList').val();
@@ -217,10 +223,11 @@ $(document).ready(function (){
         $(this).closest('tr').find(".target_label_input").addClass("changed");
     });
     
-    $(".sourceValueInput, .sourceNoteInput").change(function() {
+    $(".sourceValueInput, .sourceNoteInput, .sourceGroupInput").change(function() {
         $(this).closest('tr').find(".sourceValueInput").addClass("changed");
         $(this).closest('tr').find(".sourceNoteInput").addClass("changed");
         $(this).closest('tr').find(".sourceIdInput").addClass("changed");
+        $(this).closest('tr').find(".sourceGroupInput").addClass("changed");
     });
     
     $("#show_label_form input#cancel").click(function() {

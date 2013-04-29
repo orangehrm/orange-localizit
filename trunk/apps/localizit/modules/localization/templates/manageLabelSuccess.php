@@ -105,7 +105,27 @@
     <tr>
         <td><input class="checkbox_list" type="checkbox" name="checkedid[]" value="<?php echo $item[0]; ?>" onclick="uncheckCheckAll();"/></td>
         <td class="labelNameData"><?php echo $j; ?></td>
-        <td class="labelNameData"><?php echo $item[3]; ?></td>
+        <td class="labelNameData">
+            <select class="sourceGroupInput" name="labelGroup[]">
+            <?php foreach ($languageGroupList as $lang) : ?>
+            
+                    <?php 
+                if ($lang->getName()==$item[3]){
+                    ?>          
+
+                    <option value="<?php echo $lang->getId();?>" selected="selected"><?php echo $lang->getName(); ?></option>
+                <?php } else {
+                ?>
+                    <option value="<?php echo $lang->getId(); ?>"><?php echo $lang->getName(); ?></option>
+                <?php
+                }
+            
+            ?>
+                
+            
+            <?php endforeach; ?>
+            </select>            
+        </td>
         <td class="labelNameData"><input class="sourceValueInput" name="labelName[]"  style="width: 700px;" type="text" value="<?php echo $item[1]; ?>" /></td>
         <td class="labelNameData"><textarea class="sourceNoteInput" name="labelNote[]"  style="width: 350px;"><?php echo $item[2]; ?></textarea></td>
         <td class="labelNameData removeLeftDotLine addDotLinetoRight"><input class="sourceIdInput" name="labelId[]" style="display: none;" type="text" value="<?php echo $item[0]; ?>" /></td>
