@@ -740,7 +740,7 @@ XML;
      * @returns boolean
      * @throws DaoException
      */
-    public function updateSource($id, $value, $Note) {
+    public function updateSource($id, $value, $note, $groupId) {
         $localizationDao = $this->getLocalizationDao();
         try {
             $i=0;
@@ -750,6 +750,7 @@ XML;
                 $source->setId($item);
                 $source->setValue($value[$i]);
                 $source->setNote($Note[$i]);
+                $source->setGroupId($group_id[$i]);
                 $res = $localizationDao->updateSource($source);
                 $i++;
             }
