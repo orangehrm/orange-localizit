@@ -52,7 +52,7 @@ class LocalizationService extends BaseService {
 
     
     /**
-     * Get Source by group
+     * Get Source by group and language
      * @param $groupId
      * @throws ServiceException
      * @return Source
@@ -66,7 +66,7 @@ class LocalizationService extends BaseService {
         }
     }
     
-    public function getTranslateListAsArray($languageId, $groupId) {
+        public function getTranslateListAsArray($languageId, $groupId) {
 
         $sourceArray    = $this->getLocalizationDao()->getSourceAsArray($groupId);
         $targetArray    = $this->getLocalizationDao()->getTargetAsArray($languageId, $groupId);
@@ -622,20 +622,21 @@ XML;
                         }
                     }
                 }
-            } else {
-                $sourceList = $this->getSourceList();
+            } 
+            else {
+                $sourceList = $this->getSource($sorcedata->getGroupId());
                 $targetArray = array();
                 foreach ($sourceList as $source) {
-                    $targetArray[2][] = $source->getId();
-                    $targetArray[3][] = $source->getValue();
-                    if($source->getNote()) {
-                        $targetArray[4][] = $source->getNote();
+                    $targetArray[2][] = $source[id];
+                    $targetArray[3][] = $source[value];
+                    if($source[note]) {
+                        $targetArray[4][] = $source[note];
                     } else {
                         $targetArray[4][] = NULL;
                     }
                 }
             }
-            
+                       
             foreach ($uxmlarray as $key => $value)
             {
                 if(!in_array($value, $targetArray[3]))

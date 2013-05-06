@@ -239,7 +239,7 @@ class LocalizationDao extends BaseDao {
                 $targets = $source->getTarget();
                 foreach ($targets as $key => $target) {
                     if($target->getLanguageId() != $languageId ){
-                        $source->getTarget()->remove($key);
+                        $source->getTarget()->remove($key);  
                         
                     }
                 }
@@ -248,8 +248,8 @@ class LocalizationDao extends BaseDao {
         } catch (Exception $exp) {
             throw new DaoException($exp->getMessage());
         }
-    }    
-    
+    } 
+  
     public function getTargetAsArray($languageId, $groupId) {
         
         $q  = "SELECT s.id AS sourceId, t.id AS targetId, t.value AS targetValue, t.note AS targetNote                
