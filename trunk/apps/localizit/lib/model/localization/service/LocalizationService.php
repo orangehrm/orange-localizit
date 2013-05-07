@@ -750,8 +750,8 @@ XML;
                 $source = new Source();
                 $source->setId($item);
                 $source->setValue($value[$i]);
-                $source->setNote($Note[$i]);
-                $source->setGroupId($group_id[$i]);
+                $source->setNote($note[$i]);
+                $source->setGroupId($groupId[$i]);
                 $res = $localizationDao->updateSource($source);
                 $i++;
             }
