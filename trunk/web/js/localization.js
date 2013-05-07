@@ -113,15 +113,11 @@ $(document).ready(function (){
             {
             var editSourceForm = $("#deleteLanguageLabelList .changed, #deleteLanguageLabelList input[type='hidden']").serialize();
             var saveurl = $("#deleteLanguageLabelList").attr('action');
-            $.post(saveurl, editSourceForm, reloadForm);
-            
+            $.post(saveurl, editSourceForm);
+            location.reload();
             }
     });
-    
-    function reloadForm() {
-        location.reload();
-    }
-    
+     
     $('#save').click(function (){
         targetLanguageId=$('#languageList').val();
         $('#target_language_selected_id').val(targetLanguageId);
