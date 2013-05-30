@@ -670,7 +670,8 @@ XML;
                         $idArray = array($targetArray[2][$id]);
                         $valueArray = array($targetArray[3][$id]);
                         $noteArray = array($unotearray[$key]);
-                        $this->updateSource($idArray, $valueArray, $noteArray);
+                        $groupArray = array($sorcedata->getGroupId());
+                        $this->updateSource($idArray, $valueArray, $noteArray, $groupArray);
                     }
                 }
             }
