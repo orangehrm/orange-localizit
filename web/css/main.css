@@ -417,3 +417,10 @@ div#requiredField {
 .duplicate{
     background: #EFD5A7;
 }
+.specialStringRedBg
+{
+    color:#FFF;
+    background: #CC0000;
+    padding-left: 2px;
+    padding-right: 2px;
+}

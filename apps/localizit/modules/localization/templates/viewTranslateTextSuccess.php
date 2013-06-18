@@ -27,6 +27,7 @@
             $('#edit').trigger('click');
         }
     });
+  $('#erorrToolTip').bt();
 </script>
 <div class="messageBar">
         <?php if($sf_user->getFlash('errorMessage') != '') { ?>
@@ -102,7 +103,40 @@
                 <?php foreach ($listValues as $sourceId => $item) : ?>
                     <tr class="<?php echo $sourceId;?>">
                             <td><?php echo $count;?></td>
-                            <td class="source_label <?php echo $sourceId;?>"><?php echo $item['sourceValue'];?></td>
+                            <td class="source_label <?php echo $sourceId;?>">
+                             <?php
+                            $specialCharacterPostion = strpos($item['sourceValue'], '%');
+                            if($specialCharacterPostion === FALSE){
+                                echo $item['sourceValue'];
+                            }
+                            else{
+                                $strings = array();
+                                $strings[] = $item['sourceValue'];
+
+                                $formattedStrings = array();
+                                foreach ($strings as $string) {
+                                preg_match_all("/(\%.*?\%)/", $string, $matches);
+
+                                if (array_key_exists(0, $matches)) {
+                                    $uniqueMatchArray = array_unique($matches[0]);
+    
+                                    foreach ($uniqueMatchArray as $match) {
+                                            $string = str_replace($match,"<span class='specialStringRedBg'>{$match}</span>", $string);
+                                            }
+                                    }
+    
+                                $formattedStrings[] = $string;
+
+                                }
+                            foreach($formattedStrings as $key=>$value)
+                                {
+                                echo $value;
+                                }?>
+                                <a href="#"><span id="erorrToolTip" class="tootlTip" title="Do not Translate the phares marked in Red"><img src="<?php echo image_path('warning-icon.gif')?>" width="15" height="15" /> </span></a>
+                                <?php
+                            }
+                            ?>
+                            </td>
                             <td class="source_note <?php echo $sourceId;?>"><?php echo $item['sourceNote'];?></td>
                     <?php if(!empty($item['targetId'])) : ?>
                             <td class="target_label <?php echo $sourceId;?>"><input name="targetLabel[<?php echo $sourceId;?>][<?php echo $item['targetId'];?>]" class="target_label_input <?php echo $item['targetId'];?>" type="text" value="<?php echo $item['targetValue'];?>"/></td>
