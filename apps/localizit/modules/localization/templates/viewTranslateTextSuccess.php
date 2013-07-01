@@ -132,7 +132,7 @@
                                 {
                                 echo $value;
                                 }?>
-                                <a href="#"><span id="erorrToolTip" class="tootlTip" title="Do Not Translate the Phares Marked in Red"><img src="<?php echo image_path('warning-icon.gif')?>" width="15" height="15" /> </span></a>
+                                <a href="#"><span id="erorrToolTip" class="tootlTip" title="Do Not Translate the Phrase Marked in Red"><img src="<?php echo image_path('warning-icon.gif')?>" width="15" height="15" /> </span></a>
                                 <?php
                             }
                             ?>
