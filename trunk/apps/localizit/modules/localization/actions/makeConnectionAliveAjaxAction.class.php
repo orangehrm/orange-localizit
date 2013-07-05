@@ -10,9 +10,9 @@
  *
  * @author jathu
  */
-class makeConnectionAliveAjaxAction {
+class makeConnectionAliveAjaxAction extends sfAction {
+    
      public function execute($request) {
-        
         echo 'success';
         return sfView::NONE;
     }
