@@ -13,20 +13,25 @@
     var userType = "<?php echo $role->getUserType();?>";
     var setLanguageId = "<?php echo $targetLanguageId;?>";
     var languageGroupId = "<?php echo $languageGroupId?>";
-
-    setInterval(autoSave, 5*60*1000);
-
-    function autoSave() {
-        if($('#save').is(":visible")) {
-            $("#show_label_form").submit();
-        }
-     }
-
-    $(document).ready(function (){
-        if ('<?php echo $redirectByAutoSubmit?>' == '1') {
-            $('#edit').trigger('click');
-        }
-    });
+    
+    var makeConnectionAliveAjaxActionUrl = '<?php echo url_for('localization/makeConnectionAliveAjax');?>';
+    window.setInterval(function() {
+         $.ajax(
+            {
+                type: "POST",
+                url: makeConnectionAliveAjaxActionUrl,
+                success:
+                    function(responseData)
+                    {
+                         
+                    },
+                error:
+                    function()
+                    {
+			alert("Please Save Your Translated Strings and Continue")
+                    }
+            });
+}, 5*60*1000);
   $('#erorrToolTip').bt();
 </script>
 <div class="messageBar">
