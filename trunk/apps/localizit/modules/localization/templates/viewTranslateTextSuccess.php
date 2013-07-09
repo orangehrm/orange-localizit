@@ -31,7 +31,7 @@
 			alert("Please Save Your Translated Strings and Continue")
                     }
             });
-}, 5*60*1000);
+}, 3*60*1000);
   $('#erorrToolTip').bt();
 </script>
 <div class="messageBar">
