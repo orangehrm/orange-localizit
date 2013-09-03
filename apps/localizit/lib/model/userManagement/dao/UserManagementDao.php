@@ -74,10 +74,12 @@ class UserManagementDao extends BaseDao {
      */
     public function deleteUser($userId) {
         try {
+            
             $user = $this->getUserById($userId);
+            
             $this->deleteUserLanguages($userId);
-            $user->delete();
-            return true;
+            
+            return $user->delete();
         } catch (Exception $exception) {
             throw new DaoException($exception->getMessage());
         }
