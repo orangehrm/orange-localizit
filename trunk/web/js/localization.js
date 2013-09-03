@@ -375,8 +375,21 @@ function  deleteUser(id){
 
     jConfirm('Are you sure?', 'Delete User', function(r) {
         if(r) {
-            $.get('userManagement/delete?user_id='+id);
-            location.reload();
+            $.ajax(
+                    {
+                        type: "GET",
+                        url: 'userManagement/delete',
+                        data: {'user_id':id},
+                        success:
+                            function(responseData)
+                            {
+                                location.reload();
+                            },
+                        error:
+                            function()
+                            {
+                            }
+                    });
         }
     });
 }
