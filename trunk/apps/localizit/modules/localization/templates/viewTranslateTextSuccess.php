@@ -104,7 +104,7 @@
                     <th><?php echo __('target_note', null, 'localizationMessages')?></th>
             </thead>
             <tbody>
-                <?php $count = 1 ?>
+                <?php $count = $pageLimit*($pageNumber - 1) + 1 ?>
                 <?php foreach ($listValues as $sourceId => $item) : ?>
                     <tr class="<?php echo $sourceId;?>">
                             <td><?php echo $count;?></td>

@@ -248,13 +248,13 @@ class LocalizationDao extends BaseDao {
         } catch (Exception $exp) {
             throw new DaoException($exp->getMessage());
         }
-    } 
-  
+    }
+    
     public function getTargetAsArray($languageId, $groupId) {
         
         $q  = "SELECT s.id AS sourceId, t.id AS targetId, t.value AS targetValue, t.note AS targetNote                
-               FROM `ohrm_source` AS s LEFT JOIN `ohrm_target` AS t ON s.id = t.source_id 
-               WHERE s.group_id = $groupId AND t.language_id = $languageId";
+               FROM `ohrm_source` AS s LEFT JOIN `ohrm_target` AS t ON s.id = t.source_id AND t.language_id = $languageId
+               WHERE s.group_id = $groupId";
         
         $pdo = Doctrine_Manager::connection()->getDbh();
         $r   = $pdo->query($q);        
@@ -275,10 +275,14 @@ class LocalizationDao extends BaseDao {
         
     }
     
-    public function getSourceAsArray($groupId) {
-        
+    public function getSourceAsArray( $groupId, $pageNumber) {
+
+        $limit = sfConfig::get('app_items_per_page');
+         
+        $offset = $limit * ($pageNumber - 1);
+         
         $q  = "SELECT s.id AS sourceId, s.value AS sourceValue, s.note AS sourceNote 
-               FROM `ohrm_source` AS s WHERE s.group_id = $groupId";
+               FROM `ohrm_source` AS s WHERE s.group_id = $groupId LIMIT $offset,$limit";
         
         $pdo = Doctrine_Manager::connection()->getDbh();
         $r   = $pdo->query($q);        
