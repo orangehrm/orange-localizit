@@ -36,7 +36,11 @@ class viewTranslateTextAction extends sfAction {
         }
     }
     public function execute($request) {
+        $this->pageNumber = $pageNumber = 2;
+        $this->pageLimit = $pageLimit = sfConfig::get('app_items_per_page');
+        
         $userLanguageIds = $this->role->getAllowedLanguageList();
+        
         $this->languageIds = $this->getLocalizeService()->getUserLanguageList($userLanguageIds);
         
         if ($request->isMethod(sfRequest::POST)) {
@@ -47,7 +51,7 @@ class viewTranslateTextAction extends sfAction {
                 $this->getUser()->setFlash('errorMessage', "Select Valid Target Language and Language Group", false);
             } else {
                 
-                $this->listValues = $this->getLocalizeService()->getTranslateListAsArray($this->targetLanguageId, $this->languageGroupId);
+                $this->listValues = $this->getLocalizeService()->getTranslateListAsArray($this->targetLanguageId, $this->languageGroupId, $pageNumber);
                 
                 if(count($this->listValues) == 0) {
                     $this->getUser()->setFlash('errorMessage', "No Records to Display", false);

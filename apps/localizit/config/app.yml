@@ -8,3 +8,6 @@ all:
   error_label_alreay_exists: { code: 500, message: 'Label already exists'}
 
   admin: Admin
+  
+  #Pagination number of items per page
+  items_per_page:  50

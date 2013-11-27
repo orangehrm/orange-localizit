@@ -66,9 +66,9 @@ class LocalizationService extends BaseService {
         }
     }
     
-        public function getTranslateListAsArray($languageId, $groupId) {
+        public function getTranslateListAsArray($languageId, $groupId,$pageNumber = 1) {
 
-        $sourceArray    = $this->getLocalizationDao()->getSourceAsArray($groupId);
+        $sourceArray    = $this->getLocalizationDao()->getSourceAsArray($groupId,$pageNumber);
         $targetArray    = $this->getLocalizationDao()->getTargetAsArray($languageId, $groupId);
         $combinedArray  = array();
         
@@ -89,7 +89,8 @@ class LocalizationService extends BaseService {
             }
             
         }
-        
+//        $translatedList = $this->getLocalizationDao()->getTranslateList($languageId, $groupId,$pageNumber = null, $limit = null);
+
         return $combinedArray;
         
     }    
