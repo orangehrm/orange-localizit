@@ -17,6 +17,7 @@
             
         <form action="<?php echo url_for('@manage_labels'); ?>" method="post" id="upload_label_form" name="upload_label_form" enctype="multipart/form-data">
             <?php echo $addLabelUploadForm->renderHiddenFields(); ?>
+            <input type="hidden" name="formAction" value="uploadString"/>
             <table width="100%" class="mediumText mainFrame">
                 <tr><td><?php echo $addLabelUploadForm['Language_group']->renderLabel(); ?><span class="mandatoryStar">*</span></td>
                     <td class="addDotLinetoRight"><?php echo $addLabelUploadForm['Language_group']->render(); ?></td></tr>
@@ -32,6 +33,10 @@
             <?php include_partial('localization/mandetoryFieldMessage')?>
             <input type="button" name="upload_and_save_xml" id="upload_and_save_xml" class="button normalText" value="<?php echo __('Upload', null, 'localizationMessages') ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="button" name="upload_and_cancel_xml" id="upload_and_cancel_xml" class="button normalText" value="<?php echo __('Cancel', null, 'localizationMessages') ?>" style="display: none;"/>
+        </form>
+        <form action="<?php echo url_for('@manage_labels'); ?>" method="post" class="pagination_enabled" id="groupSearchForm" name="groupSearchForm" enctype="multipart/form-data">
+            <input type="hidden" id="pageNo" name="pageNo" value="<?php echo $pageNo?>"/>
+            <input type="hidden" name="formAction" value="searchString"/>
         </form>
     </div>
 </div>
@@ -69,7 +74,12 @@
 
 
 <br/>
-<div class="mediumText pageHeader ">
+<div class="paginate_component">
+    <?php if ($pager->haveToPaginate()) {?>
+        <?php include_partial('paging_links_js', array('pager' => $pager, 'location' => 'top'));?>
+    <?php } ?>
+</div>
+<div class="mediumText pageHeader buttonDiv">
     <table width="100%" class="mainFrame"><tr><td>
     <?php if(count($LabelDataArray) > 0) {?>
         <input type="button" name="edit" id="editAdminLabel" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />&nbsp;
@@ -89,7 +99,7 @@
 
 <form name="deleteLanguageLabelList" id="deleteLanguageLabelList" method="post" action="<?php echo url_for("localization/deleteLabelList") ?>">
 <?php if(count($LabelDataArray) > 0) {?>
-<table class="mainFrame mediumText">
+<table class="mainFrame mediumText dataList">
     <thead>
         <tr>
             <td width="10px" ><input type="checkbox" class="checkbox_list" name="checkall" id="checkall" onclick='checkedAll();' /></td>
@@ -104,7 +114,7 @@
         <?php $j=0; foreach ($LabelDataArray as $item) { $j++?>
     <tr>
         <td><input class="checkbox_list" type="checkbox" name="checkedid[]" value="<?php echo $item[0]; ?>" onclick="uncheckCheckAll();"/></td>
-        <td class="labelNameData"><?php echo $j; ?></td>
+        <td class="labelNameData"><?php echo $offset + $j; ?></td>
         <td class="labelNameData">
             <select class="sourceGroupInput" name="labelGroup[]">
             <?php foreach ($languageGroupList as $lang) : ?>

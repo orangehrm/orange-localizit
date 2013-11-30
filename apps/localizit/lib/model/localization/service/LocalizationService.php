@@ -720,17 +720,25 @@ XML;
     
     
      /**
-     * Get Source list.
-     * @return Doctrine Collection
+     * Get source list
+     * 
+     * @param $tblName
+     * @param integer $limit
+     * @param integer $offset
+     * @returns Doctrine Collection
      */
-    public function getSourceList(){
-        $localizationDao = $this->getLocalizationDao();
-        try {
-            $res = $localizationDao->getAllSourceList();
-            return $res;
-        } catch (Exception $exc) {
-            throw new ServiceException($exc->getMessage(), $exc->getCode());
-        }
+    public function getSourceList($offset, $limit){
+        return $this->getLocalizationDao()->getAllSourceList($offset, $limit);
+    }
+    
+    /**
+     * Get Source string total count
+     *
+     * @param $tblName
+     * @returns integer count of all sources
+     */
+    public function getAllSourceListCount() {
+        return $this->getLocalizationDao()->getAllSourceListCount();
     }
     
     
