@@ -244,6 +244,7 @@ $(document).ready(function (){
                 success:
                     function(responseData)
                     {
+                         $('#pageNo').val($('#saveFormPageNo').val());
                          $("#language_search_form").submit();
                     },
                 error:
@@ -442,3 +443,8 @@ function validateAddSourceForm()
     else if(lanGroup == ''){$(".messageBar").html("<span class='error'>Please Select a Group</span>");checkMessageBar();}
     else{return true;}
 }
+
+function submitPage(pageNo) {
+    $('#pageNo').val(pageNo);
+    $('form.pagination_enabled').submit();
+} 

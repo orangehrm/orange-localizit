@@ -3,11 +3,9 @@ all:
   #Status values for each *_status filed in each table
   status_enabled: 0
   status_disabled: 1
+  items_per_page: 50
 
   #Custom error messagess
   error_label_alreay_exists: { code: 500, message: 'Label already exists'}
 
   admin: Admin
-  
-  #Pagination number of items per page
-  items_per_page:  50
