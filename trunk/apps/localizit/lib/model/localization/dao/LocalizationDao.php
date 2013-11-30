@@ -60,17 +60,45 @@ class LocalizationDao extends BaseDao {
     }    
     
     /**
-     * get All Records From a table
+     * Get source list
+     * 
      * @param $tblName
-     * @returns Array
+     * @param integer $limit
+     * @param integer $offset
+     * @returns Doctrine Collection
      * @throws DaoException
      */
-    public function getAllSourceList() {
+    public function getAllSourceList($offset, $limit) {
         try {
                 $q = Doctrine_Query :: create()
                                 ->from("Source s")
                                 ->orderBy('s.value');
+                
+                if ($offset !== null && $limit) {
+                    $q -> limit($limit)
+                       -> offset($offset);
+                }
+                
                 return $q->execute();
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+    
+    /**
+     * Get Source string total count
+     *
+     * @param $tblName
+     * @returns integer count of all sources
+     * @throws DaoException
+     */
+    public function getAllSourceListCount() {
+        try {
+            $q = Doctrine_Query :: create()
+            ->from("Source s")
+            ->orderBy('s.value');
+    
+            return $q->execute()->count();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }

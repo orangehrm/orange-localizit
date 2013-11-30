@@ -113,8 +113,21 @@ $(document).ready(function (){
             {
             var editSourceForm = $("#deleteLanguageLabelList .changed, #deleteLanguageLabelList input[type='hidden']").serialize();
             var saveurl = $("#deleteLanguageLabelList").attr('action');
-            $.post(saveurl, editSourceForm);
-            location.reload();
+            $.ajax(
+                    {
+                        type: "POST",
+                        url: saveurl,
+                        data: editSourceForm,
+                        success:
+                            function(responseData)
+                            {
+                                 $("#groupSearchForm").submit();
+                            },
+                        error:
+                            function()
+                            {
+                            }
+                    });
             }
     });
      

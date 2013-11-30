@@ -170,10 +170,15 @@ class localizationActions extends sfActions {
         if(!$this->getUser()->isAuthenticated()) {
             $this->redirect('@loginpage');
         }
+        
+        $this->pageNo = $request->getParameter('pageNo', 1);
+        $limit = sfConfig::get('app_items_per_page');
+        $this->offset = ($this->pageNo >= 1) ? (($this->pageNo - 1) * $limit) : 0;
+        
         $localizationService = $this->getLocalizeService();
         $this->addLabelUploadForm = new LabelUploadForm($localizationService);
         
-        if ($request->isMethod(sfRequest::POST)) {
+        if ($request->isMethod(sfRequest::POST) && $request->getParameter('formAction') == 'uploadString') {
             $this->addLabelUploadForm->bind($request->getParameter('uploadForm'), $request->getFiles('uploadForm'));
  
             if($this->addLabelUploadForm->isValid()) {
@@ -215,7 +220,11 @@ class localizationActions extends sfActions {
         
         $localizationService = $this->getLocalizeService();
         
-        $labelSet = $localizationService->getSourceList();
+        $labelSet = $localizationService->getSourceList($this->offset, $limit);
+        $totalRecordCount = $localizationService->getAllSourceListCount();
+        
+        $this->setPagination($this->pageNo, $limit, $totalRecordCount);
+        
         $labelDataArray = null;
        
         $this->languageGroupList = $localizationService->getGroupList();
@@ -233,6 +242,16 @@ class localizationActions extends sfActions {
         $this->LabelDataArray = $labelDataArray;
         
         
+    }
+    
+    public function setPagination($pageNo, $limit, $totalRecordCount) {
+    
+        $pager = new SimplePager($this->className, $limit);
+        $pager->setPage($pageNo);
+        $pager->setNumResults($totalRecordCount);
+        $pager->init();
+    
+        $this->pager = $pager;
     }
     
     public function executeDeleteLabelList(sfWebRequest $request) {
