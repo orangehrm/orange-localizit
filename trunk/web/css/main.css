@@ -424,3 +424,62 @@ div#requiredField {
     padding-left: 2px;
     padding-right: 2px;
 }
+
+.paging li {
+    display: inline;
+}
+.paging a {
+    border-radius: 3px;
+    color: #5D5D5D;
+    float: left;
+    margin: 0 2px;
+    padding: 3px 8px;
+    text-decoration: none;
+}
+.paging a:hover {
+    background: none repeat scroll 0 0 #EAEAEA;
+}
+.paging a.current {
+    background: none repeat scroll 0 0 #33AC3F;
+    color: #FFFFFF;
+}
+.paging li.first a, .paging li.previous a, .paging li.next a, .paging li.last a {
+    padding: 1px 8px;
+    text-indent: -9999px;
+}
+.paging li.first a {
+    background: url("../images/paging-first.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    margin: 3px 0 0;
+}
+.paging li.previous a {
+    background: url("../images/paging-previous.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    margin: 2px 0 0 5px;
+}
+.paging li.next a {
+    background: url("../images/paging-next.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    margin: 2px 0 0 7px;
+}
+.paging li.last a {
+    background: url("../images/paging-last.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    margin: 3px 0 0;
+}
+.paging li.desc {
+    color: #666666;
+    float: left;
+    margin: 3px 0 0;
+    padding-right: 10px;
+}
+
+ul.top {
+    float: right;
+    padding: 10px 0 0;
+}
+
+.paginate_component, .buttonDiv {
+    float: left;
+    width: 100%;
+}
+
+.dataList {
+    float: left;
+}

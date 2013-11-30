@@ -35,13 +35,24 @@ class viewTranslateTextAction extends sfAction {
             unset($localizationDao);
         }
     }
+    
+    public function setPagination($pageNo, $limit, $totalRecordCount) {
+        
+        $pager = new SimplePager($this->className, $limit);
+        $pager->setPage($pageNo);
+        $pager->setNumResults($totalRecordCount);
+        $pager->init();
+        
+        $this->pager = $pager;
+    }
+    
     public function execute($request) {
-        $this->pageNumber = $pageNumber = 2;
-        $this->pageLimit = $pageLimit = sfConfig::get('app_items_per_page');
-        
         $userLanguageIds = $this->role->getAllowedLanguageList();
-        
         $this->languageIds = $this->getLocalizeService()->getUserLanguageList($userLanguageIds);
+        
+        $this->pageNo = $request->getParameter('pageNo', 1);
+        $limit = sfConfig::get('app_items_per_page');
+        $this->offset = ($this->pageNo >= 1) ? (($this->pageNo - 1) * $limit) : 0;
         
         if ($request->isMethod(sfRequest::POST)) {
             $this->targetLanguageId = $request->getParameter('languageList');
@@ -50,8 +61,12 @@ class viewTranslateTextAction extends sfAction {
             if(($this->targetLanguageId == 0) || ($this->languageGroupId == 0)) {
                 $this->getUser()->setFlash('errorMessage', "Select Valid Target Language and Language Group", false);
             } else {
+                $sourceAndTargetData = $this->getLocalizeService()->getSourceAndTargetListAsArray($this->targetLanguageId, $this->languageGroupId, $this->offset, $limit);
+                $this->listValues = $sourceAndTargetData['data'];
+                $this->listTotalCount = $sourceAndTargetData['count'];
                 
-                $this->listValues = $this->getLocalizeService()->getTranslateListAsArray($this->targetLanguageId, $this->languageGroupId, $pageNumber);
+                $totalRecordCount = $this->listTotalCount;
+                $this->setPagination($this->pageNo, $limit, $totalRecordCount);
                 
                 if(count($this->listValues) == 0) {
                     $this->getUser()->setFlash('errorMessage', "No Records to Display", false);

@@ -46,7 +46,8 @@
         <div class="mediumText pageHeader">
             <?php echo __('translate_text', null, 'localizationMessages') ?>
         </div>
-        <form id="language_search_form" name="language_search_form" action="<?php echo url_for('localization/viewTranslateText')?>" method="post">
+        <form id="language_search_form" class ="pagination_enabled" name="language_search_form" action="<?php echo url_for('localization/viewTranslateText')?>" method="post">
+        <input type="hidden" id="pageNo" name="pageNo" value="1"/>
         <table class="mainFrame mediumText">
             <tr class="mainRowWidth">
                 <td class="tableColumnWidth"><?php echo __('source_language', null, 'localizationMessages') ?></td>
@@ -81,7 +82,13 @@
     <form action="<?php echo url_for('localization/saveTranslateText')?>" method="post" id="show_label_form" name="show_label_form">
     <input type="hidden" name="add_label[language_group_id]" value="<?php echo $languageGroupId;?>"/>
     <input type="hidden" name="languageList" value="<?php echo $targetLanguageId;?>"/>
-        <div class="mediumText pageHeader ">
+    <input type="hidden" id="saveFormPageNo" name="pageNo" value="<?php echo $pageNo?>"/>
+    <div class="paginate_component">
+        <?php if ($pager->haveToPaginate()) {?>
+            <?php include_partial('paging_links_js', array('pager' => $pager, 'location' => 'top'));?>
+        <?php } ?>
+    </div>
+        <div class="mediumText pageHeader buttonDiv">
             <table class="mainFrame">
                 <tr>
                     <td>
@@ -95,7 +102,7 @@
                 </tr>
             </table>
         </div>
-        <table class="mainFrame mediumText">
+        <table class="mainFrame mediumText dataList">
             <thead>
                     <th></th>
                     <th><?php echo __('source_label', null, 'localizationMessages')?></th>
@@ -104,10 +111,10 @@
                     <th><?php echo __('target_note', null, 'localizationMessages')?></th>
             </thead>
             <tbody>
-                <?php $count = $pageLimit*($pageNumber - 1) + 1 ?>
+                <?php $count = 1 ?>
                 <?php foreach ($listValues as $sourceId => $item) : ?>
                     <tr class="<?php echo $sourceId;?>">
-                            <td><?php echo $count;?></td>
+                            <td><?php echo $offset + $count;?></td>
                             <td class="source_label <?php echo $sourceId;?>">
                              <?php
                             $specialCharacterPostion = strpos($item['sourceValue'], '%');
