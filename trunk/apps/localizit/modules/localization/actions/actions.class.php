@@ -91,7 +91,7 @@ class localizationActions extends sfActions {
             }
         }
     }
-
+    
     /**
      *  Language Label Data set method.
      * @param sfWebRequest $request 
@@ -170,13 +170,14 @@ class localizationActions extends sfActions {
         if(!$this->getUser()->isAuthenticated()) {
             $this->redirect('@loginpage');
         }
-        
+
         $this->pageNo = $request->getParameter('pageNo', 1);
         $limit = sfConfig::get('app_items_per_page');
         $this->offset = ($this->pageNo >= 1) ? (($this->pageNo - 1) * $limit) : 0;
         
         $localizationService = $this->getLocalizeService();
         $this->addLabelUploadForm = new LabelUploadForm($localizationService);
+        $this->addLabelForm = new LabelForm($localizationService);
         
         if ($request->isMethod(sfRequest::POST) && $request->getParameter('formAction') == 'uploadString') {
             $this->addLabelUploadForm->bind($request->getParameter('uploadForm'), $request->getFiles('uploadForm'));
@@ -215,37 +216,38 @@ class localizationActions extends sfActions {
             } else {echo $this->addLabelUploadForm->getErrorSchema();}
         }
         
-        $localizationService = $this->getLocalizeService();
-        $this->addLabelForm = new LabelForm($localizationService);
-        
-        $localizationService = $this->getLocalizeService();
-        
-        $labelSet = $localizationService->getSourceList($this->offset, $limit);
-        $totalRecordCount = $localizationService->getAllSourceListCount();
-        
-        $this->setPagination($this->pageNo, $limit, $totalRecordCount);
-        
-        $labelDataArray = null;
+        if($request->isMethod(sfRequest::POST) && $request->getParameter('formAction')=='searchString'){
+         
+            $form = $request->getParameter('add_label');
+            $this->languageGroupId = $form['language_group_id'];
+            
+            $totalRecordCount = $localizationService->getAllSourceListCount($this->languageGroupId);
+            $labelSet = $localizationService->getSourceList($this->offset, $limit, $this->languageGroupId);
+            
+        }else{
+            $labelSet = $localizationService->getSourceList($this->offset, $limit);
+            $totalRecordCount = $localizationService->getAllSourceListCount();    
+        }
        
+        $this->setPagination($this->pageNo, $limit, $totalRecordCount);
+        $labelDataArray = null;
+
         $this->languageGroupList = $localizationService->getGroupList();
-        
         $groupList = $localizationService->getGroupList();
         $groupArray = array();
         foreach ($groupList as $group) {
             $groupArray[$group->getId()] = $group->getName();
         }
-        
-        foreach ($labelSet as $item)
-        {
+
+        foreach ($labelSet as $item){
             $labelDataArray[] = array($item->getId() ,$item->getValue(), $item->getNote(), $groupArray[$item->getGroupId()]);
         }
         $this->LabelDataArray = $labelDataArray;
-        
-        
+ 
     }
     
     public function setPagination($pageNo, $limit, $totalRecordCount) {
-    
+        
         $pager = new SimplePager($this->className, $limit);
         $pager->setPage($pageNo);
         $pager->setNumResults($totalRecordCount);

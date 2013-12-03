@@ -150,6 +150,14 @@
                 <source>help</source>
                 <target>Help</target>
             </trans-unit>
+            <trans-unit id="38">
+                <source>search_labels</source>
+                <target>Search Labels</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>add_labels</source>
+                <target>Add Labels</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

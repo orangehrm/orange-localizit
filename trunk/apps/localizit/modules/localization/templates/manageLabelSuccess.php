@@ -8,7 +8,7 @@
             <span class="success"><?php echo $sf_user->getFlash('successMessage');?></span>
         <?php } ?>
 </div>
-<div id="labelUploadDiv" class="outerBorder homePageBorder" style="width: 600px; display: block;">
+<div id="labelUploadDiv" class="outerBorder homePageBorder" style="width: 600px; display: none;">
     <div class="homePage">
         <div class="mediumText pageHeader">
             <?php echo __('manage_labels', null, 'localizationMessages') ?>
@@ -32,13 +32,30 @@
             </table>
             <?php include_partial('localization/mandetoryFieldMessage')?>
             <input type="button" name="upload_and_save_xml" id="upload_and_save_xml" class="button normalText" value="<?php echo __('Upload', null, 'localizationMessages') ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="button" name="upload_and_cancel_xml" id="upload_and_cancel_xml" class="button normalText" value="<?php echo __('Cancel', null, 'localizationMessages') ?>" style="display: none;"/>
-        </form>
-        <form action="<?php echo url_for('@manage_labels'); ?>" method="post" class="pagination_enabled" id="groupSearchForm" name="groupSearchForm" enctype="multipart/form-data">
-            <input type="hidden" id="pageNo" name="pageNo" value="<?php echo $pageNo?>"/>
-            <input type="hidden" name="formAction" value="searchString"/>
+            <input type="button" name="upload_and_cancel_xml" id="upload_and_cancel_xml" class="button normalText" value="<?php echo __('Cancel', null, 'localizationMessages') ?>" />
         </form>
     </div>
+</div>
+</div>
+<div id="labelSearchDiv" class="outerBorder homePageBorder" style="width: 600px;">
+    <div class="homePage">
+        <div class="mediumText pageHeader">
+            <?php echo __('search_labels', null, 'localizationMessages') ?>
+        </div>
+     <div>
+        <form action="<?php echo url_for('@manage_labels'); ?>" method="post" class="pagination_enabled" id="groupSearchForm" name="groupSearchForm" enctype="multipart/form-data">
+            <input type="hidden" id="pageNo" name="pageNo" value="<?php echo $pageNo?>"/>
+            <?php echo $addLabelUploadForm->renderHiddenFields(); ?>
+            <input type="hidden" name="formAction" value="searchString"/>
+            <table width="100%" class="mediumText mainFrame">
+            <tr>
+                <td><?php echo __('language_group', null, 'localizationMessages') ?></td>
+                <td class="addDotLinetoRight"><?php include_component('localization', 'GroupList',array('selected_index'=>$languageGroupId))?></td>
+            </tr>
+            </table>
+            <input type="submit" name="search" id="search" class="button normalText" value="<?php echo __('search', null, 'localizationMessages') ?>" />&nbsp;
+        </form>
+     </div>
 </div>
 </div>
 
@@ -52,6 +69,9 @@
 <div id="addLabelDiv2" style="display: none;">
 <div class="outerBorder homePageBorder addLabelPage">
     <div class="homePage">
+    <div class="mediumText pageHeader">
+            <?php echo __('add_labels', null, 'localizationMessages') ?>
+    </div>
     <form action="<?php echo url_for('@add_label'); ?>" method="post" id="add_label_form" name="add_label_form">
     <?php echo $addLabelForm->renderHiddenFields(); ?>
         <table class="mediumText mainFrame">
@@ -85,7 +105,8 @@
         <input type="button" name="edit" id="editAdminLabel" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>" />&nbsp;
         <input type="button" name="delete" id="deleteAdminLabel" class="button normalText" value="<?php echo __('delete', null, 'localizationMessages') ?>" /> &nbsp;
     <?php }?>
-    <input type="button" name="addAdminLabel" id="addAdminLabel" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" />
+    <input type="button" name="addAdminLabel" id="addAdminLabel" class="button normalText" value="<?php echo __('add', null, 'localizationMessages') ?>" /> &nbsp;
+    <input type="button" name="uploadAdminLabel" id="uploadAdminLabel" class="button normalText" value="<?php echo __('Upload', null, 'localizationMessages') ?>" />
             </td>
             <td class="viewTanslateTextmessage removeLeftDotLine removetopDotLine">
                 <span id="TranslateTextHelpText">Duplicate labels are highlighted </span>

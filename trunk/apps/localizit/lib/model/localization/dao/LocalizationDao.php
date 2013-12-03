@@ -68,11 +68,15 @@ class LocalizationDao extends BaseDao {
      * @returns Doctrine Collection
      * @throws DaoException
      */
-    public function getAllSourceList($offset, $limit) {
+    public function getAllSourceList($offset, $limit, $groupId = 0) {
         try {
                 $q = Doctrine_Query :: create()
                                 ->from("Source s")
                                 ->orderBy('s.value');
+                
+                if(!empty($groupId)){
+                    $q->where('s.groupId = ?', $groupId);
+                }
                 
                 if ($offset !== null && $limit) {
                     $q -> limit($limit)
@@ -92,12 +96,16 @@ class LocalizationDao extends BaseDao {
      * @returns integer count of all sources
      * @throws DaoException
      */
-    public function getAllSourceListCount() {
+    public function getAllSourceListCount($groupId = 0) {
         try {
             $q = Doctrine_Query :: create()
             ->from("Source s")
             ->orderBy('s.value');
-    
+            
+            if(!empty($groupId)){
+                    $q->where('s.groupId = ?', $groupId);
+            }
+            
             return $q->execute()->count();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -326,6 +334,17 @@ class LocalizationDao extends BaseDao {
         
     }    
     
+    public function getSourceCount($groupId){
+  
+        $q  = "SELECT s.id AS sourceId FROM `ohrm_source` AS s WHERE s.group_id = $groupId";
+        
+        $pdo = Doctrine_Manager::connection()->getDbh();
+        $r   = $pdo->query($q);
+        $rowNumber = $r->rowCount();
+        return $rowNumber;
+    }
+
+
     /**
      * Get Source and Target list for a given group and a language
      * 
