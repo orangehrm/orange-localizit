@@ -727,8 +727,8 @@ XML;
      * @param integer $offset
      * @returns Doctrine Collection
      */
-    public function getSourceList($offset, $limit){
-        return $this->getLocalizationDao()->getAllSourceList($offset, $limit);
+    public function getSourceList($offset, $limit, $groupId){
+        return $this->getLocalizationDao()->getAllSourceList($offset, $limit, $groupId);
     }
     
     /**
@@ -737,8 +737,8 @@ XML;
      * @param $tblName
      * @returns integer count of all sources
      */
-    public function getAllSourceListCount() {
-        return $this->getLocalizationDao()->getAllSourceListCount();
+    public function getAllSourceListCount($groupId) {
+        return $this->getLocalizationDao()->getAllSourceListCount($groupId);
     }
     
     

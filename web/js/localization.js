@@ -74,27 +74,31 @@ $(document).ready(function (){
             {
                 submitForm('upload_label_form');
             }
-    }); 
-    $('#addAdminLabel').click(function (){
-        var a = $(this).val();
-        if(a == 'Add')
-            {
-                $(this).val('Upload');
-                $('#labelUploadDiv').fadeOut(10);
-                $('#addLabelDiv2').fadeIn(3000);
-            }
-        if(a == 'Upload')
-            {
-                $(this).val('Add');
-                $('#addLabelDiv2').fadeOut(10);
-                $('#labelUploadDiv').fadeIn(3000);
-            }
+    });
+    $('#search').click(function(){
+        $('#pageNo').val(0);
+    });
+    $('#upload_and_cancel_xml').click(function (){
+                $('#labelSearchDiv').fadeIn(3000);
+                $('#labelUploadDiv').hide();
+                $('#addLabelDiv2').hide();
     });
     $('#addSourceCancelButton').click(function (){
-       $('#labelUploadDiv').fadeIn(3000);
-       $('#addLabelDiv2').fadeOut(10); 
-       $('#addAdminLabel').val('Add');
+                $('#labelSearchDiv').fadeIn(3000);
+                $('#addLabelDiv2').hide();
+                $('#labelUploadDiv').hide();
     });
+    $('#addAdminLabel').click(function (){
+                $('#labelUploadDiv').hide();
+                $('#labelSearchDiv').hide();
+                $('#addLabelDiv2').fadeIn(3000);
+    });
+    $('#uploadAdminLabel').click(function (){
+                $('#addLabelDiv2').fadeOut(10);
+                $('#labelSearchDiv').hide();
+                $('#labelUploadDiv').fadeIn(3000);
+    });
+    
     
     $('.labelNameData input').attr("disabled", "disabled");
     $('.labelNameData textarea').attr("disabled", "disabled");
