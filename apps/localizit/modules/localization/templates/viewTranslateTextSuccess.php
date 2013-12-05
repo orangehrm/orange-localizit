@@ -1,4 +1,5 @@
 <script type="text/javascript">
+    var isFormSaved = true;
     $(".sf-menu li.translateText").addClass("current");
     var languageArray = new Array();
     var i = 0;

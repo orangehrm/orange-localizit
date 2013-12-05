@@ -234,6 +234,21 @@ $(document).ready(function (){
     $(".target_label_input, .target_note_input").change(function() {
         $(this).closest('tr').find(".target_note_input").addClass("changed");
         $(this).closest('tr').find(".target_label_input").addClass("changed");
+        isFormSaved = false;
+    });
+    
+    $('li a').bind('click', function(event) {
+        
+        var linkObject = $(this);
+        if (!isFormSaved) {
+            event.preventDefault();
+            jConfirm('Please save the list before navigating to another page. If you do not wish to keep your changes, click on Ok', 'Confirmation Required', function(r) {
+                if(r) {
+                    isFormSaved = true;
+                    window.location = linkObject.attr('href');
+                }
+            });
+        }
     });
     
     $(".sourceValueInput, .sourceNoteInput, .sourceGroupInput").change(function() {
@@ -241,6 +256,7 @@ $(document).ready(function (){
         $(this).closest('tr').find(".sourceNoteInput").addClass("changed");
         $(this).closest('tr').find(".sourceIdInput").addClass("changed");
         $(this).closest('tr').find(".sourceGroupInput").addClass("changed");
+        isFormSaved = false;
     });
     
     $("#show_label_form input#cancel").click(function() {

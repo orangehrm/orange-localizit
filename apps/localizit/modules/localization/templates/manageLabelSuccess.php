@@ -1,5 +1,6 @@
 <script type="text/javascript">
     $(".sf-menu li.manageLabels").addClass("current");
+    var isFormSaved = true;
 </script>
 <div class="messageBar manageLabels">
         <?php if($sf_user->getFlash('errorMessage') != '') { ?>
