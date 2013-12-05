@@ -33,7 +33,7 @@
                     }
             });
 }, 3*60*1000);
-  $('#erorrToolTip').bt();
+  
 </script>
 <div class="messageBar">
         <?php if($sf_user->getFlash('errorMessage') != '') { ?>
