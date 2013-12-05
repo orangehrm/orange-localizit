@@ -335,41 +335,47 @@ function redircetToPage(path) {
 }
 
 function fetchLangugeLabelSet(url,targetLanguageId,dataSetPane){
-    $.ajax({
-        url: url+'?targetLanguageId='+targetLanguageId,
-        success: function(data) {
-            $('#'+dataSetPane).html('');
-            $('#'+dataSetPane).html(data);
-        },
-        error: function(e){
-        }
-    });
+    if ((url !== undefined) && (targetLanguageId !== undefined)) {
+        $.ajax({
+            url: url+'?targetLanguageId='+targetLanguageId,
+            success: function(data) {
+                $('#'+dataSetPane).html('');
+                $('#'+dataSetPane).html(data);
+            },
+            error: function(e){
+            }
+        });
+    }
 }
 
 function displayEditButton(url, targetLanguageId) {
-    $.ajax({
-        url: url+'?targetLanguageId='+targetLanguageId,
-        success: function(data) {
-            $('#edit').css('display','none');
-            $('#generateDictionary').css('display','none');
-        },
-        error: function(e){
-        }
-    });
+    if ((url !== undefined) && (targetLanguageId !== undefined)) {
+        $.ajax({
+            url: url+'?targetLanguageId='+targetLanguageId,
+            success: function(data) {
+                $('#edit').css('display','none');
+                $('#generateDictionary').css('display','none');
+            },
+            error: function(e){
+            }
+        });
+    }
 }
 
 function fetchEditableLangugeLabelSet(url,targetLanguageId,dataSetPane){
-    $.ajax({
-        url: url+'?targetLanguageId='+targetLanguageId,
-        success: function(data) {
-            $('#'+dataSetPane).html('');
-            $('#'+dataSetPane).html(data);
-            $('#edit').css('display','none');
-            $('#save').css('display','');
-        },
-        error: function(e){
-        }
-    });
+     if ((url !== undefined) && (targetLanguageId !== undefined)) {
+        $.ajax({
+            url: url+'?targetLanguageId='+targetLanguageId,
+            success: function(data) {
+                $('#'+dataSetPane).html('');
+                $('#'+dataSetPane).html(data);
+                $('#edit').css('display','none');
+                $('#save').css('display','');
+            },
+            error: function(e){
+            }
+        });
+    }
 }
 
 function generateDictionary(url,targetLanguageId,languageGroupId){
