@@ -445,10 +445,23 @@ function  deleteUser(id){
 }
 
 function deleteLangGroup(id) {
-    jConfirm('Are you sure?', 'Delete User', function(r) {
+    jConfirm('Are you sure?', 'Delete Group', function(r) {
         if(r) {
-            $.get('localization/deleteLanguageGroup?id='+id);
-            location.reload();
+            $.ajax(
+                    {
+                        type: "GET",
+                        url: 'localization/deleteLanguageGroup',
+                        data: {'group_id':id},
+                        success:
+                            function(responseData)
+                            {
+                                location.reload();
+                            },
+                        error:
+                            function()
+                            {
+                            }
+                    });
         }
     });
 }
