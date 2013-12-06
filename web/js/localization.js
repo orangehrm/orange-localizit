@@ -247,7 +247,7 @@ $(document).ready(function (){
         isFormSaved = false;
     });
     
-    $('li a').bind('click', function(event) {
+    $('li a, div a').bind('click', function(event) {
         
         var linkObject = $(this);
         if (!isFormSaved) {
