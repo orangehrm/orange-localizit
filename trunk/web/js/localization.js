@@ -19,6 +19,7 @@ $(document).ready(function (){
     });
 
     $('#edit').click(function (){
+        $('.listMessageBar').hide();
         $('#addLabelDiv').fadeOut(1000);
         $('#add').css('display','none');
         targetLanguageId=$('#languageList').val();
