@@ -5,6 +5,30 @@ addLabel:
   is_secure: true
   credentials: Admin
 
+manageLabel:
+  is_secure: true
+  credentials: Admin
+
+languageList:
+  is_secure: true
+  credentials: Admin
+
+addLanguageGroup:
+  is_secure: true
+  credentials: Admin
+
+editLanguageGroup:
+  is_secure: true
+  credentials: Admin
+  
+manageLabel:
+  is_secure: true
+  credentials: Admin
+  
+languageGroupList:
+  is_secure: true
+  credentials: Admin
+
 generateDictionary:
   is_secure: true
   credentials: [[Admin, Moderator]]

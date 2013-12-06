@@ -44,7 +44,7 @@ class saveTranslateTextAction extends sfAction {
                 }
             }
         }
-        $this->getUser()->setFlash('editSuccessmessage', "Records Updated Successfully", false);
+        $this->getUser()->setFlash('editSuccessmessage', "Records Updated Successfully");
         $request->setParameter('redirectByAutoSubmit', true);
         $this->forward("localization", "viewTranslateText");
     }
