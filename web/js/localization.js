@@ -79,21 +79,29 @@ $(document).ready(function (){
         $('#pageNo').val(0);
     });
     $('#upload_and_cancel_xml').click(function (){
+                $('#listMessageBar1').hide();
+                $('#listMessageBar2').hide();
                 $('#labelSearchDiv').fadeIn(3000);
                 $('#labelUploadDiv').hide();
                 $('#addLabelDiv2').hide();
     });
     $('#addSourceCancelButton').click(function (){
+                $('#listMessageBar1').hide();
+                $('#listMessageBar2').hide();
                 $('#labelSearchDiv').fadeIn(3000);
                 $('#addLabelDiv2').hide();
                 $('#labelUploadDiv').hide();
     });
     $('#addAdminLabel').click(function (){
+                $('#listMessageBar1').hide();
+                $('#listMessageBar2').hide();
                 $('#labelUploadDiv').hide();
                 $('#labelSearchDiv').hide();
                 $('#addLabelDiv2').fadeIn(3000);
     });
     $('#uploadAdminLabel').click(function (){
+                $('#listMessageBar1').hide();
+                $('#listMessageBar2').hide();
                 $('#addLabelDiv2').fadeOut(10);
                 $('#labelSearchDiv').hide();
                 $('#labelUploadDiv').fadeIn(3000);
@@ -104,7 +112,9 @@ $(document).ready(function (){
     $('.labelNameData textarea').attr("disabled", "disabled");
     $('.labelNameData select').attr("disabled", "disabled");
     //$('.checkbox_list').attr("disabled", "disabled");
-    $('#editAdminLabel').click(function (){          
+    $('#editAdminLabel').click(function (){
+        $('#listMessageBar1').hide();
+        $('#listMessageBar2').hide();
         var a = $(this).val();
         if(a == 'Edit')
             {

@@ -267,7 +267,7 @@ class localizationActions extends sfActions {
             $this->getUser()->setFlash('listSuccessMessage', "Successfully Deleted", true);
             $this->redirect("localization/manageLabel");
         }
-        else
+        else 
         {
             
             $this->forward("localization", "updateLabelList");
@@ -285,8 +285,8 @@ class localizationActions extends sfActions {
         $localizationService = $this->getLocalizeService();
         $localizationService->updateSource($editedLabelIdArray,$editedLabelNameArray, $editedLabelNoteArray, $editedLabelGroupArray);
         $this->getUser()->setFlash('listSuccessMessage', "Successfully Updated", true);
-        $this->redirect("localization/manageLabel");
-    
+        $this->forward("localization", "manageLabel");
+       
         
     }
     

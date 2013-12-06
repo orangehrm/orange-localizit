@@ -2,6 +2,7 @@
     $(".sf-menu li.manageLabels").addClass("current");
     var isFormSaved = true;
 </script>
+<div id="listMessageBar1"  >
 <div class="messageBar manageLabels">
         <?php if($sf_user->getFlash('errorMessage') != '') { ?>
             <span class="error"><?php echo $sf_user->getFlash('errorMessage'); ?></span>
@@ -9,6 +10,8 @@
             <span class="success"><?php echo $sf_user->getFlash('successMessage');?></span>
         <?php } ?>
 </div>
+</div>
+
 <div id="labelUploadDiv" class="outerBorder homePageBorder" style="width: 600px; display: none;">
     <div class="homePage">
         <div class="mediumText pageHeader">
@@ -59,13 +62,14 @@
      </div>
 </div>
 </div>
-
-<div class="listMessageBar">
+<div id="listMessageBar2">
+    <div class="listMessageBar">
         <?php if($sf_user->getFlash('listErrorMessage') != '') { ?>
             <span class="error"><?php echo $sf_user->getFlash('listErrorMessage'); ?></span>
         <?php } else if($sf_user->getFlash('listSuccessMessage') != '') { ?>
             <span class="success"><?php echo $sf_user->getFlash('listSuccessMessage');?></span>
         <?php } ?>
+</div>
 </div>
 <div id="addLabelDiv2" style="display: none;">
 <div class="outerBorder homePageBorder addLabelPage">
