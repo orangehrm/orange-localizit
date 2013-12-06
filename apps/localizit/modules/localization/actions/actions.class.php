@@ -158,7 +158,7 @@ class localizationActions extends sfActions {
      */
     public function executeDeleteLanguageGroup(sfWebRequest $request) {
         $localizationService = $this->getLocalizeService();
-        $languageGroup = $localizationService->getGroupById($request->getParameter('id'));
+        $languageGroup = $localizationService->getGroupById($request->getParameter('group_id'));
         $languageGroup->delete();
         $this->redirect('@language_group_list');
     }
