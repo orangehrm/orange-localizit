@@ -414,8 +414,8 @@ class LocalizationDao extends BaseDao {
                             ->update('Target t')
                             ->set('t.sourceId ', $target->getSourceId())
                             ->set('t.languageId ', $target->getLanguageId())
-                            ->set('t.value ', "\"{$target->getValue()}\"")
-                            ->set('t.note ', "\"{$target->getNote()}\"")
+                            ->set('t.value ', "'".mysql_real_escape_string($target->getValue())."'")
+                            ->set('t.note ', "'".mysql_real_escape_string($target->getNote())."'")
                             ->where('t.id = ?', $target->getId());
             return $q->execute();
         } catch (Exception $e) {
