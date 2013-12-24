@@ -278,6 +278,7 @@ $(document).ready(function (){
     
     $("#show_label_form").find("input#save").click(function (event) {
         event.preventDefault();
+        $("#show_label_form").find("input#save").hide();
         var showLableForm = $("#show_label_form .changed, #show_label_form input[type='hidden']").serialize();
         var saveurl = $("#show_label_form").attr('action');
         $.ajax(
