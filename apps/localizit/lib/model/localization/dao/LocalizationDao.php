@@ -412,11 +412,12 @@ class LocalizationDao extends BaseDao {
         try {
             $q = Doctrine_Query :: create()
                             ->update('Target t')
-                            ->set('t.sourceId ', $target->getSourceId())
-                            ->set('t.languageId ', $target->getLanguageId())
-                            ->set('t.value ', "'".mysql_real_escape_string($target->getValue())."'")
-                            ->set('t.note ', "'".mysql_real_escape_string($target->getNote())."'")
+                            ->set('t.sourceId', '?', $target->getSourceId())
+                            ->set('t.languageId', '?', $target->getLanguageId())
+                            ->set('t.value', '?', $target->getValue())
+                            ->set('t.note', '?', $target->getNote())
                             ->where('t.id = ?', $target->getId());
+            
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -461,7 +462,7 @@ class LocalizationDao extends BaseDao {
         try {
             $q = Doctrine_Query :: create()
                             ->update('Group g')
-                            ->set('g.name ', "\"{$group->getName()}\"")
+                            ->set('g.name ' , '?', $group->getName())
                             ->where('g.id = ?', $group->getId());
             return $q->execute();
         } catch (Exception $e) {
