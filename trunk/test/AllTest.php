@@ -16,7 +16,8 @@
  * Boston, MA  02110-1301, USA
  */
 
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnitVersionHelper.php';
+
 define('ROOT_PATH', dirname(__FILE__) . '/../../');
 define('SF_APP_NAME', 'localizit');
 define('SF_ENV', 'test');

@@ -241,10 +241,10 @@ tbody tr:first-child td.removetopDotLine{
 }
 
 label.error {
-    float: left;
     color: #CC0000;
     font-size: 11px;
     padding-left: .5em;
+    display: block;
 }
 
 input.error {
@@ -358,7 +358,8 @@ div#requiredField {
     top: 5px;
 }
 .messageBar.manageLabels{
-    width: 600px;
+    left: 0px;
+    width: auto;
 }
 
 .listMessageBar{
