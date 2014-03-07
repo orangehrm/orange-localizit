@@ -158,6 +158,30 @@
                 <source>add_labels</source>
                 <target>Add Labels</target>
             </trans-unit>
+            <trans-unit id="40">
+                <source>language_list</source>
+                <target>Language List</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>add_language</source>
+                <target>Add Language</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>language_name</source>
+                <target>Language</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>language_code</source>
+                <target>Code</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>new_language</source>
+                <target>New Language</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>edit_language</source>
+                <target>Edit Language</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

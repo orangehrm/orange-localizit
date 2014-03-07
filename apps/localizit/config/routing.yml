@@ -90,6 +90,18 @@ change_password:
   url: /change_password
   param: { module: localization, action: changePassword }
   
+language_list:
+  url: /language_list
+  param: { module: localization, action: viewLanguageList}
+  
+add_language:
+  url: /add_language
+  param: { module: localization, action: addLanguage }
+  
+edit_language:
+  url: /edit_language
+  param: { module: localization, action: editLanguage}
+  
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

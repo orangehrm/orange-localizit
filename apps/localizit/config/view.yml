@@ -14,7 +14,7 @@ default:
 
   stylesheets:    [main.css,superfish.css,jquery.alerts.css]
 
-  javascripts:    [jquery-1.5.min.js,localization.js,superfish.js,jquery.alerts.js,jquery.validate.js,jquery.hoverIntent.js]
+  javascripts:    [jquery-1.5.min.js,localization.js,superfish.js,jquery.alerts.js,jquery.validate.js,jquery.hoverIntent.js,languageManagement.js]
 
   has_layout:     true
   layout:         layout
