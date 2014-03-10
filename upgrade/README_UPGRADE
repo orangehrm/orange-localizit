@@ -1,0 +1,2 @@
+For upgrade the orange-localizit run the following command
+    mysql -u <username> -p <database name> < upgrade.sql
