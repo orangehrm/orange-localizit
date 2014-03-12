@@ -65,23 +65,23 @@ class LocalizationService extends BaseService {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
-        public function getTranslateListAsArray($languageId, $groupId) {
+
+    public function getTranslateListAsArray($languageId, $groupId) {
 
         $sourceArray    = $this->getLocalizationDao()->getSourceAsArray($groupId);
         $targetArray    = $this->getLocalizationDao()->getTargetAsArray($languageId, $groupId);
         $combinedArray  = array();
-        
+
         foreach ($sourceArray as $sourceId => $source) {
-            
+
             $combinedArray[$sourceId]['sourceValue']    = $source['sourceValue'];
             $combinedArray[$sourceId]['sourceNote']     = $source['sourceNote'];
             $combinedArray[$sourceId]['targetId']       = '';
             $combinedArray[$sourceId]['targetValue']    = '';
             $combinedArray[$sourceId]['targetNote']     = '';            
-            
+
             if (isset($targetArray[$sourceId])) {
-                
+
                 $combinedArray[$sourceId]['targetId']       = $targetArray[$sourceId]['targetId'];
                 $combinedArray[$sourceId]['targetValue']    = $targetArray[$sourceId]['targetValue'];
                 $combinedArray[$sourceId]['targetNote']     = $targetArray[$sourceId]['targetNote'];
@@ -89,11 +89,11 @@ class LocalizationService extends BaseService {
             }
             
         }
-        
+
         return $combinedArray;
         
-    }    
-    
+    }
+
     /**
      * Get Source and Target list for a given group and a language
      *
@@ -121,7 +121,7 @@ class LocalizationService extends BaseService {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
+
     /**
      * Get Language List for user
      * @returns Language Collection
@@ -151,7 +151,7 @@ class LocalizationService extends BaseService {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
+
     
     /**
      * Get Language By Code
@@ -296,14 +296,14 @@ class LocalizationService extends BaseService {
     }
 
     public function deleteTarget($id) {
-            $localizationDao = $this->getLocalizationDao();
+        $localizationDao = $this->getLocalizationDao();
         try {
             return $localizationDao->deleteTarget($id);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
+
     /**
      * Generates  Dictionary file in XML format
      * @param $sourceLanguageId
@@ -324,7 +324,7 @@ class LocalizationService extends BaseService {
             $nameString = '';
             $nameCount = 0;
             foreach($contributorList as $contributor) {
-                $nameCount++; 
+                $nameCount++;
                 if($nameCount > 1) {
                     $nameString .= ' , ';
                 }
@@ -523,15 +523,15 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
-     /* Read Label from XML
+
+    /* Read Label from XML
      * @returns label array
      * @throws DaoException
      */
     public function readSourceByXML($docName) {
         $doc = new DOMDocument();
         $doc->load($docName);
-        
+
         if ($doc) {
             $labels = $doc->getElementsByTagName("trans-unit");
             foreach ($labels as $label) {
@@ -542,18 +542,18 @@ XML;
         } else {
             die("cannot load the xml");
         }
-        
+
         return $trimsource;
     }
-    
-     /* Read note from XML
+
+    /* Read note from XML
      * @returns source note array
      * @throws DaoException
      */
     public function readNoteByXML($docName) {
         $doc = new DOMDocument();
         $doc->load($docName);
-        
+
         if ($doc) {
             $elements = $doc->getElementsByTagName("trans-unit");
             foreach ($elements as $element) {
@@ -564,18 +564,18 @@ XML;
         } else {
             die("cannot load the xml");
         }
-        
+
         return $trimsource;
     }
-    
-     /* Read Target Language from XML
+
+    /* Read Target Language from XML
      * @returns label array
      * @throws DaoException
      */
     public function readTargetLanguageByXML($docName) {
         $doc = new DOMDocument();
         $doc->load($docName);
-        
+
         if ($doc) {
             $labels = $doc->getElementsByTagName("trans-unit");
             foreach ($labels as $label) {
@@ -586,7 +586,7 @@ XML;
         } else {
             die("cannot load the xml");
         }
-        
+
         return $trimsource;
     }
 
@@ -601,17 +601,17 @@ XML;
         try
         {
             $xmlarray = $this->readSourceByXML($docName);
-            
+
             $unotearray = $this->readNoteByXML($docName);
-            
+
             if ($withTarget) {
                 $targetLanguageXml = $this->readTargetLanguageByXML($docName);
             }
             $uxmlarray = array_unique($xmlarray);
-            
+
             $databasearray = $this->getSource($sorcedata->getGroupId());
             $dblabelarray = array();
-            
+
             if($withTarget) {
                 $sourceTargetList = $this->getTargetStringByLanguageAndSourceGroupId($lstable->getLanguageId(),$sorcedata->getGroupId());
                 $targetArray = array();
@@ -624,7 +624,7 @@ XML;
                     } else {
                         $targetArray[4][] = NULL;
                     }
-                    
+
                     if(count($targets) == 0 ) {
                         $targetArray[0][] = NULL;
                         $targetArray[1][] = NULL;
@@ -649,7 +649,7 @@ XML;
                     }
                 }
             }
-                       
+
             foreach ($uxmlarray as $key => $value)
             {
                 if(!in_array($value, $targetArray[3]))
@@ -717,9 +717,9 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
+
     
-    
-     /**
+    /**
      * Get source list
      * 
      * @param $tblName
@@ -730,7 +730,7 @@ XML;
     public function getSourceList($offset, $limit, $groupId){
         return $this->getLocalizationDao()->getAllSourceList($offset, $limit, $groupId);
     }
-    
+
     /**
      * Get Source string total count
      *
@@ -740,7 +740,7 @@ XML;
     public function getAllSourceListCount($groupId) {
         return $this->getLocalizationDao()->getAllSourceListCount($groupId);
     }
-    
+
     
     /**
      * Delete Source
@@ -749,7 +749,7 @@ XML;
      * @throws DaoException
      */
     public function deleteSourceById($id) {
-        
+
         $localizationDao = $this->getLocalizationDao();
         try {
             $res = $localizationDao->deleteSourceById($id);
@@ -757,7 +757,7 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
+
     /**
      * Update Source
      * @returns boolean
@@ -781,14 +781,14 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
+
     
     /* get Source
      * @returns Source array
      * @throws ServiceException
      */
     public function getSource($groupid) {
-      $localizationDao = $this->getLocalizationDao();  
+        $localizationDao = $this->getLocalizationDao();
         try {
             $labelArray = $localizationDao->getSourceListByGroupId($groupid);
             return $labelArray;
@@ -796,7 +796,7 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
+
     /**
      * Get Source By Value
      * @param $value
@@ -812,7 +812,7 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
+
     /**
      * Check Source by groupid and value
      * @param $labelName
@@ -828,5 +828,5 @@ XML;
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
-    
+
 }
