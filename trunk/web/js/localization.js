@@ -31,9 +31,9 @@ $(document).ready(function() {
         targetLanguageId = $('#languageList').val();
         lanagueGroupId = $('#add_label_language_group_id').val();
         if ((lanagueGroupId != "0") && (targetLanguageId != 0)) {
-            $(".messageBar").html('');
+            $(".messageBar").html('');            
             checkMessageBar();
-            generateDictionary('localization/generateDictionary', targetLanguageId, lanagueGroupId);
+            generateDictionary('localization/generateDictionary', targetLanguageId, lanagueGroupId);            
         } else {
             $(".messageBar").html("<span class='error'>Select Valid Target Language and Language Group</span>");
             checkMessageBar();

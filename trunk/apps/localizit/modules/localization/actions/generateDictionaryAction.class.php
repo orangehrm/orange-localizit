@@ -31,6 +31,10 @@ class generateDictionaryAction extends sfAction {
      */
     public function preExecute() {
         $this->localizationService = $this->getLocalizationService();
+        $memoryLimit = ini_get('memory_limit');
+        if($memoryLimit!='256M'){
+            ini_set('memory_limit','256M');            
+        }
     }
 
     /**
@@ -76,4 +80,5 @@ class generateDictionaryAction extends sfAction {
     }
 
 }
+
 ?>
