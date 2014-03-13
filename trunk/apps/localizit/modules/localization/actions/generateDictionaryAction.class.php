@@ -30,13 +30,9 @@ class generateDictionaryAction extends sfAction {
      * This method is executed before each action
      */
     public function preExecute() {
-        $this->localizationService = $this->getLocalizationService();    
-        if(ini_get('memory_limit' != -1)){
-            ini_set('memory_limit',-1);
-        }
-        if(ini_get('max_execution_time' != 300)){
-            ini_set('max_execution_time', 300);
-        }
+        $this->localizationService = $this->getLocalizationService();
+        ini_set('memory_limit', -1);
+        ini_set('max_execution_time', 300);
     }
 
     /**
