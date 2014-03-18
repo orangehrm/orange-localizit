@@ -282,6 +282,13 @@ class LocalizationDao extends BaseDao {
         }
     }
 
+    /**
+     * Get Target String list by language id and source group id as Array
+     * @param type $languageId
+     * @param type $groupId
+     * @return type
+     * @throws DaoException
+     */
     public function getTargetStringByLanguageAndSourceGroupIdAsArray($languageId, $groupId) {
         try {
             $query = Doctrine_Query:: create()
@@ -646,7 +653,16 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
-
+    
+    /**
+     * Search Source by Value
+     * 
+     * @param type $value
+     * @param type $offset
+     * @param type $limit
+     * @return type
+     * @throws DaoException
+     */
     public function searchSourceByValue($value, $offset, $limit) {
         try {
             $q = Doctrine_Query::create()
@@ -664,6 +680,13 @@ class LocalizationDao extends BaseDao {
         }
     }
     
+    /**
+     * Get Search results count
+     * 
+     * @param type $value
+     * @return type
+     * @throws DaoException
+     */
     public function getSearchResultCount($value) {
         try {
             $q = Doctrine_Query::create()
