@@ -34,7 +34,7 @@ class LocalizationDao extends BaseDao {
         try {
             if (is_string($tblName)) {
                 $q = Doctrine_Query :: create()
-                                ->from("$tblName l");
+                        ->from("$tblName l");
                 return $q->execute();
             } else {
                 throw new DaoException();
@@ -43,22 +43,20 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
-    
-    public function getLanguageList() {
-        
-        try {
-            
-            $q = Doctrine_Query :: create()
-                            ->from("Language")
-                            ->orderBy("name");
-            return $q->execute();
 
+    public function getLanguageList() {
+
+        try {
+
+            $q = Doctrine_Query :: create()
+                    ->from("Language")
+                    ->orderBy("name");
+            return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
-        
-    }    
-    
+    }
+
     /**
      * Get source list
      * 
@@ -70,25 +68,25 @@ class LocalizationDao extends BaseDao {
      */
     public function getAllSourceList($offset, $limit, $groupId = 0) {
         try {
-                $q = Doctrine_Query :: create()
-                                ->from("Source s")
-                                ->orderBy('s.value');
-                
-                if(!empty($groupId)){
-                    $q->where('s.groupId = ?', $groupId);
-                }
-                
-                if ($offset !== null && $limit) {
-                    $q -> limit($limit)
-                       -> offset($offset);
-                }
-                
-                return $q->execute();
+            $q = Doctrine_Query :: create()
+                    ->from("Source s")
+                    ->orderBy('s.value');
+
+            if (!empty($groupId)) {
+                $q->where('s.groupId = ?', $groupId);
+            }
+
+            if ($offset !== null && $limit) {
+                $q->limit($limit)
+                        ->offset($offset);
+            }
+
+            return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * Get Source string total count
      *
@@ -99,19 +97,18 @@ class LocalizationDao extends BaseDao {
     public function getAllSourceListCount($groupId = 0) {
         try {
             $q = Doctrine_Query :: create()
-            ->from("Source s")
-            ->orderBy('s.value');
-            
-            if(!empty($groupId)){
-                    $q->where('s.groupId = ?', $groupId);
+                    ->from("Source s")
+                    ->orderBy('s.value');
+
+            if (!empty($groupId)) {
+                $q->where('s.groupId = ?', $groupId);
             }
-            
+
             return $q->execute()->count();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
 
     /**
      * get Source object By id
@@ -122,9 +119,9 @@ class LocalizationDao extends BaseDao {
     public function getSourceById($id) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Source s')
-                            ->where('s.id = ?', $id)
-                            ->orderBy('s.value');
+                    ->from('Source s')
+                    ->where('s.id = ?', $id)
+                    ->orderBy('s.value');
             return $q->fetchOne();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -140,9 +137,9 @@ class LocalizationDao extends BaseDao {
     public function getSourceByValue($value) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Source s')
-                            ->where('s.value = ?', $value)
-                            ->orderBy('s.value');
+                    ->from('Source s')
+                    ->where('s.value = ?', $value)
+                    ->orderBy('s.value');
 
             return $q->fetchOne();
         } catch (Exception $e) {
@@ -159,15 +156,15 @@ class LocalizationDao extends BaseDao {
     public function getSourceByGroupId($gropuId) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Source s')
-                            ->where('s.groupId = ?', $gropuId)
-                            ->orderBy('s.value');
+                    ->from('Source s')
+                    ->where('s.groupId = ?', $gropuId)
+                    ->orderBy('s.value');
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * Save Source
      * @param Source $source
@@ -188,13 +185,13 @@ class LocalizationDao extends BaseDao {
      * @throws DaoException
      */
     public function updateSource(Source $source) {
-        try {   
+        try {
             $q = Doctrine_Query :: create()
-                            ->update('Source s')
-                            ->set('s.value', '?', $source->getValue())
-                            ->set('s.note', '?', $source->getNote())
-                            ->set('s.groupId', '?', $source->getGroupId())
-                            ->where('s.id = ?', $source->getId());
+                    ->update('Source s')
+                    ->set('s.value', '?', $source->getValue())
+                    ->set('s.note', '?', $source->getNote())
+                    ->set('s.groupId', '?', $source->getGroupId())
+                    ->where('s.id = ?', $source->getId());
 
             return $q->execute();
             die;
@@ -212,8 +209,8 @@ class LocalizationDao extends BaseDao {
     public function getLanguageById($id) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Language l')
-                            ->where('l.id=?', $id);
+                    ->from('Language l')
+                    ->where('l.id=?', $id);
             return $q->fetchOne();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -229,8 +226,8 @@ class LocalizationDao extends BaseDao {
     public function getLanguageByCode($code) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Language l')
-                            ->where('l.code=?', $code);
+                    ->from('Language l')
+                    ->where('l.code=?', $code);
             return $q->fetchOne();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -246,8 +243,8 @@ class LocalizationDao extends BaseDao {
     public function getTargetByLanguageId($languageId) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Target t')
-                            ->where('t.language_id = ?', $languageId);
+                    ->from('Target t')
+                    ->where('t.language_id = ?', $languageId);
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -262,21 +259,20 @@ class LocalizationDao extends BaseDao {
      */
     public function getTargetStringByLanguageAndSourceGroupId($languageId, $groupId) {
         try {
-            $query = Doctrine_Query:: create ()
-                            ->select('t.*, s.*')
-                            ->from('Source s')
-                            ->leftJoin('s.Target t')
-                            ->addWhere('s.group_id = ?', $groupId)
-                            //->addWhere('t.languageId = ?', $languageId)
-                            ->orderBy('s.value');
+            $query = Doctrine_Query:: create()
+                    ->select('t.*, s.*')
+                    ->from('Source s')
+                    ->leftJoin('s.Target t')
+                    ->addWhere('s.group_id = ?', $groupId)
+                    //->addWhere('t.languageId = ?', $languageId)
+                    ->orderBy('s.value');
             $sourceList = $query->execute();
-    
+
             foreach ($sourceList as $source) {
                 $targets = $source->getTarget();
                 foreach ($targets as $key => $target) {
-                    if($target->getLanguageId() != $languageId ){
-                        $source->getTarget()->remove($key);  
-                        
+                    if ($target->getLanguageId() != $languageId) {
+                        $source->getTarget()->remove($key);
                     }
                 }
             }
@@ -284,66 +280,84 @@ class LocalizationDao extends BaseDao {
         } catch (Exception $exp) {
             throw new DaoException($exp->getMessage());
         }
-    } 
-  
+    }
+
+    public function getTargetStringByLanguageAndSourceGroupIdAsArray($languageId, $groupId) {
+        try {
+            $query = Doctrine_Query:: create()
+                    ->select('t.*, s.*')
+                    ->from('Source s')
+                    ->leftJoin('s.Target t')
+                    ->orderBy('s.value');
+            $sourceList = $query->fetchArray();
+
+            foreach ($sourceList as $id => $source) {
+                $targets = $source['Target'];
+                foreach ($targets as $key => $target) {
+                    if ($target['languageId'] != $languageId) {
+                        unset($sourceList[$id]['Target'][$key]);
+                    }
+                }
+            }
+            return $sourceList;
+        } catch (Exception $ex) {
+            throw new DaoException($exp->getMessage(), $ex->getCode(), $ex);
+        }
+    }
+
     public function getTargetAsArray($languageId, $groupId) {
-        
-        $q  = "SELECT s.id AS sourceId, t.id AS targetId, t.value AS targetValue, t.note AS targetNote                
+
+        $q = "SELECT s.id AS sourceId, t.id AS targetId, t.value AS targetValue, t.note AS targetNote                
                FROM `ohrm_source` AS s LEFT JOIN `ohrm_target` AS t ON s.id = t.source_id 
                WHERE s.group_id = $groupId AND t.language_id = $languageId";
-        
+
         $pdo = Doctrine_Manager::connection()->getDbh();
-        $r   = $pdo->query($q);        
-        
+        $r = $pdo->query($q);
+
         $a = array();
-        
+
         while ($row = $r->fetch(PDO::FETCH_ASSOC)) {
-            
+
             $a[$row['sourceId']] = array(
-                                            'targetId'      => $row['targetId'], 
-                                            'targetValue'   => $row['targetValue'],
-                                            'targetNote'   => $row['targetNote']
-                                        );
-            
+                'targetId' => $row['targetId'],
+                'targetValue' => $row['targetValue'],
+                'targetNote' => $row['targetNote']
+            );
         }
-        
-        return $a;        
-        
+
+        return $a;
     }
-    
+
     public function getSourceAsArray($groupId) {
-        
-        $q  = "SELECT s.id AS sourceId, s.value AS sourceValue, s.note AS sourceNote 
+
+        $q = "SELECT s.id AS sourceId, s.value AS sourceValue, s.note AS sourceNote 
                FROM `ohrm_source` AS s WHERE s.group_id = $groupId";
-        
+
         $pdo = Doctrine_Manager::connection()->getDbh();
-        $r   = $pdo->query($q);        
-        
+        $r = $pdo->query($q);
+
         $a = array();
-        
+
         while ($row = $r->fetch(PDO::FETCH_ASSOC)) {
-            
+
             $a[$row['sourceId']] = array(
-                                            'sourceValue'   => $row['sourceValue'], 
-                                            'sourceNote'    => $row['sourceNote']
-                                        );
-            
+                'sourceValue' => $row['sourceValue'],
+                'sourceNote' => $row['sourceNote']
+            );
         }
-        
-        return $a;        
-        
-    }    
-    
-    public function getSourceCount($groupId){
-  
-        $q  = "SELECT s.id AS sourceId FROM `ohrm_source` AS s WHERE s.group_id = $groupId";
-        
+
+        return $a;
+    }
+
+    public function getSourceCount($groupId) {
+
+        $q = "SELECT s.id AS sourceId FROM `ohrm_source` AS s WHERE s.group_id = $groupId";
+
         $pdo = Doctrine_Manager::connection()->getDbh();
-        $r   = $pdo->query($q);
+        $r = $pdo->query($q);
         $rowNumber = $r->rowCount();
         return $rowNumber;
     }
-
 
     /**
      * Get Source and Target list for a given group and a language
@@ -355,40 +369,40 @@ class LocalizationDao extends BaseDao {
      * @return array of data and count
      */
     public function getSourceAndTargetListAsArray($languageId, $groupId, $offset, $limit) {
-    
+
         $pdo = Doctrine_Manager::connection()->getDbh();
-        
-        $q  = "SELECT count(*) FROM `ohrm_source` AS s LEFT JOIN `ohrm_target` AS t ON s.id = t.source_id AND t.language_id = $languageId
+
+        $q = "SELECT count(*) FROM `ohrm_source` AS s LEFT JOIN `ohrm_target` AS t ON s.id = t.source_id AND t.language_id = $languageId
         WHERE s.group_id = $groupId";
-        
-        $result   = $pdo->query($q);
+
+        $result = $pdo->query($q);
         $count = $result->fetchColumn();
-        
-        $q  = "SELECT s.id AS sourceId, s.value AS sourceValue, s.note AS sourceNote, t.id AS targetId, t.value AS targetValue, t.note AS targetNote                
+
+        $q = "SELECT s.id AS sourceId, s.value AS sourceValue, s.note AS sourceNote, t.id AS targetId, t.value AS targetValue, t.note AS targetNote                
                FROM `ohrm_source` AS s LEFT JOIN `ohrm_target` AS t ON s.id = t.source_id AND t.language_id = $languageId
                WHERE s.group_id = $groupId";
-        
+
         if ($offset !== null && $limit) {
             $q .= " LIMIT $offset, $limit";
         }
-        
-        $result   = $pdo->query($q);        
-        
+
+        $result = $pdo->query($q);
+
         $arrayOfStrings = array();
-        
+
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $arrayOfStrings[$row['sourceId']] = array(
-                                            'sourceValue'   => $row['sourceValue'],
-                                            'sourceNote'    => $row['sourceNote'],
-                                            'targetId'      => $row['targetId'], 
-                                            'targetValue'   => $row['targetValue'],
-                                            'targetNote'   => $row['targetNote']
-                                        );
+                'sourceValue' => $row['sourceValue'],
+                'sourceNote' => $row['sourceNote'],
+                'targetId' => $row['targetId'],
+                'targetValue' => $row['targetValue'],
+                'targetNote' => $row['targetNote']
+            );
         }
-        
+
         return array('data' => $arrayOfStrings, 'count' => $count);
     }
-    
+
     /**
      * Save Target
      * @param Target $target
@@ -411,13 +425,13 @@ class LocalizationDao extends BaseDao {
     public function updateTarget(Target $target) {
         try {
             $q = Doctrine_Query :: create()
-                            ->update('Target t')
-                            ->set('t.sourceId', '?', $target->getSourceId())
-                            ->set('t.languageId', '?', $target->getLanguageId())
-                            ->set('t.value', '?', $target->getValue())
-                            ->set('t.note', '?', $target->getNote())
-                            ->where('t.id = ?', $target->getId());
-            
+                    ->update('Target t')
+                    ->set('t.sourceId', '?', $target->getSourceId())
+                    ->set('t.languageId', '?', $target->getLanguageId())
+                    ->set('t.value', '?', $target->getValue())
+                    ->set('t.note', '?', $target->getNote())
+                    ->where('t.id = ?', $target->getId());
+
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -431,14 +445,15 @@ class LocalizationDao extends BaseDao {
      */
     public function deleteTarget($id) {
         try {
-                $q = Doctrine_Query::create()
-                        ->delete('Target t')
-                        ->where('t.id = ?', $id);
+            $q = Doctrine_Query::create()
+                    ->delete('Target t')
+                    ->where('t.id = ?', $id);
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
+
     /**
      *  Save Group.
      *  @param Group group
@@ -461,9 +476,9 @@ class LocalizationDao extends BaseDao {
     public function updateGroup(Group $group) {
         try {
             $q = Doctrine_Query :: create()
-                            ->update('Group g')
-                            ->set('g.name ' , '?', $group->getName())
-                            ->where('g.id = ?', $group->getId());
+                    ->update('Group g')
+                    ->set('g.name ', '?', $group->getName())
+                    ->where('g.id = ?', $group->getId());
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -479,15 +494,15 @@ class LocalizationDao extends BaseDao {
     public function getGroupById($id) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Group g')
-                            ->where('g.id=?', $id);
+                    ->from('Group g')
+                    ->where('g.id=?', $id);
             return $q->fetchOne();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-   
-        /**
+
+    /**
      * Get Language List for user
      * @returns Language Collection
      * @return Language
@@ -495,15 +510,15 @@ class LocalizationDao extends BaseDao {
     public function getUserLanguageList($ids) {
         try {
             $q = Doctrine_Query :: create()
-                            ->select('u.languageId')
-                            ->from('userLanguage u')
-                            ->whereIn('u.id', $ids);
+                    ->select('u.languageId')
+                    ->from('userLanguage u')
+                    ->whereIn('u.id', $ids);
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * Get User List by LanguageId
      * @param int $languageId
@@ -513,17 +528,17 @@ class LocalizationDao extends BaseDao {
     public function getUserListByLanguage($languageId) {
         try {
             $q = Doctrine_Query :: create()
-                            ->select('u.*')
-                            ->from('User u')
-                            ->leftJoin('u.UserLanguage ul')
-                            ->addWhere('ul.languageId = ?', $languageId)
-                            ->orderBy('u.firstName');
+                    ->select('u.*')
+                    ->from('User u')
+                    ->leftJoin('u.UserLanguage ul')
+                    ->addWhere('ul.languageId = ?', $languageId)
+                    ->orderBy('u.firstName');
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * Retrive language string list by source and target Language Id
      * @param int $sourceLanguageId, int $targetLanguageId
@@ -533,14 +548,14 @@ class LocalizationDao extends BaseDao {
     public function getLangStrBySrcAndTargetIds($sourceLanguageId, $targetLanguageId) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Target lls')
-                            ->whereIn('lls.id', array($sourceLanguageId, $targetLanguageId));
+                    ->from('Target lls')
+                    ->whereIn('lls.id', array($sourceLanguageId, $targetLanguageId));
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * Delete By sourceId
      * @param int $sourceId
@@ -550,15 +565,15 @@ class LocalizationDao extends BaseDao {
     public function deleteSourceById($sourceId) {
         try {
             $q = Doctrine_Query :: create()
-                            ->delete('Source')
-                            ->from('Source s')
-                            ->whereIn('s.id', $sourceId);
+                    ->delete('Source')
+                    ->from('Source s')
+                    ->whereIn('s.id', $sourceId);
             return $q->execute();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * Retrieve all the Source Values
      * @returns Source Value arraylist
@@ -567,16 +582,15 @@ class LocalizationDao extends BaseDao {
     public function getSourceList() {
         try {
             $q = Doctrine_Query :: create()
-                            ->select('value')
-                            ->from('Source l')
-                            ->orderBy('l.value');
+                    ->select('value')
+                    ->from('Source l')
+                    ->orderBy('l.value');
             return $q->fetchArray();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
-    
+
     /**
      * Retrieve all the Source Values
      * @param integet $groupId
@@ -586,15 +600,15 @@ class LocalizationDao extends BaseDao {
     public function getSourceListByGroupId($groupid) {
         try {
             $q = Doctrine_Query :: create()
-                            ->select('value')
-                            ->from('Source l')
-                            ->whereIn('l.group_id', $groupid);
+                    ->select('value')
+                    ->from('Source l')
+                    ->whereIn('l.group_id', $groupid);
             return $q->fetchArray();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * get Source object By Value
      * @param string $sourceValue
@@ -604,34 +618,61 @@ class LocalizationDao extends BaseDao {
     public function getSourceIdByValue($sourceValue) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Source')
-                            ->select('id')
-                            ->where('value = ?', $sourceValue);
+                    ->from('Source')
+                    ->select('id')
+                    ->where('value = ?', $sourceValue);
 
             return $q->fetchOne();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * get Source by source and group id
      * @param integer $groupId $sourceValue
      * @returns Source Object
      * @throws DaoException
      */
-    public function getSourceIdByByGroupIdValue($groupId , $sourceValue) {
+    public function getSourceIdByByGroupIdValue($groupId, $sourceValue) {
         try {
             $q = Doctrine_Query :: create()
-                            ->from('Source')
-                            ->select('id')
-                            ->where('value = ? AND group_id = ?',array($sourceValue, $groupId));
+                    ->from('Source')
+                    ->select('id')
+                    ->where('value = ? AND group_id = ?', array($sourceValue, $groupId));
 
             return $q->fetchOne();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
         }
     }
-    
-}
 
+    public function searchSourceByValue($value, $offset, $limit) {
+        try {
+            $q = Doctrine_Query::create()
+                    ->from('Source')
+                    ->where('value LIKE ?', '%'.$value.'%' )
+                    ->orderBy('value');
+            if ($offset !== null && $limit) {
+                $q->limit($limit);
+                $q->offset($offset);
+            }
+            return $q->execute();
+            
+        } catch (Exception $ex) {
+            throw new DaoException($ex->getCode(), $ex->getMessage(), $ex);
+        }
+    }
+    
+    public function getSearchResultCount($value) {
+        try {
+            $q = Doctrine_Query::create()
+                    ->from('Source')
+                    ->where('value LIKE ?', '%' . $value.'%');
+            return $q->count();
+        } catch (Exception $ex) {
+            throw new DaoException($ex->getCode(), $ex->getMessage(), $ex);
+        }
+    }
+
+}

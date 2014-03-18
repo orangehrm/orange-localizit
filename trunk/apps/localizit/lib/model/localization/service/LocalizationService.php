@@ -50,7 +50,6 @@ class LocalizationService extends BaseService {
         }
     }
 
-    
     /**
      * Get Source by group and language
      * @param $groupId
@@ -60,7 +59,7 @@ class LocalizationService extends BaseService {
     public function getTargetStringByLanguageAndSourceGroupId($languageId, $groupId) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            return $localizationDao->getTargetStringByLanguageAndSourceGroupId($languageId, $groupId);
+            return $localizationDao->getTargetStringByLanguageAndSourceGroupIdAsArray($languageId, $groupId);
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
@@ -68,30 +67,27 @@ class LocalizationService extends BaseService {
 
     public function getTranslateListAsArray($languageId, $groupId) {
 
-        $sourceArray    = $this->getLocalizationDao()->getSourceAsArray($groupId);
-        $targetArray    = $this->getLocalizationDao()->getTargetAsArray($languageId, $groupId);
-        $combinedArray  = array();
+        $sourceArray = $this->getLocalizationDao()->getSourceAsArray($groupId);
+        $targetArray = $this->getLocalizationDao()->getTargetAsArray($languageId, $groupId);
+        $combinedArray = array();
 
         foreach ($sourceArray as $sourceId => $source) {
 
-            $combinedArray[$sourceId]['sourceValue']    = $source['sourceValue'];
-            $combinedArray[$sourceId]['sourceNote']     = $source['sourceNote'];
-            $combinedArray[$sourceId]['targetId']       = '';
-            $combinedArray[$sourceId]['targetValue']    = '';
-            $combinedArray[$sourceId]['targetNote']     = '';            
+            $combinedArray[$sourceId]['sourceValue'] = $source['sourceValue'];
+            $combinedArray[$sourceId]['sourceNote'] = $source['sourceNote'];
+            $combinedArray[$sourceId]['targetId'] = '';
+            $combinedArray[$sourceId]['targetValue'] = '';
+            $combinedArray[$sourceId]['targetNote'] = '';
 
             if (isset($targetArray[$sourceId])) {
 
-                $combinedArray[$sourceId]['targetId']       = $targetArray[$sourceId]['targetId'];
-                $combinedArray[$sourceId]['targetValue']    = $targetArray[$sourceId]['targetValue'];
-                $combinedArray[$sourceId]['targetNote']     = $targetArray[$sourceId]['targetNote'];
-                
+                $combinedArray[$sourceId]['targetId'] = $targetArray[$sourceId]['targetId'];
+                $combinedArray[$sourceId]['targetValue'] = $targetArray[$sourceId]['targetValue'];
+                $combinedArray[$sourceId]['targetNote'] = $targetArray[$sourceId]['targetNote'];
             }
-            
         }
 
         return $combinedArray;
-        
     }
 
     /**
@@ -152,7 +148,6 @@ class LocalizationService extends BaseService {
         }
     }
 
-    
     /**
      * Get Language By Code
      * @param string $languageCode
@@ -189,21 +184,21 @@ class LocalizationService extends BaseService {
         $dataSet = array();
         try {
             $sourceList = $localizationDao->getDataList('Source');
-            $sourceSet = $localizationDao->getTargetStringByLanguageAndSourceGroupId($targetLanguageId, $languageGroupId);
-            if($sourceSet){
+            $sourceSet = $localizationDao->getTargetStringByLanguageAndSourceGroupIdAsArray($targetLanguageId, $languageGroupId);
+            if ($sourceSet) {
                 foreach ($sourceSet as $source) {
-                    $dataRow[$source->getId()]['source_id'] = $source->getId();
-                    $dataRow[$source->getId()]['source_value'] = $source->getValue();
-                    $dataRow[$source->getId()]['source_note'] = $source->getNote();
-                    $targetSet = $source->getTarget();
+                    $dataRow[$source['id']]['source_id'] = $source['id'];
+                    $dataRow[$source['id']]['source_value'] = $source['value'];
+                    $dataRow[$source['id']]['source_note'] = $source['note'];
+                    $targetSet = $source['Target'];
                     foreach ($targetSet as $target) {
-                        if ($targetLanguageId == $target->getLanguageId()) {
-                            $dataRow[$source->getId()]['target_id'] = $target->getId();
-                            $dataRow[$source->getId()]['target_language_id'] = $target->getLanguageId();
-                            $dataRow[$source->getId()]['target_value'] = $target->getValue();
+                        if ($targetLanguageId == $target['languageId']) {
+                            $dataRow[$source['id']]['target_id'] = $target['id'];
+                            $dataRow[$source['id']]['target_language_id'] = $target['languageId'];
+                            $dataRow[$source['id']]['target_value'] = $target['value'];
                         }
                     }
-                    $dataSet[$source->getId()] = $dataRow;
+                    $dataSet[$source['id']] = $dataRow;
                 }
             }
             return $dataSet;
@@ -323,15 +318,15 @@ class LocalizationService extends BaseService {
             $contributorList = $this->getUserListByLanguage($targetLanguageId);
             $nameString = '';
             $nameCount = 0;
-            foreach($contributorList as $contributor) {
+            foreach ($contributorList as $contributor) {
                 $nameCount++;
-                if($nameCount > 1) {
+                if ($nameCount > 1) {
                     $nameString .= ' , ';
                 }
-                $nameString .= $contributor->getFirstName() .' ' . $contributor->getLastName();
+                $nameString .= $contributor->getFirstName() . ' ' . $contributor->getLastName();
             }
-            if($nameString != '') {
-                $nameString = '<!-- Contributed By: '. $nameString . " -->";
+            if ($nameString != '') {
+                $nameString = '<!-- Contributed By: ' . $nameString . " -->";
             }
             $xmlString = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -361,22 +356,22 @@ XML;
 
                 $labelInnerData = $languageLabelData[$labelId];
 
-                if ((! empty($labelInnerData['source_value'])) && (! empty($labelInnerData['target_value']))) {
+                if ((!empty($labelInnerData['source_value'])) && (!empty($labelInnerData['target_value']))) {
                     $targetsAvailable = true;
                     $transunit = $body->addChild('trans-unit');
                     $transunit->addAttribute('id', $cont);
                     $transunit->addChild('source', $labelInnerData['source_value']);
                     $transunit->addChild('target', $labelInnerData['target_value']);
-                    if($labelInnerData['source_note'] != '') {
+                    if ($labelInnerData['source_note'] != '') {
                         $transunit->addChild('note', $labelInnerData['source_note']);
                     }
                     $cont++;
                 }
             }
-            if(!$targetsAvailable) {
+            if (!$targetsAvailable) {
                 return false;
             }
-            $languageFile = sfConfig::get('sf_web_dir') . "/language_files/messages_".$targetGroup .".". $targetLanguageCode . ".xml";
+            $languageFile = sfConfig::get('sf_web_dir') . "/language_files/messages_" . $targetGroup . "." . $targetLanguageCode . ".xml";
             $fh = fopen($languageFile, 'w');
             if ($fh) {
                 $formatted = $this->formatXmlString($xml->saveXML());
@@ -528,6 +523,7 @@ XML;
      * @returns label array
      * @throws DaoException
      */
+
     public function readSourceByXML($docName) {
         $doc = new DOMDocument();
         $doc->load($docName);
@@ -550,6 +546,7 @@ XML;
      * @returns source note array
      * @throws DaoException
      */
+
     public function readNoteByXML($docName) {
         $doc = new DOMDocument();
         $doc->load($docName);
@@ -572,6 +569,7 @@ XML;
      * @returns label array
      * @throws DaoException
      */
+
     public function readTargetLanguageByXML($docName) {
         $doc = new DOMDocument();
         $doc->load($docName);
@@ -590,16 +588,14 @@ XML;
         return $trimsource;
     }
 
-    
     /* save the array dif to the database with target 
      * @return saved label list
      * @throws Dao Exception
      */
-    public function addSourceWithTarget($docName , Target $lstable, Source $sorcedata, $withTarget = false)
-    {
+
+    public function addSourceWithTarget($docName, Target $lstable, Source $sorcedata, $withTarget = false) {
         $localizationDao = $this->getLocalizationDao();
-        try
-        {
+        try {
             $xmlarray = $this->readSourceByXML($docName);
 
             $unotearray = $this->readNoteByXML($docName);
@@ -612,56 +608,53 @@ XML;
             $databasearray = $this->getSource($sorcedata->getGroupId());
             $dblabelarray = array();
 
-            if($withTarget) {
-                $sourceTargetList = $this->getTargetStringByLanguageAndSourceGroupId($lstable->getLanguageId(),$sorcedata->getGroupId());
+            if ($withTarget) {
+                $sourceTargetList = $this->getTargetStringByLanguageAndSourceGroupId($lstable->getLanguageId(), $sorcedata->getGroupId());
                 $targetArray = array();
                 foreach ($sourceTargetList as $source) {
-                    $targets = $source->getTarget();
-                    $targetArray[2][] = $source->getId();
-                    $targetArray[3][] = $source->getValue();
-                    if($source->getNote()) {
-                        $targetArray[4][] = $source->getNote();
+                    $targets = $source['Target'];
+                    $targetArray[2][] = $source['id'];
+                    $targetArray[3][] = $source['value'];
+                    if ($source['note']) {
+                        $targetArray[4][] = $source['note'];
                     } else {
                         $targetArray[4][] = NULL;
                     }
 
-                    if(count($targets) == 0 ) {
+                    if (count($targets) == 0) {
                         $targetArray[0][] = NULL;
                         $targetArray[1][] = NULL;
                     } else {
-                        foreach($targets as $target) {
-                            $targetArray[0][] = $target->getId();
-                            $targetArray[1][] = $target->getValue();
+                        foreach ($targets as $target) {
+                            $targetArray[0][] = $target['id'];
+                            $targetArray[1][] = $target['value'];
                         }
                     }
                 }
-            } 
-            else {
+            } else {
                 $sourceList = $this->getSource($sorcedata->getGroupId());
                 $targetArray = array();
                 foreach ($sourceList as $source) {
-                    $targetArray[2][] = $source[id];
-                    $targetArray[3][] = $source[value];
-                    if($source[note]) {
-                        $targetArray[4][] = $source[note];
+                    $targetArray[2][] = $source['id'];
+                    $targetArray[3][] = $source['value'];
+                    if ($source[note]) {
+                        $targetArray[4][] = $source['note'];
                     } else {
                         $targetArray[4][] = NULL;
                     }
                 }
             }
 
-            foreach ($uxmlarray as $key => $value)
-            {
-                if(!in_array($value, $targetArray[3]))
-                {
+            foreach ($uxmlarray as $key => $value) {
+                if (!in_array($value, $targetArray[3])) {
                     $result[0][] = $value;
                     $result[1][] = $unotearray[$key];
                     $result[2][] = $targetLanguageXml[$key];
                 } else {
                     $id = array_search($value, $targetArray[3]);
-                    if($withTarget) {
-                        if($targetArray[0][$id]) {
-                            if($targetLanguageXml[$key] != $targetArray[1][$id]) {
+                    if ($withTarget) {
+                        if ($targetArray[0][$id]) {
+                            if ($targetLanguageXml[$key] != $targetArray[1][$id]) {
                                 $targetData = new Target();
                                 $targetData->setSourceId($targetArray[2][$id]);
                                 $targetData->setLanguageId($lstable->getLanguageId());
@@ -679,7 +672,7 @@ XML;
                             $this->addTarget($targetData);
                         }
                     }
-                    if($unotearray[$key] != $targetArray[4][$id]) {
+                    if ($unotearray[$key] != $targetArray[4][$id]) {
                         $idArray = array($targetArray[2][$id]);
                         $valueArray = array($targetArray[3][$id]);
                         $noteArray = array($unotearray[$key]);
@@ -695,9 +688,8 @@ XML;
                 $uresult[2][$key] = $result[2][$key];
             }
 
-            $j=0;
-            foreach($uresult[0] as $key => $item)
-            {
+            $j = 0;
+            foreach ($uresult[0] as $key => $item) {
                 $sourceData = new Source();
                 $sourceData->setValue($item);
                 $sourceData->setGroupId($sorcedata->getGroupId());
@@ -712,13 +704,11 @@ XML;
                 }
                 $localizationDao->addSource($sourceData);
             }
-        }
-        catch (Exception $exc) {
+        } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
     }
 
-    
     /**
      * Get source list
      * 
@@ -727,7 +717,7 @@ XML;
      * @param integer $offset
      * @returns Doctrine Collection
      */
-    public function getSourceList($offset, $limit, $groupId){
+    public function getSourceList($offset, $limit, $groupId) {
         return $this->getLocalizationDao()->getAllSourceList($offset, $limit, $groupId);
     }
 
@@ -741,7 +731,6 @@ XML;
         return $this->getLocalizationDao()->getAllSourceListCount($groupId);
     }
 
-    
     /**
      * Delete Source
      * @param $id
@@ -766,9 +755,8 @@ XML;
     public function updateSource($id, $value, $note, $groupId) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $i=0;
-            foreach ($id as $item)
-            {
+            $i = 0;
+            foreach ($id as $item) {
                 $source = new Source();
                 $source->setId($item);
                 $source->setValue($value[$i]);
@@ -782,11 +770,11 @@ XML;
         }
     }
 
-    
     /* get Source
      * @returns Source array
      * @throws ServiceException
      */
+
     public function getSource($groupid) {
         $localizationDao = $this->getLocalizationDao();
         try {
@@ -819,14 +807,22 @@ XML;
      * @throws ServiceException
      * @return Label
      */
-    public function checkSourceByGroupIdValue($groupId , $source) {
+    public function checkSourceByGroupIdValue($groupId, $source) {
         $localizationDao = $this->getLocalizationDao();
         try {
-            $res = $localizationDao->getSourceIdByByGroupIdValue($groupId , $source);
+            $res = $localizationDao->getSourceIdByByGroupIdValue($groupId, $source);
             return $res;
         } catch (Exception $exc) {
             throw new ServiceException($exc->getMessage(), $exc->getCode());
         }
+    }
+    
+    public function searchSourceByValue($value,$offset, $limit) {
+        return $this->getLocalizationDao()->searchSourceByValue($value,$offset, $limit);
+    }
+    
+    public function getSearchResultCount($value) {
+        return $this->getLocalizationDao()->getSearchResultCount($value);
     }
 
 }

@@ -20,8 +20,7 @@ class LabelUploadForm extends sfForm
 
     $localService = $this->getLocalizeService();
     $languageGroupArray = $localService->getGroupList();
-    $targetLanguageArray = $localService->getLanguageList();
-    
+    $targetLanguageArray = $localService->getLanguageList();   
     
     
     $lanGroups = array('' => "-- " . ('Select') . " --");
@@ -42,7 +41,9 @@ class LabelUploadForm extends sfForm
       'Target_language' => new sfWidgetFormSelect(array('label' => 'Target Language','choices' => $targetLan)),
       'Include_target_value' => new sfWidgetFormInputCheckbox(array('label' => 'Include Target Value'),array('class' => 'text_input')),
       'Target_note' => new sfWidgetFormTextarea(array('label' => 'Target Note'),array('class' => 'text_input')),
-      'File' => new sfWidgetFormInputFile()
+      'File' => new sfWidgetFormInputFile(),
+      'Search_by_Label' => new sfWidgetFormInputCheckbox(),
+      'Label' => new sfWidgetFormInput()
     ));
  
     $this->setValidators(array(
@@ -50,7 +51,9 @@ class LabelUploadForm extends sfForm
       'Target_language' => new sfValidatorString(array('required' => false , 'max_length' => 255)),
       'Include_target_value' => new sfValidatorString(array('required' => false)),
       'Target_note' => new sfValidatorString(array('required' => false)),
-      'File' => new sfValidatorFile(array('max_size' => 5000000   ,'required' => false, 'path' => sfConfig::get('sf_upload_dir')))
+      'File' => new sfValidatorFile(array('max_size' => 5000000   ,'required' => false, 'path' => sfConfig::get('sf_upload_dir'))),
+      'Search_by_Label' => new sfValidatorBoolean(array('required'=>false)),
+      'Label'=>new sfValidatorString(array('required' => false))
     ));
     
     $this->widgetSchema->setNameFormat('uploadForm[%s]');

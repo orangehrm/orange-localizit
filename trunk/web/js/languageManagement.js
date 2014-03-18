@@ -1,15 +1,17 @@
+var langId = 0;
+var langEdit = null;
+var langSave = null;
+var resetUrl = null;
+
 $(document).ready(function() {
 
     $('.messageBar.manageLabels').delay(2000).fadeOut("slow", function() {
         $(".messageBar.manageLabels").hide();
     });
 
-    var tempFlag = false;
-
     $('#save_language').click(function() {
         if ($('#add_language_form').valid()) {
             $('#add_language_form').submit();
-            tempFlag = true;
         }
     });
 
@@ -22,7 +24,6 @@ $(document).ready(function() {
         else if ($('#update_language').val() == langSave) {
             if ($('#add_language_form').valid()) {
                 $('#add_language_form').submit();
-                tempFlag = true;
             }
         }
     });

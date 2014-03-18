@@ -45,6 +45,6 @@
 
 <script type="text/javascript">
     $(".sf-menu li.language").addClass("current");
-    var langId = '<?php echo $language->getId()?>';
+    langId = '<?php echo $language->getId()?>';
 </script>
 

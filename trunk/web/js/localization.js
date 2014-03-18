@@ -1,9 +1,33 @@
-$(document).ready(function() {
+var searchFormValue = null;
 
+$(document).ready(function() {
+    
     var targetLanguageId = $('#languageList').val();
     var url = $('#url').val();
     var url_edit = $('#edit_url').val();
     var url_allow_edit = $('#allow_edit_url').val();
+
+    $('#progress_image').hide();
+    $('#progress_upload').hide();
+
+    if (searchFormValue) {
+        $('#uploadForm_Search_by_Label').attr('checked', true);
+        showSearchByLabel();
+        $('#uploadForm_Label').val(searchFormValue);
+    } else {
+        $('#uploadForm_Search_by_Label').attr('checked', false);
+        hideSearchByLabel();
+    }
+    
+    $('#uploadForm_Search_by_Label').click(function() {
+        if ($('#uploadForm_Search_by_Label').is(':checked')) {
+            showSearchByLabel();
+            $('#uploadForm_Label').val(searchFormValue);
+        } else {
+            hideSearchByLabel();
+        }
+
+    });
 
     $('#addLabelDiv').css('display', 'none');
     fetchLangugeLabelSet(url, targetLanguageId, 'dataSet');
@@ -33,7 +57,10 @@ $(document).ready(function() {
         if ((lanagueGroupId != "0") && (targetLanguageId != 0)) {
             $(".messageBar").html('');
             checkMessageBar();
-            generateDictionary('localization/generateDictionary', targetLanguageId, lanagueGroupId);
+            $('#progress_image').show();
+            setTimeout(function() {
+                generateDictionary('localization/generateDictionary', targetLanguageId, lanagueGroupId);
+            }, 1000);
         } else {
             $(".messageBar").html("<span class='error'>Select Valid Target Language and Language Group</span>");
             checkMessageBar();
@@ -47,7 +74,13 @@ $(document).ready(function() {
         if ((languageGroupId != "0") && (targetLanguageId != 0)) {
             $(".messageBar").html('');
             checkMessageBar();
-            downloadDictionary('localization/downloadDictionary', targetLanguageId, languageGroupId);
+            $('#progress_image').show();
+            setTimeout(function() {
+                var flag = downloadDictionary('localization/downloadDictionary', targetLanguageId, languageGroupId);
+                if (flag) {
+                    $('#progress_image').hide();
+                }
+            }, 1000);
         } else {
             $(".messageBar").html("<span class='error'>Select Valid Target Language and Language Group</span>");
             checkMessageBar();
@@ -74,11 +107,23 @@ $(document).ready(function() {
     $('#upload_and_save_xml').click(function() {
         if (validateUploadForm())
         {
-            submitForm('upload_label_form');
+            $('#progress_upload').show();
+            setTimeout(function() {
+                submitForm('upload_label_form');
+            }, 1000);
+
         }
     });
     $('#search').click(function() {
         $('#pageNo').val(0);
+        if ($('#uploadForm_Search_by_Label').is(':checked')) {
+            searchFormValue = $('#uploadForm_Label').val();
+            $('#searchValue').val($('#uploadForm_Label').val());
+        } else {
+            searchFormValue = null;
+            $('#searchValue').val('');
+
+        }
     });
     $('#upload_and_cancel_xml').click(function() {
         $('#listMessageBar1').hide();
@@ -274,7 +319,7 @@ $(document).ready(function() {
     $("#show_label_form input#cancel").click(function() {
         $(".changed").each(function() {
             $(this).removeClass('changed');
-        })
+        });
     });
 
     $("#show_label_form").find("input#save").click(function(event) {
@@ -324,7 +369,7 @@ $(document).ready(function() {
                 stringArray[stringCount] = sourceValue;
                 stringCount++;
             } else {
-                $(".sourceValueInput[value='" + sourceValue + "']").closest('tr').addClass('duplicate')
+                $(".sourceValueInput[value='" + sourceValue + "']").closest('tr').addClass('duplicate');
             }
         });
     }
@@ -407,6 +452,7 @@ function generateDictionary(url, targetLanguageId, languageGroupId) {
 function downloadDictionary(url, targetLanguageId, languageGroupId) {
     url = url + "?targetLanguageId=" + targetLanguageId + "&languageGroupId=" + languageGroupId;
     document.location = url;
+    return true;
 }
 
 function submitForm(formId) {
@@ -473,9 +519,9 @@ checked = false;
 function checkedAll()
 {
     if (checked == false) {
-        checked = true
+        checked = true;
     } else {
-        checked = false
+        checked = false;
     }
     for (var i = 0; i < document.getElementById('deleteLanguageLabelList').elements.length; i++) {
         document.getElementById('deleteLanguageLabelList').elements[i].checked = checked;
@@ -534,5 +580,18 @@ function validateAddSourceForm()
 
 function submitPage(pageNo) {
     $('#pageNo').val(pageNo);
+    if (searchFormValue != null) {
+        searchFormValue = $('#searchValue').val();
+    }
     $('form.pagination_enabled').submit();
+}
+
+function showSearchByLabel() {
+    $('#uploadForm_Label').parent().parent().show();
+    $('#add_label_language_group_id').parent().parent().hide();
+}
+
+function hideSearchByLabel() {
+    $('#uploadForm_Label').parent().parent().hide();
+    $('#add_label_language_group_id').parent().parent().show();
 }

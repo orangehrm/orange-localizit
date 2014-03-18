@@ -47,10 +47,10 @@
 
 <script type="text/javascript">
     $(".sf-menu li.language").addClass("current");
-    var resetUrl = '<?php echo url_for("@language_list") ?>';
-    var langId = '<?php echo $langId ?>';
-    var langEdit = '<?php echo __('edit', null, 'localizationMessages') ?>';
-    var langSave = '<?php echo __('save', null, 'localizationMessages') ?>';
+    resetUrl = '<?php echo url_for("@language_list") ?>';
+    langId = '<?php echo $langId ?>';
+    langEdit = '<?php echo __('edit', null, 'localizationMessages') ?>';
+    langSave = '<?php echo __('save', null, 'localizationMessages') ?>';
 </script>
 
 
