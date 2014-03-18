@@ -1,0 +1,33 @@
+.progress_image {
+    background-color: #808080;
+    display: block;
+    height: 170px;
+    opacity: 0.6;
+    position: absolute;
+    width: 580px;
+    z-index: 1000;
+}
+
+#loadingImg {
+    display: block;
+    left: 250px;
+    position: relative;
+    top: 56px;
+}
+
+.progress_upload{
+    background-color: #808080;
+    display: block;
+    height: 320px;
+    opacity: 0.6;
+    position: absolute;
+    width: 545px;
+    z-index: 1000;
+}
+
+#uploadImg {
+    display: block;
+    left: 250px;
+    position: relative;
+    top: 110px;
+}

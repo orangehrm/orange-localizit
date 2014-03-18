@@ -6,13 +6,16 @@
 </script>
 <div class="messageBar">
         <?php if($sf_user->getFlash('errorMessage') != '') { ?>
-            <span class="error"><?php echo $sf_user->getFlash('errorMessage'); ?></span>
+        <span class="error"><?php echo $sf_user->getFlash('errorMessage'); ?></span>
         <?php } else if($sf_user->getFlash('successMessage') != '') { ?>
             <span class="success"><?php   echo $sf_user->getFlash('successMessage');?></span>
-        <?php } ?>
+    <?php } ?>
 </div>
 <div class="outerBorder homePageBorder">
     <div class="homePage">
+        <div class="progress_image" id="progress_image">
+            <?php echo image_tag('loading.gif', array('class'=>'loadingImg','id'=>'loadingImg','alt' => "progres_bar", 'width' => "32px", 'height' => "32px")) ?>
+        </div>
         <div class="mediumText pageHeader">
             <?php echo __('download_dictionary', null, 'localizationMessages') ?>
         </div>
@@ -31,7 +34,7 @@
                 <td class="addDotLinetoRight"><?php include_component('localization', 'GroupList')?></td>
             </tr>
 
-            
+
             <table class="mainFrame">
                 <tr>
             <?php include_partial('localization/mandetoryFieldMessage')?>
@@ -40,21 +43,22 @@
                     <?php $dirname = dirname(sfConfig::get('sf_language_dir')); ?>
                     <?php $files = glob($dirname."/language_files/*");?>
                     <?php $role = sfContext::getInstance()->getUser()->getUserRole(); ?>
-                    <div class="formBorder">
-                        <?php if ($role->isAllowedToGenerateDirectory()) { ?>
-                    
-                            <div class="formCellOne">
-                                <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />&nbsp;
-                            </div>
-                        <?php } ?>
-                        <?php if ($role->isAllowedToDownloadDirectory() && count($files) > 0 ) { ?>
-                            <div class="formCellTwo">
-                               <input type="button" name="downloadDictionary" id="downloadDictionary" class="button normalText" value="<?php echo __('download_dictionary', null, 'localizationMessages') ?>" />
+                <div class="formBorder">
+                    <?php if ($role->isAllowedToGenerateDirectory()) { ?>
+
+                        <div class="formCellOne">
+                            <input type="button" name="generateDictionary" id="generateDictionary" class="button normalText" value="<?php echo __('generate_dictionary', null, 'localizationMessages') ?>" />&nbsp;
                         </div>
-                        <?php } ?>
-                     </div>                                       
-            </tr>
+                    <?php } ?>
+                        <?php if ($role->isAllowedToDownloadDirectory() && count($files) > 0 ) { ?>
+                        <div class="formCellTwo">
+                            <input type="button" name="downloadDictionary" id="downloadDictionary" class="button normalText" value="<?php echo __('download_dictionary', null, 'localizationMessages') ?>" />
+                        </div>
+                    <?php } ?>
+                </div>                                       
+                </tr>
             </table>
         </table>
     </div>
 </div>
+
