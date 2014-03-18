@@ -817,10 +817,24 @@ XML;
         }
     }
     
+    /**
+     * Search Source by Value
+     * 
+     * @param type $value
+     * @param type $offset
+     * @param type $limit
+     * @return type
+     */
     public function searchSourceByValue($value,$offset, $limit) {
         return $this->getLocalizationDao()->searchSourceByValue($value,$offset, $limit);
     }
     
+    /**
+     * Get Search results count
+     * 
+     * @param type $value
+     * @return type
+     */
     public function getSearchResultCount($value) {
         return $this->getLocalizationDao()->getSearchResultCount($value);
     }
