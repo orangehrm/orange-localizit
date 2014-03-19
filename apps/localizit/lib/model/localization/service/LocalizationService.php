@@ -632,7 +632,7 @@ XML;
                     }
                 }
             } else {
-                $sourceList = $this->getSource($sorcedata->getGroupId());
+                $sourceList = $this->getLocalizationDao()->getSourceListAsArray();
                 $targetArray = array();
                 foreach ($sourceList as $source) {
                     $targetArray[2][] = $source['id'];

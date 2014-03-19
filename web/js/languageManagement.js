@@ -77,6 +77,12 @@ function deleteLanguage(id) {
                         error:
                                 function()
                                 {
+                                    $('.messageBar.manageLabels').show();
+                                    $('.success').remove();
+                                    $('.messageBar.manageLabels').append("<span class='error'>Cannot delete the language</<span>");
+                                    setTimeout(function(){
+                                        location.reload();
+                                    },1500);
                                 }
                     });
         }
