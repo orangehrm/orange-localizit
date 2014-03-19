@@ -79,7 +79,7 @@ function deleteLanguage(id) {
                                 {
                                     $('.messageBar.manageLabels').show();
                                     $('.success').remove();
-                                    $('.messageBar.manageLabels').append("<span class='error'>Cannot delete the language</<span>");
+                                    $('.messageBar.manageLabels').append("<span class='error'>Language cannot be deleted: Already translated labels are available.</<span>");
                                     setTimeout(function(){
                                         location.reload();
                                     },1500);
