@@ -582,7 +582,8 @@ class LocalizationDao extends BaseDao {
     }
 
     /**
-     * Retrieve all the Source Values
+     * Retrieve all the Source Values order by value
+     * 
      * @returns Source Value arraylist
      * @throws DaoException
      */
@@ -592,6 +593,23 @@ class LocalizationDao extends BaseDao {
                     ->select('value')
                     ->from('Source l')
                     ->orderBy('l.value');
+            return $q->fetchArray();
+        } catch (Exception $e) {
+            throw new DaoException($e->getMessage());
+        }
+    }
+
+    /**
+     * Retrieve all the Source Values
+     * 
+     * @returns Source Value arraylist
+     * @throws DaoException
+     */
+    public function getSourceListAsArray() {
+        try {
+            $q = Doctrine_Query :: create()
+                    ->select('value')
+                    ->from('Source l');
             return $q->fetchArray();
         } catch (Exception $e) {
             throw new DaoException($e->getMessage());
@@ -653,7 +671,7 @@ class LocalizationDao extends BaseDao {
             throw new DaoException($e->getMessage());
         }
     }
-    
+
     /**
      * Search Source by Value
      * 
@@ -667,19 +685,18 @@ class LocalizationDao extends BaseDao {
         try {
             $q = Doctrine_Query::create()
                     ->from('Source')
-                    ->where('value LIKE ?', '%'.$value.'%' )
+                    ->where('value LIKE ?', '%' . $value . '%')
                     ->orderBy('value');
             if ($offset !== null && $limit) {
                 $q->limit($limit);
                 $q->offset($offset);
             }
             return $q->execute();
-            
         } catch (Exception $ex) {
             throw new DaoException($ex->getCode(), $ex->getMessage(), $ex);
         }
     }
-    
+
     /**
      * Get Search results count
      * 
@@ -691,7 +708,7 @@ class LocalizationDao extends BaseDao {
         try {
             $q = Doctrine_Query::create()
                     ->from('Source')
-                    ->where('value LIKE ?', '%' . $value.'%');
+                    ->where('value LIKE ?', '%' . $value . '%');
             return $q->count();
         } catch (Exception $ex) {
             throw new DaoException($ex->getCode(), $ex->getMessage(), $ex);
