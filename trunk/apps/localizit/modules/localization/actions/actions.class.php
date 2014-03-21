@@ -39,10 +39,15 @@ class localizationActions extends sfActions {
     public function preExecute() {
 
         $userObject = $this->getUser();
+        $localizationService = $this->getLocalizeService();
+        $userLanguage = $localizationService->getLanguageByCode($userObject->getCulture());        
 
         if (!$userObject->getAttribute('user_language_id')) {
-            $localizationService = $this->getLocalizeService();
-            $userObject->setAttribute('user_language_id', $localizationService->getLanguageByCode($userObject->getCulture())->getId());
+            if($userLanguage){
+                $userObject->setAttribute('user_language_id',$userLanguage->getId());
+            }else{
+                $userObject->setAttribute('user_language_id',$localizationService->getLanguageByCode('en_US')->getId());
+            }
             unset($localizationDao);
         }
     }

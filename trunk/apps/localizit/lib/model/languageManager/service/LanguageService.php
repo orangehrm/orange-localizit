@@ -46,8 +46,8 @@ class LanguageService extends BaseService{
      * Get language list
      * @return Doctrine_Collection
      */
-    public function getLanguageList() {
-        return $this->getLanguageDao()->getLanguageList();
+    public function getLanguageList($userLanguage) {
+        return $this->getLanguageDao()->getLanguageList($userLanguage);
     }
     
     /**
