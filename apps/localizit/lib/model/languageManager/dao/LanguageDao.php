@@ -46,11 +46,12 @@ class LanguageDao extends BaseDao {
      * @return Doctrine Collection
      * @throws DaoException
      */
-    public function getLanguageList() {
+    public function getLanguageList($userLanguage) {
 
         try {
             $q = Doctrine_Query :: create()
                     ->from("Language")
+                    ->whereNotIn('id',$userLanguage)
                     ->orderBy("name");
             return $q->execute();
             //@codeCoverageIgnoreStart

@@ -36,8 +36,9 @@ class viewLanguageListAction extends sfAction {
     public function execute($request) {
         if (!$this->getUser()->isAuthenticated()) {
             $this->redirect('@loginpage');
-        }   
-        $this->languageList = $this->getLanguageService()->getLanguageList();
+        }
+        $userLanguage = $this->getUser()->getAttribute('user_language_id');
+        $this->languageList = $this->getLanguageService()->getLanguageList($userLanguage);
     }
 
 }
