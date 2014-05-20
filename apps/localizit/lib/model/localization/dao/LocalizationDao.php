@@ -379,16 +379,13 @@ class LocalizationDao extends BaseDao {
 
         $pdo = Doctrine_Manager::connection()->getDbh();
 
-        $q = "SELECT count(*) FROM `ohrm_source` AS s LEFT JOIN `ohrm_target` AS t ON s.id = t.source_id AND t.language_id = $languageId
-        WHERE s.group_id = $groupId";
-
-        $result = $pdo->query($q);
-        $count = $result->fetchColumn();
-
         $q = "SELECT s.id AS sourceId, s.value AS sourceValue, s.note AS sourceNote, t.id AS targetId, t.value AS targetValue, t.note AS targetNote                
                FROM `ohrm_source` AS s LEFT JOIN `ohrm_target` AS t ON s.id = t.source_id AND t.language_id = $languageId
-               WHERE s.group_id = $groupId";
+               WHERE s.group_id = $groupId GROUP BY s.id";
 
+        $result = $pdo->query($q);
+        $count = $result->rowCount();
+        
         if ($offset !== null && $limit) {
             $q .= " LIMIT $offset, $limit";
         }
