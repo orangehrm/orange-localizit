@@ -373,16 +373,19 @@ class LocalizationDao extends BaseDao {
      * @param integer $languageId
      * @param integer $offset
      * @param integer $limit
+     * @param array $searchParam optional
      * @return array of data and count
      */
-    public function getSourceAndTargetListAsArray($languageId, $groupId, $offset, $limit) {
+    public function getSourceAndTargetListAsArray($languageId, $groupId, $offset, $limit,$searchParam = array()) {
 
         $pdo = Doctrine_Manager::connection()->getDbh();
 
         $q = "SELECT s.id AS sourceId, s.value AS sourceValue, s.note AS sourceNote, t.id AS targetId, t.value AS targetValue, t.note AS targetNote                
                FROM `ohrm_source` AS s LEFT JOIN `ohrm_target` AS t ON s.id = t.source_id AND t.language_id = $languageId
-               WHERE s.group_id = $groupId GROUP BY s.id";
-
+               WHERE s.group_id = $groupId";
+        $q .= $this->getSearchQueryByParameters($searchParam);
+        $q .= "GROUP BY s.id";
+        
         $result = $pdo->query($q);
         $count = $result->rowCount();
         
@@ -405,6 +408,27 @@ class LocalizationDao extends BaseDao {
         }
 
         return array('data' => $arrayOfStrings, 'count' => $count);
+    }
+    
+    private function getSearchQueryByParameters($searchParam = array()){
+        $query ="";
+        if(isset($searchParam['source_value'])&& $searchParam['source_value'] !=''){
+            $query.=" AND s.value LIKE '%{$searchParam['source_value']}%'";
+        }
+        if(isset($searchParam['target_value']) && $searchParam['target_value'] !=''){
+            $query.=" AND t.value LIKE '%{$searchParam['target_value']}%'";
+        }
+        if(isset($searchParam['translated'])){
+            if($searchParam['translated'] == 2){
+             $query.=" AND t.value IS NULL";
+            }elseif($searchParam['translated'] == 1){
+             $query.=" AND t.value IS NOT NULL";
+            }else{
+                $query.="";
+            }
+        }
+          
+        return $query ." ";
     }
 
     /**
