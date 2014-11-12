@@ -99,8 +99,8 @@ class LocalizationService extends BaseService {
      * @param integer $limit
      * @return array of data and count
      */
-    public function getSourceAndTargetListAsArray($languageId, $groupId, $offset, $limit) {
-        return $this->getLocalizationDao()->getSourceAndTargetListAsArray($languageId, $groupId, $offset, $limit);
+    public function getSourceAndTargetListAsArray($languageId, $groupId, $offset, $limit,$searchParam = array()) {
+        return $this->getLocalizationDao()->getSourceAndTargetListAsArray($languageId, $groupId, $offset, $limit,$searchParam);
     }
 
     /**
@@ -717,7 +717,7 @@ XML;
      * @param integer $offset
      * @returns Doctrine Collection
      */
-    public function getSourceList($offset, $limit, $groupId) {
+    public function getSourceList($offset, $limit, $groupId = 0) {
         return $this->getLocalizationDao()->getAllSourceList($offset, $limit, $groupId);
     }
 
@@ -727,7 +727,7 @@ XML;
      * @param $tblName
      * @returns integer count of all sources
      */
-    public function getAllSourceListCount($groupId) {
+    public function getAllSourceListCount($groupId = 0) {
         return $this->getLocalizationDao()->getAllSourceListCount($groupId);
     }
 

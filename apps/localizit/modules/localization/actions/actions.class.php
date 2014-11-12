@@ -173,7 +173,8 @@ class localizationActions extends sfActions {
         if (!$this->getUser()->isAuthenticated()) {
             $this->redirect('@loginpage');
         }
-
+        $this->searchValue = null;
+        $this->languageGroupId = 0;
         $this->pageNo = $request->getParameter('pageNo', 1);
         $limit = sfConfig::get('app_items_per_page');
         $this->offset = ($this->pageNo >= 1) ? (($this->pageNo - 1) * $limit) : 0;

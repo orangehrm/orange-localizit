@@ -62,6 +62,20 @@
                 <td><?php echo __('language_group', null, 'localizationMessages') ?><span class="mandatoryStar">*</span></td>
                 <td class="addDotLinetoRight"><?php include_component('localization', 'GroupList')?></td>
             </tr>
+            <?php if ($showSearchFilters):?>
+            <tr>
+                <td><?php echo __('hide_translated', null, 'localizationMessages') ?></td>
+                <td class="addDotLinetoRight"><?php echo $searchFiltersForm['translated']->render(); ?></td>
+            </tr>
+            <tr>
+                <td><?php echo __('source_value', null, 'localizationMessages') ?></td>
+                <td class="addDotLinetoRight"><?php echo $searchFiltersForm['source_value']->render(); ?></td>
+            </tr>
+            <tr>
+                <td><?php echo __('target_value', null, 'localizationMessages') ?></td>
+                <td class="addDotLinetoRight"><?php echo $searchFiltersForm['target_value']->render(); ?></td>
+            </tr>
+            <?php endif; ?> 
         </table>
         <?php include_partial('localization/mandetoryFieldMessage')?>
         <input type="submit" name="display" id="dispay" class="button normalText" value="<?php echo __('display', null, 'localizationMessages') ?>" />&nbsp;

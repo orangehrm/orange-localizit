@@ -49,11 +49,13 @@ class viewTranslateTextAction extends sfAction {
     public function execute($request) {
         $userLanguageIds = $this->role->getAllowedLanguageList();
         $this->languageIds = $this->getLocalizeService()->getUserLanguageList($userLanguageIds);
-        
+        $defaults = $this->getSearchFilters();
+        $this->searchFiltersForm = new TranslateSearchFiltersForm($defaults);
+        $this->showSearchFilters = false;
         $this->pageNo = $request->getParameter('pageNo', 1);
         $limit = sfConfig::get('app_items_per_page');
         $this->offset = ($this->pageNo >= 1) ? (($this->pageNo - 1) * $limit) : 0;
-        
+        $this->listValues = array();
         if ($request->isMethod(sfRequest::POST)) {
             $this->targetLanguageId = $request->getParameter('languageList');
             $form = $request->getParameter('add_label');
@@ -61,14 +63,20 @@ class viewTranslateTextAction extends sfAction {
             if(($this->targetLanguageId == 0) || ($this->languageGroupId == 0)) {
                 $this->getUser()->setFlash('errorMessage', "Select Valid Target Language and Language Group", false);
             } else {
-                $sourceAndTargetData = $this->getLocalizeService()->getSourceAndTargetListAsArray($this->targetLanguageId, $this->languageGroupId, $this->offset, $limit);
+                $searchParams = $request->getParameter($this->searchFiltersForm->getName());
+                $this->setSearchFilters($searchParams);
+                $searchParams = $this->getSearchFilters();
+                $sourceAndTargetData = $this->getLocalizeService()->getSourceAndTargetListAsArray($this->targetLanguageId, $this->languageGroupId, $this->offset, $limit,$searchParams);
                 $this->listValues = $sourceAndTargetData['data'];
                 $this->listTotalCount = $sourceAndTargetData['count'];
                 
                 $totalRecordCount = $this->listTotalCount;
                 $this->setPagination($this->pageNo, $limit, $totalRecordCount);
-                
+                $this->showSearchFilters = true;
+                $this->searchFiltersForm = new TranslateSearchFiltersForm($searchParams);
                 if(count($this->listValues) == 0) {
+                    $this->showSearchFilters = false;
+                    $this->setSearchFilters(null);
                     $this->getUser()->setFlash('errorMessage', "No Records to Display", false);
                 }
             }
@@ -82,4 +90,14 @@ class viewTranslateTextAction extends sfAction {
         $this->showAddLabel = false;
     }
     
+    private function getSearchFilters(){
+        $filers = $this->getUser()->getAttribute('search_filters');
+        if(!is_array($filers)){
+            $filers =array();
+        }
+        return $filers;
+    }
+    private function setSearchFilters($filers){
+        $this->getUser()->setAttribute('search_filters', $filers);
+    }
 }
