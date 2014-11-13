@@ -75,8 +75,8 @@ class viewTranslateTextAction extends sfAction {
                 $this->showSearchFilters = true;
                 $this->searchFiltersForm = new TranslateSearchFiltersForm($searchParams);
                 if(count($this->listValues) == 0) {
-                    $this->showSearchFilters = false;
-                    $this->setSearchFilters(null);
+//                    $this->showSearchFilters = false;
+//                    $this->setSearchFilters(null);
                     $this->getUser()->setFlash('errorMessage', "No Records to Display", false);
                 }
             }
@@ -94,6 +94,9 @@ class viewTranslateTextAction extends sfAction {
         $filers = $this->getUser()->getAttribute('search_filters');
         if(!is_array($filers)){
             $filers =array();
+        }
+        if(!isset($filers['translated'])){
+            $filers['translated'] = 0;
         }
         return $filers;
     }
