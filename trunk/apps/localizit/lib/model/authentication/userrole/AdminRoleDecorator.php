@@ -69,4 +69,8 @@ class AdminRoleDecorator extends BaseRoleDecorator implements RoleDecorator {
         return true;
     }
 
+    public function isAllowedToViewStatistics() {
+        return true;
+    }
+
 }

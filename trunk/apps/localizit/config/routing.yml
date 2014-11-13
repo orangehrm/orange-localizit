@@ -73,6 +73,10 @@ add_language_group:
 translate_text:
   url: /translate_text
   param: { module: localization, action: viewTranslateText }
+  
+translate_statistics:
+  url: /translate_statistics
+  param: { module: localization, action: viewTranslateStatistics }
 
 help:
   url: /help

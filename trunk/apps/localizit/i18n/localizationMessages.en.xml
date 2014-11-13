@@ -206,7 +206,30 @@
                 <source>all_option</source>
                 <target>All</target>
             </trans-unit>
-            
+            <trans-unit id="52">
+                <source>source_word_count</source>
+                <target>Source Word Count</target>
+            </trans-unit>
+            <trans-unit id="53">
+                <source>target_word_count</source>
+                <target>Target Word Count</target>
+            </trans-unit>
+            <trans-unit id="54">
+                <source>translate_statistics</source>
+                <target>Translation Statistics</target>
+            </trans-unit>
+            <trans-unit id="55">
+                <source>source_string_count</source>
+                <target>Source String Count</target>
+            </trans-unit>
+            <trans-unit id="56">
+                <source>target_string_count</source>
+                <target>Target String Count</target>
+            </trans-unit>
+            <trans-unit id="57">
+                <source>remaining_string_count</source>
+                <target>Remaining String Count</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
