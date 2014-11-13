@@ -18,6 +18,11 @@
                         <a href="<?php echo url_for('@manage_labels'); ?>"><?php echo __('manage_labels', null, 'localizationMessages') ?></a>
                     </li>
                 <?php } ?>
+                <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToViewStatistics()) { ?>
+                    <li class="manageLabels">
+                        <a href="<?php echo url_for('@translate_statistics'); ?>"><?php echo __('translate_statistics', null, 'localizationMessages') ?></a>
+                    </li>
+                <?php } ?>
                 <?php if (sfContext::getInstance()->getUser()->getUserRole()->isAllowedToManageUser()) { ?>
                     <li class="group">
                         <a href="<?php echo url_for('@language_group_list'); ?>"><?php echo __('group', null, 'localizationMessages') ?></a>

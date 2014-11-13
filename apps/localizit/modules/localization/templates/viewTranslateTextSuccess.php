@@ -107,7 +107,7 @@
             <table class="mainFrame">
                 <tr>
                     <td>
-                        <input type="submit" name="save" id="save" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>"/>
+                        <input type="button" name="save" id="save" class="button normalText" value="<?php echo __('save', null, 'localizationMessages') ?>"/>
                         <input type="button" name="edit" id="edit" class="button normalText" value="<?php echo __('edit', null, 'localizationMessages') ?>"/>
                         <input type="reset" name="cancel" id="cancel" class="button normalText" value="<?php echo __('cancel', null, 'localizationMessages') ?>"/>
                     </td>

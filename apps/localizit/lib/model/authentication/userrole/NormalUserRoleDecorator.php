@@ -62,4 +62,8 @@ class NormalUserRoleDecorator extends BaseRoleDecorator implements RoleDecorator
         return false;
     }
 
+    public function isAllowedToViewStatistics() {
+        return false;
+    }
+
 }

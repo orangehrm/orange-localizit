@@ -182,6 +182,14 @@ class UserRole implements RoleDecorator {
             }
         }
     }
-    
+
+    public function isAllowedToViewStatistics() {
+        foreach ($this->getUserRoleDecorator() as $roleDecorator) {
+            if ($roleDecorator->isAllowedToViewStatistics()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
