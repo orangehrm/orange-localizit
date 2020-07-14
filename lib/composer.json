@@ -1,0 +1,29 @@
+{
+
+  "name": "orangehrm/orange-localizit",
+  "keywords": ["orangehrm"],
+  "type": "project",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/orangehrm/symfony1"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/orangehrm/doctrine1"
+    }
+  ],
+  "config": {
+    "vendor-dir": "vendor"
+  },
+  "require": {
+    "lexpress/symfony1": "dev-ohrm",
+    "lexpress/doctrine1": "dev-master"
+  },
+  "extra": {
+    "installer-types": ["library"],
+    "installer-paths": {
+      "vendor/symfony/": ["lexpress/symfony1"]
+    }
+  }
+}

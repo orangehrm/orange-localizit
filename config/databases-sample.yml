@@ -5,7 +5,7 @@ all:
   doctrine:
     class: sfDoctrineDatabase
     param:
-      dsn:      mysql:host=<host-name>;dbname=<db-name>
+      dsn:      'mysql:host=<host-name>;dbname=<db-name>;charset=utf8mb4'
       username: <username>
       password: <password>
 test:
