@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `ohrm_group` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `ohrm_group`
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `ohrm_language` (
   `name` varchar(255) DEFAULT NULL,
   `code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `ohrm_language`
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `ohrm_source` (
   `note` text,
   PRIMARY KEY (`id`),
   KEY `group_id_idx` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `ohrm_source`
@@ -129,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `ohrm_target` (
   PRIMARY KEY (`id`),
   KEY `source_id_idx` (`source_id`),
   KEY `language_id_idx` (`language_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `ohrm_target`
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `ohrm_user` (
   `password` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_type_id_idx` (`user_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `ohrm_user`
@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `ohrm_user_language` (
   PRIMARY KEY (`id`),
   KEY `language_id_idx` (`language_id`),
   KEY `user_id_idx` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `ohrm_user_language`
@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `ohrm_user_type` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_type` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `ohrm_user_type`
