@@ -18,7 +18,7 @@
  * @package    symfony
  * @subpackage view
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: sfViewCacheManager.class.php 29527 2010-05-19 13:08:37Z fabien $
+ * @version    SVN: $Id$
  */
 class sfViewCacheManager
 {
@@ -170,10 +170,37 @@ class sfViewCacheManager
       $cacheKey .= $this->convertParametersToKey($params);
     }
 
-    $cacheKey = sprintf('/%s/%s/%s', $this->getCacheKeyHostNamePart($hostName), $this->getCacheKeyVaryHeaderPart($internalUri, $vary), $cacheKey);
+    // add vary headers
+    if ($varyPart = $this->getCacheKeyVaryHeaderPart($internalUri, $vary))
+    {
+      $cacheKey = '/'.$varyPart.'/'.ltrim($cacheKey, '/');
+    }
 
-    // replace multiple /
-    $cacheKey = preg_replace('#/+#', '/', $cacheKey);
+    // add hostname
+    if ($hostNamePart = $this->getCacheKeyHostNamePart($hostName))
+    {
+      $cacheKey = '/'.$hostNamePart.'/'.ltrim($cacheKey, '/');
+    }
+
+    // normalize to a leading slash
+    if (0 !== strpos($cacheKey, '/'))
+    {
+      $cacheKey = '/'.$cacheKey;
+    }
+
+    // distinguish multiple slashes
+    while (false !== strpos($cacheKey, '//'))
+    {
+      $cacheKey = str_replace('//', '/'.substr(sha1($cacheKey), 0, 7).'/', $cacheKey);
+    }
+
+    // prevent directory traversal
+    $cacheKey = strtr($cacheKey, array(
+      '/.'  => '/_.',
+      '/_'  => '/__',
+      '\\.' => '\\_.',
+      '\\_' => '\\__',
+    ));
 
     return $cacheKey;
   }
@@ -280,7 +307,7 @@ class sfViewCacheManager
     {
       foreach ($options['vary'] as $key => $name)
       {
-        $options['vary'][$key] = strtr(strtolower($name), '_', '-');
+        $options['vary'][$key] = str_replace('_', '-', strtolower($name));
       }
     }
 

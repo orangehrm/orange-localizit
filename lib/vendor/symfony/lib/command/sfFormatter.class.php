@@ -14,7 +14,7 @@
  * @package    symfony
  * @subpackage command
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
- * @version    SVN: $Id: sfFormatter.class.php 21908 2009-09-11 12:06:21Z fabien $
+ * @version    SVN: $Id$
  */
 class sfFormatter
 {
@@ -25,8 +25,15 @@ class sfFormatter
   {
     if (null === $maxLineSize)
     {
-      // this is tricky because "tput cols 2>&1" is not accurate
-      $maxLineSize = ctype_digit(trim(shell_exec('tput cols 2>&1'))) ? (integer) shell_exec('tput cols') : 78;
+      if (function_exists('shell_exec'))
+      {
+        // this is tricky because "tput cols 2>&1" is not accurate
+        $maxLineSize = ctype_digit(trim(shell_exec('tput cols 2>&1'))) ? (integer) shell_exec('tput cols') : 78;
+      }
+      else
+      {
+        $maxLineSize = 78;
+      }
     }
 
     $this->size = $maxLineSize;
@@ -58,9 +65,11 @@ class sfFormatter
   /**
    * Formats a message within a section.
    *
-   * @param string  $section  The section name
-   * @param string  $text     The text message
-   * @param integer $size     The maximum size allowed for a line
+   * @param string  $section The section name
+   * @param string  $text    The text message
+   * @param integer $size    The maximum size allowed for a line
+   *
+   * @return string
    */
   public function formatSection($section, $text, $size = null)
   {
